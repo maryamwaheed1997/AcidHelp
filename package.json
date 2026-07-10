@@ -1,0 +1,10 @@
+{
+  "name": "acidhelp",
+  "version": "1.0.0",
+  "description": "Emergency response prototype for acid attack survivors in Pakistan",
+  "scripts": {
+    "start": "npx live-server",
+    "dev": "npx live-server"
+  },
+  "private": true
+}

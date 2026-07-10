@@ -1,0 +1,147 @@
+:root{
+    --bg:#0B0F1C; --surface:#141924; --card:#1C2337;
+    --border:#252E45; --borderLight:#2E3850;
+    --red:#FF3B30; --redDark:#B02820; --redDim:rgba(255,59,48,0.14);
+    --green:#00C853; --greenDim:rgba(0,200,83,0.14);
+    --blue:#0A84FF; --blueDim:rgba(10,132,255,0.14);
+    --purple:#BF5AF2; --purpleDim:rgba(191,90,242,0.14);
+    --warn:#FF911C; --warnDim:rgba(255,145,28,0.2);
+    --teal:#30D5C8; --tealDim:rgba(48,213,200,0.14);
+    --text:#F0F3FA; --sub:#7A8BA0; --muted:#38465A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--text);min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  input,textarea,select,button{font-family:inherit}
+  ::-webkit-scrollbar{width:4px;height:4px}
+  ::-webkit-scrollbar-thumb{background:var(--muted);border-radius:3px}
+  .leaflet-control-zoom a{background:var(--card)!important;color:var(--text)!important;border-color:var(--border)!important}
+
+  /* Urdu/Pashto content is styled inline with the Latin-only "Lexend"/"Noto Sans"
+     stacks throughout the app, which forces the browser to substitute an
+     unpredictable OS fallback font for Arabic-script glyphs — each with its own
+     line metrics, which is the real source of the text overlapping its neighbours.
+     Putting the loaded Nastaliq face first for the whole RTL tree fixes that
+     consistently; Latin characters (brand names, numbers) still fall through to
+     the Lexend/Noto Sans that follows it in the stack, so nothing else changes. */
+  [dir="rtl"] *{font-family:'Noto Nastaliq Urdu','Lexend','Noto Sans',sans-serif!important}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,59,48,.45)}70%{box-shadow:0 0 0 14px rgba(255,59,48,0)}}
+  .sc1{animation:fadeUp .4s .10s both}.sc2{animation:fadeUp .4s .22s both}.sc3{animation:fadeUp .4s .34s both}
+
+  /* ── Resources card interactions ───────────────────────────────────── */
+  .res-photo{
+    position:absolute;inset:0;
+    background-size:cover;
+    transition:transform .7s cubic-bezier(.22,1,.36,1), filter .5s ease;
+    will-change:transform;
+  }
+  .res-card-wrap{cursor:pointer;transition:box-shadow .35s ease}
+  .res-card-wrap:hover .res-photo{transform:scale(1.06);filter:brightness(1.08)}
+  .res-card-wrap:hover{box-shadow:0 12px 40px rgba(0,0,0,.35)}
+  .res-arrow{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+  .res-card-wrap:not(.is-open):hover .res-arrow{transform:translateX(6px)}
+
+  @keyframes dropdownOpen{
+    0%   {opacity:0;max-height:0;   transform:translateY(-8px);margin-top:0}
+    35%  {opacity:.4}
+    100% {opacity:1;max-height:1600px;transform:translateY(0);margin-top:10px}
+  }
+  .res-dropdown{
+    overflow:hidden;
+    animation:dropdownOpen .55s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  #map-overlays{position:absolute;inset:0;pointer-events:none}
+  #map-overlays > *{pointer-events:auto}
+
+  .nav-scroll{display:flex;gap:22px;align-items:center;overflow-x:auto;scrollbar-width:none}
+  .nav-scroll::-webkit-scrollbar{display:none}
+
+  /* ── CTA hover interactions ─────────────────────────────────────────── */
+  .cta-btn{transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s ease, filter .25s ease}
+  .cta-btn:hover{transform:translateY(-3px) scale(1.035);filter:brightness(1.1)}
+  .cta-btn:active{transform:translateY(-1px) scale(1.01);filter:brightness(1)}
+
+  .nav-tab-btn{transition:color .2s ease, transform .2s ease, border-color .2s ease}
+  .nav-tab-btn:hover{color:#fff!important;transform:translateY(-1px)}
+
+  .lang-btn{transition:transform .2s ease, border-color .2s ease, background-color .2s ease}
+  .lang-btn:hover{transform:translateY(-1px);border-color:var(--borderLight)!important}
+
+  .logo-btn{transition:transform .2s ease}
+  .logo-btn:hover{transform:scale(1.03)}
+
+  .footer-link{display:inline-block;transition:transform .2s ease, opacity .2s ease}
+  .footer-link:hover{transform:translateY(-2px);opacity:.8}
+
+  .phone-pill{display:inline-block;transition:transform .2s ease, filter .2s ease}
+  .phone-pill:hover{transform:translateY(-2px) scale(1.04);filter:brightness(1.15)}
+
+  .text-link-alt{transition:opacity .2s ease, text-decoration-thickness .2s ease}
+  .text-link-alt:hover{opacity:1}
+
+  .icon-btn{transition:transform .2s ease, background-color .2s ease}
+  .icon-btn:hover{transform:scale(1.12);background:var(--borderLight)!important}
+
+  .join-tab-btn{cursor:pointer;transition:transform .2s ease, border-color .2s ease, color .2s ease}
+  .join-tab-btn:not(.is-active):hover{transform:translateY(-1px);border-color:var(--borderLight)!important;color:var(--text)!important}
+
+  /* ── Blog card + post interactions ───────────────────────────────────── */
+  .blog-card{transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s ease, border-color .25s ease}
+  .blog-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.35);border-color:var(--borderLight)}
+  .blog-photo{transition:transform .6s cubic-bezier(.22,1,.36,1)}
+  .blog-card:hover .blog-photo{transform:scale(1.06)}
+
+  .read-now-btn{transition:background-color .2s ease, color .2s ease}
+  .read-now-btn:hover{background:var(--red);color:#fff!important}
+  .read-now-arrow{transition:transform .25s cubic-bezier(.22,1,.36,1)}
+  .read-now-btn:hover .read-now-arrow{transform:translateX(4px)}
+
+  .back-link{transition:transform .2s ease, opacity .2s ease}
+  .back-link:hover{transform:translateX(-4px);opacity:.85}
+
+  /* ── FAQ accordion ─────────────────────────────────────────────────── */
+  .faq-item{transition:border-color .2s ease}
+  .faq-item.is-open{border-color:var(--warn)!important}
+  .faq-item:not(.is-open):hover{border-color:var(--borderLight)!important}
+  .faq-icon-badge{color:var(--sub);transition:color .2s ease}
+  .faq-item.is-open .faq-icon-badge{color:var(--warn)}
+  .faq-plus{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+  .faq-item.is-open .faq-plus{transform:rotate(45deg)}
+  .faq-answer{max-height:0;opacity:0;margin-top:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1), opacity .3s ease, margin-top .35s ease}
+  .faq-item.is-open .faq-answer{max-height:400px;opacity:1;margin-top:14px}
+
+  /* ── Chatbot widget ────────────────────────────────────────────────── */
+  .chat-fab{transition:transform .2s ease, box-shadow .2s ease}
+  .chat-fab:hover{transform:scale(1.08)}
+  .chat-fab:active{transform:scale(0.97)}
+  @keyframes chatPopIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+  .chat-panel{animation:chatPopIn .22s cubic-bezier(.22,1,.36,1) both}
+  .chat-prompt-btn{transition:transform .2s ease, border-color .2s ease, background-color .2s ease}
+  .chat-prompt-btn:hover{transform:translateY(-1px);border-color:var(--borderLight)}
+  .chat-teaser{animation:chatPopIn .3s cubic-bezier(.22,1,.36,1) both; transition:transform .2s ease, border-color .2s ease}
+  .chat-teaser:hover{transform:translateY(-2px);border-color:var(--borderLight)}
+
+  /* ── Scroll reveal: sections rise into place as they enter view ──────── */
+  .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);will-change:opacity,transform}
+  .reveal.is-visible{opacity:1;transform:translateY(0)}
+
+  /* ── Responsive: header drops to two rows instead of clipping/crowding ─ */
+  @media (max-width:640px){
+    .site-header-inner{flex-wrap:wrap;row-gap:8px;padding:9px 12px 10px!important}
+    .brand-wordmark{font-size:20px!important}
+    .lang-btn{padding:2px 7px!important;font-size:9.5px!important}
+    .call-pill{padding:5px 10px!important}
+    .nav-scroll{order:3;flex:1 1 100%!important;justify-content:flex-start!important;gap:16px!important}
+  }
+
+  /* ── Responsive: stats banner becomes a 2x2 grid on small screens ────── */
+  @media (max-width:760px){
+    .stats-row{display:grid!important;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+    .stats-item{background:var(--surface);border-inline-start:none!important;justify-content:center}
+  }
+
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
