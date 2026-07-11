@@ -17,17 +17,17 @@
   ::-webkit-scrollbar-thumb{background:var(--muted);border-radius:3px}
   .leaflet-control-zoom a{background:var(--card)!important;color:var(--text)!important;border-color:var(--border)!important}
 
-  /* Urdu/Pashto content is styled inline with the Latin-only "Lexend"/"Noto Sans"
-     stacks throughout the app, which forces the browser to substitute an
-     unpredictable OS fallback font for Arabic-script glyphs — each with its own
-     line metrics, which is the real source of the text overlapping its neighbours.
-     Putting the loaded Nastaliq face first for the whole RTL tree fixes that
-     consistently; Latin characters (brand names, numbers) still fall through to
-     the Lexend/Noto Sans that follows it in the stack, so nothing else changes. */
-  [dir="rtl"] *{font-family:'Noto Nastaliq Urdu','Lexend','Noto Sans',sans-serif!important}
+  /* Urdu/Pashto rendering is handled entirely through per-glyph font fallback:
+     'Noto Nastaliq Urdu' is appended to the app's Lexend/Noto Sans stacks (see
+     BODY_FF/HEAD_FF in app.js), so the browser only substitutes it for
+     Arabic-script characters while every Latin element — the logo wordmark,
+     brand names, numbers — keeps its original font and metrics. No global
+     override here: forcing Nastaliq onto every element (as before) changed the
+     logo's font and its tall line metrics shifted the whole layout on switch. */
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
   @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  @keyframes slideInLeft{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:translateX(0)}}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,59,48,.45)}70%{box-shadow:0 0 0 14px rgba(255,59,48,0)}}
   .sc1{animation:fadeUp .4s .10s both}.sc2{animation:fadeUp .4s .22s both}.sc3{animation:fadeUp .4s .34s both}
 
@@ -122,8 +122,60 @@
   .chat-panel{animation:chatPopIn .22s cubic-bezier(.22,1,.36,1) both}
   .chat-prompt-btn{transition:transform .2s ease, border-color .2s ease, background-color .2s ease}
   .chat-prompt-btn:hover{transform:translateY(-1px);border-color:var(--borderLight)}
-  .chat-teaser{animation:chatPopIn .3s cubic-bezier(.22,1,.36,1) both; transition:transform .2s ease, border-color .2s ease}
-  .chat-teaser:hover{transform:translateY(-2px);border-color:var(--borderLight)}
+  .chat-capsule{animation:chatPopIn .3s cubic-bezier(.22,1,.36,1) both; transition:transform .2s ease, box-shadow .2s ease}
+  .chat-capsule:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(255,145,28,0.6),0 10px 28px rgba(0,0,0,0.4)}
+  .chat-capsule:active{transform:translateY(0) scale(0.98)}
+
+  /* Glowing red/yellow "orb" avatar for the chatbot — a glassy sphere built from
+     stacked layers: a sharp specular highlight (glass sheen), two soft wispy
+     bands drifting slowly to feel like they're swirling inside the glass, and a
+     base radial gradient (bright yellow core fading through orange into red,
+     dark at the rim) for the sphere's own shading. Breathes via box-shadow. */
+  .chat-orb{
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 9%),
+      radial-gradient(ellipse 58% 14% at 62% 30%, rgba(255,245,215,0.75) 0%, rgba(255,245,215,0) 70%),
+      radial-gradient(ellipse 70% 12% at 40% 50%, rgba(255,205,120,0.65) 0%, rgba(255,205,120,0) 70%),
+      radial-gradient(ellipse 66% 13% at 58% 70%, rgba(255,120,60,0.6) 0%, rgba(255,120,60,0) 72%),
+      radial-gradient(ellipse 46% 10% at 34% 82%, rgba(255,80,50,0.5) 0%, rgba(255,80,50,0) 74%),
+      radial-gradient(circle at 34% 30%, #FFE9B0 0%, #FF911C 30%, #FF3B30 64%, #7A1810 100%);
+    background-repeat:no-repeat;
+    box-shadow:
+      inset 0 -5px 10px rgba(0,0,0,0.4),
+      inset 0 5px 9px rgba(255,255,255,0.35),
+      0 0 16px 2px rgba(255,145,28,0.6),
+      0 0 34px 8px rgba(255,59,48,0.35);
+    animation:orbGlow 3.5s ease-in-out infinite, orbSwirl 8s ease-in-out infinite;
+  }
+  /* A second set of translucent wisp bands rotating inside the glass, layered over
+     the base sphere via ::before, gives the sense of liquid swirling within. */
+  .chat-orb::before{
+    content:"";
+    position:absolute;
+    inset:-25%;
+    border-radius:50%;
+    background:
+      radial-gradient(ellipse 50% 12% at 50% 38%, rgba(255,240,205,0.55) 0%, rgba(255,240,205,0) 68%),
+      radial-gradient(ellipse 60% 11% at 48% 62%, rgba(255,150,70,0.5) 0%, rgba(255,150,70,0) 70%);
+    background-repeat:no-repeat;
+    mix-blend-mode:screen;
+    animation:orbRotate 7s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes orbGlow{
+    0%,100%{box-shadow:inset 0 -5px 10px rgba(0,0,0,0.4),inset 0 5px 9px rgba(255,255,255,0.35),0 0 16px 2px rgba(255,145,28,0.6),0 0 34px 8px rgba(255,59,48,0.35)}
+    50%{box-shadow:inset 0 -5px 10px rgba(0,0,0,0.4),inset 0 5px 9px rgba(255,255,255,0.35),0 0 22px 5px rgba(255,145,28,0.75),0 0 44px 12px rgba(255,59,48,0.45)}
+  }
+  @keyframes orbSwirl{
+    0%,100%{background-position:30% 20%, 62% 30%, 40% 50%, 58% 70%, 34% 82%, 34% 30%}
+    50%{background-position:32% 17%, 54% 36%, 48% 44%, 50% 76%, 40% 76%, 34% 30%}
+  }
+  @keyframes orbRotate{
+    from{transform:rotate(0deg)}
+    to{transform:rotate(360deg)}
+  }
 
   /* ── Scroll reveal: sections rise into place as they enter view ──────── */
   .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);will-change:opacity,transform}
@@ -141,7 +193,8 @@
   /* ── Responsive: stats banner becomes a 2x2 grid on small screens ────── */
   @media (max-width:760px){
     .stats-row{display:grid!important;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
-    .stats-item{background:var(--surface);border-inline-start:none!important;justify-content:center}
+    .stats-item{background:var(--surface);justify-content:center}
+    .stats-divider{display:none}
   }
 
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}

@@ -10,9 +10,14 @@ const C = {
   teal:"#30D5C8", tealDim:"rgba(48,213,200,0.14)",
   text:"#F0F3FA", sub:"#7A8BA0", muted:"#38465A",
 };
-const HEAD_FF = "'Noto Sans',sans-serif";   // display / headings (Figma: Noto Sans Medium)
-const BODY_FF = "'Lexend',sans-serif";      // nav / body / UI (Figma: Lexend)
-const BODY_2_FF = "'Lexend',sans-serif";      // nav / body / UI (Figma: Lexend Light)
+// Nastaliq is appended only as a *fallback*: Latin glyphs (the logo wordmark,
+// brand names, numbers) keep rendering in Lexend/Noto Sans, and the browser
+// substitutes Noto Nastaliq Urdu per-glyph only for Arabic-script characters.
+// This keeps every Latin element's font and metrics identical across languages,
+// so switching to Urdu/Pashto no longer restyles the logo or shifts the layout.
+const HEAD_FF = "'Noto Sans','Noto Nastaliq Urdu',sans-serif";   // display / headings (Figma: Noto Sans Medium)
+const BODY_FF = "'Lexend','Noto Nastaliq Urdu',sans-serif";      // nav / body / UI (Figma: Lexend)
+const BODY_2_FF = "'Lexend','Noto Nastaliq Urdu',sans-serif";      // nav / body / UI (Figma: Lexend Light)
 
 // ── ASSETS ──────────────────────────────────────────────────────────────────
 const IMG = {
@@ -27,6 +32,9 @@ const IMG = {
   blog2:         "./images/blog-2.png",
   blog3:         "./images/blog-3.png",
   blog4:         "./images/blog-4.png",
+  icBurns:       "./images/Icons/Burns Unit.png",
+  icHospital:    "./images/Icons/Hospital.png",
+  icRecon:       "./images/Icons/Resconstructive.png",
 };
 
 // ── VERIFIED ORGANISATIONS ────────────────────────────────────────────────────
@@ -130,7 +138,7 @@ const T = {
       { n:"2", icon:"phone", head:"CALL 1122", sub:"Say: acid attack", body:"Pakistan's emergency response number. Say: 'Acid attack — send ambulance immediately.' Stay on the line." },
       { n:"3", icon:"cross", head:"GET TO HOSPITAL", sub:"Burns unit", body:"Burns unit. Do not cover the wound with cloth — contact with fabric worsens the burn. Keep flushing until medical help arrives." },
     ],
-    emTitle:"ACID ATTACK?", emSub:"Act immediately — every second matters",
+    emTitle:"ACID ATTACK?", emSub:"Act immediately. Every second matters",
     doNot:"DO NOT apply: toothpaste · cream · milk · oil · baking soda — and do NOT cover with cloth",
     callBtn:"CALL 1122 NOW", altLabel:"Also call:", edhi:"Edhi: 115", asf:"ASF: 051-2305354",
     playVideo:"PLAY VIDEO",
@@ -178,7 +186,6 @@ const T = {
     ],
     advocacyTitle:"Our Advocacy",
     advocacy:"Acidhelp.com advocates for a complete ban on the open retail sale of acid in Pakistan, mandatory ID verification for all purchases, enhanced sentencing for perpetrators, and free reconstructive care for every survivor.",
-    footerLine1:"Emergency information — always free.",
     footerLine2:"Acidhelp.com is not a substitute for emergency services. If someone is in danger, call 1122 immediately.",
     chatTitle:"Ask AcidHelp", chatTeaser:"How can we help?",
     chatGreeting:"Hi, I'm here to help with quick first-aid questions. Ask me something, or pick a question below.",
@@ -193,7 +200,7 @@ const T = {
     ],
   },
   ur:{
-    dir:"rtl", name:"اردو", ff:"'Noto Nastaliq Urdu','Noto Sans',sans-serif", hff:"'Noto Nastaliq Urdu','Noto Sans',sans-serif",
+    dir:"ltr", name:"اردو", ff:"'Noto Nastaliq Urdu','Noto Sans',sans-serif", hff:"'Noto Nastaliq Urdu','Noto Sans',sans-serif",
     steps:[
       { n:"۱", icon:"drop",  head:"پانی سے دھوئیں", sub:"بغیر رکے", body:"کم از کم ۲۰ منٹ تک ٹھنڈا پانی مسلسل ڈالتے رہیں۔ تھوڑا پانی ڈال کر نہ رکیں — پورے وقت دھوتے رہیں۔" },
       { n:"۲", icon:"phone", head:"۱۱۲۲ کال کریں", sub:"کہیں: تیزاب حملہ", body:"پاکستان کا ہنگامی نمبر۔ کہیں: 'تیزاب حملہ — فوری ایمبولینس بھیجیں۔' لائن مت کاٹیں۔" },
@@ -245,7 +252,6 @@ const T = {
     ],
     advocacyTitle:"ہماری وکالت",
     advocacy:"Acidhelp.com تیزاب کی عام فروخت پر مکمل پابندی اور تمام بچ جانے والوں کے لیے مفت سرجری کی وکالت کرتا ہے۔",
-    footerLine1:"ہنگامی معلومات — ہمیشہ مفت۔",
     footerLine2:"Acidhelp.com ہنگامی خدمات کا متبادل نہیں۔ فوری ۱۱۲۲ کال کریں۔",
     chatTitle:"AcidHelp سے پوچھیں", chatTeaser:"ہم کیسے مدد کر سکتے ہیں؟",
     chatGreeting:"السلام علیکم، میں فوری ابتدائی طبی امداد کے سوالات میں مدد کے لیے حاضر ہوں۔ کچھ پوچھیں یا نیچے دیے گئے سوالات میں سے کوئی منتخب کریں۔",
@@ -312,7 +318,6 @@ const T = {
     ],
     advocacyTitle:"Hamari Waqalat",
     advocacy:"Acidhelp.com tezab ki aam farokht par mukammal pabandi aur tamam bachne walon ke liye muft surgery ki waqalat karta hai.",
-    footerLine1:"Hangami maalumaat — hamesha muft.",
     footerLine2:"Acidhelp.com hangami khidmaat ka mutbadil nahin. Fori 1122 call karein.",
     chatTitle:"AcidHelp Se Poochein", chatTeaser:"Hum Kaise Madad Kar Sakte Hain?",
     chatGreeting:"Assalam o Alaikum, main fori first aid sawalat mein madad ke liye hazir hoon. Kuch poochein ya neeche diye gaye sawalat mein se koi muntakhib karein.",
@@ -327,7 +332,7 @@ const T = {
     ],
   },
   ps:{
-    dir:"rtl", name:"پښتو", ff:"'Noto Nastaliq Urdu','Noto Sans',sans-serif", hff:"'Noto Nastaliq Urdu','Noto Sans',sans-serif",
+    dir:"ltr", name:"پښتو", ff:"'Noto Nastaliq Urdu','Noto Sans',sans-serif", hff:"'Noto Nastaliq Urdu','Noto Sans',sans-serif",
     steps:[
       { n:"۱", icon:"drop",  head:"د اوبو سره مینځل", sub:"بې وقفه", body:"لږ تر لږه ۲۰ دقیقې مسلسل سوړ اوبه واچوئ. یو لږ واچول او درېدل بس نه دي — ټول وخت مینځل." },
       { n:"۲", icon:"phone", head:"۱۱۲۲ ته زنګ وهئ", sub:"ووایاست: د تیزاب برید", body:"د پاکستان بیړني شمیره. ووایاست: 'د تیزاب برید — فوري امبولانس راولئ.' خط مه پرېږدئ." },
@@ -379,7 +384,6 @@ const T = {
     ],
     advocacyTitle:"زمونږ دفاع",
     advocacy:"Acidhelp.com د تیزاب د عامه پلورنې د بشپړ منع کولو او د ټولو ژوندیو لپاره وړیا جراحي لپاره دفاع کوي.",
-    footerLine1:"بیړني معلومات — تل وړیا.",
     footerLine2:"Acidhelp.com د بیړني خدماتو بدیل نه دی. فوري ۱۱۲۲ ته زنګ وهئ.",
     chatTitle:"له AcidHelp نه وپوښتئ", chatTeaser:"موږ څنګه مرسته کولی شو؟",
     chatGreeting:"سلام، زه د لومړنۍ مرستې چټکو پوښتنو کې مرستې لپاره دلته یم. یو څه وپوښتئ یا لاندې پوښتنو څخه یوه غوره کړئ.",
@@ -410,9 +414,14 @@ const mapState = { map:null, userMarker:null, selected:null, nearbyList:[], load
 const revealedSections = new Set();
 
 const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+// Colors the word "ACID" red wherever it appears in the (already-uppercased) blog
+// title — a no-op for translations where the word isn't spelled out in Latin script.
+const highlightAcid = text => text.replace(/ACID/, `<span style="color:${C.red}">ACID</span>`);
 // Nastaliq (ur/ps) needs noticeably more line-height than Latin scripts at the same
 // nominal value, or tall/multi-line headings visibly overlap the content below them.
-const rtlLH = (t, tight, loose) => t.dir==="rtl" ? loose : tight;
+// Keyed on language, not t.dir — the UI layout itself always stays left-to-right
+// (see the `dir` field on each language above), this is purely a script-shaping fix.
+const rtlLH = (t, tight, loose) => (state.lang==="ur"||state.lang==="ps") ? loose : tight;
 
 // ── SHARED SVG BITS ───────────────────────────────────────────────────────────
 const phoneSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z" fill="${fill}"/></svg>`;
@@ -426,6 +435,28 @@ const closeXSVG = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><
 const sendSVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 11l18-8-8 18-2-8-8-2z" fill="#fff"/></svg>`;
 const restartSVG = (color)=>`<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 4v6h6M20 20v-6h-6" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 15a8 8 0 0013.9 3M18.5 9A8 8 0 004.6 6" stroke="${color}" stroke-width="2" stroke-linecap="round"/></svg>`;
 const dropPath = `M32 6C32 6 12 39 12 54 12 66.15 20.95 76 32 76 43.05 76 52 66.15 52 54 52 39 32 6 32 6Z`;
+
+// Solid, filled map/hospital icons — same geometric, filled aesthetic as the
+// logo mark (which is a shield with a droplet). Burns facilities reuse the
+// logo's own droplet shape; survivor-care sites get a heart; every other
+// medical facility gets a medical cross.
+// Full-colour illustrated marker icons (from images/Icons) for the three main
+// facility types; anything else falls back to the drawn SVG glyphs below.
+const HOSP_IMG = { "🔥":IMG.icBurns, "✂️":IMG.icRecon, "🏥":IMG.icHospital, "⚕️":IMG.icHospital };
+// Marker badge: illustrated icons sit on a white disc (so their colours read),
+// drawn SVG glyphs sit on the specialty-coloured disc as before.
+const hospBadge = (emoji,diameter,col)=>{
+  const img = HOSP_IMG[emoji];
+  if(img) return `<div style="width:${diameter}px;height:${diameter}px;background:#fff;border-radius:50%;border:3px solid ${col};box-shadow:0 3px 14px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:${Math.round(diameter*0.16)}px"><img src="${img}" alt="" style="width:100%;height:100%;object-fit:contain;display:block"></div>`;
+  return `<div style="width:${diameter}px;height:${diameter}px;background:${col};border-radius:50%;border:3px solid white;box-shadow:0 3px 14px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;cursor:pointer;">${hospIcon(emoji,Math.round(diameter*0.48),"#fff")}</div>`;
+};
+const pinSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.6A2.6 2.6 0 1112 6.4a2.6 2.6 0 010 5.2z" fill="${fill}"/></svg>`;
+const navSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M21 3L3 10.6l7.1 2.9 2.9 7.1L21 3z" fill="${fill}"/></svg>`;
+const hospIcon = (emoji,size,fill)=>{
+  if(emoji==="🔥") return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 002.5 2.5z" fill="${fill}"/></svg>`;
+  if(emoji==="💛") return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 20.7l-1.45-1.32C5.4 14.72 2 11.64 2 7.9 2 4.9 4.42 2.5 7.5 2.5c1.74 0 3.41.81 4.5 2.09C13.09 3.31 14.76 2.5 16.5 2.5 19.58 2.5 22 4.9 22 7.9c0 3.74-3.4 6.82-8.55 11.49L12 20.7z" fill="${fill}"/></svg>`;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path fill-rule="evenodd" clip-rule="evenodd" d="M5 3h14v18h-4v-3a3 3 0 00-6 0v3H5V3zM11 7h2v2h2v2h-2v2h-2v-2H9V9h2V7z" fill="${fill}"/></svg>`;
+};
 // Figma logo mark — shield with white water drop (user-supplied, base64 in IMG.logo)
 const logoMark = (h)=>`<img src="${IMG.logo}" alt="Acidhelp logo" style="height:${h}px;width:auto;flex-shrink:0;display:block">`;
 
@@ -464,14 +495,13 @@ function emergencyPage(t){
 // the hero rather than its own heavy section, sitting flush underneath it.
 function statsSection(t){
   return `<div class="reveal" data-reveal-id="stats" style="background:${C.surface};border-bottom:1px solid ${C.border}">
-    <div class="stats-row" style="max-width:1440px;margin:0 auto;padding:0 clamp(16px,3vw,32px);display:flex;flex-wrap:wrap;align-items:stretch;justify-content:center">
+    <div class="stats-row" style="max-width:1440px;margin:0 auto;padding:0 clamp(24px,4vw,64px);display:flex;flex-wrap:wrap;align-items:stretch;justify-content:space-between">
       ${STATS_EN.map((s,i)=>`
-        <div class="stats-item" style="display:flex;align-items:center;gap:10px;padding:15px 18px;${i>0?`border-inline-start:1px solid ${C.border}`:""}">
-          <span class="stat-counter" data-target="${s.num}" data-suffix="${s.suffix||""}" data-prefix="${s.prefix||""}" style="font-family:${HEAD_FF};font-weight:900;font-size:24px;color:${s.color};font-variant-numeric:tabular-nums;flex-shrink:0">${s.prefix||""}0${s.suffix||""}</span>
-          <div style="display:flex;flex-direction:column;max-width:190px">
-            <span style="font-family:${BODY_FF};font-size:12px;color:${C.sub};line-height:1.3">${s.label}</span>
-            <span style="font-family:${BODY_FF};font-size:10px;color:${C.muted};line-height:1.3;margin-top:8px">${t.statsSource} ${s.src}</span>
-          </div>
+        ${i>0?`<span class="stats-divider" style="width:1px;height:88px;align-self:center;background:${C.border};flex-shrink:0"></span>`:""}
+        <div class="stats-item" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:20px 14px;max-width:300px">
+          <span class="stat-counter" data-target="${s.num}" data-suffix="${s.suffix||""}" data-prefix="${s.prefix||""}" style="font-family:${BODY_FF};font-weight:900;font-size:36px;color:${s.color};font-variant-numeric:tabular-nums;flex-shrink:0;line-height:1">${s.prefix||""}0${s.suffix||""}</span>
+          <span style="font-family:${BODY_FF};font-size:14px;color:${C.sub};line-height:1.35">${s.label}</span>
+          <span style="font-family:${BODY_FF};font-size:10px;color:${C.muted};line-height:1.3;margin-top:auto;padding-top:8px">${t.statsSource} ${s.src}</span>
         </div>`).join("")}
     </div>
   </div>`;
@@ -490,13 +520,13 @@ function heroPortrait(t){
 
     <!-- Content overlay -->
     <div style="position:absolute;inset:0;display:flex;align-items:flex-end">
-      <div style="max-width:1440px;width:100%;margin:0 auto;padding:0 clamp(28px,5vw,80px) clamp(16px,2.5vw,28px)">
+      <div style="max-width:1440px;width:100%;margin:0 auto;padding:0 clamp(28px,5vw,80px) clamp(32px,4vw,56px)">
         <div style="max-width:640px">
-          <h1 style="font-family:${t.hff};font-weight:900;font-size:clamp(44px,7vw,82px);letter-spacing:-2.5px;line-height:${rtlLH(t,0.95,1.3)};color:#fff;margin:0;text-shadow:0 2px 24px rgba(0,0,0,0.4)">${t.emTitle}</h1>
-          <p style="font-family:${BODY_FF};font-weight:500;font-size:clamp(15px,1.3vw,18px);color:rgba(255,255,255,.9);margin:22px 0 32px;text-shadow:0 1px 12px rgba(0,0,0,0.5)">${t.emSub}</p>
+          <h1 style="font-family:${BODY_FF};font-weight:900;font-size:clamp(44px,7vw,82px);letter-spacing:-2.5px;line-height:${rtlLH(t,0.95,1.3)};color:#fff;margin:0;text-shadow:0 2px 24px rgba(0,0,0,0.4)">${t.emTitle}</h1>
+          <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(15px,1.3vw,18px);color:rgba(255,255,255,.9);margin:10px 0 32px;text-shadow:0 1px 12px rgba(0,0,0,0.5)">${t.emSub}</p>
           <a href="tel:1122" class="cta-btn" style="background:${C.red};border-radius:40px;padding:16px 30px;display:inline-flex;align-items:center;gap:12px;text-decoration:none;box-shadow:0 8px 32px rgba(255,59,48,0.35)">
             ${phoneSVG(22,"#fff")}
-            <span style="color:#fff;font-family:${t.hff};font-weight:900;font-size:clamp(17px,1.5vw,22px);letter-spacing:-0.5px">${t.callBtn}</span>
+            <span style="color:#fff;font-family:${BODY_FF};font-weight:900;font-size:clamp(17px,1.5vw,22px);letter-spacing:-0.5px">${t.callBtn}</span>
           </a>
           <div style="display:flex;gap:16px;align-items:center;margin-top:22px;flex-wrap:wrap">
             <span style="font-family:${BODY_FF};font-size:12px;color:rgba(255,255,255,.6);text-shadow:0 1px 8px rgba(0,0,0,0.6)">${t.altLabel}</span>
@@ -512,19 +542,19 @@ function heroPortrait(t){
 // "First response · What to do" — 3 step cards with red left rail (matches Figma exactly)
 function firstResponse(t){
   const rails = [C.red, "#B52A22", "#8B1818"];
-  return `<section class="reveal" data-reveal-id="steps" style="padding:clamp(56px,7vw,96px) clamp(28px,5vw,80px) clamp(48px,6vw,80px)">
+  return `<section class="reveal" data-reveal-id="steps" style="padding:clamp(56px,12vw,96px) clamp(28px,5vw,80px) clamp(48px,6vw,80px)">
     <div style="max-width:1308px;margin:0 auto">
-      <div style="font-family:${BODY_FF};font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:${C.red}">${t.stepsEyebrow}</div>
+      <div style="font-family:${BODY_FF};font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:${C.red}">${t.stepsEyebrow}</div>
       <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(42px,3.2vw,56px);letter-spacing:-1px;line-height:${rtlLH(t,1.1,1.6)};margin:16px 0 28px;color:${C.text}">${t.stepsTitle}</h2>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:18px">
         ${t.steps.map((s,i)=>`
           <div class="${["sc1","sc2","sc3"][i]}" style="background:#1a1e2e;border-radius:14px;overflow:hidden;display:flex;align-items:stretch;min-height:170px">
             <div style="background:${rails[i]};width:76px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:14px 0 0 14px">
-              <span style="font-family:${t.hff};font-weight:900;font-size:56px;color:#fff;line-height:1">${s.n}</span>
+              <span style="font-family:${BODY_FF};font-weight:900;font-size:56px;color:#fff;line-height:1">${s.n}</span>
             </div>
             <div style="padding:22px 24px;flex:1">
-              <div style="font-family:${t.hff};font-weight:900;font-size:20px;color:#fff;letter-spacing:-0.3px;line-height:${rtlLH(t,1.15,1.6)}">${s.head}</div>
+              <div style="font-family:${BODY_FF};font-weight:500;font-size:20px;color:#fff;letter-spacing:0.6px;line-height:${rtlLH(t,1.15,1.6)}">${s.head}</div>
               <div style="font-family:${BODY_FF};font-size:14px;color:rgba(255,255,255,.62);margin-top:10px;line-height:1.6">${s.body}</div>
             </div>
           </div>`).join("")}
@@ -544,7 +574,7 @@ function footerStrip(t){
   const isRTL = t.dir==="rtl";
   return `<footer class="reveal" data-reveal-id="footer" style="position:relative;width:100%;min-height:clamp(280px,30vw,380px);overflow:hidden;border-radius:24px 24px 0 0">
     <!-- Photo strip -->
-    <div style="position:absolute;inset:0;background-image:url('${IMG.footer}');background-size:cover;background-position:center 40%"></div>
+    <div style="position:absolute;inset:0;background-image:url('${IMG.footer}');background-size:cover;background-position:center bottom"></div>
     <div style="position:absolute;inset:0;background:rgba(0,0,0,0.6)"></div>
 
     <div style="position:relative;min-height:100%;display:flex;flex-direction:column;padding:clamp(40px,5vw,64px) clamp(28px,5vw,80px) 0">
@@ -555,7 +585,6 @@ function footerStrip(t){
             ${logoMark(28)}
             <span style="font-family:${HEAD_FF};font-weight:900;font-size:26px;letter-spacing:-1px"><span style="color:${C.red}">Acid</span><span style="color:#fff">help</span></span>
           </div>
-          <p style="font-family:${BODY_FF};font-size:13px;color:rgba(255,255,255,.65);margin:0 0 14px;max-width:36ch;text-shadow:0 1px 8px rgba(0,0,0,0.5)">${t.footerLine1}</p>
           <a href="mailto:info@acidhelp.com" class="footer-link" style="font-family:${BODY_FF};font-size:14px;color:rgba(255,255,255,.85);letter-spacing:.22em;text-shadow:0 1px 8px rgba(0,0,0,0.5)">i n f o @ a c i d h e l p . c o m</a>
         </div>
         <!-- Right: nav links stacked -->
@@ -578,7 +607,7 @@ function mapPage(){
   return `<div style="position:relative;height:calc(100vh - 64px);overflow:hidden;background:${C.bg}">
     <div id="map" style="width:100%;height:100%"></div>
     <div id="map-loading" style="position:absolute;inset:0;background:${C.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px">
-      <div style="font-size:44px">🗺️</div>
+      <div style="opacity:0.5">${pinSVG(44,C.sub)}</div>
       <div style="color:${C.sub};font-size:14px;font-weight:600;font-family:${BODY_FF}">Loading map…</div>
     </div>
     <div id="map-overlays"></div>
@@ -590,14 +619,14 @@ function renderMapOverlays(){
   const ov = document.getElementById("map-overlays");
   if(!ov) return;
   const sel = mapState.selected;
-  const hasSheet = sel || mapState.nearbyList.length>0;
 
   const title = `<div style="position:absolute;top:12px;left:12px;z-index:900;background:rgba(11,15,28,0.86);backdrop-filter:blur(8px);border-radius:12px;padding:9px 14px">
-      <div style="color:${C.text};font-size:14px;font-weight:900;font-family:${t.hff}">${t.medTitle}</div>
+      <div style="color:${C.text};font-size:14px;font-weight:900;font-family:${BODY_FF}">${t.medTitle}</div>
       <div style="color:${C.sub};font-size:11px;margin-top:1px;font-family:${BODY_FF}">${t.medSub}</div>
     </div>`;
 
-  const nearBtn = `<button onclick="nearMe()" ${mapState.loading?"disabled":""} class="cta-btn" style="position:absolute;bottom:${hasSheet?252:20}px;right:14px;z-index:1000;background:${mapState.loading?C.muted:C.red};color:white;border:none;border-radius:30px;padding:13px 20px;font-size:14px;font-weight:800;font-family:${BODY_FF};cursor:${mapState.loading?"not-allowed":"pointer"};display:flex;align-items:center;gap:8px;box-shadow:${mapState.loading?"none":"0 4px 28px rgba(255,59,48,0.45)"}">${mapState.loading?"⏳":"📍"} ${mapState.loading?t.locating:t.nearMe}</button>`;
+  const listOpen = mapState.nearbyList.length>0 && !sel;
+  const nearBtn = `<button onclick="nearMe()" ${mapState.loading?"disabled":""} class="cta-btn" style="position:absolute;bottom:${listOpen?252:20}px;right:14px;z-index:1000;background:${mapState.loading?C.muted:C.red};color:white;border:none;border-radius:30px;padding:13px 20px;font-size:14px;font-weight:800;font-family:${BODY_FF};cursor:${mapState.loading?"not-allowed":"pointer"};display:flex;align-items:center;gap:8px;box-shadow:${mapState.loading?"none":"0 4px 28px rgba(255,59,48,0.45)"}">${mapState.loading?"⏳":pinSVG(16,"#fff")} ${mapState.loading?t.locating:t.nearMe}</button>`;
 
   const err = mapState.locError ? `<div onclick="clearError()" style="position:absolute;top:12px;left:12px;right:12px;z-index:1001;background:${C.redDark};color:white;padding:12px 14px;border-radius:12px;font-size:13px;font-weight:600;font-family:${BODY_FF};line-height:1.4;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.3)">⚠️ ${esc(mapState.locError)}</div>` : "";
 
@@ -616,24 +645,24 @@ function renderMapOverlays(){
     const col = sColor(sel.specialty);
     const telHref = "tel:"+sel.phone.replace(/[\s\-()]/g,"");
     const dirHref = `https://www.google.com/maps/dir/?api=1&destination=${sel.lat},${sel.lng}&travelmode=driving`;
-    sheet = `<div style="position:absolute;bottom:0;left:0;right:0;z-index:1000;background:${C.surface};border-radius:24px 24px 0 0;padding:12px 18px 22px;box-shadow:0 -8px 40px rgba(0,0,0,0.5);animation:slideUp 0.22s ease">
+    sheet = `<div style="position:absolute;bottom:16px;left:16px;width:min(460px, calc(100% - 32px));z-index:1000;background:rgba(20,25,36,0.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:20px;padding:12px 18px 22px;box-shadow:0 12px 44px rgba(0,0,0,0.55);animation:slideInLeft 0.28s cubic-bezier(.22,1,.36,1)">
         <div style="width:36px;height:4px;background:${C.muted};border-radius:2px;margin:0 auto 14px"></div>
         <div style="display:flex;gap:12px;align-items:flex-start">
-          <div style="font-size:30px;flex-shrink:0;margin-top:2px">${sel.icon}</div>
+          <div style="flex-shrink:0;margin-top:2px">${hospBadge(sel.icon,46,col)}</div>
           <div style="flex:1;min-width:0">
             <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap">
               <span style="background:${col};color:white;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;font-family:${BODY_FF}">${sel.specialty}</span>
-              ${sel.dist?`<span style="color:${C.red};font-size:12px;font-weight:700;font-family:${BODY_FF}">📏 ${sel.dist} km</span>`:""}
+              ${sel.dist?`<span style="color:${C.red};font-size:12px;font-weight:700;font-family:${BODY_FF};display:inline-flex;align-items:center;gap:4px">${navSVG(12,C.red)} ${sel.dist} km</span>`:""}
             </div>
-            <div style="color:${C.text};font-size:17px;font-weight:900;line-height:1.2;font-family:${t.hff}">${sel.name}</div>
-            <div style="color:${C.sub};font-size:12px;margin-top:4px;font-family:${BODY_FF}">📍 ${sel.city}</div>
+            <div style="color:${C.text};font-size:17px;font-weight:900;line-height:1.2;font-family:${BODY_FF}">${sel.name}</div>
+            <div style="color:${C.sub};font-size:12px;margin-top:4px;font-family:${BODY_FF};display:flex;align-items:center;gap:4px">${pinSVG(13,C.sub)} ${sel.city}</div>
             <div style="color:${C.sub};font-size:12px;margin-top:3px;line-height:1.4;font-family:${BODY_FF}">${sel.note}</div>
+            <div style="display:flex;gap:10px;margin-top:14px">
+              <a href="${telHref}" class="cta-btn" style="background:${C.red};color:white;padding:9px 16px;border-radius:24px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${phoneSVG(14,"#fff")} ${t.callHosp}</a>
+              <a href="${dirHref}" target="_blank" rel="noreferrer" class="cta-btn" style="background:${C.card};color:${C.text};padding:9px 16px;border-radius:24px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${navSVG(14,C.text)} ${t.directions}</a>
+            </div>
           </div>
           <button onclick="closeSheet()" class="icon-btn" style="background:${C.card};border:none;color:${C.sub};border-radius:50%;width:32px;height:32px;font-size:14px;cursor:pointer;flex-shrink:0">✕</button>
-        </div>
-        <div style="display:flex;gap:10px;margin-top:14px">
-          <a href="${telHref}" class="cta-btn" style="flex:1;background:${C.red};color:white;padding:14px;border-radius:14px;font-weight:800;font-size:15px;font-family:${BODY_FF};text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px">${phoneSVG(17,"#fff")} ${t.callHosp}</a>
-          <a href="${dirHref}" target="_blank" rel="noreferrer" class="cta-btn" style="background:${C.card};color:${C.text};padding:14px 16px;border-radius:14px;font-weight:700;font-size:14px;font-family:${BODY_FF};text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px">🗺️ ${t.directions}</a>
         </div>
       </div>`;
   }
@@ -649,14 +678,18 @@ function mountMap(){
     if(loadingEl) loadingEl.style.display="none";
     const L = window.L;
     const map = L.map(el,{ center:[30.4,69.4], zoom:5, zoomControl:false });
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{ attribution:"© OpenStreetMap", maxZoom:19 }).addTo(map);
+    // Esri's basemap is its own compiled cartographic dataset (not a pass-through of
+    // OSM's per-feature "name" tag), so it labels places in English by default
+    // worldwide instead of the local script — unlike standard OSM tiles, which
+    // rendered Pakistani place names in Urdu.
+    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",{ attribution:"Tiles © Esri — Esri, HERE, Garmin, USGS, EPA, NPS", maxZoom:19 }).addTo(map);
     L.control.zoom({ position:"topright" }).addTo(map);
     mapState.map = map;
     HOSPITALS.forEach(h=>{
       const col = sColor(h.specialty);
       const icon = L.divIcon({
         className:"",
-        html:`<div style="width:42px;height:42px;background:${col};border-radius:50%;border:3px solid white;box-shadow:0 3px 14px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;font-size:19px;cursor:pointer;">${h.icon}</div>`,
+        html:hospBadge(h.icon,42,col),
         iconSize:[42,42], iconAnchor:[21,21],
       });
       L.marker([h.lat,h.lng],{icon}).addTo(map).on("click",()=>{
@@ -695,9 +728,9 @@ function resourcesPage(t){
   return `<div>
     <div style="background:#141924">
     <!-- Hero -->
-    <section class="reveal" data-reveal-id="res-hero" style="padding:clamp(28px,3.5vw,52px) clamp(28px,5vw,80px) clamp(28px,3vw,44px)">
+    <section class="reveal" data-reveal-id="res-hero" style="padding:clamp(18px,2.2vw,32px) clamp(28px,5vw,80px) clamp(28px,3vw,44px)">
       <div style="max-width:1440px;margin:0 auto">
-        <h1 style="font-family:${BODY_FF};font-weight:400;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.resTitle.toUpperCase()}</h1>
+        <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.resTitle.toUpperCase()}</h1>
         <p style="font-family:${BODY_FF};font-size:16px;color:rgba(255,255,255,.65);margin:14px 0 0">${t.resSub}</p>
       </div>
     </section>
@@ -761,7 +794,7 @@ function faqSection(t){
           const isOpen = openFaq===i;
           return `<div class="faq-item${isOpen?' is-open':''}" data-faq-index="${i}" onclick="toggleFaq(${i})" style="cursor:pointer;border-bottom:1px solid ${C.border};padding:22px 0">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
-              <div style="font-family:${BODY_FF};font-weight:500;font-size:16px;color:${C.text};line-height:1.4">${item.q}</div>
+              <div style="font-family:${BODY_FF};font-weight:400;font-size:16px;color:${C.text};line-height:1.4">${item.q}</div>
               <span class="faq-icon-badge" style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:${C.surface};display:flex;align-items:center;justify-content:center">${plusSVG(15)}</span>
             </div>
             <div class="faq-answer" style="font-family:${BODY_FF};font-size:13.5px;color:${C.sub};line-height:1.7;padding-inline-end:46px">${item.a}</div>
@@ -785,24 +818,24 @@ function blogPage(t){
   return `<div>
     <div style="background:#141924">
     <!-- Hero -->
-    <section class="reveal" data-reveal-id="blog-hero" style="padding:clamp(48px,6vw,88px) clamp(28px,5vw,80px) clamp(28px,3vw,44px)">
+    <section class="reveal" data-reveal-id="blog-hero" style="padding:clamp(18px,2.2vw,32px) clamp(28px,5vw,80px) clamp(28px,3vw,44px)">
       <div style="max-width:1440px;margin:0 auto">
-        <h1 style="font-family:${BODY_FF};font-weight:400;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.blogTitle.toUpperCase()}</h1>
+        <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${highlightAcid(t.blogTitle.toUpperCase())}</h1>
       </div>
     </section>
 
     <!-- Featured post -->
     <section class="reveal" data-reveal-id="blog-featured" style="padding:0 clamp(28px,5vw,80px) clamp(28px,4vw,44px)">
-      <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:36px;align-items:center">
+      <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:36px;align-items:end">
+        <div onclick="openBlogPost(${featured.id})" class="blog-card" style="cursor:pointer;border-radius:20px;overflow:hidden;height:clamp(240px,32vw,420px);background:${C.card}">
+          <img class="blog-photo" src="${featured.image}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
         <div>
-          <div style="font-family:${BODY_FF};font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:${C.red}">${t.featuredLabel}</div>
-          <h2 onclick="openBlogPost(${featured.id})" style="cursor:pointer;font-family:${t.hff};font-weight:900;font-size:clamp(26px,3.4vw,40px);letter-spacing:-1px;line-height:1.15;color:#fff;margin:14px 0 16px">${featured.title}</h2>
+          <div style="font-family:${BODY_FF};font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:${STATS_ACCENT}">${t.featuredLabel}</div>
+          <h2 onclick="openBlogPost(${featured.id})" style="cursor:pointer;font-family:${BODY_FF};font-weight:400;font-size:clamp(26px,3.4vw,40px);letter-spacing:-1px;line-height:1.15;color:#fff;margin:14px 0 16px">${featured.title}</h2>
           <div style="font-family:${BODY_FF};font-size:13px;color:rgba(255,255,255,.55);margin-bottom:16px">${t.byLabel} <span style="color:#fff;font-weight:600">${featured.author}</span> &nbsp;|&nbsp; ${featured.date}</div>
           <p style="font-family:${BODY_FF};font-size:15px;color:rgba(255,255,255,.65);line-height:1.7;margin:0 0 26px">${featured.excerpt}</p>
           ${readNowButton(t, featured.id)}
-        </div>
-        <div onclick="openBlogPost(${featured.id})" class="blog-card" style="cursor:pointer;border-radius:20px;overflow:hidden;height:clamp(240px,32vw,420px);background:${C.card}">
-          <img class="blog-photo" src="${featured.image}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
       </div>
     </section>
@@ -817,7 +850,7 @@ function blogPage(t){
             </div>
             <div style="padding:20px">
               <div style="display:inline-block;background:${post.dim};color:${post.color};font-family:${BODY_FF};font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:10px">${post.category}</div>
-              <h3 style="font-family:${t.hff};font-weight:700;font-size:18px;line-height:1.3;color:${C.text};margin:0 0 8px">${post.title}</h3>
+              <h3 style="font-family:${BODY_FF};font-weight:700;font-size:18px;line-height:1.3;color:${C.text};margin:0 0 8px">${post.title}</h3>
               <p style="font-family:${BODY_FF};font-size:13px;color:${C.sub};line-height:1.6;margin:0 0 14px">${post.excerpt}</p>
               <div style="font-family:${BODY_FF};font-size:12px;color:${C.sub}">${t.byLabel} <span style="color:${C.text};font-weight:600">${post.author}</span> &nbsp;|&nbsp; ${post.date}</div>
             </div>
@@ -844,7 +877,7 @@ function blogPostPage(t){
             ${t.backToBlogLabel}
           </button>
           <div style="display:inline-block;background:${post.dim};color:${post.color};font-family:${BODY_FF};font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:12px">${post.category}</div>
-          <h1 style="font-family:${t.hff};font-weight:900;font-size:clamp(28px,4vw,48px);letter-spacing:-1px;line-height:1.1;color:#fff;margin:0 0 12px;text-shadow:0 2px 16px rgba(0,0,0,.4)">${post.title}</h1>
+          <h1 style="font-family:${BODY_FF};font-weight:900;font-size:clamp(28px,4vw,48px);letter-spacing:-1px;line-height:1.1;color:#fff;margin:0 0 12px;text-shadow:0 2px 16px rgba(0,0,0,.4)">${post.title}</h1>
           <div style="font-family:${BODY_FF};font-size:13px;color:rgba(255,255,255,.75)">${t.byLabel} <span style="color:#fff;font-weight:600">${post.author}</span> &nbsp;|&nbsp; ${post.date}</div>
         </div>
       </div>
@@ -862,8 +895,8 @@ function blogPostPage(t){
 function aboutPage(t){
   return `<div>
     <div class="reveal" data-reveal-id="abt-header" style="background:linear-gradient(135deg,#1C2337 0%,#141924 100%);border-bottom:1px solid ${C.border}">
-      <div style="max-width:1308px;margin:0 auto;padding:clamp(28px,4vw,48px) clamp(16px,3vw,32px)">
-        <h1 style="font-family:${BODY_FF};font-weight:400;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.abtTitle.toUpperCase()}</h1>
+      <div style="max-width:1308px;margin:0 auto;padding:clamp(18px,2.2vw,32px) clamp(16px,3vw,32px) clamp(28px,4vw,48px)">
+        <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.abtTitle.toUpperCase()}</h1>
         <div style="font-family:${BODY_FF};font-size:15px;color:${C.sub};margin-top:10px;line-height:1.7;max-width:72ch">${t.abtMission}</div>
         <div style="font-size:15px;font-weight:700;color:${C.text};margin-top:24px;margin-bottom:8px;font-family:${BODY_FF}">🎗 ${t.advocacyTitle}</div>
         <div style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.7;max-width:72ch">${t.advocacy}</div>
@@ -994,29 +1027,31 @@ function chatMessageBubble(m){
 function chatWidget(t){
   const isRTL = t.dir==="rtl";
   const side = isRTL ? "left" : "right";
-  const fabBtn = `<button onclick="toggleChat()" class="chat-fab" aria-label="${esc(t.chatTitle)}" style="width:60px;height:60px;border-radius:50%;background:${STATS_ACCENT};border:none;box-shadow:0 8px 28px rgba(255,145,28,0.45);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+  const fabBtn = `<button onclick="toggleChat()" class="chat-fab chat-orb" aria-label="${esc(t.chatTitle)}" style="width:60px;height:60px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
       ${state.chatOpen ? closeXSVG : chatBubbleSVG}
     </button>`;
 
   if(!state.chatOpen){
-    // Collapsed state: FAB + a capsule inviting engagement, sitting on the inward
-    // side of the icon (never the side closest to the screen edge).
-    const teaser = `<div onclick="toggleChat()" class="chat-teaser" style="background:${C.surface};border:1px solid ${C.border};color:${C.text};padding:13px 20px;border-radius:32px;font-family:${BODY_FF};font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,0.35)">${esc(t.chatTeaser)}</div>`;
-    return `<div style="position:fixed;bottom:24px;${side}:24px;z-index:1500;display:flex;align-items:center;gap:10px">
-        ${isRTL ? fabBtn + teaser : teaser + fabBtn}
-      </div>`;
+    // Collapsed state: one glassy capsule holding both the glowing orb avatar and
+    // the invite text, glowing at the edges instead of two separate floating pieces.
+    const iconBadge = `<span class="chat-orb" style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"></span>`;
+    const teaserText = `<span style="font-family:${BODY_FF};font-size:14px;font-weight:300;color:${STATS_ACCENT};text-shadow:0 0 4px rgba(255,145,28,0.9),0 0 14px rgba(255,145,28,0.7);white-space:nowrap">${esc(t.chatTeaser)}</span>`;
+    const edgePad = isRTL ? "6px 22px 6px 6px" : "6px 6px 6px 22px";
+    return `<button onclick="toggleChat()" id="chat-fab-wrap" class="chat-capsule" aria-label="${esc(t.chatTitle)}" style="position:fixed;bottom:24px;${side}:24px;z-index:1500;display:flex;align-items:center;gap:12px;padding:${edgePad};border-radius:40px;border:1.5px solid rgba(255,145,28,0.55);background:rgba(20,25,36,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 0 22px rgba(255,145,28,0.45),0 8px 24px rgba(0,0,0,0.35);cursor:pointer">
+        ${isRTL ? iconBadge + teaserText : teaserText + iconBadge}
+      </button>`;
   }
 
-  const fab = `<div style="position:fixed;bottom:24px;${side}:24px;z-index:1500">${fabBtn}</div>`;
+  const fab = `<div id="chat-fab-wrap" style="position:fixed;bottom:24px;${side}:24px;z-index:1500">${fabBtn}</div>`;
   const hasUserMsg = state.chatMessages.some(m=>m.from==="user");
-  const prompts = hasUserMsg ? "" : `<div style="padding:0 14px 14px;display:flex;flex-wrap:wrap;gap:8px;background:${C.bg}">
-      ${t.chatPrompts.map((p,i)=>`<button onclick="askChatPrompt(${i})" class="chat-prompt-btn" style="background:${C.card};border:1px solid ${C.border};color:${C.text};border-radius:20px;padding:8px 14px;font-family:${BODY_FF};font-size:12px;cursor:pointer">${esc(p.q)}</button>`).join("")}
+  const prompts = hasUserMsg ? "" : `<div style="padding:0 14px 14px;display:flex;flex-wrap:wrap;gap:8px;background:transparent">
+      ${t.chatPrompts.map((p,i)=>`<button onclick="askChatPrompt(${i})" class="chat-prompt-btn" style="background:#fff;border:1px solid ${C.border};color:#000;border-radius:20px;padding:8px 14px;font-family:${BODY_FF};font-size:12px;cursor:pointer">${esc(p.q)}</button>`).join("")}
     </div>`;
 
-  const panel = `<div class="chat-panel" style="position:fixed;bottom:96px;${side}:24px;z-index:1499;width:min(360px, calc(100vw - 32px));max-height:min(560px, calc(100vh - 140px));background:${C.surface};border:1px solid ${C.border};border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:flex;flex-direction:column;overflow:hidden">
-      <div style="background:${STATS_ACCENT};padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0">
+  const panel = `<div class="chat-panel" style="position:fixed;bottom:96px;${side}:24px;z-index:1499;width:min(360px, calc(100vw - 32px));max-height:min(560px, calc(100vh - 140px));background:rgba(20,25,36,0.6);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid ${C.border};border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:flex;flex-direction:column;overflow:hidden">
+      <div style="background:${C.red};padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0">
         <div style="min-width:0">
-          <div style="font-family:${HEAD_FF};font-weight:800;font-size:14px;color:${C.bg};white-space:nowrap">${esc(t.chatTitle)}</div>
+          <div style="font-family:${BODY_FF};font-weight:300;font-size:15px;letter-spacing:.02em;color:#fff;white-space:nowrap">${esc(t.chatTitle)}</div>
         </div>
         <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
           <button onclick="resetChat()" class="icon-btn" aria-label="Restart" style="background:rgba(255,255,255,.15);border:none;color:${C.bg};border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center">${restartSVG(C.bg)}</button>
@@ -1024,14 +1059,14 @@ function chatWidget(t){
         </div>
       </div>
 
-      <div id="chat-messages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:${C.bg};min-height:160px">
+      <div id="chat-messages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:transparent;min-height:160px">
         ${state.chatMessages.map(chatMessageBubble).join("")}
       </div>
 
       ${prompts}
 
-      <div style="display:flex;gap:8px;padding:12px;border-top:1px solid ${C.border};background:${C.surface};flex-shrink:0">
-        <input id="chat-input" placeholder="${esc(t.chatPlaceholder)}" oninput="updateChatDraft(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();sendChatMessage();}" value="${esc(state.chatDraft)}" style="flex:1;min-width:0;padding:10px 14px;border-radius:20px;border:1.5px solid ${C.border};background:${C.bg};color:${C.text};font-size:13px;font-family:${BODY_FF};outline:none">
+      <div style="display:flex;gap:8px;padding:12px;border-top:1px solid ${C.border};background:transparent;flex-shrink:0">
+        <input id="chat-input" placeholder="${esc(t.chatPlaceholder)}" oninput="updateChatDraft(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();sendChatMessage();}" value="${esc(state.chatDraft)}" style="flex:1;min-width:0;padding:10px 14px;border-radius:20px;border:1.5px solid ${C.border};background:rgba(11,15,28,0.6);color:${C.text};font-size:13px;font-family:${BODY_FF};outline:none">
         <button onclick="sendChatMessage()" class="cta-btn" style="background:${STATS_ACCENT};border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">${sendSVG}</button>
       </div>
     </div>`;
@@ -1061,6 +1096,7 @@ function render(){
   const t = T[state.lang];
   const root = document.getElementById("root");
   root.setAttribute("dir", t.dir);
+  root.setAttribute("data-lang", state.lang);
   root.style.fontFamily = t.ff;
   root.style.minHeight = "100vh";
   root.style.background = C.bg;
@@ -1090,7 +1126,7 @@ function render(){
         </div>
         <a href="tel:1122" class="cta-btn call-pill" style="background:${C.red};border-radius:32px;padding:6px 12px;display:inline-flex;align-items:center;gap:4px">
           ${phoneSVG(17,"#fff")}
-          <span style="color:#fff;font-family:${HEAD_FF};font-weight:700;font-size:17px;letter-spacing:-0.5px">1122</span>
+          <span style="color:#fff;font-family:${BODY_FF};font-weight:700;font-size:17px;letter-spacing:-0.5px">1122</span>
         </a>
       </div>
     </div>
@@ -1104,7 +1140,9 @@ function render(){
   else if(state.page==="blogPost") body = blogPostPage(t);
   else if(state.page==="about") body = aboutPage(t);
 
-  root.innerHTML = header + `<main>${body}</main>` + chatWidget(t);
+  // The map page has its own bottom-right controls (Near Me button, hospital
+  // sheets) that the chatbot would collide with, so it's left out entirely there.
+  root.innerHTML = header + `<main>${body}</main>` + (state.page==="medical" ? "" : chatWidget(t));
 
   if(state.page==="medical") mountMap();
   if(state.page==="emergency") initCounters();
