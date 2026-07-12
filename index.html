@@ -3,7 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Acidhelp.com — Emergency help for acid attack survivors in Pakistan</title>
+  <title>Acidhelp.com — Emergency Help for Acid Attack Survivors in Pakistan</title>
+  <meta name="description" content="Immediate first-aid steps, the 1122 emergency number, nearby burns units, and free legal/medical/psychological support for acid attack survivors and families in Pakistan.">
+  <link rel="canonical" href="https://www.acidhelp.com/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Acidhelp.com">
+  <meta property="og:title" content="Acidhelp.com — Emergency Help for Acid Attack Survivors in Pakistan">
+  <meta property="og:description" content="Immediate first-aid steps, the 1122 emergency number, nearby burns units, and free legal/medical/psychological support for acid attack survivors and families in Pakistan.">
+  <meta property="og:image" content="https://www.acidhelp.com/images/footer.png">
+  <meta property="og:url" content="https://www.acidhelp.com/">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Acidhelp.com — Emergency Help for Acid Attack Survivors in Pakistan">
+  <meta name="twitter:description" content="Immediate first-aid steps, the 1122 emergency number, nearby burns units, and free legal/medical/psychological support for acid attack survivors and families in Pakistan.">
+  <meta name="twitter:image" content="https://www.acidhelp.com/images/footer.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="./images/Icons/Favicon.png">
@@ -19,7 +33,109 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="root"></div>
+  <!-- Static, English, crawler-readable shell: header + hero + first-aid steps +
+       a hospital snippet, hand-authored to match app.js's render() output for
+       the default state (lang=en, page=emergency) so there's no flash of
+       unstyled/different content once app.js hydrates it. Marked data-ssr="true"
+       so app.js knows to splice in the missing dynamic sections instead of
+       wiping and rebuilding this from scratch — see hydrate() in app.js. -->
+  <div id="root" data-ssr="true" dir="ltr" data-lang="en" style="font-family:'Lexend','Noto Sans',sans-serif;min-height:100vh;background:var(--bg);color:var(--text)">
+    <header style="position:sticky;top:0;z-index:1200;background:var(--surface);border-bottom:1px solid var(--border)">
+      <div class="site-header-inner" style="max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:11px 16px 12px">
+        <button onclick="setPage('emergency')" class="logo-btn" aria-label="Acidhelp — home" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;gap:9px;flex-shrink:0">
+          <img src="./images/logo.png" alt="Acidhelp logo" style="height:26px;width:auto;flex-shrink:0;display:block">
+          <span class="brand-wordmark" style="font-family:'Noto Sans','Noto Nastaliq Urdu',sans-serif;font-weight:900;font-size:24px;letter-spacing:-1px;line-height:1"><span style="color:var(--red)">Acid</span><span style="color:#fff">help</span></span>
+        </button>
+        <nav class="nav-scroll" style="flex:1;justify-content:center;min-width:0">
+          <button onclick="setPage('medical')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap">Nearby</button>
+          <button onclick="setPage('resources')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap">Recovery</button>
+          <button onclick="setPage('blog')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap">Blog</button>
+          <button onclick="setPage('about')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap">About</button>
+          <button onclick="setPage('joinus')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap">Join Us</button>
+        </nav>
+        <div class="header-controls" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+          <div class="lang-group" style="display:flex;gap:4px">
+            <button onclick="setLang('en')" class="lang-btn" style="background:var(--card);color:#fff;border:1px solid var(--borderLight);border-radius:16px;padding:3px 9px;font-size:10.5px;font-weight:700;cursor:pointer;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif">EN</button>
+            <button onclick="setLang('ur')" class="lang-btn" style="background:transparent;color:var(--sub);border:1px solid transparent;border-radius:16px;padding:3px 9px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Noto Nastaliq Urdu',sans-serif">اردو</button>
+            <button onclick="setLang('ro')" class="lang-btn" style="background:transparent;color:var(--sub);border:1px solid transparent;border-radius:16px;padding:3px 9px;font-size:10.5px;font-weight:500;cursor:pointer;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif">ROM</button>
+            <button onclick="setLang('ps')" class="lang-btn" style="background:transparent;color:var(--sub);border:1px solid transparent;border-radius:16px;padding:3px 9px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Noto Nastaliq Urdu',sans-serif">پښتو</button>
+          </div>
+          <a href="tel:1122" class="cta-btn call-pill" style="background:var(--red);border-radius:32px;padding:6px 12px;display:inline-flex;align-items:center;gap:4px">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z" fill="#fff"/></svg>
+            <span style="color:#fff;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:700;font-size:17px;letter-spacing:-0.5px">1122</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div id="ssr-page">
+        <section id="ssr-hero" class="reveal is-visible" data-reveal-id="hero" style="position:relative;width:100%;height:calc(100vh - 68px);height:calc(100dvh - 68px);min-height:480px;overflow:hidden;background:var(--bg)">
+          <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center right">
+            <source src="./images/hero-video.mp4" type="video/mp4">
+          </video>
+          <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.95) 0%,rgba(0,0,0,0.85) 15%,rgba(0,0,0,0.55) 35%,rgba(0,0,0,0.2) 55%,rgba(0,0,0,0) 72%)"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:flex-end">
+            <div style="max-width:1440px;width:100%;margin:0 auto;padding:0 clamp(28px,5vw,80px) clamp(32px,4vw,56px)">
+              <div style="max-width:640px">
+                <h1 style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:900;font-size:clamp(44px,7vw,82px);letter-spacing:-2.5px;line-height:0.95;color:#fff;margin:0;text-shadow:0 2px 24px rgba(0,0,0,0.4)">ACID ATTACK?</h1>
+                <p style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:300;font-size:clamp(15px,1.3vw,18px);color:rgba(255,255,255,.9);margin:10px 0 32px;text-shadow:0 1px 12px rgba(0,0,0,0.5)">Act immediately. Every second matters</p>
+                <a href="tel:1122" class="cta-btn" style="background:var(--red);border-radius:40px;padding:16px 30px;display:inline-flex;align-items:center;gap:12px;text-decoration:none;box-shadow:0 8px 32px rgba(255,59,48,0.35)">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z" fill="#fff"/></svg>
+                  <span style="color:#fff;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:900;font-size:clamp(17px,1.5vw,22px);letter-spacing:-0.5px">CALL 1122 NOW</span>
+                </a>
+                <div style="display:flex;gap:16px;align-items:center;margin-top:22px;flex-wrap:wrap">
+                  <span style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-size:12px;color:rgba(255,255,255,.6);text-shadow:0 1px 8px rgba(0,0,0,0.6)">Also call:</span>
+                  <a href="tel:115" class="text-link-alt" style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-size:12px;color:rgba(255,255,255,.85);text-decoration:underline;text-underline-offset:3px;text-shadow:0 1px 8px rgba(0,0,0,0.6)">Edhi: 115</a>
+                  <a href="tel:05123053540" class="text-link-alt" style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-size:12px;color:rgba(255,255,255,.85);text-decoration:underline;text-underline-offset:3px;text-shadow:0 1px 8px rgba(0,0,0,0.6)">ASF: 051-2305354</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="reveal is-visible" data-reveal-id="steps" style="padding:clamp(56px,12vw,96px) clamp(28px,5vw,80px) clamp(48px,6vw,80px)">
+          <div style="max-width:1308px;margin:0 auto">
+            <div style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--red)">First response</div>
+            <h2 style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:300;font-size:clamp(42px,3.2vw,56px);letter-spacing:-1px;line-height:1.1;margin:16px 0 28px;color:var(--text)">What to do</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:18px">
+              <div class="sc1" style="background:#1a1e2e;border-radius:14px;overflow:hidden;display:flex;align-items:stretch;min-height:170px">
+                <div style="background:var(--red);width:76px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:14px 0 0 14px">
+                  <span style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:900;font-size:56px;color:#fff;line-height:1">1</span>
+                </div>
+                <div style="padding:22px 24px;flex:1">
+                  <div style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:500;font-size:20px;color:#fff;letter-spacing:0.6px;line-height:1.15">FLUSH WITH WATER</div>
+                  <div style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-size:14px;color:rgba(255,255,255,.62);margin-top:10px;line-height:1.6">Pour cool running water over the area continuously for at least 20 minutes. Do not use a small amount and stop — keep flushing the entire time.</div>
+                </div>
+              </div>
+              <div class="sc2" style="background:#1a1e2e;border-radius:14px;overflow:hidden;display:flex;align-items:stretch;min-height:170px">
+                <div style="background:#B52A22;width:76px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:14px 0 0 14px">
+                  <span style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:900;font-size:56px;color:#fff;line-height:1">2</span>
+                </div>
+                <div style="padding:22px 24px;flex:1">
+                  <div style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:500;font-size:20px;color:#fff;letter-spacing:0.6px;line-height:1.15">CALL 1122</div>
+                  <div style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-size:14px;color:rgba(255,255,255,.62);margin-top:10px;line-height:1.6">Pakistan's emergency response number. Say: 'Acid attack — send ambulance immediately.' Stay on the line.</div>
+                </div>
+              </div>
+              <div class="sc3" style="background:#1a1e2e;border-radius:14px;overflow:hidden;display:flex;align-items:stretch;min-height:170px">
+                <div style="background:#8B1818;width:76px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:14px 0 0 14px">
+                  <span style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:900;font-size:56px;color:#fff;line-height:1">3</span>
+                </div>
+                <div style="padding:22px 24px;flex:1">
+                  <div style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:500;font-size:20px;color:#fff;letter-spacing:0.6px;line-height:1.15">GET TO HOSPITAL</div>
+                  <div style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-size:14px;color:rgba(255,255,255,.62);margin-top:10px;line-height:1.6">Burns unit. Do not cover the wound with cloth — contact with fabric worsens the burn. Keep flushing until medical help arrives.</div>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:20px;background:rgba(255,59,48,0.06);border:1px solid rgba(255,59,48,0.5);border-radius:12px;padding:16px 20px;display:flex;gap:12px;align-items:center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2L1 21h22L12 2zm0 5.5L18.5 19h-13L12 7.5zm-1 5v4h2v-4h-2zm0 5v2h2v-2h-2z" fill="var(--red)"/></svg>
+              <span style="font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:500;font-size:14px;color:var(--red);line-height:1.5">DO NOT apply: toothpaste · cream · milk · oil · baking soda — and do NOT cover with cloth</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="app.js"></script>

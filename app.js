@@ -8,7 +8,7 @@ const C = {
   purple:"#BF5AF2", purpleDim:"rgba(191,90,242,0.14)",
   warn:"#FF911C", warnDim:"rgba(255,145,28,0.2)",
   teal:"#30D5C8", tealDim:"rgba(48,213,200,0.14)",
-  text:"#F0F3FA", sub:"#7A8BA0", muted:"#38465A",
+  text:"#F0F3FA", sub:"#8B9CB0", muted:"#38465A",
 };
 // Nastaliq is appended only as a *fallback*: Latin glyphs (the logo wordmark,
 // brand names, numbers) keep rendering in Lexend/Noto Sans, and the browser
@@ -144,13 +144,13 @@ const T = {
     playVideo:"PLAY VIDEO",
     videoLabel:"Watch: How to flush correctly",
     stepsTitle:"What to do", stepsEyebrow:"First response",
-    navItems:["Emergency","Nearby","Recovery","Blog","About"],
-    pages:["emergency","medical","resources","blog","about"],
+    navItems:["Emergency","Nearby","Recovery","Blog","About","Join Us"],
+    pages:["emergency","medical","resources","blog","about","joinus"],
     blogTitle:"The AcidHelp Blog",
     featuredLabel:"Featured Post", readNowLabel:"Read Now", byLabel:"By", backToBlogLabel:"Back to Blog",
     medTitle:"Hospitals Near You", medSub:"Tap a pin · Get directions · Call",
     nearMe:"Hospitals Near Me", locating:"Finding you…", callHosp:"Call Now", directions:"Directions",
-    resTitle:"Support & Recovery", resSub:"Free help for survivors and families",
+    resTitle:"Support & Recovery", resSub:"Resources for survivors and families",
     resCards:[
       { icon:"🧠", color:C.purple, dim:C.purpleDim, title:"Psychological Support", sub:"Trauma counselling & mental health", orgs:[
         { ...ORGS.umang  },{ ...ORGS.rozan  },{ ...ORGS.asf }]},
@@ -167,15 +167,15 @@ const T = {
     ],
     conTitle:"Get Help or Get Involved", conSub:"Reach out for support, or partner with us to help more survivors across Pakistan",
     survivorTab:"I'm a Survivor", volunteerTab:"I'm a Volunteer",
-    nameLabel:"Name", phoneLabel:"Phone Number", emailLabel:"Email",
+    nameLabel:"Name", emailLabel:"Email", notesLabel:"Additional Information",
     helpLabel:"Help Required", helpOptions:["Medical","Legal","Employment","Share Your Story"],
     roleLabel:"Your Role", submitLabel:"Send Message",
     orgTypes:["Hospital / Medical Centre","NGO / Non-profit","Legal Organisation","Mental Health Provider","Corporate / CSR","Government Body","Other"],
-    submittedMsg:"Thank you — we'll be in touch within 48 hours.",
+    submittedMsg:"Thank you! Someone will be in touch soon.",
     survivorSubmitLabel:"Submit Request",
-    survivorSubmittedMsg:"Thank you — a member of our team will reach out within 24 hours.",
-    abtTitle:"About Us",
-    abtMission:"Acidhelp is a non-profit emergency response platform for acid attack survivors in Pakistan. We exist because every survivor deserves immediate information, dignified care, and a path forward — in their own language.",
+    survivorSubmittedMsg:"Thank you! Someone will be in touch soon.",
+    abtTitle:"About AcidHelp",
+    abtMission:"AcidHelp is Pakistan's first AI-integrated platform for acid attack first aid and support. It is free, and is being built to serve multiple regions across Pakistan.",
     statsTitle:"The Reality in Pakistan",
     statsSource:"Source:",
     faqTitle:"FAQs",
@@ -186,6 +186,7 @@ const T = {
     ],
     advocacyTitle:"Our Advocacy",
     advocacy:"Acidhelp.com advocates for a complete ban on the open retail sale of acid in Pakistan, mandatory ID verification for all purchases, enhanced sentencing for perpetrators, and free reconstructive care for every survivor.",
+    advocacyPoints:["Ban on open acid sales","Mandatory ID verification","Tougher sentencing for perpetrators","Free reconstructive care"],
     footerLine2:"Acidhelp.com is not a substitute for emergency services. If someone is in danger, call 1122 immediately.",
     chatTitle:"Ask AcidHelp", chatTeaser:"How can we help?",
     chatGreeting:"Hi, I'm here to help with quick first-aid questions. Ask me something, or pick a question below.",
@@ -212,8 +213,8 @@ const T = {
     playVideo:"ویڈیو چلائیں",
     videoLabel:"دیکھیں: صحیح طریقے سے پانی کیسے ڈالیں",
     stepsTitle:"کیا کریں", stepsEyebrow:"پہلا ردعمل",
-    navItems:["ہنگامی مدد","قریبی","وسائل","بلاگ","ہمارے بارے میں"],
-    pages:["emergency","medical","resources","blog","about"],
+    navItems:["ہنگامی مدد","قریبی","وسائل","بلاگ","ہمارے بارے میں","شامل ہوں"],
+    pages:["emergency","medical","resources","blog","about","joinus"],
     blogTitle:"ایسڈ ہیلپ بلاگ",
     featuredLabel:"نمایاں تحریر", readNowLabel:"ابھی پڑھیں", byLabel:"از", backToBlogLabel:"بلاگ پر واپس جائیں",
     medTitle:"قریبی ہسپتال", medSub:"پن دبائیں · سمت حاصل کریں · کال کریں",
@@ -235,13 +236,13 @@ const T = {
     ],
     conTitle:"مدد حاصل کریں یا شامل ہوں", conSub:"مدد کے لیے رابطہ کریں یا زیادہ متاثرین تک پہنچنے میں ہمارا ساتھ دیں",
     survivorTab:"میں متاثرہ ہوں", volunteerTab:"میں رضاکار ہوں",
-    nameLabel:"نام", phoneLabel:"فون نمبر", emailLabel:"ای میل",
+    nameLabel:"نام", emailLabel:"ای میل", notesLabel:"اضافی معلومات",
     helpLabel:"درکار مدد", helpOptions:["طبی","قانونی","روزگار","اپنی کہانی شیئر کریں"],
     roleLabel:"آپ کا کردار", submitLabel:"پیغام بھیجیں",
     orgTypes:["ہسپتال","این جی او","قانونی تنظیم","ذہنی صحت","کارپوریٹ","حکومتی ادارہ","دیگر"],
-    submittedMsg:"شکریہ — ہم ۴۸ گھنٹے میں رابطہ کریں گے۔",
+    submittedMsg:"شکریہ! جلد ہی کوئی رابطہ کرے گا۔",
     survivorSubmitLabel:"درخواست بھیجیں",
-    survivorSubmittedMsg:"شکریہ — ہماری ٹیم ۲۴ گھنٹوں میں رابطہ کرے گی۔",
+    survivorSubmittedMsg:"شکریہ! جلد ہی کوئی رابطہ کرے گا۔",
     abtTitle:"ہمارے بارے میں", abtMission:"Acidhelp پاکستان میں تیزاب حملے کے بچ جانے والوں کے لیے ایک غیر منافع بخش ہنگامی رسپانس پلیٹ فارم ہے۔",
     statsTitle:"پاکستان میں حقیقت", statsSource:"ماخذ:",
     faqTitle:"FAQs",
@@ -252,6 +253,7 @@ const T = {
     ],
     advocacyTitle:"ہماری وکالت",
     advocacy:"Acidhelp.com تیزاب کی عام فروخت پر مکمل پابندی اور تمام بچ جانے والوں کے لیے مفت سرجری کی وکالت کرتا ہے۔",
+    advocacyPoints:["تیزاب کی کھلی فروخت پر پابندی","لازمی شناختی تصدیق","مجرموں کے لیے سخت سزائیں","مفت تعمیرِ نو کی سرجری"],
     footerLine2:"Acidhelp.com ہنگامی خدمات کا متبادل نہیں۔ فوری ۱۱۲۲ کال کریں۔",
     chatTitle:"AcidHelp سے پوچھیں", chatTeaser:"ہم کیسے مدد کر سکتے ہیں؟",
     chatGreeting:"السلام علیکم، میں فوری ابتدائی طبی امداد کے سوالات میں مدد کے لیے حاضر ہوں۔ کچھ پوچھیں یا نیچے دیے گئے سوالات میں سے کوئی منتخب کریں۔",
@@ -278,8 +280,8 @@ const T = {
     playVideo:"VIDEO CHALAYEIN",
     videoLabel:"Dekhein: Sahi tareeqe se paani kaise daalein",
     stepsTitle:"Kya karein", stepsEyebrow:"Pehla iqdaam",
-    navItems:["Hangami Madad","Qareeb","Wasail","Blog","Hamare Baare Mein"],
-    pages:["emergency","medical","resources","blog","about"],
+    navItems:["Hangami Madad","Qareeb","Wasail","Blog","Hamare Baare Mein","Shamil Hon"],
+    pages:["emergency","medical","resources","blog","about","joinus"],
     blogTitle:"AcidHelp Blog",
     featuredLabel:"Featured Post", readNowLabel:"Abhi Parhein", byLabel:"Az", backToBlogLabel:"Blog Par Wapis Jayein",
     medTitle:"Qareeb Hospital", medSub:"Pin dabayein · Rasta lein · Call karein",
@@ -301,13 +303,13 @@ const T = {
     ],
     conTitle:"Madad Hasil Karein ya Shamil Hon", conSub:"Madad ke liye rabta karein ya humara sath dein taake hum zyada bachne walon tak pohnch sakein",
     survivorTab:"Main Bachne Wala/Wali Hoon", volunteerTab:"Main Razakar Hoon",
-    nameLabel:"Naam", phoneLabel:"Phone Number", emailLabel:"Email",
+    nameLabel:"Naam", emailLabel:"Email", notesLabel:"Mazeed Maloomat",
     helpLabel:"Darkar Madad", helpOptions:["Tibbi","Qanooni","Rozgaar","Apni Kahani Share Karein"],
     roleLabel:"Aap ka Kirdar", submitLabel:"Paigham Bhejein",
     orgTypes:["Hospital","NGO","Qanooni Tanzeem","Zehni Sehat","Corporate","Sarkari Idaara","Aur"],
-    submittedMsg:"Shukriya — hum 48 ghante mein rabta karein ge.",
+    submittedMsg:"Shukriya! Jald hi koi rabta karega.",
     survivorSubmitLabel:"Darkhwast Bhejein",
-    survivorSubmittedMsg:"Shukriya — hamari team 24 ghante mein rabta karegi.",
+    survivorSubmittedMsg:"Shukriya! Jald hi koi rabta karega.",
     abtTitle:"Hamare Baare Mein", abtMission:"Acidhelp Pakistan mein tezab hamle ke bachne walon ke liye ek ghair munafa bakhsh hangami response platform hai.",
     statsTitle:"Pakistan Mein Haqeeqat", statsSource:"Maakhaz:",
     faqTitle:"FAQs",
@@ -318,6 +320,7 @@ const T = {
     ],
     advocacyTitle:"Hamari Waqalat",
     advocacy:"Acidhelp.com tezab ki aam farokht par mukammal pabandi aur tamam bachne walon ke liye muft surgery ki waqalat karta hai.",
+    advocacyPoints:["Tezab ki khuli farokht par pabandi","Lazmi shanakhti tasdeeq","Mujrimon ke liye sakht sazayen","Muft reconstructive surgery"],
     footerLine2:"Acidhelp.com hangami khidmaat ka mutbadil nahin. Fori 1122 call karein.",
     chatTitle:"AcidHelp Se Poochein", chatTeaser:"Hum Kaise Madad Kar Sakte Hain?",
     chatGreeting:"Assalam o Alaikum, main fori first aid sawalat mein madad ke liye hazir hoon. Kuch poochein ya neeche diye gaye sawalat mein se koi muntakhib karein.",
@@ -344,8 +347,8 @@ const T = {
     playVideo:"ویډیو وګورئ",
     videoLabel:"وګورئ: سم ډول اوبه څنګه واچول شي",
     stepsTitle:"څه وکړئ", stepsEyebrow:"لومړی ګام",
-    navItems:["بیړنۍ مرسته","نږدې","سرچینې","بلاگ","زمونږ د اړه"],
-    pages:["emergency","medical","resources","blog","about"],
+    navItems:["بیړنۍ مرسته","نږدې","سرچینې","بلاگ","زمونږ د اړه","ګډون وکړئ"],
+    pages:["emergency","medical","resources","blog","about","joinus"],
     blogTitle:"د AcidHelp بلاگ",
     featuredLabel:"ځانګړې لیکنه", readNowLabel:"اوس یې ولولئ", byLabel:"لیکوال", backToBlogLabel:"بلاگ ته بیرته لاړ شئ",
     medTitle:"نږدې روغتونونه", medSub:"پن ووهئ · لار ومومئ · زنګ وهئ",
@@ -367,13 +370,13 @@ const T = {
     ],
     conTitle:"مرسته ترلاسه کړئ یا یوځای شئ", conSub:"د مرستې لپاره اړیکه ونیسئ یا زموږ سره یوځای شئ ترڅو نورو ژوندیو ته ورسیږو",
     survivorTab:"زه ژغورل شوی/ې یم", volunteerTab:"زه رضاکار یم",
-    nameLabel:"نوم", phoneLabel:"د تلیفون شمیره", emailLabel:"بریښنالیک",
+    nameLabel:"نوم", emailLabel:"بریښنالیک", notesLabel:"اضافي معلومات",
     helpLabel:"اړینه مرسته", helpOptions:["طبي","قانوني","دنده","خپله کیسه شریکه کړئ"],
     roleLabel:"ستاسو رول", submitLabel:"پیغام واستوئ",
     orgTypes:["روغتون","NGO","قانوني موسسه","روانتیا","کارپوریټ","حکومتي بنسټ","نور"],
-    submittedMsg:"مننه — مونږ به ۴۸ ساعتونو کې اړیکه وکړو.",
+    submittedMsg:"مننه! ژر به یو څوک اړیکه ونیسي.",
     survivorSubmitLabel:"غوښتنه واستوئ",
-    survivorSubmittedMsg:"مننه — زموږ ټیم به ۲۴ ساعتونو کې اړیکه ونیسي.",
+    survivorSubmittedMsg:"مننه! ژر به یو څوک اړیکه ونیسي.",
     abtTitle:"زموږ په اړه", abtMission:"Acidhelp د پاکستان د تیزاب برید ژوندیو لپاره یو غیر ګټه ور بیړني ځواب پلیټ فارم دی.",
     statsTitle:"پاکستان کې واقعیت", statsSource:"سرچینه:",
     faqTitle:"FAQs",
@@ -384,6 +387,7 @@ const T = {
     ],
     advocacyTitle:"زمونږ دفاع",
     advocacy:"Acidhelp.com د تیزاب د عامه پلورنې د بشپړ منع کولو او د ټولو ژوندیو لپاره وړیا جراحي لپاره دفاع کوي.",
+    advocacyPoints:["د تیزابو په ازاده پلورلو بندیز","لازمي پیژندنه تصدیق","د مجرمینو لپاره سختې سزاوې","وړیا رغونیزه جراحي"],
     footerLine2:"Acidhelp.com د بیړني خدماتو بدیل نه دی. فوري ۱۱۲۲ ته زنګ وهئ.",
     chatTitle:"له AcidHelp نه وپوښتئ", chatTeaser:"موږ څنګه مرسته کولی شو؟",
     chatGreeting:"سلام، زه د لومړنۍ مرستې چټکو پوښتنو کې مرستې لپاره دلته یم. یو څه وپوښتئ یا لاندې پوښتنو څخه یوه غوره کړئ.",
@@ -404,8 +408,8 @@ const state = {
   lang:"en", page:"emergency",
   activeBlogId:null,
   joinTab:"survivor",
-  survivorForm:{name:"",phone:"",email:"",help:""}, survivorSubmitted:false,
-  volunteerForm:{name:"",phone:"",email:"",role:""}, volunteerSubmitted:false,
+  survivorForm:{name:"",email:"",notes:"",help:""}, survivorSubmitted:false,
+  volunteerForm:{name:"",email:"",notes:"",role:""}, volunteerSubmitted:false,
   chatOpen:false, chatMessages:[], chatDraft:"",
 };
 let openCard = null;
@@ -432,7 +436,7 @@ const checkCircleSVG = (size,color)=>`<svg width="${size}" height="${size}" view
 const plusSVG = (size)=>`<svg class="faq-plus" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
 const chatBubbleSVG = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 4h16a1 1 0 011 1v11a1 1 0 01-1 1H9l-5 4v-4H4a1 1 0 01-1-1V5a1 1 0 011-1z" fill="#fff"/></svg>`;
 const closeXSVG = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>`;
-const sendSVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 11l18-8-8 18-2-8-8-2z" fill="#fff"/></svg>`;
+const sendSVG = (fill="#fff")=>`<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 11l18-8-8 18-2-8-8-2z" fill="${fill}"/></svg>`;
 const restartSVG = (color)=>`<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 4v6h6M20 20v-6h-6" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 15a8 8 0 0013.9 3M18.5 9A8 8 0 004.6 6" stroke="${color}" stroke-width="2" stroke-linecap="round"/></svg>`;
 const dropPath = `M32 6C32 6 12 39 12 54 12 66.15 20.95 76 32 76 43.05 76 52 66.15 52 54 52 39 32 6 32 6Z`;
 
@@ -452,6 +456,8 @@ const hospBadge = (emoji,diameter,col)=>{
 };
 const pinSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.6A2.6 2.6 0 1112 6.4a2.6 2.6 0 010 5.2z" fill="${fill}"/></svg>`;
 const navSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M21 3L3 10.6l7.1 2.9 2.9 7.1L21 3z" fill="${fill}"/></svg>`;
+const globeSVG = (size,c)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><circle cx="12" cy="12" r="9" stroke="${c}" stroke-width="1.6"/><path d="M3.2 12h17.6M12 3c2.6 2.5 2.6 15.5 0 18M12 3c-2.6 2.5-2.6 15.5 0 18" stroke="${c}" stroke-width="1.6"/></svg>`;
+const mailSVG = (size,c)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><rect x="3" y="5.5" width="18" height="13" rx="2.5" stroke="${c}" stroke-width="1.6"/><path d="M4.5 7.5l7.5 5.5 7.5-5.5" stroke="${c}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const hospIcon = (emoji,size,fill)=>{
   if(emoji==="🔥") return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 002.5 2.5z" fill="${fill}"/></svg>`;
   if(emoji==="💛") return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 20.7l-1.45-1.32C5.4 14.72 2 11.64 2 7.9 2 4.9 4.42 2.5 7.5 2.5c1.74 0 3.41.81 4.5 2.09C13.09 3.31 14.76 2.5 16.5 2.5 19.58 2.5 22 4.9 22 7.9c0 3.74-3.4 6.82-8.55 11.49L12 20.7z" fill="${fill}"/></svg>`;
@@ -501,7 +507,7 @@ function statsSection(t){
         <div class="stats-item" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:20px 14px;max-width:300px">
           <span class="stat-counter" data-target="${s.num}" data-suffix="${s.suffix||""}" data-prefix="${s.prefix||""}" style="font-family:${BODY_FF};font-weight:900;font-size:36px;color:${s.color};font-variant-numeric:tabular-nums;flex-shrink:0;line-height:1">${s.prefix||""}0${s.suffix||""}</span>
           <span style="font-family:${BODY_FF};font-size:14px;color:${C.sub};line-height:1.35">${s.label}</span>
-          <span style="font-family:${BODY_FF};font-size:10px;color:${C.muted};line-height:1.3;margin-top:auto;padding-top:8px">${t.statsSource} ${s.src}</span>
+          <span style="font-family:${BODY_FF};font-size:10px;color:${C.sub};opacity:0.75;line-height:1.3;margin-top:auto;padding-top:8px">${t.statsSource} ${s.src}</span>
         </div>`).join("")}
     </div>
   </div>`;
@@ -578,9 +584,9 @@ function footerStrip(t){
     <div style="position:absolute;inset:0;background:rgba(0,0,0,0.6)"></div>
 
     <div style="position:relative;min-height:100%;display:flex;flex-direction:column;padding:clamp(40px,5vw,64px) clamp(28px,5vw,80px) 0">
-      <div style="max-width:1440px;width:100%;margin:0 auto;flex:1;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;min-height:calc(clamp(280px,30vw,380px) - clamp(80px,10vw,128px));padding-bottom:clamp(28px,4vw,40px)">
+      <div class="footer-top-row" style="max-width:1440px;width:100%;margin:0 auto;flex:1;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;min-height:calc(clamp(280px,30vw,380px) - clamp(80px,10vw,128px));padding-bottom:clamp(28px,4vw,40px)">
         <!-- Left: logo + tagline + email -->
-        <div>
+        <div class="footer-brand">
           <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px">
             ${logoMark(28)}
             <span style="font-family:${HEAD_FF};font-weight:900;font-size:26px;letter-spacing:-1px"><span style="color:${C.red}">Acid</span><span style="color:#fff">help</span></span>
@@ -588,15 +594,19 @@ function footerStrip(t){
           <a href="mailto:info@acidhelp.com" class="footer-link" style="font-family:${BODY_FF};font-size:14px;color:rgba(255,255,255,.85);letter-spacing:.22em;text-shadow:0 1px 8px rgba(0,0,0,0.5)">i n f o @ a c i d h e l p . c o m</a>
         </div>
         <!-- Right: nav links stacked -->
-        <nav style="display:flex;flex-direction:column;gap:14px;text-align:${isRTL?"left":"right"}">
-          ${[1,2,3,4].map(i=>`<a href="#" onclick="setPage('${t.pages[i]}');return false" class="footer-link" style="font-family:${BODY_FF};font-weight:500;font-size:14px;color:#fff;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;text-shadow:0 1px 8px rgba(0,0,0,0.5)">${t.navItems[i]}</a>`).join("")}
+        <nav class="footer-nav" style="display:flex;flex-direction:column;gap:14px;text-align:${isRTL?"left":"right"}">
+          ${[1,2,3,4,5].map(i=>`<a href="#" onclick="setPage('${t.pages[i]}');return false" class="footer-link" style="font-family:${BODY_FF};font-weight:500;font-size:14px;color:#fff;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;text-shadow:0 1px 8px rgba(0,0,0,0.5)">${t.navItems[i]}</a>`).join("")}
         </nav>
       </div>
 
-      <!-- Bottom bar: copyright + safety disclaimer -->
-      <div style="max-width:1440px;width:100%;margin:0 auto;border-top:1px solid rgba(255,255,255,.18);padding:16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+      <!-- Safety disclaimer: sits above the divider line -->
+      <div style="max-width:1440px;width:100%;margin:0 auto;padding-bottom:14px">
+        <span style="font-family:${BODY_FF};font-size:12px;color:rgba(255,255,255,.55)">${t.footerLine2}</span>
+      </div>
+
+      <!-- Bottom bar: legal / copyright only -->
+      <div style="max-width:1440px;width:100%;margin:0 auto;border-top:1px solid rgba(255,255,255,.18);padding:16px 0">
         <span style="font-family:${BODY_FF};font-size:12px;color:rgba(255,255,255,.55)">© ${new Date().getFullYear()} Acidhelp.com. All rights reserved.</span>
-        <span style="font-family:${BODY_FF};font-size:12px;color:rgba(255,255,255,.55);text-align:${isRTL?"left":"right"}">${t.footerLine2}</span>
       </div>
     </div>
   </footer>`;
@@ -604,7 +614,7 @@ function footerStrip(t){
 
 // ── MAP PAGE (kept majorly the same; brand text/fonts updated) ────────────────
 function mapPage(){
-  return `<div style="position:relative;height:calc(100vh - 64px);overflow:hidden;background:${C.bg}">
+  return `<div style="position:relative;height:calc(100vh - 64px);height:calc(100dvh - 64px);overflow:hidden;background:${C.bg}">
     <div id="map" style="width:100%;height:100%"></div>
     <div id="map-loading" style="position:absolute;inset:0;background:${C.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px">
       <div style="opacity:0.5">${pinSVG(44,C.sub)}</div>
@@ -626,9 +636,9 @@ function renderMapOverlays(){
     </div>`;
 
   const listOpen = mapState.nearbyList.length>0 && !sel;
-  const nearBtn = `<button onclick="nearMe()" ${mapState.loading?"disabled":""} class="cta-btn" style="position:absolute;bottom:${listOpen?252:20}px;right:14px;z-index:1000;background:${mapState.loading?C.muted:C.red};color:white;border:none;border-radius:30px;padding:13px 20px;font-size:14px;font-weight:800;font-family:${BODY_FF};cursor:${mapState.loading?"not-allowed":"pointer"};display:flex;align-items:center;gap:8px;box-shadow:${mapState.loading?"none":"0 4px 28px rgba(255,59,48,0.45)"}">${mapState.loading?"⏳":pinSVG(16,"#fff")} ${mapState.loading?t.locating:t.nearMe}</button>`;
+  const nearBtn = `<button onclick="nearMe()" ${mapState.loading?"disabled":""} class="cta-btn near-me-btn" style="position:absolute;bottom:${listOpen?252:20}px;right:14px;z-index:1000;background:${mapState.loading?C.muted:C.redDark};color:white;border:none;border-radius:30px;padding:13px 20px;font-size:14px;font-weight:800;font-family:${BODY_FF};cursor:${mapState.loading?"not-allowed":"pointer"};display:flex;align-items:center;gap:8px;box-shadow:${mapState.loading?"none":"0 4px 28px rgba(255,59,48,0.45)"}">${mapState.loading?"⏳":pinSVG(16,"#fff")} ${mapState.loading?t.locating:t.nearMe}</button>`;
 
-  const err = mapState.locError ? `<div onclick="clearError()" style="position:absolute;top:12px;left:12px;right:12px;z-index:1001;background:${C.redDark};color:white;padding:12px 14px;border-radius:12px;font-size:13px;font-weight:600;font-family:${BODY_FF};line-height:1.4;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.3)">⚠️ ${esc(mapState.locError)}</div>` : "";
+  const err = mapState.locError ? `<button onclick="clearError()" style="position:absolute;top:12px;left:12px;right:12px;z-index:1001;background:${C.redDark};color:white;padding:12px 14px;border-radius:12px;font-size:13px;font-weight:600;font-family:${BODY_FF};line-height:1.4;text-align:left;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.3)">⚠️ ${esc(mapState.locError)}</button>` : "";
 
   let sheet = "";
   if(mapState.nearbyList.length>0 && !sel){
@@ -636,10 +646,10 @@ function renderMapOverlays(){
         <div style="width:36px;height:4px;background:${C.muted};border-radius:2px;margin:0 auto 12px"></div>
         <div style="color:${C.sub};font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px;font-family:${BODY_FF}">NEAREST HOSPITALS</div>
         ${mapState.nearbyList.map(h=>`
-          <div onclick="selectHospital(${h.id})" style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid ${C.border};cursor:pointer">
+          <button onclick="selectHospital(${h.id})" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:12px 0;border:none;border-bottom:1px solid ${C.border};background:none;text-align:left;cursor:pointer">
             <div><div style="color:${C.text};font-size:14px;font-weight:700;font-family:${BODY_FF}">${h.name}</div><div style="color:${C.sub};font-size:12px;margin-top:2px;font-family:${BODY_FF}">${h.city} · ${h.specialty}</div></div>
             <div style="text-align:right;flex-shrink:0;margin-left:12px"><div style="color:${C.red};font-size:15px;font-weight:800;font-family:${BODY_FF}">${h.dist} km</div><div style="color:${C.sub};font-size:11px;font-family:${BODY_FF}">away</div></div>
-          </div>`).join("")}
+          </button>`).join("")}
       </div>`;
   } else if(sel){
     const col = sColor(sel.specialty);
@@ -658,11 +668,11 @@ function renderMapOverlays(){
             <div style="color:${C.sub};font-size:12px;margin-top:4px;font-family:${BODY_FF};display:flex;align-items:center;gap:4px">${pinSVG(13,C.sub)} ${sel.city}</div>
             <div style="color:${C.sub};font-size:12px;margin-top:3px;line-height:1.4;font-family:${BODY_FF}">${sel.note}</div>
             <div style="display:flex;gap:10px;margin-top:14px">
-              <a href="${telHref}" class="cta-btn" style="background:${C.red};color:white;padding:9px 16px;border-radius:24px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${phoneSVG(14,"#fff")} ${t.callHosp}</a>
+              <a href="${telHref}" class="cta-btn" style="background:${C.redDark};color:white;padding:9px 16px;border-radius:24px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${phoneSVG(14,"#fff")} ${t.callHosp}</a>
               <a href="${dirHref}" target="_blank" rel="noreferrer" class="cta-btn" style="background:${C.card};color:${C.text};padding:9px 16px;border-radius:24px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${navSVG(14,C.text)} ${t.directions}</a>
             </div>
           </div>
-          <button onclick="closeSheet()" class="icon-btn" style="background:${C.card};border:none;color:${C.sub};border-radius:50%;width:32px;height:32px;font-size:14px;cursor:pointer;flex-shrink:0">✕</button>
+          <button onclick="closeSheet()" class="icon-btn" aria-label="Close" style="background:${C.card};border:none;color:${C.sub};border-radius:50%;width:32px;height:32px;font-size:14px;cursor:pointer;flex-shrink:0">✕</button>
         </div>
       </div>`;
   }
@@ -743,23 +753,25 @@ function resourcesPage(t){
           // Unified accent for all Resources dropdowns — Figma amber
           const ACCENT = "#FF911C";
           const ACCENT_DIM = "rgba(255,145,28,0.16)";
-          const orgList = isOpen ? `<div class="res-dropdown" style="background:${C.card};border:1px solid ${ACCENT};border-radius:20px;padding:6px 22px 18px">
-              ${card.orgs.map(org=>`
-                <div style="padding:14px 0;border-top:1px solid ${C.border}">
-                  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap">
-                    <div style="flex:1">
-                      <div style="font-family:${BODY_FF};font-size:14px;font-weight:400;color:${C.text}">${org.name}</div>
-                      ${org.web?`<div style="font-family:${BODY_FF};font-size:11px;color:${C.sub};margin-top:3px">🌐 ${org.web}</div>`:""}
-                      ${org.phone2?`<div style="font-family:${BODY_FF};font-size:12px;color:${C.sub};margin-top:3px">${org.phone2}</div>`:""}
-                      ${org.email?`<div style="font-family:${BODY_FF};font-size:11px;color:${C.sub};margin-top:3px">✉️ ${org.email}</div>`:""}
-                    </div>
-                    <a href="tel:${org.phone.replace(/[\s\-()+]/g,"")}" class="phone-pill" style="background:${ACCENT_DIM};color:${ACCENT};padding:8px 14px;border-radius:20px;font-family:${BODY_FF};font-size:12px;font-weight:400;text-decoration:none;white-space:nowrap;flex-shrink:0">📞 ${org.phone}</a>
+          const metaRow = (icon,text)=>`<div style="display:flex;align-items:center;gap:7px;margin-top:5px;min-width:0"><span style="display:flex;flex-shrink:0">${icon}</span><span style="font-family:${BODY_FF};font-size:12px;color:${C.sub};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${text}</span></div>`;
+          const orgList = isOpen ? `<div class="res-dropdown" style="background:${C.card};border:1px solid ${ACCENT};border-radius:20px;padding:8px">
+              ${card.orgs.map(org=>{
+                return `
+                <div class="res-org" style="display:flex;gap:14px;align-items:center;padding:14px 12px;border-radius:14px">
+                  <span class="res-org-dot" style="width:9px;height:9px;border-radius:50%;background:${ACCENT};box-shadow:0 0 0 4px ${ACCENT_DIM};flex-shrink:0;margin:0 6px"></span>
+                  <div style="flex:1;min-width:0">
+                    <div style="font-family:${BODY_FF};font-size:15px;font-weight:400;color:${C.text};line-height:1.3">${org.name}</div>
+                    ${org.web?metaRow(globeSVG(13,C.sub),org.web):""}
+                    ${org.email?metaRow(mailSVG(13,C.sub),org.email):""}
+                    ${org.phone2?metaRow(phoneSVG(12,C.sub),org.phone2):""}
                   </div>
-                </div>`).join("")}
+                  <a href="tel:${org.phone.replace(/[\s\-()+]/g,"")}" class="phone-pill res-call" style="background:${ACCENT};color:${C.bg};padding:9px 15px;border-radius:22px;font-family:${BODY_FF};font-size:12px;font-weight:500;text-decoration:none;white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;gap:6px">${phoneSVG(13,C.bg)} ${org.phone}</a>
+                </div>`;
+              }).join("")}
             </div>` : "";
 
           return `<div>
-            <div onclick="toggleCard(${i})" class="res-card-wrap${isOpen?' is-open':''}" style="position:relative;height:clamp(220px,20vw,300px);border-radius:20px;overflow:hidden;background:#1c2337">
+            <button onclick="toggleCard(${i})" aria-expanded="${isOpen}" class="res-card-wrap${isOpen?' is-open':''}" style="display:block;width:100%;padding:0;border:none;text-align:left;font:inherit;color:inherit;position:relative;height:clamp(220px,20vw,300px);border-radius:20px;overflow:hidden;background:#1c2337">
               <!-- Real photo -->
               <div class="res-photo" style="background-image:url('${CARD_PHOTOS[i]}');background-position:${CARD_FOCUS[i]}"></div>
               <!-- Bottom scrim for legibility -->
@@ -772,7 +784,7 @@ function resourcesPage(t){
                 </div>
                 <svg class="res-arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.5));${isOpen?'transform:rotate(90deg)':''}"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
-            </div>
+            </button>
             ${orgList}
           </div>`;
         }).join("")}
@@ -792,11 +804,13 @@ function faqSection(t){
       <div style="display:flex;flex-direction:column;border-top:1px solid ${C.border}">
         ${t.faqs.map((item,i)=>{
           const isOpen = openFaq===i;
-          return `<div class="faq-item${isOpen?' is-open':''}" data-faq-index="${i}" onclick="toggleFaq(${i})" style="cursor:pointer;border-bottom:1px solid ${C.border};padding:22px 0">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
-              <div style="font-family:${BODY_FF};font-weight:400;font-size:16px;color:${C.text};line-height:1.4">${item.q}</div>
-              <span class="faq-icon-badge" style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:${C.surface};display:flex;align-items:center;justify-content:center">${plusSVG(15)}</span>
-            </div>
+          return `<div class="faq-item${isOpen?' is-open':''}" data-faq-index="${i}" style="border-bottom:1px solid ${C.border}">
+            <button onclick="toggleFaq(${i})" aria-expanded="${isOpen}" style="display:block;width:100%;background:none;border:none;text-align:left;cursor:pointer;padding:22px 0">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+                <div style="font-family:${BODY_FF};font-weight:400;font-size:16px;color:${C.text};line-height:1.4">${item.q}</div>
+                <span class="faq-icon-badge" style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:${C.surface};display:flex;align-items:center;justify-content:center">${plusSVG(15)}</span>
+              </div>
+            </button>
             <div class="faq-answer" style="font-family:${BODY_FF};font-size:13.5px;color:${C.sub};line-height:1.7;padding-inline-end:46px">${item.a}</div>
           </div>`;
         }).join("")}
@@ -812,6 +826,16 @@ function readNowButton(t,id){
       <svg class="read-now-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>`;
 }
+// Non-interactive "Read Now" indicator — same look as readNowButton, but
+// rendered as a <span> with no click handler of its own. Used where the
+// entire card is already one clickable <button>, so it doesn't need (and
+// per HTML can't validly contain) a second, nested interactive control.
+function readNowVisual(t){
+  return `<span class="read-now-btn" style="background:transparent;border:1.5px solid ${C.red};color:${C.red};padding:12px 22px;border-radius:32px;font-size:15px;font-weight:700;font-family:${BODY_FF};display:inline-flex;align-items:center;gap:8px">
+      ${t.readNowLabel}
+      <svg class="read-now-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>`;
+}
 
 function blogPage(t){
   const [featured, ...rest] = BLOG_POSTS;
@@ -826,27 +850,27 @@ function blogPage(t){
 
     <!-- Featured post -->
     <section class="reveal" data-reveal-id="blog-featured" style="padding:0 clamp(28px,5vw,80px) clamp(28px,4vw,44px)">
-      <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:36px;align-items:end">
-        <div onclick="openBlogPost(${featured.id})" class="blog-card" style="cursor:pointer;border-radius:20px;overflow:hidden;height:clamp(240px,32vw,420px);background:${C.card}">
-          <img class="blog-photo" src="${featured.image}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+      <button onclick="openBlogPost(${featured.id})" aria-label="${esc(t.readNowLabel)}: ${esc(featured.title)}" class="blog-featured-btn" style="display:grid;width:100%;max-width:1440px;margin:0 auto;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:36px;align-items:end;background:none;border:none;padding:0;text-align:left;font:inherit;color:inherit;cursor:pointer">
+        <div class="blog-card blog-featured-photo" style="border-radius:20px;overflow:hidden;height:clamp(240px,32vw,420px);background:${C.card}">
+          <img class="blog-photo" src="${featured.image}" alt="${esc(featured.title)}" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div>
-          <div style="font-family:${BODY_FF};font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:${STATS_ACCENT}">${t.featuredLabel}</div>
-          <h2 onclick="openBlogPost(${featured.id})" style="cursor:pointer;font-family:${BODY_FF};font-weight:400;font-size:clamp(26px,3.4vw,40px);letter-spacing:-1px;line-height:1.15;color:#fff;margin:14px 0 16px">${featured.title}</h2>
-          <div style="font-family:${BODY_FF};font-size:13px;color:rgba(255,255,255,.55);margin-bottom:16px">${t.byLabel} <span style="color:#fff;font-weight:600">${featured.author}</span> &nbsp;|&nbsp; ${featured.date}</div>
-          <p style="font-family:${BODY_FF};font-size:15px;color:rgba(255,255,255,.65);line-height:1.7;margin:0 0 26px">${featured.excerpt}</p>
-          ${readNowButton(t, featured.id)}
+          <div class="bf-label" style="font-family:${BODY_FF};font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:${STATS_ACCENT}">${t.featuredLabel}</div>
+          <h2 class="bf-title" style="font-family:${BODY_FF};font-weight:400;font-size:clamp(26px,3.4vw,40px);letter-spacing:-1px;line-height:1.15;color:#fff;margin:14px 0 16px">${featured.title}</h2>
+          <div class="bf-byline" style="font-family:${BODY_FF};font-size:13px;color:rgba(255,255,255,.55);margin-bottom:16px">${t.byLabel} <span style="color:#fff;font-weight:600">${featured.author}</span> &nbsp;|&nbsp; ${featured.date}</div>
+          <p class="bf-excerpt" style="font-family:${BODY_FF};font-size:15px;color:rgba(255,255,255,.65);line-height:1.7;margin:0 0 26px">${featured.excerpt}</p>
+          ${readNowVisual(t)}
         </div>
-      </div>
+      </button>
     </section>
 
     <!-- Post grid -->
     <section class="reveal" data-reveal-id="blog-grid" style="padding:0 clamp(28px,5vw,80px) clamp(40px,5vw,60px)">
       <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:20px">
         ${rest.map(post=>`
-          <div class="blog-card" onclick="openBlogPost(${post.id})" style="cursor:pointer;background:${C.card};border:1px solid ${C.border};border-radius:20px;overflow:hidden">
+          <button class="blog-card" onclick="openBlogPost(${post.id})" style="display:block;width:100%;text-align:left;background:${C.card};border:1px solid ${C.border};border-radius:20px;overflow:hidden;padding:0;font:inherit;color:inherit;cursor:pointer">
             <div style="height:200px;overflow:hidden">
-              <img class="blog-photo" src="${post.image}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+              <img class="blog-photo" src="${post.image}" alt="${esc(post.title)}" style="width:100%;height:100%;object-fit:cover;display:block">
             </div>
             <div style="padding:20px">
               <div style="display:inline-block;background:${post.dim};color:${post.color};font-family:${BODY_FF};font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:10px">${post.category}</div>
@@ -854,7 +878,7 @@ function blogPage(t){
               <p style="font-family:${BODY_FF};font-size:13px;color:${C.sub};line-height:1.6;margin:0 0 14px">${post.excerpt}</p>
               <div style="font-family:${BODY_FF};font-size:12px;color:${C.sub}">${t.byLabel} <span style="color:${C.text};font-weight:600">${post.author}</span> &nbsp;|&nbsp; ${post.date}</div>
             </div>
-          </div>`).join("")}
+          </button>`).join("")}
       </div>
     </section>
     </div>
@@ -868,7 +892,7 @@ function blogPostPage(t){
   const post = BLOG_POSTS.find(p=>p.id===state.activeBlogId) || BLOG_POSTS[0];
   return `<div>
     <div style="position:relative;height:clamp(280px,40vw,480px);overflow:hidden;background:${C.bg}">
-      <img src="${post.image}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+      <img src="${post.image}" alt="${esc(post.title)}" style="width:100%;height:100%;object-fit:cover;display:block">
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0.8) 100%)"></div>
       <div style="position:absolute;inset:0;display:flex;align-items:flex-end">
         <div style="max-width:900px;margin:0 auto;width:100%;padding:0 clamp(28px,5vw,80px) clamp(28px,4vw,44px)">
@@ -892,23 +916,155 @@ function blogPostPage(t){
 }
 
 // ── ABOUT PAGE ─────────────────────────────────────────────────────────────────
+// "What AcidHelp Provides" icons — thin, rounded line style consistent with
+// the app's other drawn SVGs (restartSVG, res-arrow).
+const provChecklistSVG = (s,c)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2.5" stroke="${c}" stroke-width="1.8"/><path d="M8 8h8M8 12.2l2 2 4-4M8 17h5" stroke="${c}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const provChatSVG = (s,c)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8A2.5 2.5 0 0 1 17.5 16H10l-4.5 4v-4H6.5A2.5 2.5 0 0 1 4 13.5v-8Z" stroke="${c}" stroke-width="1.8" stroke-linejoin="round"/><circle cx="9" cy="9.5" r="1" fill="${c}"/><circle cx="12.5" cy="9.5" r="1" fill="${c}"/><circle cx="16" cy="9.5" r="1" fill="${c}"/></svg>`;
+const advIdSVG = (s,c)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5" stroke="${c}" stroke-width="1.8"/><circle cx="8" cy="11" r="2" stroke="${c}" stroke-width="1.8"/><path d="M5 15.6c.5-1.4 1.7-2 3-2s2.5.6 3 2M13.5 10h5M13.5 13.5h5" stroke="${c}" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+
+// New, expanded About page content. This is deliberately English-only (like
+// BLOG_POSTS) rather than run through T{} per-language — it quotes specific
+// legislation (Acid and Burn Crime Act 2018, Punjab Hazardous Substances
+// Rules 2018, EMSB) that shouldn't be machine-translated without review, so
+// it renders in English regardless of the selected site language until a
+// reviewed Urdu/Pashto translation is supplied.
+const ABOUT_CONTENT = {
+  whyTitle: "Why We Exist",
+  whyPara1: "Acid attack survivors in Pakistan lose critical time to first aid misinformation. While toothpaste, milk, ghee, oil, baking soda, and wet cloth are still widely believed to be effective responses to an acid burn, none of them are actually effective remedies. These agents trap acid against the skin and deepen the burn, and in the case of milk and baking soda, react chemically to release additional heat into the wound. In the first thirty minutes after an acid attack, this misinformation determines whether a survivor heals or is scarred for life.",
+  rrrLabel: "The correct response is three actions: Rinse. Ring. Remove.",
+  rrr: [
+    { step:"Rinse",  body:"Rinse the acid burn with cool, continuously running water for at least thirty minutes." },
+    { step:"Ring",   body:"Ring Rescue 1122 and stay on the line while rinsing continues." },
+    { step:"Remove", body:"Remove contaminated clothing by cutting it away, never by pulling it over the head." },
+  ],
+  whyPara2: "Beyond emergency relief, acid attack survivors face a longer struggle. Reliable information on where to go for reconstructive care, psychosocial support, legal aid, and vocational reintegration is scattered across separate organisations, or unavailable altogether. AcidHelp exists to consolidate that information into a single verified database of acid attack support resources in Pakistan, so that survivors and their families can find, in one place, what has taken others years to piece together.",
+  whyPara3: "AcidHelp also exists to spread awareness of what to do after an acid attack. Public knowledge of correct first aid remains one of the most preventable causes of long-term damage from acid violence in Pakistan, and this platform is one contribution to closing that gap.",
+
+  providesTitle: "What AcidHelp Provides",
+  provides: [
+    "Step-by-step first aid guidance for acid attacks and chemical burns.",
+    "An AI emergency assistant that answers acid attack first aid questions in regional languages.",
+    "A directory of hospitals with burn treatment capacity in Pakistan, verified where possible, and expanding as we grow.",
+    "Contact details for support organisations offering medical, psychosocial, and legal help to acid attack survivors.",
+  ],
+
+  advocacyIntro: "Acid violence in Pakistan is a policy failure and a gender-based violence crisis. While The Acid and Burn Crime Act 2018 exists on paper, in practice, acid remains openly available in chemical markets, convictions are rare, and the free treatment the law already promises survivors is not consistently delivered by public hospitals. Meanwhile, the conditions that produce acid violence in the first place — patriarchal control over women's decisions, weak enforcement of gender-based violence laws, and limited economic autonomy for women — remain largely unaddressed.",
+  advocacyForLabel: "AcidHelp advocates for:",
+  advocacyList: [
+    "Licensing and identity verification for the retail sale of concentrated acid, in line with the Punjab Hazardous Substances Rules 2018, and extension of those rules to informal markets in every province.",
+    "Full implementation of the Acid and Burn Crime Act 2018, including the treatment and rehabilitation the law already guarantees, and dedicated prosecutors for acid attack cases so that survivors do not spend years navigating the courts alone.",
+    "Expansion of burn treatment capacity in public hospitals outside major cities, so that survivors are not forced to travel hours by road for specialised care.",
+    "EMSB (Emergency Management of Severe Burns) training for Rescue 1122 and Edhi Ambulance Service staff, so that resuscitation begins in the ambulance and not on arrival at hospital.",
+    "Stronger implementation of Pakistan's gender-based violence laws, including the Punjab Protection of Women against Violence Act, and reliable access to shelters, legal aid, and protection orders for women at risk.",
+    "Investment in women's education, work, and economic autonomy as the long-term response to gender-based violence, of which acid attacks are the most visible form.",
+  ],
+
+  involvedTitle: "Get Help or Get Involved",
+  involvedBody: "AcidHelp is growing. If you are a survivor of an acid attack and would like to share your experience, or if you work with an organisation supporting survivors and would like to get involved with AcidHelp, we would like to hear from you.",
+  involvedCta: "Join Us",
+};
+
 function aboutPage(t){
+  const AMBER = "#FF911C", AMBER_DIM = "rgba(255,145,28,0.14)";
+  const AC = ABOUT_CONTENT;
+  const provideIcons = [provChecklistSVG(24,AMBER), provChatSVG(24,AMBER), pinSVG(24,AMBER), advIdSVG(24,AMBER)];
   return `<div>
-    <div class="reveal" data-reveal-id="abt-header" style="background:linear-gradient(135deg,#1C2337 0%,#141924 100%);border-bottom:1px solid ${C.border}">
-      <div style="max-width:1308px;margin:0 auto;padding:clamp(18px,2.2vw,32px) clamp(16px,3vw,32px) clamp(28px,4vw,48px)">
-        <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.abtTitle.toUpperCase()}</h1>
-        <div style="font-family:${BODY_FF};font-size:15px;color:${C.sub};margin-top:10px;line-height:1.7;max-width:72ch">${t.abtMission}</div>
-        <div style="font-size:15px;font-weight:700;color:${C.text};margin-top:24px;margin-bottom:8px;font-family:${BODY_FF}">🎗 ${t.advocacyTitle}</div>
-        <div style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.7;max-width:72ch">${t.advocacy}</div>
-      </div>
+    <!-- Hero -->
+    <div style="background:#141924;border-bottom:1px solid ${C.border}">
+      <section class="reveal" data-reveal-id="abt-hero" style="padding:clamp(18px,2.2vw,32px) clamp(28px,5vw,80px) clamp(30px,4vw,52px)">
+        <div style="max-width:1440px;margin:0 auto">
+          <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.abtTitle.toUpperCase()}</h1>
+          <p style="font-family:${BODY_FF};font-size:clamp(16px,1.4vw,19px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:60ch">${t.abtMission}</p>
+        </div>
+      </section>
     </div>
 
-    <!-- Join us / partner form -->
-    <div class="reveal" data-reveal-id="abt-join" style="max-width:1308px;margin:0 auto;padding:clamp(44px,5.5vw,76px) clamp(16px,3vw,32px) clamp(48px,6vw,84px);text-align:center">
-      <div style="font-family:${BODY_2_FF};font-weight:500;font-size:24px;color:${C.text};margin-bottom:4px;letter-spacing:-0.4px">${t.conTitle}</div>
-      <div style="font-size:13px;color:${C.sub};margin-bottom:14px;line-height:1.4;font-family:${BODY_FF}">${t.conSub}</div>
-      <div style="max-width:640px;width:100%;margin:0 auto;text-align:start">${joinUsForm(t)}</div>
+    <!-- Why We Exist -->
+    <section class="reveal" data-reveal-id="abt-why" style="background:${C.bg};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
+      <div style="max-width:1440px;margin:0 auto">
+        <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0 0 20px">${AC.whyTitle}</h2>
+        <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;max-width:80ch;margin:0 0 24px">${AC.whyPara1}</p>
+
+        <div style="background:${C.greenDim};border:1px solid ${C.green};border-radius:16px;padding:22px 24px;max-width:80ch;margin:0 0 24px">
+          <div style="font-family:${BODY_FF};font-weight:600;font-size:15px;color:${C.green};margin-bottom:16px">${AC.rrrLabel}</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            ${AC.rrr.map(r=>`
+              <div style="display:flex;gap:12px;align-items:baseline">
+                <span style="font-family:${BODY_FF};font-weight:700;font-size:14px;color:${C.green};flex-shrink:0;min-width:70px">${r.step}</span>
+                <span style="font-family:${BODY_FF};font-size:14px;color:${C.text};line-height:1.6">${r.body}</span>
+              </div>`).join("")}
+          </div>
+        </div>
+
+        <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;max-width:80ch;margin:0 0 24px">${AC.whyPara2}</p>
+        <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;max-width:80ch;margin:0">${AC.whyPara3}</p>
+      </div>
+    </section>
+
+    <!-- What AcidHelp Provides -->
+    <section class="reveal" data-reveal-id="abt-provides" style="background:${C.surface};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
+      <div style="max-width:1440px;margin:0 auto">
+        <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0 0 28px">${AC.providesTitle}</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px">
+          ${AC.provides.map((p,i)=>`
+            <div class="about-pillar" style="background:${C.card};border:1px solid ${C.border};border-radius:20px;padding:26px 22px">
+              <span style="width:48px;height:48px;border-radius:14px;background:${AMBER_DIM};display:flex;align-items:center;justify-content:center;margin-bottom:18px">${provideIcons[i]||""}</span>
+              <div style="font-family:${BODY_FF};font-weight:500;font-size:15px;color:${C.text};line-height:1.55">${p}</div>
+            </div>`).join("")}
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Advocacy -->
+    <section class="reveal" data-reveal-id="abt-advocacy" style="background:${C.bg};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
+      <div style="max-width:1440px;margin:0 auto">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+          <span style="width:38px;height:38px;border-radius:11px;background:${AMBER_DIM};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:19px">🎗</span>
+          <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0">${t.advocacyTitle}</h2>
+        </div>
+        <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;max-width:80ch;margin:0 0 20px">${AC.advocacyIntro}</p>
+        <div style="font-family:${BODY_FF};font-weight:600;font-size:15px;color:${C.text};margin-bottom:6px">${AC.advocacyForLabel}</div>
+        <div style="display:flex;flex-direction:column;border-top:1px solid ${C.border}">
+          ${AC.advocacyList.map((p,i)=>`
+            <div style="display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:1px solid ${C.border}">
+              <span style="width:26px;height:26px;border-radius:50%;background:${AMBER_DIM};color:${AMBER};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:${BODY_FF};font-weight:700;font-size:12px;margin-top:1px">${i+1}</span>
+              <span style="font-family:${BODY_FF};font-size:14.5px;color:${C.sub};line-height:1.7;max-width:78ch">${p}</span>
+            </div>`).join("")}
+        </div>
+      </div>
+    </section>
+
+    <!-- Get Help or Get Involved -->
+    <section class="reveal" data-reveal-id="abt-involved" style="background:#141924;border-top:1px solid ${C.border};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
+      <div style="max-width:720px;margin:0 auto;text-align:center">
+        <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0 0 16px">${AC.involvedTitle}</h2>
+        <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.75;margin:0 0 28px">${AC.involvedBody}</p>
+        <button onclick="setPage('joinus')" class="cta-btn" style="background:${C.redDark};color:white;border:none;padding:14px 30px;border-radius:32px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px">${AC.involvedCta}</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    ${footerStrip(t)}
+  </div>`;
+}
+
+// ── JOIN US PAGE ───────────────────────────────────────────────────────────────
+function joinUsPage(t){
+  return `<div>
+    <!-- Hero -->
+    <div style="background:#141924;border-bottom:1px solid ${C.border}">
+      <section class="reveal" data-reveal-id="join-hero" style="padding:clamp(18px,2.2vw,32px) clamp(28px,5vw,80px) clamp(30px,4vw,52px)">
+        <div style="max-width:1440px;margin:0 auto">
+          <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.conTitle.toUpperCase()}</h1>
+          <p style="font-family:${BODY_FF};font-size:clamp(16px,1.4vw,19px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:60ch">${t.conSub}</p>
+        </div>
+      </section>
     </div>
+
+    <!-- Form -->
+    <section class="reveal abt-join-section" data-reveal-id="join-form" style="background:${C.bg};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
+      <div style="max-width:620px;margin:0 auto;text-align:start">${joinUsForm(t)}</div>
+    </section>
 
     <!-- Footer -->
     ${footerStrip(t)}
@@ -928,7 +1084,7 @@ function joinUsForm(t){
   const submitLabel = isSurvivor ? t.survivorSubmitLabel : t.submitLabel;
   const submittedMsg = isSurvivor ? t.survivorSubmittedMsg : t.submittedMsg;
   const isRTL = t.dir==="rtl";
-  const inputStyle = `width:100%;padding:16px 15px;border-radius:12px;border:1.5px solid ${C.border};font-size:14px;background:${C.bg};color:${C.text};outline:none;font-family:${BODY_FF}`;
+  const inputStyle = `width:100%;padding:11px 14px;border-radius:11px;border:1.5px solid ${C.border};font-size:14px;background:${C.bg};color:${C.text};font-family:${BODY_FF}`;
   // Native select arrows sit flush against the border in most browsers regardless of
   // padding, so we hide it and draw our own chevron with real breathing room. The SVG
   // is run through encodeURIComponent so its own quote marks can't collide with the
@@ -936,41 +1092,44 @@ function joinUsForm(t){
   const chevronSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="#7A8BA0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   const chevron = `data:image/svg+xml,${encodeURIComponent(chevronSVG)}`;
   const selectStyle = `${inputStyle};appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-inline-end:40px;background-image:url(${chevron});background-repeat:no-repeat;background-position:${isRTL?"left 16px center":"right 16px center"}`;
-  const labelStyle = `font-size:14px;font-weight:300;color:${C.sub};display:block;margin-bottom:7px;padding-inline-start:15px;font-family:${BODY_FF}`;
-  const tabStyle = active=>`flex:1;text-align:center;padding:10px 4px;margin-bottom:-1.5px;background:none;border:none;border-bottom:2.5px solid ${active?ACCENT_GREEN:"transparent"};color:${active?ACCENT_GREEN:C.sub};font-weight:${active?700:500};font-size:15px;font-family:${BODY_FF}`;
+  const labelStyle = `font-size:13px;font-weight:300;color:${C.sub};display:block;margin-bottom:4px;padding-inline-start:14px;font-family:${BODY_FF}`;
+  const tabStyle = active=>`flex:1;text-align:center;padding:10px 4px;margin-bottom:-1.5px;background:none;border:none;border-bottom:2.5px solid ${active?STATS_ACCENT:"transparent"};color:${active?STATS_ACCENT:C.sub};font-weight:${active?700:500};font-size:15px;font-family:${BODY_FF}`;
 
-  const tabs = `<div style="display:flex;gap:0;margin-bottom:20px;border-bottom:1.5px solid ${C.border}">
+  const tabs = `<div class="join-tabs" style="display:flex;gap:0;margin-bottom:14px;border-bottom:1.5px solid ${C.border}">
       <button onclick="setJoinTab('survivor')" class="join-tab-btn${isSurvivor?" is-active":""}" style="${tabStyle(isSurvivor)}">${t.survivorTab}</button>
       <button onclick="setJoinTab('volunteer')" class="join-tab-btn${!isSurvivor?" is-active":""}" style="${tabStyle(!isSurvivor)}">${t.volunteerTab}</button>
     </div>`;
 
   if(submitted){
-    return tabs + `<div style="text-align:center;padding:56px 24px;background:${C.greenDim};border:1.5px solid ${C.green};border-radius:24px">
-        <div style="font-size:52px">✅</div>
-        <div style="font-size:18px;font-weight:700;color:${C.green};margin-top:14px;font-family:${BODY_FF}">${submittedMsg}</div>
+    return tabs + `<div style="text-align:center;padding:64px 28px;background:${C.card};border:1px solid ${C.green};border-radius:24px">
+        <svg class="success-check" width="64" height="64" viewBox="0 0 52 52">
+          <circle class="success-check-circle" cx="26" cy="26" r="23" fill="none" stroke="${C.green}"/>
+          <path class="success-check-mark" fill="none" stroke="${C.green}" d="M15 27l8 8 16-17"/>
+        </svg>
+        <div style="font-size:19px;font-weight:300;color:#fff;margin-top:22px;font-family:${BODY_FF}">${submittedMsg}</div>
       </div>`;
   }
-  return tabs + `<div style="background:${C.card};border-radius:24px;padding:28px 24px;border:1px solid ${C.border};display:flex;flex-direction:column;gap:18px">
+  return tabs + `<div class="join-form-card" style="background:${C.card};border-radius:20px;padding:20px 22px;border:1px solid ${C.border};display:flex;flex-direction:column;gap:12px">
       <div>
-        <label style="${labelStyle}">${t.nameLabel}</label>
-        <input value="${esc(data.name)}" oninput="updateJoinForm('name', this.value)" style="${inputStyle}">
+        <label for="join-name" style="${labelStyle}">${t.nameLabel}</label>
+        <input id="join-name" value="${esc(data.name)}" oninput="updateJoinForm('name', this.value)" style="${inputStyle}">
       </div>
       <div>
-        <label style="${labelStyle}">${t.phoneLabel}</label>
-        <input type="tel" value="${esc(data.phone)}" oninput="updateJoinForm('phone', this.value)" style="${inputStyle}">
+        <label for="join-email" style="${labelStyle}">${t.emailLabel}</label>
+        <input id="join-email" type="email" value="${esc(data.email)}" oninput="updateJoinForm('email', this.value)" style="${inputStyle}">
       </div>
       <div>
-        <label style="${labelStyle}">${t.emailLabel}</label>
-        <input type="email" value="${esc(data.email)}" oninput="updateJoinForm('email', this.value)" style="${inputStyle}">
-      </div>
-      <div>
-        <label style="${labelStyle}">${fourthLabel}</label>
-        <select onchange="updateJoinForm('${fourthKey}', this.value)" style="${selectStyle}">
+        <label for="join-fourth" style="${labelStyle}">${fourthLabel}</label>
+        <select id="join-fourth" onchange="updateJoinForm('${fourthKey}', this.value)" style="${selectStyle}">
           <option value=""${data[fourthKey]===""?" selected":""}>—</option>
           ${fourthOptions.map(o=>`<option value="${esc(o)}"${data[fourthKey]===o?" selected":""}>${o}</option>`).join("")}
         </select>
       </div>
-      <button onclick="submitJoinForm()" class="cta-btn" style="background:${C.red};color:white;border:none;padding:16px;border-radius:32px;font-size:16px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px">${submitLabel}</button>
+      <div>
+        <label for="join-notes" style="${labelStyle}">${t.notesLabel}</label>
+        <textarea id="join-notes" rows="4" oninput="updateJoinForm('notes', this.value)" style="${inputStyle};resize:vertical;min-height:100px;line-height:1.5">${esc(data.notes)}</textarea>
+      </div>
+      <button onclick="submitJoinForm()" class="cta-btn" style="background:${C.redDark};color:white;border:none;padding:13px;border-radius:28px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px;margin-top:2px">${submitLabel}</button>
     </div>`;
 }
 
@@ -1013,6 +1172,44 @@ function initReveals(){
   });
 }
 
+// ── HYDRATION ─────────────────────────────────────────────────────────────
+// index.html bakes a static, English, crawler-readable version of the header
+// + hero + "what to do" + hospital snippet directly into #root (marked with
+// data-ssr="true"), so search engines and no-JS clients get real content on
+// the very first response instead of an empty <div>. On a normal client load
+// we must NOT blow that away and rebuild it — the hero has an autoplaying
+// <video> that would visibly restart, and replacing DOM that's already
+// correct is just a pointless flash. So instead of calling render() (which
+// unconditionally replaces all of #root), we splice in only the pieces the
+// static shell doesn't have — stats, FAQ, footer, chat — leaving the shell's
+// own header/hero/steps/hospital DOM untouched.
+//
+// Any state change after this point (language switch, page nav, etc.) goes
+// through the normal setLang/setPage → render() path exactly as before —
+// this function only ever runs once, on initial load, and render() itself
+// is completely unmodified.
+function hydrate(){
+  const root = document.getElementById("root");
+  if(root.dataset.ssr !== "true"){ render(); return; }
+
+  const t = T.en; // the static shell is English-only, matching state's default lang
+  const heroEl = document.getElementById("ssr-hero");
+  const pageEl = document.getElementById("ssr-page");
+
+  // Mark the shell's own sections as already revealed so initReveals() below
+  // doesn't fade them in again or attach redundant observers to them.
+  revealedSections.add("hero");
+  revealedSections.add("steps");
+
+  heroEl.insertAdjacentHTML("afterend", statsSection(t));
+  pageEl.insertAdjacentHTML("beforeend", faqSection(t) + footerStrip(t));
+  root.insertAdjacentHTML("beforeend", chatWidget(t));
+
+  root.removeAttribute("data-ssr");
+  initCounters();
+  initReveals();
+}
+
 // ── CHATBOT WIDGET ─────────────────────────────────────────────────────────────
 // Sticky FAB + panel, rendered on every page. No backend — quick-reply prompts
 // answer instantly, and free-typed messages get a simple keyword match against
@@ -1027,7 +1224,7 @@ function chatMessageBubble(m){
 function chatWidget(t){
   const isRTL = t.dir==="rtl";
   const side = isRTL ? "left" : "right";
-  const fabBtn = `<button onclick="toggleChat()" class="chat-fab chat-orb" aria-label="${esc(t.chatTitle)}" style="width:60px;height:60px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+  const fabBtn = `<button onclick="toggleChat()" class="chat-fab chat-orb" aria-label="${state.chatOpen?'Close chat':esc(t.chatTitle)}" style="width:60px;height:60px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
       ${state.chatOpen ? closeXSVG : chatBubbleSVG}
     </button>`;
 
@@ -1049,13 +1246,13 @@ function chatWidget(t){
     </div>`;
 
   const panel = `<div class="chat-panel" style="position:fixed;bottom:96px;${side}:24px;z-index:1499;width:min(360px, calc(100vw - 32px));max-height:min(560px, calc(100vh - 140px));background:rgba(20,25,36,0.6);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid ${C.border};border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:flex;flex-direction:column;overflow:hidden">
-      <div style="background:${C.red};padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0">
+      <div style="background:${C.redDark};padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0">
         <div style="min-width:0">
           <div style="font-family:${BODY_FF};font-weight:300;font-size:15px;letter-spacing:.02em;color:#fff;white-space:nowrap">${esc(t.chatTitle)}</div>
         </div>
         <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-          <button onclick="resetChat()" class="icon-btn" aria-label="Restart" style="background:rgba(255,255,255,.15);border:none;color:${C.bg};border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center">${restartSVG(C.bg)}</button>
-          <button onclick="toggleChat()" class="icon-btn" style="background:rgba(255,255,255,.15);border:none;color:${C.bg};border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px">✕</button>
+          <button onclick="resetChat()" class="icon-btn" aria-label="Restart" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center">${restartSVG("#fff")}</button>
+          <button onclick="toggleChat()" class="icon-btn" aria-label="Close chat" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px">✕</button>
         </div>
       </div>
 
@@ -1066,8 +1263,8 @@ function chatWidget(t){
       ${prompts}
 
       <div style="display:flex;gap:8px;padding:12px;border-top:1px solid ${C.border};background:transparent;flex-shrink:0">
-        <input id="chat-input" placeholder="${esc(t.chatPlaceholder)}" oninput="updateChatDraft(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();sendChatMessage();}" value="${esc(state.chatDraft)}" style="flex:1;min-width:0;padding:10px 14px;border-radius:20px;border:1.5px solid ${C.border};background:rgba(11,15,28,0.6);color:${C.text};font-size:13px;font-family:${BODY_FF};outline:none">
-        <button onclick="sendChatMessage()" class="cta-btn" style="background:${STATS_ACCENT};border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">${sendSVG}</button>
+        <input id="chat-input" aria-label="${esc(t.chatPlaceholder)}" placeholder="${esc(t.chatPlaceholder)}" oninput="updateChatDraft(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();sendChatMessage();}" value="${esc(state.chatDraft)}" style="flex:1;min-width:0;padding:10px 14px;border-radius:20px;border:1.5px solid ${C.border};background:rgba(11,15,28,0.6);color:${C.text};font-size:13px;font-family:${BODY_FF}">
+        <button onclick="sendChatMessage()" class="cta-btn" aria-label="${esc(t.chatPlaceholder)}" style="background:${STATS_ACCENT};border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">${sendSVG(C.bg)}</button>
       </div>
     </div>`;
 
@@ -1097,6 +1294,11 @@ function render(){
   const root = document.getElementById("root");
   root.setAttribute("dir", t.dir);
   root.setAttribute("data-lang", state.lang);
+  // state.lang's internal "ro" key means Roman Urdu (Latin-script Urdu), not
+  // ISO 639-1 Romanian — map it to the correct BCP-47 tag so screen readers
+  // don't apply Romanian pronunciation rules to this content.
+  const HTML_LANG = { en:"en", ur:"ur", ro:"ur-Latn", ps:"ps" };
+  document.documentElement.setAttribute("lang", HTML_LANG[state.lang] || "en");
   root.style.fontFamily = t.ff;
   root.style.minHeight = "100vh";
   root.style.background = C.bg;
@@ -1105,12 +1307,12 @@ function render(){
   // HEADER — logo · nav tabs (Figma) · language · 1122 pill
   const header = `<header style="position:sticky;top:0;z-index:1200;background:${C.surface};border-bottom:1px solid ${C.border}">
     <div class="site-header-inner" style="max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:11px 16px 12px">
-      <div onclick="setPage('emergency')" class="logo-btn" style="cursor:pointer;display:flex;align-items:center;gap:9px;flex-shrink:0">
+      <button onclick="setPage('emergency')" class="logo-btn" aria-label="Acidhelp — home" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;gap:9px;flex-shrink:0">
         ${logoMark(26)}
         <span class="brand-wordmark" style="font-family:${HEAD_FF};font-weight:900;font-size:24px;letter-spacing:-1px;line-height:1"><span style="color:${C.red}">Acid</span><span style="color:#fff">help</span></span>
-      </div>
+      </button>
       <nav class="nav-scroll" style="flex:1;justify-content:center;min-width:0">
-        ${[1,2,3,4].map(i=>{  /* Figma order: Nearby · Recovery · Blog · About — Emergency is the landing page (logo) */
+        ${[1,2,3,4,5].map(i=>{  /* Figma order: Nearby · Recovery · Blog · About · Join Us — Emergency is the landing page (logo) */
           const label = t.navItems[i];
           const active = state.page===t.pages[i] || (t.pages[i]==="blog" && state.page==="blogPost");
           return `<button onclick="setPage('${t.pages[i]}')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:${BODY_FF};font-weight:${active?600:400};font-size:16px;letter-spacing:-0.5px;color:${active?"#fff":"rgba(240,243,250,.72)"};border-bottom:2px solid ${active?C.red:"transparent"};white-space:nowrap">${label}</button>`;
@@ -1139,6 +1341,7 @@ function render(){
   else if(state.page==="blog") body = blogPage(t);
   else if(state.page==="blogPost") body = blogPostPage(t);
   else if(state.page==="about") body = aboutPage(t);
+  else if(state.page==="joinus") body = joinUsPage(t);
 
   // The map page has its own bottom-right controls (Near Me button, hospital
   // sheets) that the chatbot would collide with, so it's left out entirely there.
@@ -1268,4 +1471,4 @@ function nearMe(){
 }
 
 // Boot
-render();
+hydrate();

@@ -7,7 +7,7 @@
     --purple:#BF5AF2; --purpleDim:rgba(191,90,242,0.14);
     --warn:#FF911C; --warnDim:rgba(255,145,28,0.2);
     --teal:#30D5C8; --tealDim:rgba(48,213,200,0.14);
-    --text:#F0F3FA; --sub:#7A8BA0; --muted:#38465A;
+    --text:#F0F3FA; --sub:#8B9CB0; --muted:#38465A;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{background:var(--bg);color:var(--text);min-height:100vh}
@@ -16,6 +16,17 @@
   ::-webkit-scrollbar{width:4px;height:4px}
   ::-webkit-scrollbar-thumb{background:var(--muted);border-radius:3px}
   .leaflet-control-zoom a{background:var(--card)!important;color:var(--text)!important;border-color:var(--border)!important}
+
+  /* ── Keyboard focus visibility (WCAG 2.4.7) ───────────────────────────
+     Every interactive element (native or role="button") gets a visible
+     amber ring on keyboard focus only — :focus-visible skips it for mouse/
+     touch clicks so it never clutters the pointer-driven interactions. */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [role="button"]:focus-visible{
+    outline:2px solid var(--warn);
+    outline-offset:2px;
+    border-radius:4px;
+  }
 
   /* Urdu/Pashto rendering is handled entirely through per-glyph font fallback:
      'Noto Nastaliq Urdu' is appended to the app's Lexend/Noto Sans stacks (see
@@ -26,6 +37,13 @@
      logo's font and its tall line metrics shifted the whole layout on switch. */
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ── Form success checkmark: circle draws in, then the tick strokes on ── */
+  .success-check{overflow:visible}
+  .success-check-circle{stroke-width:2;stroke-dasharray:145;stroke-dashoffset:145;animation:successCircle .5s ease-out forwards}
+  .success-check-mark{stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:32;stroke-dashoffset:32;animation:successMark .35s ease-out .45s forwards}
+  @keyframes successCircle{to{stroke-dashoffset:0}}
+  @keyframes successMark{to{stroke-dashoffset:0}}
   @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
   @keyframes slideInLeft{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:translateX(0)}}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,59,48,.45)}70%{box-shadow:0 0 0 14px rgba(255,59,48,0)}}
@@ -43,6 +61,13 @@
   .res-card-wrap:hover{box-shadow:0 12px 40px rgba(0,0,0,.35)}
   .res-arrow{transition:transform .3s cubic-bezier(.22,1,.36,1)}
   .res-card-wrap:not(.is-open):hover .res-arrow{transform:translateX(6px)}
+  /* Resource dropdown org rows */
+  .res-org{transition:background-color .2s ease}
+  .res-org + .res-org{border-top:1px solid var(--border)}
+  .res-org:hover{background:var(--surface);border-top-color:transparent}
+  .res-org:hover + .res-org{border-top-color:transparent}
+  .res-call{transition:transform .2s ease, filter .2s ease}
+  .res-call:hover{transform:translateY(-1px) scale(1.03);filter:brightness(1.06)}
 
   @keyframes dropdownOpen{
     0%   {opacity:0;max-height:0;   transform:translateY(-8px);margin-top:0}
@@ -88,6 +113,10 @@
 
   .join-tab-btn{cursor:pointer;transition:transform .2s ease, border-color .2s ease, color .2s ease}
   .join-tab-btn:not(.is-active):hover{transform:translateY(-1px);border-color:var(--borderLight)!important;color:var(--text)!important}
+
+  /* ── About page advocacy pillars ─────────────────────────────────────── */
+  .about-pillar{transition:transform .25s cubic-bezier(.22,1,.36,1), border-color .25s ease, box-shadow .25s ease}
+  .about-pillar:hover{transform:translateY(-4px);border-color:var(--borderLight);box-shadow:0 12px 32px rgba(0,0,0,.3)}
 
   /* ── Blog card + post interactions ───────────────────────────────────── */
   .blog-card{transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s ease, border-color .25s ease}
@@ -190,11 +219,64 @@
     .nav-scroll{order:3;flex:1 1 100%!important;justify-content:flex-start!important;gap:16px!important}
   }
 
-  /* ── Responsive: stats banner becomes a 2x2 grid on small screens ────── */
+  /* ── Responsive: stats banner becomes a 2x2 grid on small screens ──────
+     The row's own horizontal padding used to sit *inside* the grid's
+     background (var(--border)), which painted as two dark navy strips down
+     the left/right edges. Zeroing the row's padding and letting each item
+     stretch to fill its column removes the strips and spaces the four
+     stats out evenly instead of leaving them huddled in the middle. */
   @media (max-width:760px){
-    .stats-row{display:grid!important;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
-    .stats-item{background:var(--surface);justify-content:center}
+    .stats-row{display:grid!important;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);padding:0!important}
+    .stats-item{background:var(--surface);justify-content:center;width:100%;max-width:none!important}
     .stats-divider{display:none}
+  }
+
+  /* ── Responsive: keep "Hospitals Near Me" clear of the mobile browser's
+     bottom URL bar / home-indicator area ────────────────────────────── */
+  @media (max-width:760px){
+    .near-me-btn{bottom:calc(env(safe-area-inset-bottom,0px) + 30px)!important}
+  }
+
+  /* ── Responsive: resource-dropdown phone pill wraps onto its own line,
+     staying left-aligned under the org name instead of getting squeezed
+     or dropping to the row's vertical center ───────────────────────── */
+  @media (max-width:640px){
+    .res-org{flex-wrap:wrap}
+    .res-org .res-call{margin-left:35px;margin-top:2px}
+  }
+
+  /* ── Responsive: condense the blog featured post so "Read Now" is
+     visible in one viewport without scrolling ──────────────────────── */
+  @media (max-width:760px){
+    .blog-featured-btn{gap:16px!important}
+    .blog-featured-photo{height:160px!important}
+    .bf-label{font-size:11px!important}
+    .bf-title{font-size:22px!important;margin:8px 0 6px!important;line-height:1.2!important}
+    .bf-byline{margin-bottom:8px!important;font-size:12px!important}
+    .bf-excerpt{
+      margin:0 0 14px!important;
+      font-size:14px!important;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+  }
+
+  /* ── Responsive: footer stacks nav links above the logo/email block ──── */
+  @media (max-width:760px){
+    .footer-top-row{flex-direction:column-reverse!important;align-items:flex-start!important;gap:36px!important}
+    .footer-nav{text-align:left!important}
+  }
+
+  /* ── Responsive: condense the Join Us page's form to fit one viewport ─── */
+  @media (max-width:640px){
+    .abt-join-section{padding-top:24px!important;padding-bottom:28px!important}
+    .join-tabs{margin-bottom:10px!important}
+    .join-form-card{padding:16px 16px!important;gap:9px!important;border-radius:16px!important}
+    .join-form-card label{margin-bottom:2px!important}
+    .join-form-card input, .join-form-card select{padding:9px 12px!important}
+    .join-form-card button{padding:11px!important}
   }
 
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
