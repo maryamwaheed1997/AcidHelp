@@ -404,8 +404,19 @@ const T = {
 };
 
 // ── APP STATE ─────────────────────────────────────────────────────────────────
+// Each page now lives in its own HTML file (see PAGE_URLS below); this file
+// seeds window.INITIAL_PAGE in an inline <script> before app.js loads, so
+// state.page starts on the right branch for whichever file this is.
+const PAGE_URLS = {
+  emergency:"/", medical:"/medical", resources:"/resources",
+  blog:"/blog", about:"/about", joinus:"/joinus",
+};
+
 const state = {
-  lang:"en", page:"emergency",
+  // Cross-page nav is now a real reload, so the language choice has to
+  // survive that reload itself — persisted here instead of just in memory.
+  lang:(()=>{ try{ return localStorage.getItem("acidhelp_lang")||"en"; }catch(e){ return "en"; } })(),
+  page: window.INITIAL_PAGE || "emergency",
   activeBlogId:null,
   joinTab:"survivor",
   survivorForm:{name:"",email:"",notes:"",help:""}, survivorSubmitted:false,
@@ -595,18 +606,19 @@ function footerStrip(t){
         </div>
         <!-- Right: nav links stacked -->
         <nav class="footer-nav" style="display:flex;flex-direction:column;gap:14px;text-align:${isRTL?"left":"right"}">
-          ${[1,2,3,4,5].map(i=>`<a href="#" onclick="setPage('${t.pages[i]}');return false" class="footer-link" style="font-family:${BODY_FF};font-weight:500;font-size:14px;color:#fff;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;text-shadow:0 1px 8px rgba(0,0,0,0.5)">${t.navItems[i]}</a>`).join("")}
+          ${[1,2,3,4,5].map(i=>`<a href="${PAGE_URLS[t.pages[i]]}" onclick="return setPage('${t.pages[i]}')" class="footer-link" style="font-family:${BODY_FF};font-weight:500;font-size:14px;color:#fff;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;text-shadow:0 1px 8px rgba(0,0,0,0.5)">${t.navItems[i]}</a>`).join("")}
         </nav>
       </div>
 
-      <!-- Safety disclaimer: sits above the divider line -->
-      <div style="max-width:1440px;width:100%;margin:0 auto;padding-bottom:14px">
+      <!-- Safety disclaimer, mobile only: sits above the divider line -->
+      <div class="footer-disclaimer-mobile" style="max-width:1440px;width:100%;margin:0 auto;padding-bottom:14px">
         <span style="font-family:${BODY_FF};font-size:12px;color:rgba(255,255,255,.55)">${t.footerLine2}</span>
       </div>
 
-      <!-- Bottom bar: legal / copyright only -->
-      <div style="max-width:1440px;width:100%;margin:0 auto;border-top:1px solid rgba(255,255,255,.18);padding:16px 0">
+      <!-- Bottom bar: copyright left, disclaimer right (desktop only) -->
+      <div style="max-width:1440px;width:100%;margin:0 auto;border-top:1px solid rgba(255,255,255,.18);padding:16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
         <span style="font-family:${BODY_FF};font-size:12px;color:rgba(255,255,255,.55)">© ${new Date().getFullYear()} Acidhelp.com. All rights reserved.</span>
+        <span class="footer-disclaimer-desktop" style="font-family:${BODY_FF};font-size:12px;color:rgba(255,255,255,.55);text-align:right">${t.footerLine2}</span>
       </div>
     </div>
   </footer>`;
@@ -820,20 +832,14 @@ function faqSection(t){
 }
 
 // ── BLOG PAGE ──────────────────────────────────────────────────────────────────
-function readNowButton(t,id){
-  return `<button onclick="openBlogPost(${id})" class="read-now-btn" style="background:transparent;border:1.5px solid ${C.red};color:${C.red};padding:12px 22px;border-radius:32px;font-size:15px;font-weight:700;font-family:${BODY_FF};cursor:pointer;display:inline-flex;align-items:center;gap:8px">
-      ${t.readNowLabel}
-      <svg class="read-now-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>`;
-}
-// Non-interactive "Read Now" indicator — same look as readNowButton, but
-// rendered as a <span> with no click handler of its own. Used where the
-// entire card is already one clickable <button>, so it doesn't need (and
-// per HTML can't validly contain) a second, nested interactive control.
+// Tertiary "Read Now" indicator — underlined text + arrowhead, no capsule/
+// border. Rendered as a <span> with no click handler of its own, since the
+// entire featured-post card is already one clickable <button>, and per HTML
+// can't validly contain a second, nested interactive control.
 function readNowVisual(t){
-  return `<span class="read-now-btn" style="background:transparent;border:1.5px solid ${C.red};color:${C.red};padding:12px 22px;border-radius:32px;font-size:15px;font-weight:700;font-family:${BODY_FF};display:inline-flex;align-items:center;gap:8px">
+  return `<span class="read-now-btn" style="color:${C.red};font-size:15px;font-weight:500;font-family:${BODY_FF};border-bottom:1.5px solid currentColor;padding-bottom:4px;display:inline-flex;align-items:center;gap:6px">
       ${t.readNowLabel}
-      <svg class="read-now-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="read-now-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </span>`;
 }
 
@@ -1039,7 +1045,7 @@ function aboutPage(t){
       <div style="max-width:720px;margin:0 auto;text-align:center">
         <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0 0 16px">${AC.involvedTitle}</h2>
         <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.75;margin:0 0 28px">${AC.involvedBody}</p>
-        <button onclick="setPage('joinus')" class="cta-btn" style="background:${C.redDark};color:white;border:none;padding:14px 30px;border-radius:32px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px">${AC.involvedCta}</button>
+        <a href="/joinus" onclick="return setPage('joinus')" class="cta-btn" style="background:${C.redDark};color:white;border:none;padding:14px 30px;border-radius:32px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px;display:inline-block;text-decoration:none">${AC.involvedCta}</a>
       </div>
     </section>
 
@@ -1190,7 +1196,9 @@ function initReveals(){
 // is completely unmodified.
 function hydrate(){
   const root = document.getElementById("root");
-  if(root.dataset.ssr !== "true"){ render(); return; }
+  // The shell is English-only — a returning visitor with a stored non-English
+  // language preference must not see it, so fall back to a normal full render.
+  if(root.dataset.ssr !== "true" || state.lang !== "en"){ render(); return; }
 
   const t = T.en; // the static shell is English-only, matching state's default lang
   const heroEl = document.getElementById("ssr-hero");
@@ -1307,15 +1315,15 @@ function render(){
   // HEADER — logo · nav tabs (Figma) · language · 1122 pill
   const header = `<header style="position:sticky;top:0;z-index:1200;background:${C.surface};border-bottom:1px solid ${C.border}">
     <div class="site-header-inner" style="max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:11px 16px 12px">
-      <button onclick="setPage('emergency')" class="logo-btn" aria-label="Acidhelp — home" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;gap:9px;flex-shrink:0">
+      <a href="/" onclick="return setPage('emergency')" class="logo-btn" aria-label="Acidhelp — home" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;gap:9px;flex-shrink:0;text-decoration:none">
         ${logoMark(26)}
         <span class="brand-wordmark" style="font-family:${HEAD_FF};font-weight:900;font-size:24px;letter-spacing:-1px;line-height:1"><span style="color:${C.red}">Acid</span><span style="color:#fff">help</span></span>
-      </button>
+      </a>
       <nav class="nav-scroll" style="flex:1;justify-content:center;min-width:0">
         ${[1,2,3,4,5].map(i=>{  /* Figma order: Nearby · Recovery · Blog · About · Join Us — Emergency is the landing page (logo) */
           const label = t.navItems[i];
           const active = state.page===t.pages[i] || (t.pages[i]==="blog" && state.page==="blogPost");
-          return `<button onclick="setPage('${t.pages[i]}')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:${BODY_FF};font-weight:${active?600:400};font-size:16px;letter-spacing:-0.5px;color:${active?"#fff":"rgba(240,243,250,.72)"};border-bottom:2px solid ${active?C.red:"transparent"};white-space:nowrap">${label}</button>`;
+          return `<a href="${PAGE_URLS[t.pages[i]]}" onclick="return setPage('${t.pages[i]}')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:${BODY_FF};font-weight:${active?600:400};font-size:16px;letter-spacing:-0.5px;color:${active?"#fff":"rgba(240,243,250,.72)"};border-bottom:2px solid ${active?C.red:"transparent"};white-space:nowrap;text-decoration:none">${label}</a>`;
         }).join("")}
       </nav>
       <div class="header-controls" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
@@ -1353,17 +1361,26 @@ function render(){
 }
 
 // ── HANDLERS ──────────────────────────────────────────────────────────────────
-function setLang(l){ state.lang = l; render(); }
+function setLang(l){
+  state.lang = l;
+  try{ localStorage.setItem("acidhelp_lang", l); }catch(e){}
+  render();
+}
+// Called from onclick="return setPage('x')" on real <a href> nav elements.
+// Returning true lets the browser's normal navigation to the other file
+// proceed; returning false swallows the click for an in-file transition
+// (re-clicking the active tab, or "Back to Blog" leaving a post) so it
+// resets state and scrolls up instead of reloading the same document.
 function setPage(p){
-  if(state.page==="medical" && p!=="medical" && mapState.map){
-    mapState.map.remove(); mapState.map=null; mapState.userMarker=null;
-    mapState.selected=null; mapState.nearbyList=[]; mapState.loading=false; mapState.locError=null;
+  if(p !== window.INITIAL_PAGE){
+    return true; // different file — let the real <a href> navigate there
   }
-  state.page = p;
   if(p!=="resources") openCard = null;
+  state.page = p;
   revealedSections.clear();
   render();
   window.scrollTo(0,0);
+  return false;
 }
 function toggleCard(i){ openCard = (openCard===i) ? null : i; render(); }
 // Toggles the .is-open class directly on the existing DOM nodes instead of calling

@@ -17,6 +17,12 @@
   ::-webkit-scrollbar-thumb{background:var(--muted);border-radius:3px}
   .leaflet-control-zoom a{background:var(--card)!important;color:var(--text)!important;border-color:var(--border)!important}
 
+  /* Footer safety disclaimer: bottom-right below the divider on desktop,
+     above the divider (full-width) on mobile — see footer-top-row media
+     query below for the mobile override. */
+  .footer-disclaimer-mobile{display:none}
+  .footer-disclaimer-desktop{display:inline}
+
   /* ── Keyboard focus visibility (WCAG 2.4.7) ───────────────────────────
      Every interactive element (native or role="button") gets a visible
      amber ring on keyboard focus only — :focus-visible skips it for mouse/
@@ -124,8 +130,8 @@
   .blog-photo{transition:transform .6s cubic-bezier(.22,1,.36,1)}
   .blog-card:hover .blog-photo{transform:scale(1.06)}
 
-  .read-now-btn{transition:background-color .2s ease, color .2s ease}
-  .read-now-btn:hover{background:var(--red);color:#fff!important}
+  .read-now-btn{transition:opacity .2s ease}
+  .read-now-btn:hover{opacity:.75}
   .read-now-arrow{transition:transform .25s cubic-bezier(.22,1,.36,1)}
   .read-now-btn:hover .read-now-arrow{transform:translateX(4px)}
 
@@ -267,6 +273,8 @@
   @media (max-width:760px){
     .footer-top-row{flex-direction:column-reverse!important;align-items:flex-start!important;gap:36px!important}
     .footer-nav{text-align:left!important}
+    .footer-disclaimer-mobile{display:block!important}
+    .footer-disclaimer-desktop{display:none!important}
   }
 
   /* ── Responsive: condense the Join Us page's form to fit one viewport ─── */

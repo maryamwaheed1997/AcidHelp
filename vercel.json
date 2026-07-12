@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    { "source": "/medical", "destination": "/medical.html" },
+    { "source": "/resources", "destination": "/resources.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/joinus", "destination": "/joinus.html" }
+  ],
+  "redirects": [
+    { "source": "/medical.html", "destination": "/medical", "permanent": true },
+    { "source": "/resources.html", "destination": "/resources", "permanent": true },
+    { "source": "/blog.html", "destination": "/blog", "permanent": true },
+    { "source": "/about.html", "destination": "/about", "permanent": true },
+    { "source": "/joinus.html", "destination": "/joinus", "permanent": true }
+  ]
+}

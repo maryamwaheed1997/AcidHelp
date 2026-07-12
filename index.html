@@ -23,9 +23,6 @@
   <link rel="icon" type="image/png" href="./images/Icons/Favicon.png">
   <link rel="apple-touch-icon" href="./images/Icons/Favicon.png">
 
-  <!-- Map library -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;900&family=Lexend:wght@100;300;400;500;600;700;900&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
 
@@ -42,16 +39,16 @@
   <div id="root" data-ssr="true" dir="ltr" data-lang="en" style="font-family:'Lexend','Noto Sans',sans-serif;min-height:100vh;background:var(--bg);color:var(--text)">
     <header style="position:sticky;top:0;z-index:1200;background:var(--surface);border-bottom:1px solid var(--border)">
       <div class="site-header-inner" style="max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:11px 16px 12px">
-        <button onclick="setPage('emergency')" class="logo-btn" aria-label="Acidhelp — home" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;gap:9px;flex-shrink:0">
+        <a href="/" onclick="return setPage('emergency')" class="logo-btn" aria-label="Acidhelp — home" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;gap:9px;flex-shrink:0;text-decoration:none">
           <img src="./images/logo.png" alt="Acidhelp logo" style="height:26px;width:auto;flex-shrink:0;display:block">
           <span class="brand-wordmark" style="font-family:'Noto Sans','Noto Nastaliq Urdu',sans-serif;font-weight:900;font-size:24px;letter-spacing:-1px;line-height:1"><span style="color:var(--red)">Acid</span><span style="color:#fff">help</span></span>
-        </button>
+        </a>
         <nav class="nav-scroll" style="flex:1;justify-content:center;min-width:0">
-          <button onclick="setPage('medical')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap">Nearby</button>
-          <button onclick="setPage('resources')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap">Recovery</button>
-          <button onclick="setPage('blog')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap">Blog</button>
-          <button onclick="setPage('about')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap">About</button>
-          <button onclick="setPage('joinus')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap">Join Us</button>
+          <a href="/medical" onclick="return setPage('medical')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap;text-decoration:none">Nearby</a>
+          <a href="/resources" onclick="return setPage('resources')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap;text-decoration:none">Recovery</a>
+          <a href="/blog" onclick="return setPage('blog')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap;text-decoration:none">Blog</a>
+          <a href="/about" onclick="return setPage('about')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap;text-decoration:none">About</a>
+          <a href="/joinus" onclick="return setPage('joinus')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:'Lexend','Noto Nastaliq Urdu',sans-serif;font-weight:400;font-size:16px;letter-spacing:-0.5px;color:rgba(240,243,250,.72);border-bottom:2px solid transparent;white-space:nowrap;text-decoration:none">Join Us</a>
         </nav>
         <div class="header-controls" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
           <div class="lang-group" style="display:flex;gap:4px">
@@ -137,7 +134,7 @@
     </main>
   </div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>window.INITIAL_PAGE = "emergency";</script>
   <script src="app.js"></script>
 </body>
 </html>
