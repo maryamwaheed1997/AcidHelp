@@ -119,13 +119,40 @@ const BLOG_POSTS = [
       "This piece covers how to apply, what documentation is typically needed, and how to talk to employers about visible scarring."
     ]},
   { id:4, category:"Legal", color:C.warn, dim:C.warnDim,
-    title:"Filing an FIR: A Survivor's Legal First Steps",
-    excerpt:"What an FIR is, why filing one quickly matters, and which legal aid organisations can help survivors and families through the process.",
-    author:"Acidhelp Team", date:"Feb 14, 2024", image:IMG.blog4,
+    title:"Understanding Your Legal Rights After an Acid Attack in Pakistan",
+    excerpt:"A guide to survivors' legal protections in Pakistan — criminal penalties, recent Supreme Court rulings, core rights during a case, and how to preserve evidence.",
+    author:"Acidhelp Team", date:"Jun 30, 2026", image:IMG.blog4,
     body:[
-      "An FIR (First Information Report) is the formal starting point for a criminal case in Pakistan, and delays in filing can weaken a case significantly.",
-      "Organisations such as War Against Rape (WAR) and Shirkat Gah provide free legal aid to acid attack survivors, including help filing an FIR and navigating court proceedings.",
-      "This article breaks down the process step by step, and lists the organisations survivors and families can contact for support."
+      { h:"Overview" },
+      "This guide explains protections available to acid attack survivors under Pakistani law in accessible language. It emphasizes that while the legal system has strengthened significantly, recovery is personal and proceeds at each survivor's own pace.",
+      { h:"Key Legal Framework" },
+      "**Criminal Classification**: Before 2011, acid attacks fell under general assault laws. The Criminal Law (Second Amendment) Act, 2011 added Sections 336-A and 336-B to the Pakistan Penal Code specifically addressing corrosive substance attacks.",
+      "**Penalties**: Conviction requires life imprisonment, or a minimum of 14 years' imprisonment, and a minimum fine of one million rupees. These constitute among Pakistan's most severe penalties.",
+      "**Non-Compoundable Status**: Acid attacks cannot be privately settled or withdrawn like certain other criminal matters, protecting survivors from pressure to abandon cases.",
+      { h:"Core Survivor Rights" },
+      { list:[
+        "Right to First Information Report (FIR) registration",
+        "Right to challenge police refusal via Magistrate (Sections 22-A, 22-B, Code of Criminal Procedure)",
+        "Right to free legal aid under the Legal Aid and Justice Authority Act 2020",
+        "Right to court-ordered compensation",
+        "Right to privacy protections like in-camera proceedings",
+        "Right to gender-based violence framework protections",
+      ]},
+      "These apply regardless of attacker identity — stranger, family member, or spouse.",
+      { h:"Recent Developments" },
+      "**Supreme Court Landmark (June 2026)**: The Court deemed acid violence \"more heinous than homicide\" and upheld life sentences. Recommendations included establishing a National Acid Survivors' Rehabilitation Fund, expedited four-month trial timelines, disability recognition for survivors, and digital acid sales monitoring systems.",
+      "**Punjab Acid Control Act 2025**: The first province-level prevention legislation requiring seller licensing, prohibiting sales to minors, mandating container labeling, and enabling compensation from negligent sellers. Currently applies only to Punjab.",
+      { h:"Evidence Preservation" },
+      "Survivors should retain medical records, medico-legal reports, injury photographs, witness information, threatening communications, CCTV footage, and treatment receipts — storing copies with trusted individuals outside the immediate situation.",
+      { h:"Support Resources" },
+      "Organisations providing legal assistance include the Legal Aid and Justice Authority, Acid Survivors Foundation Pakistan, AGHS Legal Aid Cell, Aurat Foundation, and Provincial Women Protection Authorities. AcidHelp.com maintains verified contact directories across Pakistan.",
+      { h:"Addressing Common Concerns" },
+      "**Delayed Reporting**: While early reporting strengthens evidence collection, delays don't automatically prevent prosecution — circumstances vary by case.",
+      "**Retaliation Fear**: Once an FIR is filed, state prosecution responsibility transfers from the survivor; intimidation itself constitutes a serious offense worthy of reporting.",
+      "**Compensation**: Courts award amounts under Section 544-A based on injury severity, medical evidence, and documented losses — no fixed entitlement exists.",
+      "**Private Settlement Pressure**: Non-compoundable status prevents forced reconciliation, though some families still encourage compromise for social or financial reasons.",
+      { h:"Persistent Challenges" },
+      "Despite strengthened protections, survivors continue facing lengthy medical treatment, financial hardship, social stigma, justice system delays, and geographic barriers to specialized support, particularly in rural areas.",
     ]},
 ];
 
@@ -862,7 +889,7 @@ function blogPage(t){
         </div>
         <div>
           <div class="bf-label" style="font-family:${BODY_FF};font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:${STATS_ACCENT}">${t.featuredLabel}</div>
-          <h2 class="bf-title" style="font-family:${BODY_FF};font-weight:400;font-size:clamp(26px,3.4vw,40px);letter-spacing:-1px;line-height:1.15;color:#fff;margin:14px 0 16px">${featured.title}</h2>
+          <h2 class="bf-title" style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3.4vw,40px);letter-spacing:-1px;line-height:1.15;color:#fff;margin:14px 0 16px">${featured.title}</h2>
           <div class="bf-byline" style="font-family:${BODY_FF};font-size:13px;color:rgba(255,255,255,.55);margin-bottom:16px">${t.byLabel} <span style="color:#fff;font-weight:600">${featured.author}</span> &nbsp;|&nbsp; ${featured.date}</div>
           <p class="bf-excerpt" style="font-family:${BODY_FF};font-size:15px;color:rgba(255,255,255,.65);line-height:1.7;margin:0 0 26px">${featured.excerpt}</p>
           ${readNowVisual(t)}
@@ -894,6 +921,26 @@ function blogPage(t){
 }
 
 // Single blog post — opened by clicking the featured post or any card in the grid
+// A blog post's `body` array is normally a list of plain paragraph strings,
+// but can also contain {h:"..."} sub-headings and {list:[...]} bullet lists
+// for reference-style posts (e.g. the legal-rights guide) where readers
+// need to scan/find a specific section rather than read straight through.
+// **bold** markdown spans are supported inside any string.
+const mdBold = s => s.replace(/\*\*(.+?)\*\*/g, `<strong style="color:${C.text};font-weight:700">$1</strong>`);
+function blogBodyItem(item){
+  if(typeof item==="string"){
+    return `<p style="font-family:${BODY_FF};font-size:16px;color:${C.sub};line-height:1.8;margin:0 0 20px">${mdBold(item)}</p>`;
+  }
+  if(item.h){
+    return `<h2 style="font-family:${BODY_FF};font-weight:600;font-size:22px;color:${C.text};margin:36px 0 14px">${item.h}</h2>`;
+  }
+  if(item.list){
+    return `<ul style="margin:0 0 20px;padding-inline-start:22px;display:flex;flex-direction:column;gap:8px">
+      ${item.list.map(li=>`<li style="font-family:${BODY_FF};font-size:16px;color:${C.sub};line-height:1.7">${mdBold(li)}</li>`).join("")}
+    </ul>`;
+  }
+  return "";
+}
 function blogPostPage(t){
   const post = BLOG_POSTS.find(p=>p.id===state.activeBlogId) || BLOG_POSTS[0];
   return `<div>
@@ -914,7 +961,7 @@ function blogPostPage(t){
     </div>
 
     <article class="reveal" data-reveal-id="blog-post-body" style="max-width:760px;margin:0 auto;padding:clamp(32px,5vw,56px) clamp(16px,3vw,32px)">
-      ${post.body.map(p=>`<p style="font-family:${BODY_FF};font-size:16px;color:${C.sub};line-height:1.8;margin:0 0 20px">${p}</p>`).join("")}
+      ${post.body.map(item=>blogBodyItem(item)).join("")}
     </article>
 
     ${footerStrip(t)}

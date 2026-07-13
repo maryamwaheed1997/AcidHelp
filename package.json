@@ -4,7 +4,8 @@
   "description": "Emergency response prototype for acid attack survivors in Pakistan",
   "scripts": {
     "start": "npx live-server",
-    "dev": "npx live-server"
+    "live": "npx live-server",
+    "build": "echo 'no build step needed'"
   },
   "private": true
 }
