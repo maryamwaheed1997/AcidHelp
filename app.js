@@ -408,7 +408,7 @@ const T = {
 // seeds window.INITIAL_PAGE in an inline <script> before app.js loads, so
 // state.page starts on the right branch for whichever file this is.
 const PAGE_URLS = {
-  emergency:"/", medical:"/medical", resources:"/resources",
+  emergency:"/", medical:"/map", resources:"/resources",
   blog:"/blog", about:"/about", joinus:"/joinus",
 };
 
@@ -753,7 +753,7 @@ function resourcesPage(t){
     <section class="reveal" data-reveal-id="res-hero" style="padding:clamp(18px,2.2vw,32px) clamp(28px,5vw,80px) clamp(28px,3vw,44px)">
       <div style="max-width:1440px;margin:0 auto">
         <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.resTitle.toUpperCase()}</h1>
-        <p style="font-family:${BODY_FF};font-size:16px;color:rgba(255,255,255,.65);margin:14px 0 0">${t.resSub}</p>
+        <p style="font-family:${BODY_FF};font-weight:300;font-size:16px;color:rgba(255,255,255,.65);margin:14px 0 0">${t.resSub}</p>
       </div>
     </section>
 
@@ -980,7 +980,7 @@ function aboutPage(t){
       <section class="reveal" data-reveal-id="abt-hero" style="padding:clamp(18px,2.2vw,32px) clamp(28px,5vw,80px) clamp(30px,4vw,52px)">
         <div style="max-width:1440px;margin:0 auto">
           <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.abtTitle.toUpperCase()}</h1>
-          <p style="font-family:${BODY_FF};font-size:clamp(16px,1.4vw,19px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:60ch">${t.abtMission}</p>
+          <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(16px,1.4vw,19px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:60ch">${t.abtMission}</p>
         </div>
       </section>
     </div>
@@ -1062,7 +1062,7 @@ function joinUsPage(t){
       <section class="reveal" data-reveal-id="join-hero" style="padding:clamp(18px,2.2vw,32px) clamp(28px,5vw,80px) clamp(30px,4vw,52px)">
         <div style="max-width:1440px;margin:0 auto">
           <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.conTitle.toUpperCase()}</h1>
-          <p style="font-family:${BODY_FF};font-size:clamp(16px,1.4vw,19px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:60ch">${t.conSub}</p>
+          <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(16px,1.4vw,19px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:60ch">${t.conSub}</p>
         </div>
       </section>
     </div>
