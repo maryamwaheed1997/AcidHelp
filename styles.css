@@ -212,6 +212,64 @@
     to{transform:rotate(360deg)}
   }
 
+  /* ── "What to do" variation: glass cards that expand rightward on hover ─
+     Cards share the row equally; hovering (or keyboard-focusing) one grows
+     its flex share while the step's body text slides in beside the ghost
+     number. The body sits in a 0fr→1fr grid wrapper so its width animates
+     smoothly without the hidden text ever reserving space or wrapping the
+     collapsed card's layout. */
+  .fr-alt-grid{
+    display:grid;grid-template-columns:minmax(220px,auto) 1fr;align-items:end;
+  }
+  .fr-alt-heading{
+    grid-column:1;grid-row:1;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    min-height:clamp(190px,18vw,250px);padding-bottom:22px;
+  }
+  .fr-alt-row{grid-column:2;grid-row:1}
+  .fr-alt-warn{grid-column:2;grid-row:2}
+  .fr-alt-card{
+    flex:1 1 0;min-width:0;min-height:clamp(190px,18vw,250px);
+    display:flex;flex-direction:column;justify-content:space-between;gap:24px;
+    background:rgba(28,35,55,0.5);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:26px;padding:26px 26px 30px;overflow:hidden;
+    transition:flex .55s cubic-bezier(.22,1,.36,1), background-color .35s ease, border-color .35s ease;
+  }
+  .fr-alt-card:hover, .fr-alt-card:focus-visible{
+    flex:2.6 1 0;
+    background:rgba(28,35,55,0.72);
+    border-color:rgba(255,255,255,0.12);
+  }
+  .fr-alt-body-wrap{
+    flex:1;min-width:0;
+    display:grid;grid-template-columns:0fr;
+    transition:grid-template-columns .55s cubic-bezier(.22,1,.36,1);
+  }
+  .fr-alt-body-wrap > .fr-alt-body{overflow:hidden;opacity:0;transition:opacity .3s ease}
+  .fr-alt-card:hover .fr-alt-body-wrap, .fr-alt-card:focus-visible .fr-alt-body-wrap{grid-template-columns:1fr}
+  .fr-alt-card:hover .fr-alt-body, .fr-alt-card:focus-visible .fr-alt-body{opacity:1;transition:opacity .4s ease .18s}
+  @media (max-width:860px){
+    .fr-alt-grid{grid-template-columns:1fr}
+    .fr-alt-heading{grid-column:1;grid-row:1;min-height:0;padding-bottom:0;justify-content:flex-start}
+    .fr-alt-row{grid-column:1;grid-row:2;flex-direction:column}
+    .fr-alt-warn{grid-column:1;grid-row:3}
+    .fr-alt-card{min-height:0;flex:none!important;transition:none}
+    .fr-alt-card:hover, .fr-alt-card:focus-visible{flex:none!important;background:rgba(28,35,55,0.5)}
+    .fr-alt-num{display:none}
+    .fr-alt-card-head{
+      order:-1;display:flex;align-items:baseline;gap:8px;
+      font-size:16px!important;
+    }
+    .fr-alt-card-head::before{
+      content:attr(data-num) ".";
+      font-weight:700;color:#FF3B30;flex-shrink:0;
+    }
+    .fr-alt-body-wrap{grid-template-columns:1fr}
+    .fr-alt-body{opacity:1!important;min-width:0!important}
+  }
+
   /* ── Scroll reveal: sections rise into place as they enter view ──────── */
   .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);will-change:opacity,transform}
   .reveal.is-visible{opacity:1;transform:translateY(0)}
@@ -233,8 +291,16 @@
      stats out evenly instead of leaving them huddled in the middle. */
   @media (max-width:760px){
     .stats-row{display:grid!important;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);padding:0!important}
-    .stats-item{background:var(--surface);justify-content:center;width:100%;max-width:none!important}
+    .stats-item{background:rgba(20,25,36,0.9);justify-content:center;width:100%;max-width:none!important}
     .stats-divider{display:none}
+  }
+
+  /* ── Responsive: Rinse/Ring/Remove card stacks its three steps, and the
+     column dividers flip from side borders to top borders ───────────── */
+  @media (max-width:720px){
+    .rrr-steps{grid-template-columns:1fr!important}
+    .rrr-step{border-inline-start:none!important;border-top:1px solid var(--border)}
+    .rrr-step:first-child{border-top:none}
   }
 
   /* ── Responsive: keep "Hospitals Near Me" clear of the mobile browser's

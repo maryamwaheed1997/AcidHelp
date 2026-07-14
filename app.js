@@ -10,6 +10,10 @@ const C = {
   teal:"#30D5C8", tealDim:"rgba(48,213,200,0.14)",
   text:"#F0F3FA", sub:"#8B9CB0", muted:"#38465A",
 };
+// Extra hero height (beyond the viewport) that the stats bar is pulled up
+// into via negative margin-top — makes it read as an overlay on the video
+// instead of a new block below it, while keeping it below the fold on load.
+const HERO_OVERLAP = 130;
 // Nastaliq is appended only as a *fallback*: Latin glyphs (the logo wordmark,
 // brand names, numbers) keep rendering in Lexend/Noto Sans, and the browser
 // substitutes Noto Nastaliq Urdu per-glyph only for Arabic-script characters.
@@ -120,39 +124,161 @@ const BLOG_POSTS = [
     ]},
   { id:4, category:"Legal", color:C.warn, dim:C.warnDim,
     title:"Understanding Your Legal Rights After an Acid Attack in Pakistan",
-    excerpt:"A guide to survivors' legal protections in Pakistan — criminal penalties, recent Supreme Court rulings, core rights during a case, and how to preserve evidence.",
+    excerpt:"A plain-language guide to survivors' legal rights and protections in Pakistan — criminal penalties, the 2026 Supreme Court ruling, Punjab's new Acid Control Act, compensation, evidence preservation, and where to find help.",
     author:"Acidhelp Team", date:"Jun 30, 2026", image:IMG.blog4,
     body:[
-      { h:"Overview" },
-      "This guide explains protections available to acid attack survivors under Pakistani law in accessible language. It emphasizes that while the legal system has strengthened significantly, recovery is personal and proceeds at each survivor's own pace.",
-      { h:"Key Legal Framework" },
-      "**Criminal Classification**: Before 2011, acid attacks fell under general assault laws. The Criminal Law (Second Amendment) Act, 2011 added Sections 336-A and 336-B to the Pakistan Penal Code specifically addressing corrosive substance attacks.",
-      "**Penalties**: Conviction requires life imprisonment, or a minimum of 14 years' imprisonment, and a minimum fine of one million rupees. These constitute among Pakistan's most severe penalties.",
-      "**Non-Compoundable Status**: Acid attacks cannot be privately settled or withdrawn like certain other criminal matters, protecting survivors from pressure to abandon cases.",
-      { h:"Core Survivor Rights" },
+      { note:"Disclaimer: This article provides general information about legal rights and protections available under Pakistani law. It is not a substitute for legal advice, and every case depends on its own facts and evidence. If you or someone you care about is considering legal action, please speak to a qualified lawyer or a legal aid organisation about your specific situation." },
+      "If you are a survivor, a family member supporting a survivor, or someone trying to understand what protections exist in Pakistan, this guide is for you. The days and weeks after an attack can feel overwhelming; medical treatment comes first, and the legal system can feel distant or confusing. But Pakistani law does provide serious protections. The purpose of this guide is to explain them in clear language, so you can make informed decisions at your own pace.",
+      "Many survivors quietly worry about the same things: Will the attacker actually be punished? Can I afford this? Will the case take years and go nowhere? What if the police won't listen? What if the attacker is my husband, my relative, or someone with influence? These worries are real. But it is also true that acid attacks are now among the most serious offences recognised under Pakistani law, and the courts have become clearer than ever about the harm they cause.",
+      "You do not have to know everything before you take the next step. You only have to know that steps exist.",
+
+      { h:"Acid Attacks Are Serious Criminal Offences Under Pakistani Law" },
+      "Before 2011, acid attacks were usually prosecuted under general assault laws. That changed with the Criminal Law (Second Amendment) Act, 2011, which added two new sections to the Pakistan Penal Code (PPC) specifically for acid and other corrosive substances:",
       { list:[
-        "Right to First Information Report (FIR) registration",
-        "Right to challenge police refusal via Magistrate (Sections 22-A, 22-B, Code of Criminal Procedure)",
-        "Right to free legal aid under the Legal Aid and Justice Authority Act 2020",
-        "Right to court-ordered compensation",
-        "Right to privacy protections like in-camera proceedings",
-        "Right to gender-based violence framework protections",
+        "Section 336-A defines the offence of causing hurt through a corrosive substance.",
+        "Section 336-B sets the punishment.",
       ]},
-      "These apply regardless of attacker identity — stranger, family member, or spouse.",
-      { h:"Recent Developments" },
-      "**Supreme Court Landmark (June 2026)**: The Court deemed acid violence \"more heinous than homicide\" and upheld life sentences. Recommendations included establishing a National Acid Survivors' Rehabilitation Fund, expedited four-month trial timelines, disability recognition for survivors, and digital acid sales monitoring systems.",
-      "**Punjab Acid Control Act 2025**: The first province-level prevention legislation requiring seller licensing, prohibiting sales to minors, mandating container labeling, and enabling compensation from negligent sellers. Currently applies only to Punjab.",
-      { h:"Evidence Preservation" },
-      "Survivors should retain medical records, medico-legal reports, injury photographs, witness information, threatening communications, CCTV footage, and treatment receipts — storing copies with trusted individuals outside the immediate situation.",
-      { h:"Support Resources" },
-      "Organisations providing legal assistance include the Legal Aid and Justice Authority, Acid Survivors Foundation Pakistan, AGHS Legal Aid Cell, Aurat Foundation, and Provincial Women Protection Authorities. AcidHelp.com maintains verified contact directories across Pakistan.",
-      { h:"Addressing Common Concerns" },
-      "**Delayed Reporting**: While early reporting strengthens evidence collection, delays don't automatically prevent prosecution — circumstances vary by case.",
-      "**Retaliation Fear**: Once an FIR is filed, state prosecution responsibility transfers from the survivor; intimidation itself constitutes a serious offense worthy of reporting.",
-      "**Compensation**: Courts award amounts under Section 544-A based on injury severity, medical evidence, and documented losses — no fixed entitlement exists.",
-      "**Private Settlement Pressure**: Non-compoundable status prevents forced reconciliation, though some families still encourage compromise for social or financial reasons.",
-      { h:"Persistent Challenges" },
-      "Despite strengthened protections, survivors continue facing lengthy medical treatment, financial hardship, social stigma, justice system delays, and geographic barriers to specialized support, particularly in rural areas.",
+      "Under Section 336-B, a person convicted of an acid attack must be sentenced to:",
+      { list:[
+        "Life imprisonment, or a minimum of 14 years' imprisonment, and",
+        "A minimum fine of one million rupees.",
+      ]},
+      "These are among the strongest penalties in Pakistan's criminal justice system. They exist because the law recognises that acid violence causes lifelong harm — not only to the body, but to a survivor's income, education, relationships, and mental health.",
+      "Who the attacker is does not change the law. Whether the person responsible is a stranger, a neighbour, a colleague, a rejected suitor, a spouse, or a family member, the offence is the same. Survivors do not lose their rights because they know their attacker.",
+
+      { h:"Your Core Legal Rights as a Survivor" },
+      "The most important thing to understand is that once a First Information Report (FIR) is registered, the case belongs to the State, not to any one family. You do not have to carry the prosecution alone. Here are the rights every survivor should know about:",
+      { list:[
+        "The right to have an FIR registered. Reporting the attack triggers a formal criminal investigation. You do not need a lawyer to file an FIR.",
+        "The right to challenge police inaction. If a police station refuses to register your FIR, Sections 22-A and 22-B of the Code of Criminal Procedure allow you to approach a Magistrate directly and request an order for registration. Access to justice does not depend on any single officer's decision.",
+        "The right to free legal aid if you cannot afford a lawyer. The Legal Aid and Justice Authority Act 2020 provides a framework for state-supported legal aid in criminal matters. Availability varies by district, but financial hardship should not automatically shut you out of the justice system.",
+        "The right to compensation. Courts have the power to award compensation to survivors (explained in more detail below).",
+        "The right to privacy in some circumstances. Depending on the case, protections such as in-camera proceedings may be available so that you do not have to give sensitive testimony in a public courtroom.",
+        "The right to protection under Pakistan's wider framework on gender-based violence. This may include designated courts, coordinated support services, and safeguards during trial.",
+      ]},
+      "These rights apply whether the attacker was a stranger or someone known to you. The law does not offer weaker protection because the offender was a husband, former husband, family member, or acquaintance.",
+
+      { h:"Is It Too Late to Report?" },
+      "Many survivors do not report immediately. Some are focused on emergency medical care. Some face pressure from family. Some fear retaliation. Some simply did not know what options existed.",
+      "A delay does not automatically close the door. Reporting early makes it easier to collect evidence, but every case depends on its own facts. If an attack happened months or even years ago, do not assume nothing can be done. Speaking to a lawyer or a legal aid organisation is the only way to know what may still be possible.",
+
+      { h:"Preserving Evidence Can Strengthen a Future Case" },
+      "Medical treatment always comes first. But evidence collected in the hours and days after an attack often plays a decisive role in a case. Wherever possible, try to keep:",
+      { list:[
+        "Medical records and medico-legal reports (MLRs)",
+        "Photographs of injuries at different stages of healing",
+        "Clothing and any physical items involved in the attack",
+        "Names and contact details of witnesses",
+        "Threatening messages, call records, or social media communications from the attacker or their family",
+        "CCTV footage from nearby premises",
+        "Receipts for treatment, travel, and other attack-related expenses",
+      ]},
+      "Keep copies wherever possible. Store them somewhere safe, ideally with a trusted person outside the immediate situation.",
+
+      { h:"Can an Acid Attack Case Be Settled Privately?" },
+      "Many survivors and families worry about pressure to \"settle\" an acid attack case outside the courts. This is particularly common when the attacker is a husband, former husband, relative, neighbour, or someone known to the family. Survivors may be approached by family elders, community leaders, intermediaries, or representatives of the offender who encourage reconciliation instead of legal action.",
+      "Understanding the law is important in these situations. Acid attacks prosecuted under Section 336-B of the Pakistan Penal Code are classified as non-compoundable offences. In simple terms, this means the offence is considered so serious that it cannot simply be withdrawn or resolved through a private agreement between families in the same way that some other criminal matters can be. This protection exists because acid violence is recognised as causing severe and often lifelong harm. Parliament deliberately created stronger safeguards to prevent survivors from being pressured into abandoning legal proceedings against their wishes.",
+      "That does not mean survivors never face pressure. In practice, some families may still encourage compromise because they are worried about social stigma, community tensions, financial concerns, or retaliation from the offender. Survivors should know that feeling pressured to forgive, reconcile, or remain silent does not take away their legal rights.",
+      "If you are facing pressure to settle a case, it may be helpful to speak with an independent lawyer or legal aid organisation before making any decisions. Understanding your rights, the status of your case, and the legal consequences of any proposed arrangement can help ensure that decisions are made freely and with full information.",
+      "Most importantly, survivors should remember that Pakistani law recognises acid attacks as among the most serious forms of violent crime. The legal system is designed to protect survivors, not to force them into agreements they do not want. Knowing that these offences are treated differently from ordinary disputes can help survivors and families make informed decisions about the path they wish to pursue.",
+
+      { h3:"What If I Am Afraid of Retaliation?" },
+      "Fear of retaliation is one of the most common reasons survivors delay reporting — particularly when the attacker is a husband, former husband, relative, or someone with influence. This fear is understandable, and you are not weak for feeling it.",
+      "A few things are worth knowing:",
+      { list:[
+        "Because the offence is non-compoundable, the case does not depend entirely on your willingness to withstand pressure. Once the FIR is filed, the State becomes responsible for prosecuting.",
+        "Threats, intimidation, and pressure to withdraw the case are themselves serious matters. Report them to the investigating officer and to your lawyer.",
+        "Preserve evidence of intimidation: screenshots of messages, call logs, voice notes, social media threats, names of any intermediaries approaching your family.",
+        "If you feel physically unsafe, discuss protection measures with your lawyer, the investigating officer, and any organisation supporting you.",
+      ]},
+      "No system can eliminate risk entirely. But being pressured, threatened, or shamed does not take away your legal rights.",
+
+      { h:"Compensation and Financial Support" },
+      "Survivors understandably want to know: Will I receive money? How much? When?",
+      "The honest answer is that Pakistani law creates avenues for compensation, but does not guarantee any specific amount to every survivor. There are two main routes:",
+      { list:[
+        "The Rs 1 million fine under Section 336-B PPC. This is a minimum fine imposed on the convicted offender. Courts may direct that money recovered from the offender be paid to the survivor, but this is treated as part of the criminal punishment, not as an automatic transfer.",
+        "Compensation under Section 544-A of the Code of Criminal Procedure. After conviction, the court can order the offender to pay compensation to the victim. Unlike the Rs 1 million fine, there is no fixed amount — the court decides based on the circumstances, including the severity of injuries, medical evidence, and financial losses.",
+      ]},
+      "Because both routes depend on conviction and a court order, it helps to keep careful records throughout — medical bills, surgical expenses, rehabilitation costs, proof of lost income, and any other documented financial impact. These records make it easier for a court to see the full picture of what the attack has cost you.",
+      "Under the Punjab Acid Control Act 2025 (discussed below), there is also a route for compensation from a negligent acid seller if the attack resulted from illegal or negligent sale of acid.",
+
+      { h:"What Recent Court Decisions Mean for Survivors" },
+      "The strongest recent signal about how Pakistani courts view acid violence came in June 2026, when the Supreme Court delivered a landmark judgment in the case of Abdul Manan alias Imran.",
+      "The convict had thrown acid on Iqra Perveen in her home in Faisalabad on 4 September 2019, while she was cooking. She suffered third-degree burns to around 40% of her body, including her face, chest, back, and left leg, and lost her left ear entirely. The Anti-Terrorism Court, Faisalabad had convicted him under Section 336-B in 2020 and sentenced him to life imprisonment with a Rs 1 million fine. The Lahore High Court upheld the conviction in 2022. The convict then appealed to the Supreme Court, asking for a reduced sentence on the basis that he had been around 17–18 years old at the time.",
+      "A three-judge bench comprising Justice Muhammad Hashim Khan Kakar, Justice Salahuddin Panhwar, and Justice Ishtiaq Ibrahim rejected the appeal and upheld the life sentence and the fine. In a detailed 13-page judgment, Justice Kakar wrote that:",
+      { list:[
+        "Acid violence is an offence \"more heinous than homicide\". While a homicide victim dies once, an acid attack survivor is left to endure the harm every day.",
+        "Acid violence is deeply rooted in gender-based violence, misogyny, and patriarchal aggression.",
+        "Juvenility cannot shield perpetrators of brutal, premeditated crimes.",
+      ]},
+      "The Court also made a series of recommendations that, if implemented, would meaningfully change how survivors are supported in Pakistan:",
+      { list:[
+        "A National Acid Survivors' Rehabilitation Fund to cover reconstructive surgery, physiotherapy, and long-term psychological treatment.",
+        "Trial completion within four months in acid attack cases, with High Courts actively monitoring timelines.",
+        "Recognition of acid attack survivors as Persons with Disabilities, with disability certificates and quotas in employment, education, and welfare schemes.",
+        "Monthly financial support for survivors left permanently disabled or unable to work.",
+        "A centralised digital system for acid sales, requiring identity verification, biometric records, and real-time monitoring.",
+        "A complete ban on retail sale of acid to private individuals, with legal sales limited to registered users through the digital system.",
+      ]},
+      "These are recommendations rather than automatic entitlements — but they now form part of an authoritative Supreme Court judgment. That matters when survivors, lawyers, and advocacy organisations push the State to act.",
+
+      { h:"How Punjab's Acid Control Act Strengthens Protection" },
+      "In 2025, Punjab passed the Punjab Acid Control Act 2025 — the first province-level law in Pakistan focused specifically on preventing acid violence at the point of sale.",
+      "Key features:",
+      { list:[
+        "Licensing is mandatory for anyone selling, storing, transporting, importing, or manufacturing acid, with 30 corrosive chemicals regulated (including sulphuric, nitric, hydrochloric, and hydrofluoric acid).",
+        "Selling acid without a licence is a non-bailable offence, punishable by up to 3 years' imprisonment and a fine of up to Rs 500,000.",
+        "Licensed sellers who act negligently face 2 to 5 years' imprisonment and fines of Rs 200,000 to Rs 1 million.",
+        "Sale of acid to individuals under 18 is prohibited.",
+        "Sellers may be legally required to compensate victims if an attack resulted from their negligence, with the amount decided by the court.",
+        "Every acid container must carry the chemical name, seller details, licence number, quality, quantity, and dates of manufacture and expiry.",
+      ]},
+      "The Deputy Commissioner of each district serves as the licensing authority. Enforcement is coordinated by the Punjab Home Department and the Punjab Women Protection Authority.",
+      "At the time of writing, similar dedicated legislation has not yet been enacted in Sindh, Khyber Pakhtunkhwa, or Balochistan. However, the Punjab law provides a working template, and the Supreme Court's 2026 judgment has called for stronger acid regulation nationwide.",
+
+      { h:"Where to Find Legal Support" },
+      "Reaching out to a legal aid organisation does not commit you to going to court. It simply gives you information. For many survivors and families, that first conversation is the most valuable step, because it turns a confusing situation into something with clear options.",
+      "Organisations that may be able to help with legal advice, referrals, representation, or advocacy include:",
+      { list:[
+        "Legal Aid and Justice Authority (Ministry of Human Rights)",
+        "Acid Survivors Foundation Pakistan (ASF Pakistan)",
+        "AGHS Legal Aid Cell",
+        "Aurat Foundation",
+        "Provincial Women Protection Authorities (particularly the Punjab Women Protection Authority)",
+        "Legal aid committees of the Pakistan Bar Council and district bar associations",
+      ]},
+      "Availability, contact details, and services change over time. Please verify current information directly with the organisation before making decisions.",
+
+      { h:"Challenges Survivors Still Face" },
+      "While legal protections have become significantly stronger, it is important to be honest about the challenges that remain.",
+      "Many survivors continue to face lengthy medical treatment, financial hardship, social stigma, and delays within the justice system. Access to specialised legal support can vary depending on location, and survivors living in rural areas may face additional barriers when seeking medical care or legal assistance.",
+      "The legal landscape today is far stronger than it was even a decade ago. Penalties are severe. The Supreme Court has publicly recognised the lifelong harm survivors carry. Punjab has taken the first serious step towards prevention at the point of sale. Organisations across the country are working every day on legal, medical, and social support. The system is not perfect, but survivors are not, and never should feel, invisible to it.",
+
+      { h:"A Final Word" },
+      "Recovery after an acid attack is rarely quick. Many survivors spend years rebuilding their health, their confidence, their education, their income, and their sense of self. Whatever pace that takes, it belongs to you.",
+      "Seeking legal advice is a personal decision. Some survivors want prosecution as soon as possible. Others need time before they can even think about a courtroom. Both paths are valid. What matters is knowing that the violence committed against you is recognised, in the eyes of Pakistani law, as one of the most serious crimes a person can commit — and that you are entitled to protection, dignity, and access to justice.",
+      "You are not alone. And you have more options than you may have been told.",
+
+      { h:"Frequently Asked Questions" },
+      "**Can I pursue legal action if the attacker was my husband or a family member?** Yes. The law does not offer lesser protection because the offender was a spouse, former spouse, or relative. The offence under Section 336-B is the same regardless of relationship.",
+      "**What if I do not know who carried out the attack?** You can still report. Investigations may identify suspects through witness statements, forensic evidence, CCTV footage, mobile phone data, and other methods.",
+      "**What if the police refuse to register my FIR?** You can approach a Magistrate under Sections 22-A and 22-B of the Code of Criminal Procedure and request an order directing the police to register the FIR.",
+      "**Do I need a lawyer to report an acid attack?** No. But legal advice is very helpful once an investigation begins and even more so during trial and compensation proceedings.",
+      "**Can I get free legal aid?** Possibly. The Legal Aid and Justice Authority Act 2020 provides a framework for state-supported legal aid. Some NGOs and bar council committees also provide free or reduced-fee representation.",
+      "**Can survivors receive compensation?** Courts can award compensation under Section 544-A CrPC after conviction, and can direct payment of the Rs 1 million fine under Section 336-B. Amounts vary based on the case.",
+      "**What punishment can the attacker receive?** Under Section 336-B PPC: life imprisonment or a minimum of 14 years, plus a minimum fine of Rs 1 million.",
+      "**Will my case be heard in public?** Depending on the circumstances, privacy protections such as in-camera proceedings may be available.",
+      "**What if I forgave the attacker or initially decided not to pursue legal action?** Many decisions in the immediate aftermath are made under enormous pressure. If your circumstances have changed, speaking to a lawyer is the best way to understand what remains possible in your specific case.",
+      "**What should I try to keep as evidence?** Medical records, medico-legal reports, photographs of injuries, treatment receipts, witness details, threatening messages, call records, and any documents related to the attack.",
+      "**Is the Punjab Acid Control Act 2025 in force outside Punjab?** No. It applies only in Punjab. Other provinces continue to rely on the general framework under the Criminal Law (Second Amendment) Act 2011 and the Pakistan Penal Code.",
+
+      "If you or someone you know is a survivor of an acid attack and needs support, AcidHelp maintains a directory of hospitals, legal aid organisations, women's protection resources, and psychological support services across Pakistan. Visit acidhelp.com for verified contacts and further guidance.",
+
+      { h:"Summary" },
+      "Under Pakistani law, acid attacks constitute extremely serious criminal offences. The Criminal Law (Second Amendment) Act, 2011 established dedicated provisions (Sections 336-A and 336-B, Pakistan Penal Code) mandating life imprisonment or minimum 14-year sentences plus Rs 1 million fines. Survivors possess rights including the right to have an FIR registered without needing legal representation initially, access to free legal assistance, compensation eligibility, and privacy protections. Crucially, these protections apply uniformly regardless of offender identity — whether stranger or family member.",
+      "Acid attacks qualify as non-compoundable offences, meaning survivors cannot be pressured into private settlements. A landmark 2026 Supreme Court judgment characterised such violence as \"more heinous than homicide\" and recommended establishing victim rehabilitation funding, disability recognition, expedited trials, and comprehensive acid-sales regulation.",
+      "Punjab's 2025 Acid Control Act pioneered province-specific prevention legislation requiring seller licensing, age restrictions, and enhanced labeling requirements. Reporting delays do not automatically eliminate legal recourse; evidence preservation — medical records, photographs, witness details, communications — strengthens prosecutions. Organisations like the Acid Survivors Foundation Pakistan and Legal Aid and Justice Authority provide survivor support nationwide.",
     ]},
 ];
 
@@ -361,73 +487,6 @@ const T = {
       { q:"Kis number par call karein?", a:"Fori 1122 par call karein — yeh Pakistan ka hangami number hai. Aap Edhi ko 115 par bhi rabta kar sakte hain." },
     ],
   },
-  ps:{
-    dir:"ltr", name:"پښتو", ff:"'Noto Nastaliq Urdu','Noto Sans',sans-serif", hff:"'Noto Nastaliq Urdu','Noto Sans',sans-serif",
-    steps:[
-      { n:"۱", icon:"drop",  head:"د اوبو سره مینځل", sub:"بې وقفه", body:"لږ تر لږه ۲۰ دقیقې مسلسل سوړ اوبه واچوئ. یو لږ واچول او درېدل بس نه دي — ټول وخت مینځل." },
-      { n:"۲", icon:"phone", head:"۱۱۲۲ ته زنګ وهئ", sub:"ووایاست: د تیزاب برید", body:"د پاکستان بیړني شمیره. ووایاست: 'د تیزاب برید — فوري امبولانس راولئ.' خط مه پرېږدئ." },
-      { n:"۳", icon:"cross", head:"روغتون ته لاړ شئ", sub:"د سوختګۍ وارډ", body:"د سوختګۍ وارډ. د زخم سره کالي مه لگوئ — کالي تیزاب ساتي او سوځیدنه زیاتوي. د مرستې تر رارسیدو پورې اوبه واچوئ." },
-    ],
-    emTitle:"د تیزاب برید؟", emSub:"سمدلاسه اقدام وکړئ — هر شیبه مهمه ده",
-    doNot:"دا مه لگوئ: ټوتھ پیسټ · کریم · شیدې · تیل · سوډا — او کالي مه لگوئ",
-    callBtn:"اوس ۱۱۲۲ ته زنګ وهئ", altLabel:"یا زنګ وهئ:", edhi:"ایدهي: ۱۱۵", asf:"ASF: 051-2305354",
-    playVideo:"ویډیو وګورئ",
-    videoLabel:"وګورئ: سم ډول اوبه څنګه واچول شي",
-    stepsTitle:"څه وکړئ", stepsEyebrow:"لومړی ګام",
-    navItems:["بیړنۍ مرسته","نږدې","سرچینې","بلاگ","زمونږ د اړه","ګډون وکړئ"],
-    pages:["emergency","medical","resources","blog","about","joinus"],
-    blogTitle:"د AcidHelp بلاگ",
-    featuredLabel:"ځانګړې لیکنه", readNowLabel:"اوس یې ولولئ", byLabel:"لیکوال", backToBlogLabel:"بلاگ ته بیرته لاړ شئ",
-    medTitle:"نږدې روغتونونه", medSub:"پن ووهئ · لار ومومئ · زنګ وهئ",
-    nearMe:"زما نږدې روغتونونه", locating:"لټون جاري دی…", callHosp:"اوس زنګ وهئ", directions:"لار",
-    resTitle:"مرسته او بیارغونه", resSub:"د ژوندیو لپاره وړیا مرسته",
-    resCards:[
-      { icon:"🧠", color:C.purple, dim:C.purpleDim, title:"روانپوهنیز مرسته", sub:"مشوره او روانتیا", orgs:[
-        { ...ORGS.umang  },{ ...ORGS.rozan  },{ ...ORGS.asf }]},
-      { icon:"🩺", color:C.blue,   dim:C.blueDim,   title:"طبي او جراحي", sub:"د سوختګۍ پالنه او جراحي", orgs:[
-        { ...ORGS.depilex },
-        { name:"SIUT کراچي", phone:"021-99201300" },
-        { name:"سروسز روغتون لاهور", phone:"042-99200163" }]},
-      { icon:"📊", color:C.teal,   dim:C.tealDim,   title:"څه وکړئ؟ څه مه کوئ؟", sub:"د لومړني مرستې حقایق", orgs:[{ ...ORGS.asf }]},
-      { icon:"⚖️", color:C.warn,  dim:C.warnDim,  title:"قانوني مرسته", sub:"حقوق، FIR او محکمه", orgs:[
-        { name:"WAR", phone:"021-35375533" },
-        { ...ORGS.asf },{ ...ORGS.shirkat }]},
-      { icon:"➕", color:C.green,  dim:C.greenDim,  title:"دنده", sub:"مهارت روزنه او عاید", orgs:[
-        { ...ORGS.asf },{ ...ORGS.depilex }]},
-    ],
-    conTitle:"مرسته ترلاسه کړئ یا یوځای شئ", conSub:"د مرستې لپاره اړیکه ونیسئ یا زموږ سره یوځای شئ ترڅو نورو ژوندیو ته ورسیږو",
-    survivorTab:"زه ژغورل شوی/ې یم", volunteerTab:"زه رضاکار یم",
-    nameLabel:"نوم", emailLabel:"بریښنالیک", notesLabel:"اضافي معلومات",
-    helpLabel:"اړینه مرسته", helpOptions:["طبي","قانوني","دنده","خپله کیسه شریکه کړئ"],
-    roleLabel:"ستاسو رول", submitLabel:"پیغام واستوئ",
-    orgTypes:["روغتون","NGO","قانوني موسسه","روانتیا","کارپوریټ","حکومتي بنسټ","نور"],
-    submittedMsg:"مننه! ژر به یو څوک اړیکه ونیسي.",
-    survivorSubmitLabel:"غوښتنه واستوئ",
-    survivorSubmittedMsg:"مننه! ژر به یو څوک اړیکه ونیسي.",
-    abtTitle:"زموږ په اړه", abtMission:"Acidhelp د پاکستان د تیزاب برید ژوندیو لپاره یو غیر ګټه ور بیړني ځواب پلیټ فارم دی.",
-    statsTitle:"پاکستان کې واقعیت", statsSource:"سرچینه:",
-    faqTitle:"FAQs",
-    faqs:[
-      { q:"ایا یو لږ اوبه بس دي؟", a:"نه — لږ تر لږه ۲۰ دقیقې د لوی اندازې اوبو سره مسلسل مینځل پکار دي. درېدل تیزاب پوست ته نږدې ساتي." },
-      { q:"ایا زخم دې کالیو سره وپوښل شي؟", a:"نه — هیڅکله کالي، پټۍ یا بل شی مه لگوئ. کالي تیزاب او تودوخه ساتي او سوځیدنه زیاتوي." },
-      { q:"ایا ټوتھ پیسټ یا کریم سره تیزاب لرې کیږي؟", a:"نه — ټوتھ پیسټ، کریم، شیدې، سوډا او تیل — ټول مضر دي. یوازې سوړ بهونکي اوبه مرسته کوي." },
-    ],
-    advocacyTitle:"زمونږ دفاع",
-    advocacy:"Acidhelp.com د تیزاب د عامه پلورنې د بشپړ منع کولو او د ټولو ژوندیو لپاره وړیا جراحي لپاره دفاع کوي.",
-    advocacyPoints:["د تیزابو په ازاده پلورلو بندیز","لازمي پیژندنه تصدیق","د مجرمینو لپاره سختې سزاوې","وړیا رغونیزه جراحي"],
-    footerLine2:"Acidhelp.com د بیړني خدماتو بدیل نه دی. فوري ۱۱۲۲ ته زنګ وهئ.",
-    chatTitle:"له AcidHelp نه وپوښتئ", chatTeaser:"موږ څنګه مرسته کولی شو؟",
-    chatGreeting:"سلام، زه د لومړنۍ مرستې چټکو پوښتنو کې مرستې لپاره دلته یم. یو څه وپوښتئ یا لاندې پوښتنو څخه یوه غوره کړئ.",
-    chatPlaceholder:"خپله پوښتنه ولیکئ…",
-    chatFallback:"زه پدې باور نه لرم. که کومه بیړنۍ خبره وي، سملاسي ۱۱۲۲ ته زنګ ووهئ. تاسو کولی شئ لاندې پوښتنې هم وکاروئ.",
-    chatPrompts:[
-      { q:"ایا شیدې لگولی شم؟", a:"نه — شیدې، د ټوتھ پیسټ، کریم، تیل او سوډا په څیر د تیزاب په زخم باندې خوندي نه دي. دا تودوخه ساتي او زخم زیاتوي. یوازې لږ تر لږه ۲۰ دقیقې سوړ بهونکي اوبه وکاروئ." },
-      { q:"ایا ټوتھ پیسټ لگولی شم؟", a:"نه — ټوتھ پیسټ تیزاب لرې نه کوي او پوستکي ته تودوخه ساتلی شي. یوازې مسلسل لږ تر لږه ۲۰ دقیقې سوړ اوبه وکاروئ." },
-      { q:"څومره اوبه وکاروم؟", a:"لږ تر لږه ۲۰ دقیقې مسلسل ډیرې سوړ بهونکي اوبه وکاروئ. مه ودریږئ او لږ اوبه مه کاروئ." },
-      { q:"ایا زخم دې پوښم؟", a:"نه — د تیزاب زخم هیڅکله له کالیو یا پټۍ سره مه پوښئ. کالي تودوخه او تیزاب ساتي او زخم زیاتوي. اوبه اچول ته دوام ورکړئ." },
-      { q:"کوم شمیرې ته زنګ ووهم؟", a:"سملاسي ۱۱۲۲ ته زنګ ووهئ — دا د پاکستان بیړنۍ شمیره ده. تاسو کولی شئ ایدهي ته هم ۱۱۵ زنګ ووهئ." },
-    ],
-  },
 };
 
 // ── APP STATE ─────────────────────────────────────────────────────────────────
@@ -442,7 +501,10 @@ const PAGE_URLS = {
 const state = {
   // Cross-page nav is now a real reload, so the language choice has to
   // survive that reload itself — persisted here instead of just in memory.
-  lang:(()=>{ try{ return localStorage.getItem("acidhelp_lang")||"en"; }catch(e){ return "en"; } })(),
+  // Validate the stored value against the languages that still exist — a
+  // visitor who chose a since-removed language (e.g. Pashto) falls back to
+  // English instead of crashing on a missing T[] entry.
+  lang:(()=>{ try{ const l = localStorage.getItem("acidhelp_lang"); return ["en","ur","ro"].includes(l) ? l : "en"; }catch(e){ return "en"; } })(),
   page: window.INITIAL_PAGE || "emergency",
   activeBlogId:null,
   joinTab:"survivor",
@@ -459,11 +521,11 @@ const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>
 // Colors the word "ACID" red wherever it appears in the (already-uppercased) blog
 // title — a no-op for translations where the word isn't spelled out in Latin script.
 const highlightAcid = text => text.replace(/ACID/, `<span style="color:${C.red}">ACID</span>`);
-// Nastaliq (ur/ps) needs noticeably more line-height than Latin scripts at the same
+// Nastaliq (ur) needs noticeably more line-height than Latin scripts at the same
 // nominal value, or tall/multi-line headings visibly overlap the content below them.
 // Keyed on language, not t.dir — the UI layout itself always stays left-to-right
 // (see the `dir` field on each language above), this is purely a script-shaping fix.
-const rtlLH = (t, tight, loose) => (state.lang==="ur"||state.lang==="ps") ? loose : tight;
+const rtlLH = (t, tight, loose) => state.lang==="ur" ? loose : tight;
 
 // ── SHARED SVG BITS ───────────────────────────────────────────────────────────
 const phoneSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z" fill="${fill}"/></svg>`;
@@ -529,7 +591,9 @@ function emergencyPage(t){
   return `<div>
     ${heroPortrait(t)}
     ${statsSection(t)}
-    ${firstResponse(t)}
+    ${/* firstResponse(t) — original "What to do" temporarily hidden in favour
+         of the firstResponseAlt variation below; restore by re-adding the call */""}
+    ${firstResponseAlt(t)}
     ${faqSection(t)}
     ${footerStrip(t)}
   </div>`;
@@ -538,7 +602,11 @@ function emergencyPage(t){
 // "The Reality in Pakistan" — a slim stat banner that reads as an extension of
 // the hero rather than its own heavy section, sitting flush underneath it.
 function statsSection(t){
-  return `<div class="reveal" data-reveal-id="stats" style="background:${C.surface};border-bottom:1px solid ${C.border}">
+  // Pulled up over the hero video's extra bottom margin (see heroPortrait's
+  // HERO_OVERLAP) via negative margin-top, so it reads as an overlay on the
+  // footage rather than a new block below it. Still off-screen (below the
+  // first viewport) until the visitor scrolls, and still fades in via .reveal.
+  return `<div class="reveal" data-reveal-id="stats" style="position:relative;z-index:2;margin-top:-${HERO_OVERLAP}px;background:rgba(20,25,36,0.9);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom:1px solid ${C.border}">
     <div class="stats-row" style="max-width:1440px;margin:0 auto;padding:0 clamp(24px,4vw,64px);display:flex;flex-wrap:wrap;align-items:stretch;justify-content:space-between">
       ${STATS_EN.map((s,i)=>`
         ${i>0?`<span class="stats-divider" style="width:1px;height:88px;align-self:center;background:${C.border};flex-shrink:0"></span>`:""}
@@ -554,7 +622,7 @@ function statsSection(t){
 // Hero: full-bleed portrait photo with the ACID ATTACK content overlaid on the left
 function heroPortrait(t){
   const isRTL = t.dir==="rtl";
-  return `<section class="reveal" data-reveal-id="hero" style="position:relative;width:100%;height:calc(100vh - 68px);height:calc(100dvh - 68px);min-height:480px;overflow:hidden;background:${C.bg}">
+  return `<section class="reveal" data-reveal-id="hero" style="position:relative;width:100%;height:calc(100vh - 68px + ${HERO_OVERLAP}px);height:calc(100dvh - 68px + ${HERO_OVERLAP}px);min-height:${480+HERO_OVERLAP}px;overflow:hidden;background:${C.bg}">
     <!-- Background video -->
     <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:${isRTL?"left":"center right"}">
       <source src="${IMG.heroVideo}" type="video/mp4">
@@ -562,8 +630,9 @@ function heroPortrait(t){
     <!-- Left-side scrim: strong black on left fading fully to transparent past the older man's face -->
     <div style="position:absolute;inset:0;background:linear-gradient(${isRTL?"270deg":"90deg"},rgba(0,0,0,0.95) 0%,rgba(0,0,0,0.85) 15%,rgba(0,0,0,0.55) 35%,rgba(0,0,0,0.2) 55%,rgba(0,0,0,0) 72%)"></div>
 
-    <!-- Content overlay -->
-    <div style="position:absolute;inset:0;display:flex;align-items:flex-end">
+    <!-- Content overlay — bottom edge stops short of the hero's extra
+         HERO_OVERLAP height so the CTA never sits under the stats bar -->
+    <div style="position:absolute;top:0;left:0;right:0;bottom:${HERO_OVERLAP}px;display:flex;align-items:flex-end">
       <div style="max-width:1440px;width:100%;margin:0 auto;padding:0 clamp(28px,5vw,80px) clamp(32px,4vw,56px)">
         <div style="max-width:640px">
           <h1 style="font-family:${BODY_FF};font-weight:900;font-size:clamp(44px,7vw,82px);letter-spacing:-2.5px;line-height:${rtlLH(t,0.95,1.3)};color:#fff;margin:0;text-shadow:0 2px 24px rgba(0,0,0,0.4)">${t.emTitle}</h1>
@@ -606,6 +675,46 @@ function firstResponse(t){
 
       <!-- DO NOT warning (Figma red variant) -->
       <div style="margin-top:20px;background:rgba(255,59,48,0.06);border:1px solid rgba(255,59,48,0.5);border-radius:12px;padding:16px 20px;display:flex;gap:12px;align-items:center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2L1 21h22L12 2zm0 5.5L18.5 19h-13L12 7.5zm-1 5v4h2v-4h-2zm0 5v2h2v-2h-2z" fill="${C.red}"/></svg>
+        <span style="font-family:${BODY_FF};font-weight:500;font-size:14px;color:${C.red};line-height:1.5">${t.doNot}</span>
+      </div>
+    </div>
+  </section>`;
+}
+
+// Variation of "What to do" — full-bleed dark photo band with the heading on
+// the left and three translucent glass cards on the right. Each card shows a
+// large ghost number and its step title; hovering a card expands it to the
+// right, sliding the step's body text in beside the number (see the .fr-alt-*
+// rules in styles.css). On mobile the cards stack and body text stays visible.
+function firstResponseAlt(t){
+  return `<section class="reveal" data-reveal-id="steps-alt" style="position:relative;overflow:hidden;background:#050508;padding:clamp(48px,7vw,90px) clamp(28px,5vw,80px)">
+    <!-- Darkened photo backdrop -->
+    <div style="position:absolute;inset:0;background-image:url('${IMG.footer}');background-size:cover;background-position:center;filter:grayscale(1) brightness(0.32)"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.55) 45%,rgba(0,0,0,0.7) 100%)"></div>
+
+    <div class="fr-alt-grid" style="position:relative;max-width:1440px;margin:0 auto;column-gap:clamp(28px,4vw,64px);row-gap:16px">
+      <!-- Left: eyebrow + heading — same min-height + bottom padding as the
+           cards, so the text sits on the exact same baseline as "FLUSH WITH
+           WATER" regardless of viewport width -->
+      <div class="fr-alt-heading">
+        <h2 style="font-family:${BODY_FF};font-size:36px;font-weight:300;letter-spacing:0;text-transform:uppercase;color:${C.red};margin:0;line-height:${rtlLH(t,1.4,1.8)}">${t.stepsTitle}</h2>
+      </div>
+
+      <!-- Right: three expanding glass cards -->
+      <div class="fr-alt-row" style="display:flex;gap:16px;min-width:0">
+        ${t.steps.map(s=>`
+          <div class="fr-alt-card" tabindex="0">
+            <div class="fr-alt-card-body" style="display:flex;align-items:flex-start;gap:20px;min-width:0">
+              <span class="fr-alt-num" style="font-family:${BODY_FF};font-weight:300;font-size:clamp(44px,4vw,60px);line-height:1;color:rgba(255,255,255,0.42);flex-shrink:0">${s.n}</span>
+              <span class="fr-alt-body-wrap"><span class="fr-alt-body" style="font-family:${BODY_FF};font-size:13.5px;color:rgba(255,255,255,.75);line-height:1.65;display:block;min-width:200px;padding-top:6px">${s.body}</span></span>
+            </div>
+            <div class="fr-alt-card-head" data-num="${s.n}" style="font-family:${BODY_FF};font-weight:500;font-size:clamp(18px,1.6vw,22px);letter-spacing:0.4px;color:#fff;line-height:${rtlLH(t,1.3,1.7)}">${s.head}</div>
+          </div>`).join("")}
+      </div>
+
+      <!-- DO NOT warning: below cards only, same width as the card row -->
+      <div class="fr-alt-warn" style="background:rgba(28,35,55,0.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:16px 20px;display:flex;gap:12px;align-items:center">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2L1 21h22L12 2zm0 5.5L18.5 19h-13L12 7.5zm-1 5v4h2v-4h-2zm0 5v2h2v-2h-2z" fill="${C.red}"/></svg>
         <span style="font-family:${BODY_FF};font-weight:500;font-size:14px;color:${C.red};line-height:1.5">${t.doNot}</span>
       </div>
@@ -792,7 +901,12 @@ function resourcesPage(t){
           // Unified accent for all Resources dropdowns — Figma amber
           const ACCENT = "#FF911C";
           const ACCENT_DIM = "rgba(255,145,28,0.16)";
-          const metaRow = (icon,text)=>`<div style="display:flex;align-items:center;gap:7px;margin-top:5px;min-width:0"><span style="display:flex;flex-shrink:0">${icon}</span><span style="font-family:${BODY_FF};font-size:12px;color:${C.sub};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${text}</span></div>`;
+          const metaRow = (icon,text,href)=>{
+            const textEl = href
+              ? `<a href="${href}" target="_blank" rel="noopener noreferrer" style="font-family:${BODY_FF};font-size:12px;color:${C.sub};overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:underline;text-underline-offset:2px">${text}</a>`
+              : `<span style="font-family:${BODY_FF};font-size:12px;color:${C.sub};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${text}</span>`;
+            return `<div style="display:flex;align-items:center;gap:7px;margin-top:5px;min-width:0"><span style="display:flex;flex-shrink:0">${icon}</span>${textEl}</div>`;
+          };
           const orgList = isOpen ? `<div class="res-dropdown" style="background:${C.card};border:1px solid ${ACCENT};border-radius:20px;padding:8px">
               ${card.orgs.map(org=>{
                 return `
@@ -800,7 +914,7 @@ function resourcesPage(t){
                   <span class="res-org-dot" style="width:9px;height:9px;border-radius:50%;background:${ACCENT};box-shadow:0 0 0 4px ${ACCENT_DIM};flex-shrink:0;margin:0 6px"></span>
                   <div style="flex:1;min-width:0">
                     <div style="font-family:${BODY_FF};font-size:15px;font-weight:400;color:${C.text};line-height:1.3">${org.name}</div>
-                    ${org.web?metaRow(globeSVG(13,C.sub),org.web):""}
+                    ${org.web?metaRow(globeSVG(13,C.sub),org.web,`https://${org.web}`):""}
                     ${org.email?metaRow(mailSVG(13,C.sub),org.email):""}
                     ${org.phone2?metaRow(phoneSVG(12,C.sub),org.phone2):""}
                   </div>
@@ -837,7 +951,7 @@ function resourcesPage(t){
 
 // FAQs — shown on the landing page, after "What to do"
 function faqSection(t){
-  return `<section class="reveal" data-reveal-id="faq" style="padding:8px clamp(28px,5vw,80px) clamp(48px,6vw,72px)">
+  return `<section class="reveal" data-reveal-id="faq" style="padding:clamp(36px,6vw,76px) clamp(28px,5vw,80px) clamp(64px,8vw,96px)">
     <div style="max-width:1308px;margin:0 auto">
       <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(42px,3.2vw,56px);letter-spacing:-1px;line-height:1.1;margin:0 0 28px;color:${C.text}">${t.faqTitle}</h2>
       <div style="display:flex;flex-direction:column;border-top:1px solid ${C.border}">
@@ -864,7 +978,7 @@ function faqSection(t){
 // entire featured-post card is already one clickable <button>, and per HTML
 // can't validly contain a second, nested interactive control.
 function readNowVisual(t){
-  return `<span class="read-now-btn" style="color:${C.red};font-size:15px;font-weight:500;font-family:${BODY_FF};border-bottom:1.5px solid currentColor;padding-bottom:4px;display:inline-flex;align-items:center;gap:6px">
+  return `<span class="read-now-btn" style="color:${C.red};font-size:15px;font-weight:500;font-family:${BODY_FF};border-bottom:1.5px solid currentColor;padding-bottom:4px;margin-bottom:16px;display:inline-flex;align-items:center;gap:6px">
       ${t.readNowLabel}
       <svg class="read-now-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </span>`;
@@ -901,15 +1015,20 @@ function blogPage(t){
     <section class="reveal" data-reveal-id="blog-grid" style="padding:0 clamp(28px,5vw,80px) clamp(40px,5vw,60px)">
       <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:20px">
         ${rest.map(post=>`
-          <button class="blog-card" onclick="openBlogPost(${post.id})" style="display:block;width:100%;text-align:left;background:${C.card};border:1px solid ${C.border};border-radius:20px;overflow:hidden;padding:0;font:inherit;color:inherit;cursor:pointer">
-            <div style="height:200px;overflow:hidden">
+          <button class="blog-card" onclick="openBlogPost(${post.id})" style="display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;width:100%;text-align:left;background:${C.card};border:1px solid ${C.border};border-radius:20px;overflow:hidden;padding:0;font:inherit;color:inherit;cursor:pointer">
+            <div style="height:200px;overflow:hidden;flex-shrink:0">
               <img class="blog-photo" src="${post.image}" alt="${esc(post.title)}" style="width:100%;height:100%;object-fit:cover;display:block">
             </div>
-            <div style="padding:20px">
-              <div style="display:inline-block;background:${post.dim};color:${post.color};font-family:${BODY_FF};font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:10px">${post.category}</div>
+            <div style="padding:20px;flex:1;display:flex;flex-direction:column">
+              <div style="align-self:flex-start;background:${post.dim};color:${post.color};font-family:${BODY_FF};font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:10px">${post.category}</div>
               <h3 style="font-family:${BODY_FF};font-weight:700;font-size:18px;line-height:1.3;color:${C.text};margin:0 0 8px">${post.title}</h3>
               <p style="font-family:${BODY_FF};font-size:13px;color:${C.sub};line-height:1.6;margin:0 0 14px">${post.excerpt}</p>
-              <div style="font-family:${BODY_FF};font-size:12px;color:${C.sub}">${t.byLabel} <span style="color:${C.text};font-weight:600">${post.author}</span> &nbsp;|&nbsp; ${post.date}</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto">
+                <div style="font-family:${BODY_FF};font-size:12px;color:${C.sub}">${t.byLabel} <span style="color:${C.text};font-weight:600">${post.author}</span> &nbsp;|&nbsp; ${post.date}</div>
+                <span class="blog-card-arrow" aria-hidden="true" style="flex-shrink:0;display:flex;align-items:center;justify-content:center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="${C.warn}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </div>
             </div>
           </button>`).join("")}
       </div>
@@ -922,7 +1041,8 @@ function blogPage(t){
 
 // Single blog post — opened by clicking the featured post or any card in the grid
 // A blog post's `body` array is normally a list of plain paragraph strings,
-// but can also contain {h:"..."} sub-headings and {list:[...]} bullet lists
+// but can also contain {h:"..."} section headings, {h3:"..."} sub-headings,
+// {list:[...]} bullet lists, and {note:"..."} callouts (disclaimers etc.),
 // for reference-style posts (e.g. the legal-rights guide) where readers
 // need to scan/find a specific section rather than read straight through.
 // **bold** markdown spans are supported inside any string.
@@ -934,10 +1054,18 @@ function blogBodyItem(item){
   if(item.h){
     return `<h2 style="font-family:${BODY_FF};font-weight:600;font-size:22px;color:${C.text};margin:36px 0 14px">${item.h}</h2>`;
   }
+  if(item.h3){
+    return `<h3 style="font-family:${BODY_FF};font-weight:600;font-size:17px;color:${C.text};margin:26px 0 10px">${item.h3}</h3>`;
+  }
   if(item.list){
     return `<ul style="margin:0 0 20px;padding-inline-start:22px;display:flex;flex-direction:column;gap:8px">
       ${item.list.map(li=>`<li style="font-family:${BODY_FF};font-size:16px;color:${C.sub};line-height:1.7">${mdBold(li)}</li>`).join("")}
     </ul>`;
+  }
+  if(item.note){
+    return `<div style="background:${C.card};border:1px solid ${C.border};border-radius:12px;padding:16px 18px;margin:0 0 24px">
+      <span style="font-family:${BODY_FF};font-size:14px;color:${C.sub};line-height:1.7;font-style:italic">${mdBold(item.note)}</span>
+    </div>`;
   }
   return "";
 }
@@ -1027,7 +1155,7 @@ function aboutPage(t){
       <section class="reveal" data-reveal-id="abt-hero" style="padding:clamp(18px,2.2vw,32px) clamp(28px,5vw,80px) clamp(30px,4vw,52px)">
         <div style="max-width:1440px;margin:0 auto">
           <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.abtTitle.toUpperCase()}</h1>
-          <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(16px,1.4vw,19px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:60ch">${t.abtMission}</p>
+          <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(14px,1.2vw,16px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:60ch">${t.abtMission}</p>
         </div>
       </section>
     </div>
@@ -1038,13 +1166,16 @@ function aboutPage(t){
         <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0 0 20px">${AC.whyTitle}</h2>
         <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;max-width:80ch;margin:0 0 24px">${AC.whyPara1}</p>
 
-        <div style="background:${C.greenDim};border:1px solid ${C.green};border-radius:16px;padding:22px 24px;max-width:80ch;margin:0 0 24px">
-          <div style="font-family:${BODY_FF};font-weight:600;font-size:15px;color:${C.green};margin-bottom:16px">${AC.rrrLabel}</div>
-          <div style="display:flex;flex-direction:column;gap:12px">
-            ${AC.rrr.map(r=>`
-              <div style="display:flex;gap:12px;align-items:baseline">
-                <span style="font-family:${BODY_FF};font-weight:700;font-size:14px;color:${C.green};flex-shrink:0;min-width:70px">${r.step}</span>
-                <span style="font-family:${BODY_FF};font-size:14px;color:${C.text};line-height:1.6">${r.body}</span>
+        <div style="background:${C.card};border:1px solid rgba(0,200,83,0.35);border-radius:20px;overflow:hidden;max-width:80ch;margin:0 0 24px">
+          <div style="background:${C.greenDim};border-bottom:1px solid rgba(0,200,83,0.25);padding:16px 26px;font-family:${BODY_FF};font-weight:500;font-size:15px;color:${C.green};letter-spacing:0.2px">${AC.rrrLabel}</div>
+          <div class="rrr-steps" style="display:grid;grid-template-columns:repeat(3,1fr)">
+            ${AC.rrr.map((r,i)=>`
+              <div class="rrr-step" style="padding:22px 26px;${i>0?`border-inline-start:1px solid ${C.border};`:""}display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <span style="width:26px;height:26px;border-radius:50%;background:${C.greenDim};border:1px solid rgba(0,200,83,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:${BODY_FF};font-weight:600;font-size:12.5px;color:${C.green}">${i+1}</span>
+                  <span style="font-family:${BODY_FF};font-weight:600;font-size:15px;letter-spacing:0.4px;text-transform:uppercase;color:${C.green}">${r.step}</span>
+                </div>
+                <span style="font-family:${BODY_FF};font-size:13.5px;color:${C.sub};line-height:1.65">${r.body}</span>
               </div>`).join("")}
           </div>
         </div>
@@ -1109,7 +1240,7 @@ function joinUsPage(t){
       <section class="reveal" data-reveal-id="join-hero" style="padding:clamp(18px,2.2vw,32px) clamp(28px,5vw,80px) clamp(30px,4vw,52px)">
         <div style="max-width:1440px;margin:0 auto">
           <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.conTitle.toUpperCase()}</h1>
-          <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(16px,1.4vw,19px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:60ch">${t.conSub}</p>
+          <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(14px,1.2vw,16px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:60ch">${t.conSub}</p>
         </div>
       </section>
     </div>
@@ -1257,7 +1388,9 @@ function hydrate(){
   revealedSections.add("steps");
 
   heroEl.insertAdjacentHTML("afterend", statsSection(t));
-  pageEl.insertAdjacentHTML("beforeend", faqSection(t) + footerStrip(t));
+  // The shell ends with the "steps" section, so appending here keeps the same
+  // order as emergencyPage(): steps → steps-alt → FAQ → footer.
+  pageEl.insertAdjacentHTML("beforeend", firstResponseAlt(t) + faqSection(t) + footerStrip(t));
   root.insertAdjacentHTML("beforeend", chatWidget(t));
 
   root.removeAttribute("data-ssr");
@@ -1352,7 +1485,7 @@ function render(){
   // state.lang's internal "ro" key means Roman Urdu (Latin-script Urdu), not
   // ISO 639-1 Romanian — map it to the correct BCP-47 tag so screen readers
   // don't apply Romanian pronunciation rules to this content.
-  const HTML_LANG = { en:"en", ur:"ur", ro:"ur-Latn", ps:"ps" };
+  const HTML_LANG = { en:"en", ur:"ur", ro:"ur-Latn" };
   document.documentElement.setAttribute("lang", HTML_LANG[state.lang] || "en");
   root.style.fontFamily = t.ff;
   root.style.minHeight = "100vh";
@@ -1375,10 +1508,10 @@ function render(){
       </nav>
       <div class="header-controls" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
         <div class="lang-group" style="display:flex;gap:4px">
-          ${["en","ur","ro","ps"].map(l=>{
+          ${["en","ur","ro"].map(l=>{
             const active = state.lang===l;
-            const ff = (l==="ur"||l==="ps") ? "'Noto Nastaliq Urdu',sans-serif" : BODY_FF;
-            return `<button onclick="setLang('${l}')" class="lang-btn" style="background:${active?C.card:"transparent"};color:${active?"#fff":C.sub};border:1px solid ${active?C.borderLight:"transparent"};border-radius:16px;padding:3px 9px;font-size:${(l==="ur"||l==="ps")?12:10.5}px;font-weight:${active?700:500};cursor:pointer;font-family:${ff}">${T[l].name}</button>`;
+            const ff = l==="ur" ? "'Noto Nastaliq Urdu',sans-serif" : BODY_FF;
+            return `<button onclick="setLang('${l}')" class="lang-btn" style="background:${active?C.card:"transparent"};color:${active?"#fff":C.sub};border:1px solid ${active?C.borderLight:"transparent"};border-radius:16px;padding:3px 9px;font-size:${l==="ur"?12:10.5}px;font-weight:${active?700:500};cursor:pointer;font-family:${ff}">${T[l].name}</button>`;
           }).join("")}
         </div>
         <a href="tel:1122" class="cta-btn call-pill" style="background:${C.red};border-radius:32px;padding:6px 12px;display:inline-flex;align-items:center;gap:4px">
