@@ -55,6 +55,10 @@
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,59,48,.45)}70%{box-shadow:0 0 0 14px rgba(255,59,48,0)}}
   .sc1{animation:fadeUp .4s .10s both}.sc2{animation:fadeUp .4s .22s both}.sc3{animation:fadeUp .4s .34s both}
 
+  /* Nearest-hospitals floating card: row hover feedback */
+  .hosp-row{transition:background-color .18s ease}
+  .hosp-row:hover{background:rgba(255,255,255,0.06)!important}
+
   /* ── Resources card interactions ───────────────────────────────────── */
   .res-photo{
     position:absolute;inset:0;
@@ -309,12 +313,14 @@
     .near-me-btn{bottom:calc(env(safe-area-inset-bottom,0px) + 30px)!important}
   }
 
-  /* ── Responsive: resource-dropdown phone pill wraps onto its own line,
-     staying left-aligned under the org name instead of getting squeezed
-     or dropping to the row's vertical center ───────────────────────── */
+  /* ── Responsive: on mobile the org info stacks on its own full-width row
+     with the phone CTA underneath, instead of the two sitting side by side
+     (which squeezed the org name into 2–3 wrapped lines) ─────────────── */
   @media (max-width:640px){
-    .res-org{flex-wrap:wrap}
-    .res-org .res-call{margin-left:35px;margin-top:2px}
+    .res-org{flex-direction:column;align-items:flex-start;gap:0;text-align:left}
+    .res-org .res-org-dot{display:none}
+    .res-org > div{width:100%}
+    .res-org .res-call{align-self:flex-start;margin-top:12px;padding:8px 14px!important;justify-content:flex-start}
   }
 
   /* ── Responsive: condense the blog featured post so "Read Now" is

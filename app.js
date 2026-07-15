@@ -637,14 +637,16 @@ function heroPortrait(t){
         <div style="max-width:640px">
           <h1 style="font-family:${BODY_FF};font-weight:900;font-size:clamp(44px,7vw,82px);letter-spacing:-2.5px;line-height:${rtlLH(t,0.95,1.3)};color:#fff;margin:0;text-shadow:0 2px 24px rgba(0,0,0,0.4)">${t.emTitle}</h1>
           <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(15px,1.3vw,18px);color:rgba(255,255,255,.9);margin:10px 0 32px;text-shadow:0 1px 12px rgba(0,0,0,0.5)">${t.emSub}</p>
-          <a href="tel:1122" class="cta-btn" style="background:${C.red};border-radius:40px;padding:16px 30px;display:inline-flex;align-items:center;gap:12px;text-decoration:none;box-shadow:0 8px 32px rgba(255,59,48,0.35)">
-            ${phoneSVG(22,"#fff")}
-            <span style="color:#fff;font-family:${BODY_FF};font-weight:900;font-size:clamp(17px,1.5vw,22px);letter-spacing:-0.5px">${t.callBtn}</span>
-          </a>
-          <div style="display:flex;gap:16px;align-items:center;margin-top:22px;flex-wrap:wrap">
-            <span style="font-family:${BODY_FF};font-size:12px;color:rgba(255,255,255,.6);text-shadow:0 1px 8px rgba(0,0,0,0.6)">${t.altLabel}</span>
-            <a href="tel:115" class="text-link-alt" style="font-family:${BODY_FF};font-size:12px;color:rgba(255,255,255,.85);text-decoration:underline;text-underline-offset:3px;text-shadow:0 1px 8px rgba(0,0,0,0.6)">${t.edhi}</a>
-            <a href="tel:05123053540" class="text-link-alt" style="font-family:${BODY_FF};font-size:12px;color:rgba(255,255,255,.85);text-decoration:underline;text-underline-offset:3px;text-shadow:0 1px 8px rgba(0,0,0,0.6)">${t.asf}</a>
+          <div style="display:inline-flex;flex-direction:column;align-items:center">
+            <a href="tel:1122" class="cta-btn" style="background:${C.red};border-radius:40px;padding:16px 30px;display:inline-flex;align-items:center;gap:12px;text-decoration:none;box-shadow:0 8px 32px rgba(255,59,48,0.35)">
+              ${phoneSVG(22,"#fff")}
+              <span style="color:#fff;font-family:${BODY_FF};font-weight:900;font-size:clamp(17px,1.5vw,22px);letter-spacing:-0.5px">${t.callBtn}</span>
+            </a>
+            <div style="display:flex;gap:14px;align-items:center;justify-content:center;margin-top:12px;flex-wrap:wrap">
+              <span style="font-family:${BODY_FF};font-size:11px;color:rgba(255,255,255,.6);text-shadow:0 1px 8px rgba(0,0,0,0.6)">${t.altLabel}</span>
+              <a href="tel:115" class="text-link-alt" style="font-family:${BODY_FF};font-size:11px;color:rgba(255,255,255,.85);text-decoration:underline;text-underline-offset:3px;text-shadow:0 1px 8px rgba(0,0,0,0.6)">${t.edhi}</a>
+              <a href="tel:05123053540" class="text-link-alt" style="font-family:${BODY_FF};font-size:11px;color:rgba(255,255,255,.85);text-decoration:underline;text-underline-offset:3px;text-shadow:0 1px 8px rgba(0,0,0,0.6)">${t.asf}</a>
+            </div>
           </div>
         </div>
       </div>
@@ -783,20 +785,21 @@ function renderMapOverlays(){
       <div style="color:${C.sub};font-size:11px;margin-top:1px;font-family:${BODY_FF}">${t.medSub}</div>
     </div>`;
 
-  const listOpen = mapState.nearbyList.length>0 && !sel;
-  const nearBtn = `<button onclick="nearMe()" ${mapState.loading?"disabled":""} class="cta-btn near-me-btn" style="position:absolute;bottom:${listOpen?252:20}px;right:14px;z-index:1000;background:${mapState.loading?C.muted:C.redDark};color:white;border:none;border-radius:30px;padding:13px 20px;font-size:14px;font-weight:800;font-family:${BODY_FF};cursor:${mapState.loading?"not-allowed":"pointer"};display:flex;align-items:center;gap:8px;box-shadow:${mapState.loading?"none":"0 4px 28px rgba(255,59,48,0.45)"}">${mapState.loading?"⏳":pinSVG(16,"#fff")} ${mapState.loading?t.locating:t.nearMe}</button>`;
+  const nearBtn = `<button onclick="nearMe()" ${mapState.loading?"disabled":""} class="cta-btn near-me-btn" style="position:absolute;bottom:20px;right:14px;z-index:1000;background:${mapState.loading?C.muted:C.redDark};color:white;border:none;border-radius:30px;padding:13px 20px;font-size:14px;font-weight:800;font-family:${BODY_FF};cursor:${mapState.loading?"not-allowed":"pointer"};display:flex;align-items:center;gap:8px;box-shadow:${mapState.loading?"none":"0 4px 28px rgba(255,59,48,0.45)"}">${mapState.loading?"⏳":pinSVG(16,"#fff")} ${mapState.loading?t.locating:t.nearMe}</button>`;
 
   const err = mapState.locError ? `<button onclick="clearError()" style="position:absolute;top:12px;left:12px;right:12px;z-index:1001;background:${C.redDark};color:white;padding:12px 14px;border-radius:12px;font-size:13px;font-weight:600;font-family:${BODY_FF};line-height:1.4;text-align:left;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.3)">⚠️ ${esc(mapState.locError)}</button>` : "";
 
   let sheet = "";
   if(mapState.nearbyList.length>0 && !sel){
-    sheet = `<div style="position:absolute;bottom:0;left:0;right:0;z-index:1000;background:${C.surface};border-radius:22px 22px 0 0;padding:14px 18px 20px;max-height:45%;overflow-y:auto;box-shadow:0 -6px 30px rgba(0,0,0,0.45)">
-        <div style="width:36px;height:4px;background:${C.muted};border-radius:2px;margin:0 auto 12px"></div>
-        <div style="color:${C.sub};font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px;font-family:${BODY_FF}">NEAREST HOSPITALS</div>
-        ${mapState.nearbyList.map(h=>`
-          <button onclick="selectHospital(${h.id})" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:12px 0;border:none;border-bottom:1px solid ${C.border};background:none;text-align:left;cursor:pointer">
-            <div><div style="color:${C.text};font-size:14px;font-weight:700;font-family:${BODY_FF}">${h.name}</div><div style="color:${C.sub};font-size:12px;margin-top:2px;font-family:${BODY_FF}">${h.city} · ${h.specialty}</div></div>
-            <div style="text-align:right;flex-shrink:0;margin-left:12px"><div style="color:${C.red};font-size:15px;font-weight:800;font-family:${BODY_FF}">${h.dist} km</div><div style="color:${C.sub};font-size:11px;font-family:${BODY_FF}">away</div></div>
+    sheet = `<div style="position:absolute;bottom:16px;left:16px;width:min(400px, calc(100% - 32px));z-index:1000;background:rgba(20,25,36,0.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:20px;padding:18px 18px 10px;max-height:50%;overflow-y:auto;box-shadow:0 12px 44px rgba(0,0,0,0.55);animation:slideInLeft 0.28s cubic-bezier(.22,1,.36,1)">
+        <div style="color:${C.sub};font-size:11px;font-weight:700;letter-spacing:1.5px;margin:0 4px 6px;font-family:${BODY_FF}">NEAREST HOSPITALS</div>
+        ${mapState.nearbyList.map((h,i)=>`
+          <button onclick="selectHospital(${h.id})" class="hosp-row" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 10px;border:none;${i>0?`border-top:1px solid rgba(255,255,255,0.07);`:""}background:none;border-radius:12px;text-align:left;cursor:pointer">
+            <div style="min-width:0">
+              <div style="color:${C.text};font-size:14px;font-weight:600;font-family:${BODY_FF};line-height:1.3">${h.name}</div>
+              <div style="color:${C.sub};font-size:12px;margin-top:3px;font-family:${BODY_FF}">${h.city} · <span style="color:${sColor(h.specialty)}">${h.specialty}</span></div>
+            </div>
+            <span style="flex-shrink:0;background:${C.redDim};color:${C.red};font-size:12.5px;font-weight:700;font-family:${BODY_FF};padding:5px 11px;border-radius:20px;white-space:nowrap">${h.dist} km</span>
           </button>`).join("")}
       </div>`;
   } else if(sel){
@@ -905,7 +908,7 @@ function resourcesPage(t){
             const textEl = href
               ? `<a href="${href}" target="_blank" rel="noopener noreferrer" style="font-family:${BODY_FF};font-size:12px;color:${C.sub};overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:underline;text-underline-offset:2px">${text}</a>`
               : `<span style="font-family:${BODY_FF};font-size:12px;color:${C.sub};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${text}</span>`;
-            return `<div style="display:flex;align-items:center;gap:7px;margin-top:5px;min-width:0"><span style="display:flex;flex-shrink:0">${icon}</span>${textEl}</div>`;
+            return `<div class="res-org-meta" style="display:flex;align-items:center;gap:7px;margin-top:5px;min-width:0"><span style="display:flex;flex-shrink:0">${icon}</span>${textEl}</div>`;
           };
           const orgList = isOpen ? `<div class="res-dropdown" style="background:${C.card};border:1px solid ${ACCENT};border-radius:20px;padding:8px">
               ${card.orgs.map(org=>{
@@ -913,7 +916,7 @@ function resourcesPage(t){
                 <div class="res-org" style="display:flex;gap:14px;align-items:center;padding:14px 12px;border-radius:14px">
                   <span class="res-org-dot" style="width:9px;height:9px;border-radius:50%;background:${ACCENT};box-shadow:0 0 0 4px ${ACCENT_DIM};flex-shrink:0;margin:0 6px"></span>
                   <div style="flex:1;min-width:0">
-                    <div style="font-family:${BODY_FF};font-size:15px;font-weight:400;color:${C.text};line-height:1.3">${org.name}</div>
+                    <div class="res-org-name" style="font-family:${BODY_FF};font-size:15px;font-weight:400;color:${C.text};line-height:1.3">${org.name}</div>
                     ${org.web?metaRow(globeSVG(13,C.sub),org.web,`https://${org.web}`):""}
                     ${org.email?metaRow(mailSVG(13,C.sub),org.email):""}
                     ${org.phone2?metaRow(phoneSVG(12,C.sub),org.phone2):""}
@@ -1589,6 +1592,24 @@ function submitJoinForm(){
   const isSurvivor = state.joinTab==="survivor";
   const data = isSurvivor ? state.survivorForm : state.volunteerForm;
   if(!data.name || !data.email) return;
+  // Relay the submission to info@acidhelp.com via FormSubmit's AJAX endpoint
+  // (the site is static — no backend of its own). Fire-and-forget: the
+  // confirmation UI shows immediately and isn't held up by network latency.
+  try{
+    fetch("https://formsubmit.co/ajax/info@acidhelp.com", {
+      method:"POST",
+      headers:{ "Content-Type":"application/json", "Accept":"application/json" },
+      body:JSON.stringify({
+        _subject:`AcidHelp form: ${isSurvivor?"Survivor":"Volunteer"} — ${data.name}`,
+        _template:"table",
+        form:isSurvivor?"Survivor":"Volunteer / Organisation",
+        name:data.name,
+        email:data.email,
+        [isSurvivor?"help_required":"role"]:data[isSurvivor?"help":"role"] || "—",
+        additional_information:data.notes || "—",
+      }),
+    }).catch(()=>{});
+  }catch(e){}
   if(isSurvivor) state.survivorSubmitted = true; else state.volunteerSubmitted = true;
   render();
 }
