@@ -1588,20 +1588,23 @@ function setJoinTab(tab){ state.joinTab = tab; render(); }
 function updateJoinForm(key,val){
   (state.joinTab==="survivor" ? state.survivorForm : state.volunteerForm)[key] = val;
 }
+// Formspree form endpoint — relays Join Us submissions to the email configured
+// in the Formspree dashboard (info@acidhelp.com). The site is static, so the
+// form posts to Formspree instead of a backend of its own.
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xwvgpjwv";
+
 function submitJoinForm(){
   const isSurvivor = state.joinTab==="survivor";
   const data = isSurvivor ? state.survivorForm : state.volunteerForm;
   if(!data.name || !data.email) return;
-  // Relay the submission to info@acidhelp.com via FormSubmit's AJAX endpoint
-  // (the site is static — no backend of its own). Fire-and-forget: the
-  // confirmation UI shows immediately and isn't held up by network latency.
+  // Fire-and-forget: the confirmation UI shows immediately and isn't held up
+  // by network latency.
   try{
-    fetch("https://formsubmit.co/ajax/info@acidhelp.com", {
+    fetch(FORMSPREE_ENDPOINT, {
       method:"POST",
       headers:{ "Content-Type":"application/json", "Accept":"application/json" },
       body:JSON.stringify({
         _subject:`AcidHelp form: ${isSurvivor?"Survivor":"Volunteer"} — ${data.name}`,
-        _template:"table",
         form:isSurvivor?"Survivor":"Volunteer / Organisation",
         name:data.name,
         email:data.email,
