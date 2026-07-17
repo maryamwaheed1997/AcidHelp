@@ -2,10 +2,11 @@
     --bg:#0B0F1C; --surface:#141924; --card:#1C2337;
     --border:#252E45; --borderLight:#2E3850;
     --red:#FF3B30; --redDark:#B02820; --redDim:rgba(255,59,48,0.14);
+    --brand:#BA45EB; --brandDark:#8113AF; --brandDim:rgba(186,69,235,0.14);
     --green:#00C853; --greenDim:rgba(0,200,83,0.14);
     --blue:#0A84FF; --blueDim:rgba(10,132,255,0.14);
     --purple:#BF5AF2; --purpleDim:rgba(191,90,242,0.14);
-    --warn:#FF911C; --warnDim:rgba(255,145,28,0.2);
+    --warn:#9010BF; --warnDim:rgba(144,16,191,0.2);
     --teal:#30D5C8; --tealDim:rgba(48,213,200,0.14);
     --text:#F0F3FA; --sub:#8B9CB0; --muted:#38465A;
   }
@@ -58,6 +59,13 @@
   /* Nearest-hospitals floating card: row hover feedback */
   .hosp-row{transition:background-color .18s ease}
   .hosp-row:hover{background:rgba(255,255,255,0.06)!important}
+
+  /* Thinner, subtler scroll indicator for the nearest-hospitals list —
+     the popup's own height is unchanged, just the scrollbar thumb. */
+  .nearest-hosp-scroll{scrollbar-width:thin;scrollbar-color:rgba(223,164,248,0.4) transparent}
+  .nearest-hosp-scroll::-webkit-scrollbar{width:4px}
+  .nearest-hosp-scroll::-webkit-scrollbar-track{background:transparent;margin-top:4px}
+  .nearest-hosp-scroll::-webkit-scrollbar-thumb{background:rgba(223,164,248,0.4);border-radius:4px}
 
   /* ── Resources card interactions ───────────────────────────────────── */
   .res-photo{
@@ -144,10 +152,10 @@
 
   /* ── FAQ accordion ─────────────────────────────────────────────────── */
   .faq-item{transition:border-color .2s ease}
-  .faq-item.is-open{border-color:var(--warn)!important}
+  .faq-item.is-open{border-color:#DFA4F8!important}
   .faq-item:not(.is-open):hover{border-color:var(--borderLight)!important}
   .faq-icon-badge{color:var(--sub);transition:color .2s ease}
-  .faq-item.is-open .faq-icon-badge{color:var(--warn)}
+  .faq-item.is-open .faq-icon-badge{color:#DFA4F8}
   .faq-plus{transition:transform .3s cubic-bezier(.22,1,.36,1)}
   .faq-item.is-open .faq-plus{transform:rotate(45deg)}
   .faq-answer{max-height:0;opacity:0;margin-top:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1), opacity .3s ease, margin-top .35s ease}
@@ -162,30 +170,31 @@
   .chat-prompt-btn{transition:transform .2s ease, border-color .2s ease, background-color .2s ease}
   .chat-prompt-btn:hover{transform:translateY(-1px);border-color:var(--borderLight)}
   .chat-capsule{animation:chatPopIn .3s cubic-bezier(.22,1,.36,1) both; transition:transform .2s ease, box-shadow .2s ease}
-  .chat-capsule:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(255,145,28,0.6),0 10px 28px rgba(0,0,0,0.4)}
+  .chat-capsule:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(144,16,191,0.6),0 10px 28px rgba(0,0,0,0.4)}
   .chat-capsule:active{transform:translateY(0) scale(0.98)}
 
-  /* Glowing red/yellow "orb" avatar for the chatbot — a glassy sphere built from
-     stacked layers: a sharp specular highlight (glass sheen), two soft wispy
-     bands drifting slowly to feel like they're swirling inside the glass, and a
-     base radial gradient (bright yellow core fading through orange into red,
-     dark at the rim) for the sphere's own shading. Breathes via box-shadow. */
+  /* Glowing light-purple "orb" avatar for the chatbot — a glassy sphere built
+     from stacked layers: a sharp specular highlight (glass sheen), two soft
+     wispy bands drifting slowly to feel like they're swirling inside the
+     glass, and a base radial gradient (pale DFA4F8 core, swirling into
+     brand-purple BA45EB bands, dark at the rim) for the sphere's own
+     shading. Breathes via box-shadow. */
   .chat-orb{
     position:relative;
     overflow:hidden;
     background:
       radial-gradient(circle at 30% 20%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 9%),
-      radial-gradient(ellipse 58% 14% at 62% 30%, rgba(255,245,215,0.75) 0%, rgba(255,245,215,0) 70%),
-      radial-gradient(ellipse 70% 12% at 40% 50%, rgba(255,205,120,0.65) 0%, rgba(255,205,120,0) 70%),
-      radial-gradient(ellipse 66% 13% at 58% 70%, rgba(255,120,60,0.6) 0%, rgba(255,120,60,0) 72%),
-      radial-gradient(ellipse 46% 10% at 34% 82%, rgba(255,80,50,0.5) 0%, rgba(255,80,50,0) 74%),
-      radial-gradient(circle at 34% 30%, #FFE9B0 0%, #FF911C 30%, #FF3B30 64%, #7A1810 100%);
+      radial-gradient(ellipse 58% 14% at 62% 30%, rgba(223,164,248,0.75) 0%, rgba(223,164,248,0) 70%),
+      radial-gradient(ellipse 70% 12% at 40% 50%, rgba(186,69,235,0.65) 0%, rgba(186,69,235,0) 70%),
+      radial-gradient(ellipse 66% 13% at 58% 70%, rgba(186,69,235,0.6) 0%, rgba(186,69,235,0) 72%),
+      radial-gradient(ellipse 46% 10% at 34% 82%, rgba(223,164,248,0.5) 0%, rgba(223,164,248,0) 74%),
+      radial-gradient(circle at 34% 30%, #F6E2FE 0%, #DFA4F8 25%, #BA45EB 60%, #4B0A66 100%);
     background-repeat:no-repeat;
     box-shadow:
       inset 0 -5px 10px rgba(0,0,0,0.4),
       inset 0 5px 9px rgba(255,255,255,0.35),
-      0 0 16px 2px rgba(255,145,28,0.6),
-      0 0 34px 8px rgba(255,59,48,0.35);
+      0 0 16px 2px rgba(223,164,248,0.6),
+      0 0 34px 8px rgba(186,69,235,0.35);
     animation:orbGlow 3.5s ease-in-out infinite, orbSwirl 8s ease-in-out infinite;
   }
   /* A second set of translucent wisp bands rotating inside the glass, layered over
@@ -196,16 +205,16 @@
     inset:-25%;
     border-radius:50%;
     background:
-      radial-gradient(ellipse 50% 12% at 50% 38%, rgba(255,240,205,0.55) 0%, rgba(255,240,205,0) 68%),
-      radial-gradient(ellipse 60% 11% at 48% 62%, rgba(255,150,70,0.5) 0%, rgba(255,150,70,0) 70%);
+      radial-gradient(ellipse 50% 12% at 50% 38%, rgba(223,164,248,0.55) 0%, rgba(223,164,248,0) 68%),
+      radial-gradient(ellipse 60% 11% at 48% 62%, rgba(186,69,235,0.5) 0%, rgba(186,69,235,0) 70%);
     background-repeat:no-repeat;
     mix-blend-mode:screen;
     animation:orbRotate 7s linear infinite;
     pointer-events:none;
   }
   @keyframes orbGlow{
-    0%,100%{box-shadow:inset 0 -5px 10px rgba(0,0,0,0.4),inset 0 5px 9px rgba(255,255,255,0.35),0 0 16px 2px rgba(255,145,28,0.6),0 0 34px 8px rgba(255,59,48,0.35)}
-    50%{box-shadow:inset 0 -5px 10px rgba(0,0,0,0.4),inset 0 5px 9px rgba(255,255,255,0.35),0 0 22px 5px rgba(255,145,28,0.75),0 0 44px 12px rgba(255,59,48,0.45)}
+    0%,100%{box-shadow:inset 0 -5px 10px rgba(0,0,0,0.4),inset 0 5px 9px rgba(255,255,255,0.35),0 0 16px 2px rgba(223,164,248,0.6),0 0 34px 8px rgba(186,69,235,0.35)}
+    50%{box-shadow:inset 0 -5px 10px rgba(0,0,0,0.4),inset 0 5px 9px rgba(255,255,255,0.35),0 0 22px 5px rgba(223,164,248,0.75),0 0 44px 12px rgba(186,69,235,0.45)}
   }
   @keyframes orbSwirl{
     0%,100%{background-position:30% 20%, 62% 30%, 40% 50%, 58% 70%, 34% 82%, 34% 30%}
@@ -268,7 +277,7 @@
     }
     .fr-alt-card-head::before{
       content:attr(data-num) ".";
-      font-weight:700;color:#FF3B30;flex-shrink:0;
+      font-weight:700;color:#BA45EB;flex-shrink:0;
     }
     .fr-alt-body-wrap{grid-template-columns:1fr}
     .fr-alt-body{opacity:1!important;min-width:0!important}
@@ -277,6 +286,58 @@
   /* ── Scroll reveal: sections rise into place as they enter view ──────── */
   .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);will-change:opacity,transform}
   .reveal.is-visible{opacity:1;transform:translateY(0)}
+
+  /* ── Micro-interactions ───────────────────────────────────────────────
+     All of the below are additive polish on top of the existing hover/reveal
+     layer, and are automatically disabled by the prefers-reduced-motion rule
+     at the bottom of this file. They use `animation ... backwards` (rather
+     than a transition on `transform`) for entrance effects so they never lock
+     the transform property and leave the elements' own hover lifts intact. */
+
+  /* Staggered cascade: grid cards fan in one after another once their section
+     reveals, instead of the whole grid appearing as a single block. */
+  @keyframes cardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .reveal.is-visible .blog-card,
+  .reveal.is-visible .about-pillar{animation:cardIn .55s cubic-bezier(.22,1,.36,1) backwards}
+  .reveal.is-visible .blog-card:nth-child(2),
+  .reveal.is-visible .about-pillar:nth-child(2){animation-delay:.08s}
+  .reveal.is-visible .blog-card:nth-child(3),
+  .reveal.is-visible .about-pillar:nth-child(3){animation-delay:.16s}
+  .reveal.is-visible .blog-card:nth-child(4),
+  .reveal.is-visible .about-pillar:nth-child(4){animation-delay:.24s}
+
+  /* Hero content rises in on load, one line at a time. */
+  @keyframes heroUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+  .hero-anim > *{animation:heroUp .7s cubic-bezier(.22,1,.36,1) backwards}
+  .hero-anim > *:nth-child(1){animation-delay:.06s}
+  .hero-anim > *:nth-child(2){animation-delay:.16s}
+  .hero-anim > *:nth-child(3){animation-delay:.26s}
+
+  /* Text inputs / selects glow to the brand colour as they gain focus. */
+  .join-form-card input, .join-form-card select, .join-form-card textarea, #chat-input{
+    transition:border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+  }
+  .join-form-card input:focus, .join-form-card select:focus,
+  .join-form-card textarea:focus, #chat-input:focus{
+    border-color:var(--brand)!important;
+    box-shadow:0 0 0 3px rgba(186,69,235,0.18);
+  }
+
+  /* Blog grid card: the mustard arrowhead nudges right on card hover. */
+  .blog-card-arrow{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+  .blog-card:hover .blog-card-arrow{transform:translateX(5px)}
+
+  /* Rinse/Ring/Remove cells warm slightly on hover, reading as one grouped set. */
+  .rrr-step{transition:background-color .25s ease}
+  .rrr-step:hover{background:rgba(0,200,83,0.06)}
+
+  /* The chat "restart" icon spins a quarter-turn on hover. */
+  .icon-btn.spin-hover svg{transition:transform .35s cubic-bezier(.22,1,.36,1)}
+  .icon-btn.spin-hover:hover svg{transform:rotate(-90deg)}
+
+  /* Press feedback for the header nav tabs and language pills. */
+  .nav-tab-btn:active{transform:translateY(0) scale(.96)}
+  .lang-btn:active{transform:scale(.94)}
 
   /* ── Responsive: header drops to two rows instead of clipping/crowding ─ */
   @media (max-width:640px){
@@ -351,7 +412,7 @@
 
   /* ── Responsive: condense the Join Us page's form to fit one viewport ─── */
   @media (max-width:640px){
-    .abt-join-section{padding-top:24px!important;padding-bottom:28px!important}
+    .join-hero-grid{padding-top:20px!important;padding-bottom:24px!important}
     .join-tabs{margin-bottom:10px!important}
     .join-form-card{padding:16px 16px!important;gap:9px!important;border-radius:16px!important}
     .join-form-card label{margin-bottom:2px!important}

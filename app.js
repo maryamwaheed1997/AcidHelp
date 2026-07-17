@@ -2,18 +2,27 @@
 const C = {
   bg:"#0B0F1C", surface:"#141924", card:"#1C2337",
   border:"#252E45", borderLight:"#2E3850",
+  // `red` is now reserved only for genuine caution/error semantics: DO NOT
+  // warnings, the burns-severity map colour key, and the location-error
+  // banner. Everywhere else (CTAs, nav, headings, badges) uses `brand`.
   red:"#FF3B30", redDark:"#B02820", redDim:"rgba(255,59,48,0.14)",
+  // Primary brand colour — used for CTAs, logo, nav, and generic UI accents.
+  // `brandDark` is a same-hue darker shade for white-text buttons needing
+  // stronger contrast (mirrors how `redDark` relates to `red`).
+  brand:"#BA45EB", brandDark:"#8113AF", brandDim:"rgba(186,69,235,0.14)",
   green:"#00C853", greenDim:"rgba(0,200,83,0.14)",
   blue:"#0A84FF", blueDim:"rgba(10,132,255,0.14)",
   purple:"#BF5AF2", purpleDim:"rgba(191,90,242,0.14)",
-  warn:"#FF911C", warnDim:"rgba(255,145,28,0.2)",
+  // Secondary accent — was mustard/amber (#FF911C), now a deep violet.
+  warn:"#9010BF", warnDim:"rgba(144,16,191,0.2)",
   teal:"#30D5C8", tealDim:"rgba(48,213,200,0.14)",
   text:"#F0F3FA", sub:"#8B9CB0", muted:"#38465A",
 };
-// Extra hero height (beyond the viewport) that the stats bar is pulled up
-// into via negative margin-top — makes it read as an overlay on the video
-// instead of a new block below it, while keeping it below the fold on load.
-const HERO_OVERLAP = 130;
+// Extra height (beyond its own content) that the "What to do" section's photo
+// backdrop extends upward by — the stats bar is pulled down into that extra
+// band via negative margin-bottom, so it reads as an overlay on that photo
+// instead of a flush block above it.
+const STATS_OVERLAP = 130;
 // Nastaliq is appended only as a *fallback*: Latin glyphs (the logo wordmark,
 // brand names, numbers) keep rendering in Lexend/Noto Sans, and the browser
 // substitutes Noto Nastaliq Urdu per-glyph only for Arabic-script characters.
@@ -26,12 +35,13 @@ const BODY_2_FF = "'Lexend','Noto Nastaliq Urdu',sans-serif";      // nav / body
 // ── ASSETS ──────────────────────────────────────────────────────────────────
 const IMG = {
   logo:          "./images/logo.png",
-  heroVideo:     "./images/hero-video.mp4",
+  heroVideo:     "./images/hero-video-purple.mp4",
   psychological: "./images/psychological.png",
   medical:       "./images/medical.png",
   legal:         "./images/legal.png",
   employment:    "./images/employment.png",
   footer:        "./images/footer.png",
+  whatToDo:      "./images/What-to-do.png",
   blog1:         "./images/blog-1.png",
   blog2:         "./images/blog-2.png",
   blog3:         "./images/blog-3.png",
@@ -53,10 +63,10 @@ const ORGS = {
 // ── HOSPITALS ─────────────────────────────────────────────────────────────────
 const HOSPITALS = [
   { id:1,  name:"Services Hospital Burns Centre",  city:"Lahore",     phone:"042-99200163", specialty:"Burns Unit",    note:"Largest burns centre in Punjab · 24h",                lat:31.5537, lng:74.3209, icon:"🔥" },
-  { id:2,  name:"Jinnah Hospital Burns Ward",      city:"Lahore",     phone:"042-99204480", specialty:"Burns Ward",    note:"Major trauma centre · 24h",                           lat:31.5030, lng:74.3321, icon:"🏥" },
+  { id:2,  name:"Jinnah Hospital Burns Ward",      city:"Lahore",     phone:"042-99204480", specialty:"Burns Ward",    note:"Major trauma centre · 24h",                           lat:31.5030, lng:74.3321, icon:"🔥" },
   { id:3,  name:"Acid Survivors Foundation Clinic",city:"Lahore",     phone:"051-2305354",  specialty:"Specialist",   note:"Specialist survivor care, legal aid & psych support",  lat:31.5146, lng:74.3295, icon:"💛" },
   { id:4,  name:"Depilex Smileagain Foundation",   city:"Lahore",     phone:"+92 (0)423 589 0003", specialty:"Reconstructive",note:"Free reconstructive surgery for survivors",    lat:31.5074, lng:74.3421, icon:"✂️" },
-  { id:5,  name:"Civil Hospital Burns Ward",       city:"Karachi",    phone:"021-99215740", specialty:"Burns Ward",    note:"24h emergency · Largest public hospital Karachi",     lat:24.8548, lng:67.0179, icon:"🏥" },
+  { id:5,  name:"Civil Hospital Burns Ward",       city:"Karachi",    phone:"021-99215740", specialty:"Burns Ward",    note:"24h emergency · Largest public hospital Karachi",     lat:24.8548, lng:67.0179, icon:"🔥" },
   { id:6,  name:"JPMC Burns Centre",              city:"Karachi",    phone:"021-99201300", specialty:"Burns Centre",  note:"Dedicated burns unit · Major referral centre",         lat:24.8702, lng:67.0081, icon:"🔥" },
   { id:7,  name:"SIUT Karachi",                   city:"Karachi",    phone:"021-99201300", specialty:"Surgical",      note:"Free surgical care for all patients",                  lat:24.8826, lng:67.0611, icon:"⚕️" },
   { id:8,  name:"PIMS Burns Unit",                city:"Islamabad",  phone:"051-9261170",  specialty:"Burns Unit",    note:"Federal burns centre · Capital Territory",             lat:33.7225, lng:73.0943, icon:"🔥" },
@@ -66,6 +76,56 @@ const HOSPITALS = [
   { id:12, name:"Nishtar Hospital",               city:"Multan",     phone:"061-9220082",  specialty:"Emergency",     note:"Burns ward on-site · South Punjab",                   lat:30.1803, lng:71.4627, icon:"🏥" },
   { id:13, name:"Allied Hospital",                city:"Faisalabad", phone:"041-9220369",  specialty:"Emergency",     note:"24h emergency · Central Punjab",                      lat:31.4484, lng:73.1350, icon:"🏥" },
   { id:14, name:"Sandeman Hospital",              city:"Quetta",     phone:"081-9201550",  specialty:"Emergency",     note:"Provincial referral centre · Balochistan",             lat:30.1988, lng:66.9988, icon:"🏥" },
+
+  // ── Imported from the AcidHelp facility directory spreadsheet (47 verified
+  // burn centres, hospitals & plastic-surgery units nationwide) ────────────
+  { id:15, name:"Jinnah Burn & Reconstructive Surgery Centre", city:"Lahore", phone:"042-99231718", specialty:"Burns Centre", note:"Largest public burn facility in Pakistan: 78 beds, burn ICU, skin bank, modular OTs,… · Free", lat:31.4813, lng:74.2975, icon:"🔥" },
+  { id:16, name:"Mayo Hospital Burns Unit", city:"Lahore", phone:"042-99211100-9", specialty:"Burns Unit", note:"Oldest burn unit in Punjab; fully functional per Punjab Health Dept; receives referrals… · Free", lat:31.5709, lng:74.314, icon:"🔥" },
+  { id:17, name:"Services Hospital Lahore", city:"Lahore", phone:"042-99203402", specialty:"Surgical", note:"Plastic & reconstructive surgery dept; burn unit historically limited — call ahead, may… · Free", lat:31.5346, lng:74.3254, icon:"✂️" },
+  { id:18, name:"Sir Ganga Ram Hospital", city:"Lahore", phone:"042-99200572", specialty:"Surgical", note:"Teaching hospital with plastic/reconstructive surgery services for follow-up care. · Free", lat:31.556, lng:74.323, icon:"✂️" },
+  { id:19, name:"Shalamar Hospital", city:"Lahore", phone:"042-111-205-205", specialty:"Surgical", note:"Private teaching hospital; plastic surgery & wound care.", lat:31.586, lng:74.382, icon:"✂️" },
+  { id:20, name:"Holy Family Hospital Burn Unit", city:"Rawalpindi", phone:"051-9290319", specialty:"Burns Unit", note:"One of only a handful of fully functional public burn units in Punjab · Free", lat:33.6415, lng:73.0656, icon:"🔥" },
+  { id:21, name:"Benazir Bhutto Hospital", city:"Rawalpindi", phone:"051-9290301", specialty:"Emergency", note:"Emergency stabilization & surgery; refers complex burns to HFH Rawalpindi or PIMS. · Free", lat:33.6296, lng:73.0721, icon:"🏥" },
+  { id:22, name:"Pakistan Army Burn Centre, CMH Kharian", city:"Kharian", phone:"0537-9280081", specialty:"Burns Centre", note:"One of the oldest specialized burn centers in the country; historically received severe…", lat:32.811, lng:73.848, icon:"🔥" },
+  { id:23, name:"POF Hospital Burn Unit", city:"Wah Cantt", phone:"051-9055-27100", specialty:"Burns Unit", note:"Long-running burn unit serving Wah/Taxila/Attock belt.", lat:33.7583, lng:72.728, icon:"🔥" },
+  { id:24, name:"Pak Italian Modern Burn Centre, Nishtar Hospital", city:"Multan", phone:"061-9200231-45", specialty:"Burns Centre", note:"Purpose-built modern burn centre serving all of South Punjab; ICU + reconstructive… · Free", lat:30.1953, lng:71.429, icon:"🔥" },
+  { id:25, name:"Allied Hospital Burns Unit", city:"Faisalabad", phone:"041-9210087", specialty:"Burns Unit", note:"Fully functional public burn unit for Faisalabad division (per Punjab Health Dept). · Free", lat:31.44, lng:73.075, icon:"🔥" },
+  { id:26, name:"Bahawal Victoria Hospital Burn Unit", city:"Bahawalpur", phone:"062-9255400", specialty:"Burns Unit", note:"Main tertiary hospital for Bahawalpur division; burn ward + plastic surgery dept. · Free", lat:29.3963, lng:71.6752, icon:"🔥" },
+  { id:27, name:"Sheikh Zayed Hospital", city:"Rahim Yar Khan", phone:"068-5888021", specialty:"Emergency", note:"Tertiary care for southern Punjab border districts; emergency burn stabilization. · Free", lat:28.42, lng:70.313, icon:"🏥" },
+  { id:28, name:"DHQ Teaching Hospital", city:"Dera Ghazi Khan", phone:"064-9260071", specialty:"Emergency", note:"Emergency stabilization; severe burns referred to Nishtar Multan. · Free", lat:30.056, lng:70.634, icon:"🏥" },
+  { id:29, name:"DHQ Teaching Hospital Sahiwal", city:"Sahiwal", phone:"040-9200114", specialty:"Emergency", note:"Emergency stabilization; refers complex cases to Lahore/Multan. · Free", lat:30.662, lng:73.112, icon:"🏥" },
+  { id:30, name:"DHQ Hospital Gujranwala", city:"Gujranwala", phone:"055-9200068", specialty:"Emergency", note:"Emergency stabilization; complex burns referred to Lahore (Jinnah/Mayo). · Free", lat:32.156, lng:74.187, icon:"🏥" },
+  { id:31, name:"Aziz Bhatti Shaheed Teaching Hospital", city:"Gujrat", phone:"053-9260131", specialty:"Emergency", note:"Emergency stabilization; near CMH Kharian burn centre. · Free", lat:32.572, lng:74.09, icon:"🏥" },
+  { id:32, name:"Govt. Allama Iqbal Memorial Teaching Hospital", city:"Sialkot", phone:"052-9250355", specialty:"Emergency", note:"Emergency stabilization; complex burns referred to Lahore. · Free", lat:32.501, lng:74.535, icon:"🏥" },
+  { id:33, name:"PIMS Burn Care Centre", city:"Islamabad", phone:"051-9261170", specialty:"Burns Centre", note:"First international-standard public burn centre (est. 2007); 150,000+ patients treated;… · Free", lat:33.702, lng:73.048, icon:"🔥" },
+  { id:34, name:"Federal Government Polyclinic", city:"Islamabad", phone:"051-9214965", specialty:"Emergency", note:"24/7 emergency; stabilization then referral to PIMS Burn Care Centre. · Free", lat:33.727, lng:73.079, icon:"🏥" },
+  { id:35, name:"Shifa International Hospital", city:"Islamabad", phone:"051-8464646", specialty:"Emergency", note:"Private tertiary care; plastic & reconstructive surgery, wound care, ICU.", lat:33.677, lng:73.068, icon:"🏥" },
+  { id:36, name:"Burns Centre, Dr. Ruth K.M. Pfau Civil Hospital", city:"Karachi", phone:"021-99215740", specialty:"Burns Centre", note:"Pakistan's first international-standard burns centre (est. 2004): modern OTs, burn ICU,… · Free", lat:24.8585, lng:67.0103, icon:"🔥" },
+  { id:37, name:"Patel Hospital Burns Unit", city:"Karachi", phone:"021-111-174-174", specialty:"Burns Unit", note:"Leading burns unit: dedicated OT, ICU, ward, nurse-led dressing clinics for discharged…", lat:24.92, lng:67.087, icon:"🔥" },
+  { id:38, name:"Aga Khan University Hospital", city:"Karachi", phone:"021-111-911-911", specialty:"Emergency", note:"Top private tertiary care; plastic & reconstructive surgery, burn management, 24/7…", lat:24.8918, lng:67.0748, icon:"🏥" },
+  { id:39, name:"Liaquat National Hospital", city:"Karachi", phone:"021-111-456-456", specialty:"Emergency", note:"Well-reputed tertiary hospital with burn & plastic surgery services (60+ years).", lat:24.889, lng:67.079, icon:"🏥" },
+  { id:40, name:"Jinnah Postgraduate Medical Centre (JPMC)", city:"Karachi", phone:"021-99201300", specialty:"Emergency", note:"Major public tertiary hospital; plastic surgery dept & 24/7 emergency; works alongside… · Free", lat:24.8482, lng:67.0409, icon:"🏥" },
+  { id:41, name:"The Indus Hospital (Korangi Campus)", city:"Karachi", phone:"021-111-111-880", specialty:"Emergency", note:"Entirely free tertiary care incl. surgery & wound care; important option for low-income…", lat:24.8266, lng:67.1288, icon:"🏥" },
+  { id:42, name:"Abbasi Shaheed Hospital", city:"Karachi", phone:"021-99260400", specialty:"Emergency", note:"KMC-run teaching hospital; emergency stabilization; refers complex burns to CHK Burns… · Free", lat:24.928, lng:67.043, icon:"🏥" },
+  { id:43, name:"Holy Family Hospital Karachi", city:"Karachi", phone:"021-32258021-25", specialty:"Emergency", note:"PMC-verified private hospital noted for burn scar & reconstructive treatment.", lat:24.872, lng:67.035, icon:"🏥" },
+  { id:44, name:"Dr. Ziauddin Hospital (Clifton)", city:"Karachi", phone:"021-35862937-39", specialty:"Emergency", note:"Private tertiary hospital; burn specialists & plastic surgery available.", lat:24.813, lng:67.029, icon:"🏥" },
+  { id:45, name:"Liaquat University Hospital", city:"Hyderabad", phone:"022-9213301", specialty:"Emergency", note:"Main tertiary referral hospital for Hyderabad division; plastic surgery & burn ward. · Free", lat:25.3924, lng:68.3532, icon:"🏥" },
+  { id:46, name:"Chandka Medical College Hospital (SMBBMU)", city:"Larkana", phone:"074-9410721", specialty:"Emergency", note:"Main tertiary hospital for upper Sindh; emergency burn stabilization & surgery. · Free", lat:27.557, lng:68.202, icon:"🏥" },
+  { id:47, name:"Ghulam Muhammad Mahar Medical College Hospital", city:"Sukkur", phone:"071-9310731", specialty:"Emergency", note:"Teaching hospital for Sukkur region; stabilization then referral to Larkana/Karachi. · Free", lat:27.718, lng:68.821, icon:"🏥" },
+  { id:48, name:"Peoples University Hospital", city:"Nawabshah (Shaheed Benazirabad)", phone:"0244-9370251", specialty:"Emergency", note:"Regional tertiary hospital; burn ward reported — verify capacity before referral. · Free", lat:26.244, lng:68.41, icon:"🏥" },
+  { id:49, name:"Burns & Plastic Surgery Centre (BTC)", city:"Peshawar", phone:"091-7158555", specialty:"Burns Centre", note:"KP's first state-of-the-art 120-bed burns & plastic surgery centre (est. 2018): 8-bed… · Free", lat:33.9855, lng:71.4053, icon:"🔥" },
+  { id:50, name:"Hayatabad Medical Complex (HMC)", city:"Peshawar", phone:"091-9217140-47", specialty:"Emergency", note:"Long-standing plastic surgery dept; now works alongside BTC next door. · Free", lat:33.991, lng:71.442, icon:"🏥" },
+  { id:51, name:"Lady Reading Hospital (LRH)", city:"Peshawar", phone:"091-9211441", specialty:"Emergency", note:"Largest hospital in KP; 24/7 emergency; stabilization + referral to BTC Hayatabad. · Free", lat:34.0075, lng:71.5625, icon:"🏥" },
+  { id:52, name:"Ayub Teaching Hospital", city:"Abbottabad", phone:"0992-381907-14", specialty:"Emergency", note:"Main tertiary hospital for Hazara division; plastic surgery dept; emergency burn care. · Free", lat:34.178, lng:73.221, icon:"🏥" },
+  { id:53, name:"Mardan Medical Complex (MTI)", city:"Mardan", phone:"0937-9230295", specialty:"Emergency", note:"Regional tertiary hospital; stabilization then referral to BTC Peshawar. · Free", lat:34.19, lng:72.046, icon:"🏥" },
+  { id:54, name:"Saidu Group of Teaching Hospitals", city:"Swat (Saidu Sharif)", phone:"0946-9240401", specialty:"Emergency", note:"Main referral hospital for Malakand division; emergency stabilization. · Free", lat:34.746, lng:72.356, icon:"🏥" },
+  { id:55, name:"Sandeman Provincial (Civil) Hospital", city:"Quetta", phone:"081-9202813", specialty:"Emergency", note:"Main provincial hospital of Balochistan; 24/7 emergency; burn ward — severe cases often… · Free", lat:30.19, lng:67.014, icon:"🏥" },
+  { id:56, name:"Bolan Medical Complex Hospital", city:"Quetta", phone:"081-9213823", specialty:"Emergency", note:"24/7 emergency, teaching hospital; plastic surgery services; complex burns referred… · Free", lat:30.174, lng:66.975, icon:"🏥" },
+  { id:57, name:"Combined Military Hospital (CMH) Quetta", city:"Quetta", phone:"081-9201091", specialty:"Emergency", note:"Option for emergency care in Quetta, esp. when civil facilities are overloaded.", lat:30.196, lng:67.033, icon:"🏥" },
+  { id:58, name:"Abbas Institute of Medical Sciences (AIMS)", city:"Muzaffarabad", phone:"05822-920525", specialty:"Emergency", note:"Main tertiary hospital of AJK capital; emergency stabilization; complex burns referred… · Free", lat:34.37, lng:73.4711, icon:"🏥" },
+  { id:59, name:"Divisional Headquarters Hospital Mirpur", city:"Mirpur", phone:"05827-920021", specialty:"Emergency", note:"Emergency stabilization; refers to Islamabad/Rawalpindi burn units. · Free", lat:33.148, lng:73.751, icon:"🏥" },
+  { id:60, name:"Provincial Headquarters Hospital Gilgit", city:"Gilgit", phone:"05811-920841", specialty:"Emergency", note:"Main hospital of GB; stabilization then air/road referral to Islamabad (PIMS) · Free", lat:35.92, lng:74.308, icon:"🏥" },
+  { id:61, name:"DHQ Hospital Skardu", city:"Skardu", phone:"05815-920228", specialty:"Emergency", note:"Stabilization only; severe burns referred to Islamabad. · Free", lat:35.297, lng:75.632, icon:"🏥" },
 ];
 
 function haversine(la1,lo1,la2,lo2){
@@ -85,12 +145,12 @@ function sColor(s){
 const ACCENT_GREEN = "#74B2B8";
 
 // ── STATS DATA (kept as-is per brief) ─────────────────────────────────────────
-const STATS_ACCENT = "#ff911c";
+const STATS_ACCENT = "#9010BF";
 const STATS_EN = [
-  { num:1000, suffix:"+",  label:"Acid attacks reported annually in Pakistan", src:"Depilex Smileagain Foundation", color:STATS_ACCENT },
-  { num:85,   suffix:"%",  label:"Of victims are women and girls", src:"ASF Pakistan", color:STATS_ACCENT },
-  { num:5,    suffix:"%",  label:"Cases that result in conviction", prefix:"<", src:"ASF Pakistan", color:STATS_ACCENT },
-  { num:40,   suffix:"%",  label:"Attacks committed by intimate partners or family members", src:"Depilex Smileagain Foundation", color:STATS_ACCENT },
+  { num:1000, suffix:"+",  label:"Acid attacks reported annually in Pakistan", src:"Depilex Smileagain Foundation", color:"#DFA4F8" },
+  { num:85,   suffix:"%",  label:"Of victims are women and girls", src:"ASF Pakistan", color:"#DFA4F8" },
+  { num:5,    suffix:"%",  label:"Cases that result in conviction", prefix:"<", src:"ASF Pakistan", color:"#DFA4F8" },
+  { num:40,   suffix:"%",  label:"Attacks committed by intimate partners or family members", src:"Depilex Smileagain Foundation", color:"#DFA4F8" },
 ];
 
 // ── BLOG DATA (placeholder editorial content; English only) ───────────────────
@@ -122,7 +182,7 @@ const BLOG_POSTS = [
       "Skills training programmes run by ASF Pakistan and Depilex Smileagain Foundation focus specifically on survivors, offering both vocational training and direct job placement support.",
       "This piece covers how to apply, what documentation is typically needed, and how to talk to employers about visible scarring."
     ]},
-  { id:4, category:"Legal", color:C.warn, dim:C.warnDim,
+  { id:4, category:"Legal", color:"#FF911C", dim:"rgba(255,145,28,0.14)",
     title:"Understanding Your Legal Rights After an Acid Attack in Pakistan",
     excerpt:"A plain-language guide to survivors' legal rights and protections in Pakistan — criminal penalties, the 2026 Supreme Court ruling, Punjab's new Acid Control Act, compensation, evidence preservation, and where to find help.",
     author:"Acidhelp Team", date:"Jun 30, 2026", image:IMG.blog4,
@@ -293,7 +353,7 @@ const T = {
     ],
     emTitle:"ACID ATTACK?", emSub:"Act immediately. Every second matters",
     doNot:"DO NOT apply: toothpaste · cream · milk · oil · baking soda — and do NOT cover with cloth",
-    callBtn:"CALL 1122 NOW", altLabel:"Also call:", edhi:"Edhi: 115", asf:"ASF: 051-2305354",
+    callBtn:"CALL 1122", altLabel:"Also call:", edhi:"Edhi: 115", asf:"ASF: 051-2305354",
     playVideo:"PLAY VIDEO",
     videoLabel:"Watch: How to flush correctly",
     stepsTitle:"What to do", stepsEyebrow:"First response",
@@ -518,9 +578,6 @@ const mapState = { map:null, userMarker:null, selected:null, nearbyList:[], load
 const revealedSections = new Set();
 
 const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-// Colors the word "ACID" red wherever it appears in the (already-uppercased) blog
-// title — a no-op for translations where the word isn't spelled out in Latin script.
-const highlightAcid = text => text.replace(/ACID/, `<span style="color:${C.red}">ACID</span>`);
 // Nastaliq (ur) needs noticeably more line-height than Latin scripts at the same
 // nominal value, or tall/multi-line headings visibly overlap the content below them.
 // Keyed on language, not t.dir — the UI layout itself always stays left-to-right
@@ -547,22 +604,19 @@ const dropPath = `M32 6C32 6 12 39 12 54 12 66.15 20.95 76 32 76 43.05 76 52 66.
 // Full-colour illustrated marker icons (from images/Icons) for the three main
 // facility types; anything else falls back to the drawn SVG glyphs below.
 const HOSP_IMG = { "🔥":IMG.icBurns, "✂️":IMG.icRecon, "🏥":IMG.icHospital, "⚕️":IMG.icHospital };
-// Marker badge: illustrated icons sit on a white disc (so their colours read),
-// drawn SVG glyphs sit on the specialty-coloured disc as before.
+// Marker badge: every facility gets one of the three illustrated icons (burns
+// centre / hospital / reconstruction) on a white disc. Any icon key not in
+// HOSP_IMG (a stray emoji on an older entry, say) still falls back to the
+// generic hospital icon rather than a plain SVG glyph, so no marker on the
+// map is ever left without a proper illustrated icon.
 const hospBadge = (emoji,diameter,col)=>{
-  const img = HOSP_IMG[emoji];
-  if(img) return `<div style="width:${diameter}px;height:${diameter}px;background:#fff;border-radius:50%;border:3px solid ${col};box-shadow:0 3px 14px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:${Math.round(diameter*0.16)}px"><img src="${img}" alt="" style="width:100%;height:100%;object-fit:contain;display:block"></div>`;
-  return `<div style="width:${diameter}px;height:${diameter}px;background:${col};border-radius:50%;border:3px solid white;box-shadow:0 3px 14px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;cursor:pointer;">${hospIcon(emoji,Math.round(diameter*0.48),"#fff")}</div>`;
+  const img = HOSP_IMG[emoji] || IMG.icHospital;
+  return `<div style="width:${diameter}px;height:${diameter}px;background:#fff;border-radius:50%;border:3px solid ${col};box-shadow:0 3px 14px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:${Math.round(diameter*0.16)}px"><img src="${img}" alt="" style="width:100%;height:100%;object-fit:contain;display:block"></div>`;
 };
 const pinSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.6A2.6 2.6 0 1112 6.4a2.6 2.6 0 010 5.2z" fill="${fill}"/></svg>`;
 const navSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M21 3L3 10.6l7.1 2.9 2.9 7.1L21 3z" fill="${fill}"/></svg>`;
 const globeSVG = (size,c)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><circle cx="12" cy="12" r="9" stroke="${c}" stroke-width="1.6"/><path d="M3.2 12h17.6M12 3c2.6 2.5 2.6 15.5 0 18M12 3c-2.6 2.5-2.6 15.5 0 18" stroke="${c}" stroke-width="1.6"/></svg>`;
 const mailSVG = (size,c)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><rect x="3" y="5.5" width="18" height="13" rx="2.5" stroke="${c}" stroke-width="1.6"/><path d="M4.5 7.5l7.5 5.5 7.5-5.5" stroke="${c}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-const hospIcon = (emoji,size,fill)=>{
-  if(emoji==="🔥") return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 002.5 2.5z" fill="${fill}"/></svg>`;
-  if(emoji==="💛") return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 20.7l-1.45-1.32C5.4 14.72 2 11.64 2 7.9 2 4.9 4.42 2.5 7.5 2.5c1.74 0 3.41.81 4.5 2.09C13.09 3.31 14.76 2.5 16.5 2.5 19.58 2.5 22 4.9 22 7.9c0 3.74-3.4 6.82-8.55 11.49L12 20.7z" fill="${fill}"/></svg>`;
-  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path fill-rule="evenodd" clip-rule="evenodd" d="M5 3h14v18h-4v-3a3 3 0 00-6 0v3H5V3zM11 7h2v2h2v2h-2v2h-2v-2H9V9h2V7z" fill="${fill}"/></svg>`;
-};
 // Figma logo mark — shield with white water drop (user-supplied, base64 in IMG.logo)
 const logoMark = (h)=>`<img src="${IMG.logo}" alt="Acidhelp logo" style="height:${h}px;width:auto;flex-shrink:0;display:block">`;
 
@@ -602,11 +656,11 @@ function emergencyPage(t){
 // "The Reality in Pakistan" — a slim stat banner that reads as an extension of
 // the hero rather than its own heavy section, sitting flush underneath it.
 function statsSection(t){
-  // Pulled up over the hero video's extra bottom margin (see heroPortrait's
-  // HERO_OVERLAP) via negative margin-top, so it reads as an overlay on the
-  // footage rather than a new block below it. Still off-screen (below the
-  // first viewport) until the visitor scrolls, and still fades in via .reveal.
-  return `<div class="reveal" data-reveal-id="stats" style="position:relative;z-index:2;margin-top:-${HERO_OVERLAP}px;background:rgba(20,25,36,0.9);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom:1px solid ${C.border}">
+  // The overlap onto the "What to do" section's photo is created entirely by
+  // that section's own negative margin-top (see firstResponseAlt's
+  // STATS_OVERLAP) pulling itself up underneath this bar — this element is
+  // just a normal flush block.
+  return `<div class="reveal" data-reveal-id="stats" style="position:relative;z-index:2;background:rgba(20,25,36,0.9);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom:1px solid ${C.border}">
     <div class="stats-row" style="max-width:1440px;margin:0 auto;padding:0 clamp(24px,4vw,64px);display:flex;flex-wrap:wrap;align-items:stretch;justify-content:space-between">
       ${STATS_EN.map((s,i)=>`
         ${i>0?`<span class="stats-divider" style="width:1px;height:88px;align-self:center;background:${C.border};flex-shrink:0"></span>`:""}
@@ -622,7 +676,7 @@ function statsSection(t){
 // Hero: full-bleed portrait photo with the ACID ATTACK content overlaid on the left
 function heroPortrait(t){
   const isRTL = t.dir==="rtl";
-  return `<section class="reveal" data-reveal-id="hero" style="position:relative;width:100%;height:calc(100vh - 68px + ${HERO_OVERLAP}px);height:calc(100dvh - 68px + ${HERO_OVERLAP}px);min-height:${480+HERO_OVERLAP}px;overflow:hidden;background:${C.bg}">
+  return `<section class="reveal" data-reveal-id="hero" style="position:relative;width:100%;height:calc(100vh - 68px);height:calc(100dvh - 68px);min-height:480px;overflow:hidden;background:${C.bg}">
     <!-- Background video -->
     <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:${isRTL?"left":"center right"}">
       <source src="${IMG.heroVideo}" type="video/mp4">
@@ -630,17 +684,16 @@ function heroPortrait(t){
     <!-- Left-side scrim: strong black on left fading fully to transparent past the older man's face -->
     <div style="position:absolute;inset:0;background:linear-gradient(${isRTL?"270deg":"90deg"},rgba(0,0,0,0.95) 0%,rgba(0,0,0,0.85) 15%,rgba(0,0,0,0.55) 35%,rgba(0,0,0,0.2) 55%,rgba(0,0,0,0) 72%)"></div>
 
-    <!-- Content overlay — bottom edge stops short of the hero's extra
-         HERO_OVERLAP height so the CTA never sits under the stats bar -->
-    <div style="position:absolute;top:0;left:0;right:0;bottom:${HERO_OVERLAP}px;display:flex;align-items:flex-end">
+    <!-- Content overlay -->
+    <div style="position:absolute;inset:0;display:flex;align-items:flex-end">
       <div style="max-width:1440px;width:100%;margin:0 auto;padding:0 clamp(28px,5vw,80px) clamp(32px,4vw,56px)">
-        <div style="max-width:640px">
+        <div class="hero-anim" style="max-width:640px">
           <h1 style="font-family:${BODY_FF};font-weight:900;font-size:clamp(44px,7vw,82px);letter-spacing:-2.5px;line-height:${rtlLH(t,0.95,1.3)};color:#fff;margin:0;text-shadow:0 2px 24px rgba(0,0,0,0.4)">${t.emTitle}</h1>
           <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(15px,1.3vw,18px);color:rgba(255,255,255,.9);margin:10px 0 32px;text-shadow:0 1px 12px rgba(0,0,0,0.5)">${t.emSub}</p>
-          <div style="display:inline-flex;flex-direction:column;align-items:center">
-            <a href="tel:1122" class="cta-btn" style="background:${C.red};border-radius:40px;padding:16px 30px;display:inline-flex;align-items:center;gap:12px;text-decoration:none;box-shadow:0 8px 32px rgba(255,59,48,0.35)">
-              ${phoneSVG(22,"#fff")}
-              <span style="color:#fff;font-family:${BODY_FF};font-weight:900;font-size:clamp(17px,1.5vw,22px);letter-spacing:-0.5px">${t.callBtn}</span>
+          <div style="display:inline-flex;flex-direction:column;align-items:flex-start">
+            <a href="tel:1122" class="cta-btn" style="background:${C.brand};border-radius:40px;padding:14px 22px;display:inline-flex;align-items:center;gap:10px;text-decoration:none;box-shadow:0 8px 32px rgba(186,69,235,0.35)">
+              ${phoneSVG(20,"#fff")}
+              <span style="color:#fff;font-family:${BODY_FF};font-weight:700;font-size:clamp(17px,1.5vw,22px);letter-spacing:-0.5px">${t.callBtn}</span>
             </a>
             <div style="display:flex;gap:14px;align-items:center;justify-content:center;margin-top:12px;flex-wrap:wrap">
               <span style="font-family:${BODY_FF};font-size:11px;color:rgba(255,255,255,.6);text-shadow:0 1px 8px rgba(0,0,0,0.6)">${t.altLabel}</span>
@@ -654,12 +707,12 @@ function heroPortrait(t){
   </section>`;
 }
 
-// "First response · What to do" — 3 step cards with red left rail (matches Figma exactly)
+// "First response · What to do" — 3 step cards with brand-coloured left rail
 function firstResponse(t){
-  const rails = [C.red, "#B52A22", "#8B1818"];
+  const rails = [C.brand, "#8E15C1", "#6D1093"];
   return `<section class="reveal" data-reveal-id="steps" style="padding:clamp(56px,12vw,96px) clamp(28px,5vw,80px) clamp(48px,6vw,80px)">
     <div style="max-width:1308px;margin:0 auto">
-      <div style="font-family:${BODY_FF};font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:${C.red}">${t.stepsEyebrow}</div>
+      <div style="font-family:${BODY_FF};font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:${C.brand}">${t.stepsEyebrow}</div>
       <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(42px,3.2vw,56px);letter-spacing:-1px;line-height:${rtlLH(t,1.1,1.6)};margin:16px 0 28px;color:${C.text}">${t.stepsTitle}</h2>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:18px">
@@ -690,9 +743,14 @@ function firstResponse(t){
 // right, sliding the step's body text in beside the number (see the .fr-alt-*
 // rules in styles.css). On mobile the cards stack and body text stays visible.
 function firstResponseAlt(t){
-  return `<section class="reveal" data-reveal-id="steps-alt" style="position:relative;overflow:hidden;background:#050508;padding:clamp(48px,7vw,90px) clamp(28px,5vw,80px)">
+  // margin-top:-STATS_OVERLAP pulls this section's top edge up underneath the
+  // stats bar above it; padding-top is increased by the same amount so the
+  // heading/cards still start at their original visual position — only the
+  // section's own photo backdrop (position:absolute;inset:0, so it fills the
+  // taller box) extends into that overlap band for the stats bar to sit on.
+  return `<section class="reveal" data-reveal-id="steps-alt" style="position:relative;overflow:hidden;background:#050508;margin-top:-${STATS_OVERLAP}px;padding:calc(clamp(48px,7vw,90px) + ${STATS_OVERLAP}px) clamp(28px,5vw,80px) clamp(48px,7vw,90px)">
     <!-- Darkened photo backdrop -->
-    <div style="position:absolute;inset:0;background-image:url('${IMG.footer}');background-size:cover;background-position:center;filter:grayscale(1) brightness(0.32)"></div>
+    <div style="position:absolute;inset:0;background-image:url('${IMG.whatToDo}');background-size:cover;background-position:center;filter:grayscale(1) brightness(0.32)"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.55) 45%,rgba(0,0,0,0.7) 100%)"></div>
 
     <div class="fr-alt-grid" style="position:relative;max-width:1440px;margin:0 auto;column-gap:clamp(28px,4vw,64px);row-gap:16px">
@@ -700,7 +758,7 @@ function firstResponseAlt(t){
            cards, so the text sits on the exact same baseline as "FLUSH WITH
            WATER" regardless of viewport width -->
       <div class="fr-alt-heading">
-        <h2 style="font-family:${BODY_FF};font-size:36px;font-weight:300;letter-spacing:0;text-transform:uppercase;color:${C.red};margin:0;line-height:${rtlLH(t,1.4,1.8)}">${t.stepsTitle}</h2>
+        <h2 style="font-family:${BODY_FF};font-size:36px;font-weight:300;letter-spacing:0;text-transform:uppercase;color:${C.brand};margin:0;line-height:${rtlLH(t,1.4,1.8)}">${t.stepsTitle}</h2>
       </div>
 
       <!-- Right: three expanding glass cards -->
@@ -738,7 +796,7 @@ function footerStrip(t){
         <div class="footer-brand">
           <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px">
             ${logoMark(28)}
-            <span style="font-family:${HEAD_FF};font-weight:900;font-size:26px;letter-spacing:-1px"><span style="color:${C.red}">Acid</span><span style="color:#fff">help</span></span>
+            <span style="font-family:${HEAD_FF};font-weight:900;font-size:26px;letter-spacing:-1px"><span style="color:${C.brand}">Acid</span><span style="color:#fff">help</span></span>
           </div>
           <a href="mailto:info@acidhelp.com" class="footer-link" style="font-family:${BODY_FF};font-size:14px;color:rgba(255,255,255,.85);letter-spacing:.22em;text-shadow:0 1px 8px rgba(0,0,0,0.5)">i n f o @ a c i d h e l p . c o m</a>
         </div>
@@ -785,13 +843,13 @@ function renderMapOverlays(){
       <div style="color:${C.sub};font-size:11px;margin-top:1px;font-family:${BODY_FF}">${t.medSub}</div>
     </div>`;
 
-  const nearBtn = `<button onclick="nearMe()" ${mapState.loading?"disabled":""} class="cta-btn near-me-btn" style="position:absolute;bottom:20px;right:14px;z-index:1000;background:${mapState.loading?C.muted:C.redDark};color:white;border:none;border-radius:30px;padding:13px 20px;font-size:14px;font-weight:800;font-family:${BODY_FF};cursor:${mapState.loading?"not-allowed":"pointer"};display:flex;align-items:center;gap:8px;box-shadow:${mapState.loading?"none":"0 4px 28px rgba(255,59,48,0.45)"}">${mapState.loading?"⏳":pinSVG(16,"#fff")} ${mapState.loading?t.locating:t.nearMe}</button>`;
+  const nearBtn = `<button onclick="nearMe()" ${mapState.loading?"disabled":""} class="cta-btn near-me-btn" style="position:absolute;bottom:20px;right:14px;z-index:1000;background:${mapState.loading?C.muted:C.brandDark};color:white;border:none;border-radius:30px;padding:13px 20px;font-size:14px;font-weight:800;font-family:${BODY_FF};cursor:${mapState.loading?"not-allowed":"pointer"};display:flex;align-items:center;gap:8px;box-shadow:${mapState.loading?"none":"0 4px 28px rgba(186,69,235,0.45)"}">${mapState.loading?"⏳":pinSVG(16,"#fff")} ${mapState.loading?t.locating:t.nearMe}</button>`;
 
   const err = mapState.locError ? `<button onclick="clearError()" style="position:absolute;top:12px;left:12px;right:12px;z-index:1001;background:${C.redDark};color:white;padding:12px 14px;border-radius:12px;font-size:13px;font-weight:600;font-family:${BODY_FF};line-height:1.4;text-align:left;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.3)">⚠️ ${esc(mapState.locError)}</button>` : "";
 
   let sheet = "";
   if(mapState.nearbyList.length>0 && !sel){
-    sheet = `<div style="position:absolute;bottom:16px;left:16px;width:min(400px, calc(100% - 32px));z-index:1000;background:rgba(20,25,36,0.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:20px;padding:18px 18px 10px;max-height:50%;overflow-y:auto;box-shadow:0 12px 44px rgba(0,0,0,0.55);animation:slideInLeft 0.28s cubic-bezier(.22,1,.36,1)">
+    sheet = `<div class="nearest-hosp-scroll" style="position:absolute;bottom:16px;left:16px;width:min(400px, calc(100% - 32px));z-index:1000;background:rgba(20,25,36,0.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:20px;padding:18px 18px 10px;max-height:50%;overflow-y:auto;box-shadow:0 12px 44px rgba(0,0,0,0.55);animation:slideInLeft 0.28s cubic-bezier(.22,1,.36,1)">
         <div style="color:${C.sub};font-size:11px;font-weight:700;letter-spacing:1.5px;margin:0 4px 6px;font-family:${BODY_FF}">NEAREST HOSPITALS</div>
         ${mapState.nearbyList.map((h,i)=>`
           <button onclick="selectHospital(${h.id})" class="hosp-row" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 10px;border:none;${i>0?`border-top:1px solid rgba(255,255,255,0.07);`:""}background:none;border-radius:12px;text-align:left;cursor:pointer">
@@ -799,7 +857,7 @@ function renderMapOverlays(){
               <div style="color:${C.text};font-size:14px;font-weight:600;font-family:${BODY_FF};line-height:1.3">${h.name}</div>
               <div style="color:${C.sub};font-size:12px;margin-top:3px;font-family:${BODY_FF}">${h.city} · <span style="color:${sColor(h.specialty)}">${h.specialty}</span></div>
             </div>
-            <span style="flex-shrink:0;background:${C.redDim};color:${C.red};font-size:12.5px;font-weight:700;font-family:${BODY_FF};padding:5px 11px;border-radius:20px;white-space:nowrap">${h.dist} km</span>
+            <span style="flex-shrink:0;background:rgba(223,164,248,0.14);color:#DFA4F8;font-size:12.5px;font-weight:700;font-family:${BODY_FF};padding:5px 11px;border-radius:20px;white-space:nowrap">${h.dist} km</span>
           </button>`).join("")}
       </div>`;
   } else if(sel){
@@ -813,13 +871,13 @@ function renderMapOverlays(){
           <div style="flex:1;min-width:0">
             <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap">
               <span style="background:${col};color:white;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;font-family:${BODY_FF}">${sel.specialty}</span>
-              ${sel.dist?`<span style="color:${C.red};font-size:12px;font-weight:700;font-family:${BODY_FF};display:inline-flex;align-items:center;gap:4px">${navSVG(12,C.red)} ${sel.dist} km</span>`:""}
+              ${sel.dist?`<span style="color:${C.brand};font-size:12px;font-weight:700;font-family:${BODY_FF};display:inline-flex;align-items:center;gap:4px">${navSVG(12,C.brand)} ${sel.dist} km</span>`:""}
             </div>
             <div style="color:${C.text};font-size:17px;font-weight:900;line-height:1.2;font-family:${BODY_FF}">${sel.name}</div>
             <div style="color:${C.sub};font-size:12px;margin-top:4px;font-family:${BODY_FF};display:flex;align-items:center;gap:4px">${pinSVG(13,C.sub)} ${sel.city}</div>
             <div style="color:${C.sub};font-size:12px;margin-top:3px;line-height:1.4;font-family:${BODY_FF}">${sel.note}</div>
             <div style="display:flex;gap:10px;margin-top:14px">
-              <a href="${telHref}" class="cta-btn" style="background:${C.redDark};color:white;padding:9px 16px;border-radius:24px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${phoneSVG(14,"#fff")} ${t.callHosp}</a>
+              <a href="${telHref}" class="cta-btn" style="background:${C.brandDark};color:white;padding:9px 16px;border-radius:24px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${phoneSVG(14,"#fff")} ${t.callHosp}</a>
               <a href="${dirHref}" target="_blank" rel="noreferrer" class="cta-btn" style="background:${C.card};color:${C.text};padding:9px 16px;border-radius:24px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${navSVG(14,C.text)} ${t.directions}</a>
             </div>
           </div>
@@ -901,9 +959,9 @@ function resourcesPage(t){
       <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(460px,100%),1fr));gap:20px">
         ${cards.map((card,i)=>{
           const isOpen = openCard===i;
-          // Unified accent for all Resources dropdowns — Figma amber
-          const ACCENT = "#FF911C";
-          const ACCENT_DIM = "rgba(255,145,28,0.16)";
+          // Unified accent for all Resources dropdowns
+          const ACCENT = "#F6E2FE";
+          const ACCENT_DIM = "rgba(246,226,254,0.16)";
           const metaRow = (icon,text,href)=>{
             const textEl = href
               ? `<a href="${href}" target="_blank" rel="noopener noreferrer" style="font-family:${BODY_FF};font-size:12px;color:${C.sub};overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:underline;text-underline-offset:2px">${text}</a>`
@@ -981,7 +1039,7 @@ function faqSection(t){
 // entire featured-post card is already one clickable <button>, and per HTML
 // can't validly contain a second, nested interactive control.
 function readNowVisual(t){
-  return `<span class="read-now-btn" style="color:${C.red};font-size:15px;font-weight:500;font-family:${BODY_FF};border-bottom:1.5px solid currentColor;padding-bottom:4px;margin-bottom:16px;display:inline-flex;align-items:center;gap:6px">
+  return `<span class="read-now-btn" style="color:#DFA4F8;font-size:15px;font-weight:500;font-family:${BODY_FF};border-bottom:1.5px solid currentColor;padding-bottom:4px;margin-bottom:16px;display:inline-flex;align-items:center;gap:6px">
       ${t.readNowLabel}
       <svg class="read-now-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </span>`;
@@ -994,7 +1052,7 @@ function blogPage(t){
     <!-- Hero -->
     <section class="reveal" data-reveal-id="blog-hero" style="padding:clamp(18px,2.2vw,32px) clamp(28px,5vw,80px) clamp(28px,3vw,44px)">
       <div style="max-width:1440px;margin:0 auto">
-        <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${highlightAcid(t.blogTitle.toUpperCase())}</h1>
+        <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.blogTitle.toUpperCase().replace(/ACID/, `<span style="color:${C.brand}">ACID</span>`)}</h1>
       </div>
     </section>
 
@@ -1005,7 +1063,7 @@ function blogPage(t){
           <img class="blog-photo" src="${featured.image}" alt="${esc(featured.title)}" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div>
-          <div class="bf-label" style="font-family:${BODY_FF};font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:${STATS_ACCENT}">${t.featuredLabel}</div>
+          <div class="bf-label" style="font-family:${BODY_FF};font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#DFA4F8">${t.featuredLabel}</div>
           <h2 class="bf-title" style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3.4vw,40px);letter-spacing:-1px;line-height:1.15;color:#fff;margin:14px 0 16px">${featured.title}</h2>
           <div class="bf-byline" style="font-family:${BODY_FF};font-size:13px;color:rgba(255,255,255,.55);margin-bottom:16px">${t.byLabel} <span style="color:#fff;font-weight:600">${featured.author}</span> &nbsp;|&nbsp; ${featured.date}</div>
           <p class="bf-excerpt" style="font-family:${BODY_FF};font-size:15px;color:rgba(255,255,255,.65);line-height:1.7;margin:0 0 26px">${featured.excerpt}</p>
@@ -1029,7 +1087,7 @@ function blogPage(t){
               <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto">
                 <div style="font-family:${BODY_FF};font-size:12px;color:${C.sub}">${t.byLabel} <span style="color:${C.text};font-weight:600">${post.author}</span> &nbsp;|&nbsp; ${post.date}</div>
                 <span class="blog-card-arrow" aria-hidden="true" style="flex-shrink:0;display:flex;align-items:center;justify-content:center">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="${C.warn}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#DFA4F8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
               </div>
             </div>
@@ -1091,7 +1149,7 @@ function blogPostPage(t){
       </div>
     </div>
 
-    <article class="reveal" data-reveal-id="blog-post-body" style="max-width:760px;margin:0 auto;padding:clamp(32px,5vw,56px) clamp(16px,3vw,32px)">
+    <article style="max-width:760px;margin:0 auto;padding:clamp(32px,5vw,56px) clamp(16px,3vw,32px)">
       ${post.body.map(item=>blogBodyItem(item)).join("")}
     </article>
 
@@ -1149,24 +1207,30 @@ const ABOUT_CONTENT = {
 };
 
 function aboutPage(t){
-  const AMBER = "#FF911C", AMBER_DIM = "rgba(255,145,28,0.14)";
+  const AMBER = "#9010BF", AMBER_DIM = "rgba(144,16,191,0.14)";
   const AC = ABOUT_CONTENT;
   const provideIcons = [provChecklistSVG(24,AMBER), provChatSVG(24,AMBER), pinSVG(24,AMBER), advIdSVG(24,AMBER)];
   return `<div>
-    <!-- Hero -->
-    <div style="background:#141924;border-bottom:1px solid ${C.border}">
-      <section class="reveal" data-reveal-id="abt-hero" style="padding:clamp(18px,2.2vw,32px) clamp(28px,5vw,80px) clamp(30px,4vw,52px)">
-        <div style="max-width:1440px;margin:0 auto">
-          <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.abtTitle.toUpperCase()}</h1>
-          <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(14px,1.2vw,16px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:60ch">${t.abtMission}</p>
+    <!-- Hero: photo left, title + subcopy right, so both are visible together -->
+    <section class="reveal" data-reveal-id="abt-hero" style="background:${C.bg};padding:clamp(28px,4vw,56px) clamp(28px,5vw,80px)">
+      <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:clamp(28px,4vw,56px);align-items:flex-end">
+        <!-- Placeholder photo (images/footer.png) until a dedicated About
+             image is supplied — swap the src below to replace it. -->
+        <div style="border-radius:20px;overflow:hidden;height:clamp(320px,40vw,520px)">
+          <img src="${IMG.footer}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
-      </section>
-    </div>
+        <div style="padding-bottom:12px">
+          <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.abtTitle.toUpperCase().replace(/ACID/, `<span style="color:${C.brand}">ACID</span>`)}</h1>
+          <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(14px,1.2vw,16px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:60ch">${t.abtMission}</p>
+          <a href="/joinus" onclick="return setPage('joinus')" class="cta-btn" style="margin-top:24px;background:none;border:1.5px solid #DFA4F8;color:#DFA4F8;padding:12px 28px;border-radius:32px;font-size:14px;font-weight:600;font-family:${BODY_FF};letter-spacing:-0.2px;display:inline-block;text-decoration:none">${AC.involvedCta}</a>
+        </div>
+      </div>
+    </section>
 
     <!-- Why We Exist -->
     <section class="reveal" data-reveal-id="abt-why" style="background:${C.bg};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
       <div style="max-width:1440px;margin:0 auto">
-        <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0 0 20px">${AC.whyTitle}</h2>
+        <h2 style="font-family:${BODY_FF};font-weight:200;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;text-transform:uppercase;color:#fff;margin:0 0 20px">${AC.whyTitle}</h2>
         <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;max-width:80ch;margin:0 0 24px">${AC.whyPara1}</p>
 
         <div style="background:${C.card};border:1px solid rgba(0,200,83,0.35);border-radius:20px;overflow:hidden;max-width:80ch;margin:0 0 24px">
@@ -1189,7 +1253,7 @@ function aboutPage(t){
     </section>
 
     <!-- What AcidHelp Provides -->
-    <section class="reveal" data-reveal-id="abt-provides" style="background:${C.surface};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
+    <section class="reveal" data-reveal-id="abt-provides" style="background:${C.bg};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
       <div style="max-width:1440px;margin:0 auto">
         <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0 0 28px">${AC.providesTitle}</h2>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px">
@@ -1222,11 +1286,11 @@ function aboutPage(t){
     </section>
 
     <!-- Get Help or Get Involved -->
-    <section class="reveal" data-reveal-id="abt-involved" style="background:#141924;border-top:1px solid ${C.border};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
+    <section class="reveal" data-reveal-id="abt-involved" style="background:${C.bg};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
       <div style="max-width:720px;margin:0 auto;text-align:center">
         <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0 0 16px">${AC.involvedTitle}</h2>
         <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.75;margin:0 0 28px">${AC.involvedBody}</p>
-        <a href="/joinus" onclick="return setPage('joinus')" class="cta-btn" style="background:${C.redDark};color:white;border:none;padding:14px 30px;border-radius:32px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px;display:inline-block;text-decoration:none">${AC.involvedCta}</a>
+        <a href="/joinus" onclick="return setPage('joinus')" class="cta-btn" style="background:${C.brandDark};color:white;border:none;padding:14px 30px;border-radius:32px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px;display:inline-block;text-decoration:none">${AC.involvedCta}</a>
       </div>
     </section>
 
@@ -1238,19 +1302,15 @@ function aboutPage(t){
 // ── JOIN US PAGE ───────────────────────────────────────────────────────────────
 function joinUsPage(t){
   return `<div>
-    <!-- Hero -->
-    <div style="background:#141924;border-bottom:1px solid ${C.border}">
-      <section class="reveal" data-reveal-id="join-hero" style="padding:clamp(18px,2.2vw,32px) clamp(28px,5vw,80px) clamp(30px,4vw,52px)">
-        <div style="max-width:1440px;margin:0 auto">
-          <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.conTitle.toUpperCase()}</h1>
-          <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(14px,1.2vw,16px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:60ch">${t.conSub}</p>
+    <!-- Hero + form, side by side so the form is visible without scrolling -->
+    <section class="reveal join-hero-grid" data-reveal-id="join-hero" style="background:#141924;border-bottom:1px solid ${C.border};padding:clamp(28px,4vw,56px) clamp(28px,5vw,80px)">
+      <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:clamp(28px,4vw,56px);align-items:center">
+        <div>
+          <h1 style="max-width:340px;font-family:${BODY_FF};font-weight:300;font-size:clamp(28px,3.6vw,44px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.conTitle.toUpperCase()}</h1>
+          <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(14px,1.2vw,16px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:52ch">${t.conSub}</p>
         </div>
-      </section>
-    </div>
-
-    <!-- Form -->
-    <section class="reveal abt-join-section" data-reveal-id="join-form" style="background:${C.bg};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
-      <div style="max-width:620px;margin:0 auto;text-align:start">${joinUsForm(t)}</div>
+        <div style="max-width:480px;width:100%;text-align:start">${joinUsForm(t)}</div>
+      </div>
     </section>
 
     <!-- Footer -->
@@ -1280,7 +1340,7 @@ function joinUsForm(t){
   const chevron = `data:image/svg+xml,${encodeURIComponent(chevronSVG)}`;
   const selectStyle = `${inputStyle};appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-inline-end:40px;background-image:url(${chevron});background-repeat:no-repeat;background-position:${isRTL?"left 16px center":"right 16px center"}`;
   const labelStyle = `font-size:13px;font-weight:300;color:${C.sub};display:block;margin-bottom:4px;padding-inline-start:14px;font-family:${BODY_FF}`;
-  const tabStyle = active=>`flex:1;text-align:center;padding:10px 4px;margin-bottom:-1.5px;background:none;border:none;border-bottom:2.5px solid ${active?STATS_ACCENT:"transparent"};color:${active?STATS_ACCENT:C.sub};font-weight:${active?700:500};font-size:15px;font-family:${BODY_FF}`;
+  const tabStyle = active=>`flex:1;text-align:center;padding:10px 4px;margin-bottom:-1.5px;background:none;border:none;border-bottom:2.5px solid ${active?"#DFA4F8":"transparent"};color:${active?"#DFA4F8":C.sub};font-weight:${active?700:500};font-size:15px;font-family:${BODY_FF}`;
 
   const tabs = `<div class="join-tabs" style="display:flex;gap:0;margin-bottom:14px;border-bottom:1.5px solid ${C.border}">
       <button onclick="setJoinTab('survivor')" class="join-tab-btn${isSurvivor?" is-active":""}" style="${tabStyle(isSurvivor)}">${t.survivorTab}</button>
@@ -1316,7 +1376,7 @@ function joinUsForm(t){
         <label for="join-notes" style="${labelStyle}">${t.notesLabel}</label>
         <textarea id="join-notes" rows="4" oninput="updateJoinForm('notes', this.value)" style="${inputStyle};resize:vertical;min-height:100px;line-height:1.5">${esc(data.notes)}</textarea>
       </div>
-      <button onclick="submitJoinForm()" class="cta-btn" style="background:${C.redDark};color:white;border:none;padding:13px;border-radius:28px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px;margin-top:2px">${submitLabel}</button>
+      <button onclick="submitJoinForm()" class="cta-btn" style="background:#DFA4F8;color:${C.bg};border:none;padding:13px;border-radius:28px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px;margin-top:2px">${submitLabel}</button>
     </div>`;
 }
 
@@ -1423,9 +1483,9 @@ function chatWidget(t){
     // Collapsed state: one glassy capsule holding both the glowing orb avatar and
     // the invite text, glowing at the edges instead of two separate floating pieces.
     const iconBadge = `<span class="chat-orb" style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"></span>`;
-    const teaserText = `<span style="font-family:${BODY_FF};font-size:14px;font-weight:300;color:${STATS_ACCENT};text-shadow:0 0 4px rgba(255,145,28,0.9),0 0 14px rgba(255,145,28,0.7);white-space:nowrap">${esc(t.chatTeaser)}</span>`;
+    const teaserText = `<span style="font-family:${BODY_FF};font-size:14px;font-weight:300;color:#DFA4F8;text-shadow:0 0 4px rgba(223,164,248,0.9),0 0 14px rgba(223,164,248,0.7);white-space:nowrap">${esc(t.chatTeaser)}</span>`;
     const edgePad = isRTL ? "6px 22px 6px 6px" : "6px 6px 6px 22px";
-    return `<button onclick="toggleChat()" id="chat-fab-wrap" class="chat-capsule" aria-label="${esc(t.chatTitle)}" style="position:fixed;bottom:24px;${side}:24px;z-index:1500;display:flex;align-items:center;gap:12px;padding:${edgePad};border-radius:40px;border:1.5px solid rgba(255,145,28,0.55);background:rgba(20,25,36,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 0 22px rgba(255,145,28,0.45),0 8px 24px rgba(0,0,0,0.35);cursor:pointer">
+    return `<button onclick="toggleChat()" id="chat-fab-wrap" class="chat-capsule" aria-label="${esc(t.chatTitle)}" style="position:fixed;bottom:24px;${side}:24px;z-index:1500;display:flex;align-items:center;gap:12px;padding:${edgePad};border-radius:40px;border:1.5px solid rgba(223,164,248,0.55);background:rgba(20,25,36,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 0 22px rgba(223,164,248,0.45),0 8px 24px rgba(0,0,0,0.35);cursor:pointer">
         ${isRTL ? iconBadge + teaserText : teaserText + iconBadge}
       </button>`;
   }
@@ -1436,17 +1496,19 @@ function chatWidget(t){
       ${t.chatPrompts.map((p,i)=>`<button onclick="askChatPrompt(${i})" class="chat-prompt-btn" style="background:#fff;border:1px solid ${C.border};color:#000;border-radius:20px;padding:8px 14px;font-family:${BODY_FF};font-size:12px;cursor:pointer">${esc(p.q)}</button>`).join("")}
     </div>`;
 
-  const panel = `<div class="chat-panel" style="position:fixed;bottom:96px;${side}:24px;z-index:1499;width:min(360px, calc(100vw - 32px));max-height:min(560px, calc(100vh - 140px));background:rgba(20,25,36,0.6);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid ${C.border};border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:flex;flex-direction:column;overflow:hidden">
-      <div style="background:${C.redDark};padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0">
-        <div style="min-width:0">
-          <div style="font-family:${BODY_FF};font-weight:300;font-size:15px;letter-spacing:.02em;color:#fff;white-space:nowrap">${esc(t.chatTitle)}</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-          <button onclick="resetChat()" class="icon-btn" aria-label="Restart" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center">${restartSVG("#fff")}</button>
-          <button onclick="toggleChat()" class="icon-btn" aria-label="Close chat" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px">✕</button>
-        </div>
+  // Header is its own floating glass pill (matching the collapsed teaser
+  // capsule's language) sitting above the message panel with a visible gap,
+  // rather than a flat bar fused to the panel's top edge.
+  const headerPill = `<div style="flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 8px 8px 20px;border-radius:40px;border:1.5px solid rgba(223,164,248,0.55);background:rgba(20,25,36,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 8px 24px rgba(0,0,0,0.35)">
+      <div style="font-family:${BODY_FF};font-weight:300;font-size:15px;letter-spacing:.02em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">${esc(t.chatTitle)}</div>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+        <button onclick="resetChat()" class="icon-btn spin-hover" aria-label="Restart" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:50%;width:26px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">${restartSVG("#fff")}</button>
+        <button onclick="toggleChat()" class="icon-btn" aria-label="Close chat" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:50%;width:26px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">✕</button>
+        <span class="chat-orb" style="width:38px;height:38px;border-radius:50%;flex-shrink:0"></span>
       </div>
+    </div>`;
 
+  const messagesPanel = `<div class="chat-panel" style="flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;background:rgba(20,25,36,0.6);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(223,164,248,0.3);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.5)">
       <div id="chat-messages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:transparent;min-height:160px">
         ${state.chatMessages.map(chatMessageBubble).join("")}
       </div>
@@ -1457,6 +1519,11 @@ function chatWidget(t){
         <input id="chat-input" aria-label="${esc(t.chatPlaceholder)}" placeholder="${esc(t.chatPlaceholder)}" oninput="updateChatDraft(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();sendChatMessage();}" value="${esc(state.chatDraft)}" style="flex:1;min-width:0;padding:10px 14px;border-radius:20px;border:1.5px solid ${C.border};background:rgba(11,15,28,0.6);color:${C.text};font-size:13px;font-family:${BODY_FF}">
         <button onclick="sendChatMessage()" class="cta-btn" aria-label="${esc(t.chatPlaceholder)}" style="background:${STATS_ACCENT};border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">${sendSVG(C.bg)}</button>
       </div>
+    </div>`;
+
+  const panel = `<div style="position:fixed;bottom:96px;${side}:24px;z-index:1499;width:min(360px, calc(100vw - 32px));max-height:min(560px, calc(100vh - 140px));display:flex;flex-direction:column;gap:10px">
+      ${headerPill}
+      ${messagesPanel}
     </div>`;
 
   return fab + panel;
@@ -1500,13 +1567,13 @@ function render(){
     <div class="site-header-inner" style="max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:11px 16px 12px">
       <a href="/" onclick="return setPage('emergency')" class="logo-btn" aria-label="Acidhelp — home" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;gap:9px;flex-shrink:0;text-decoration:none">
         ${logoMark(26)}
-        <span class="brand-wordmark" style="font-family:${HEAD_FF};font-weight:900;font-size:24px;letter-spacing:-1px;line-height:1"><span style="color:${C.red}">Acid</span><span style="color:#fff">help</span></span>
+        <span class="brand-wordmark" style="font-family:${HEAD_FF};font-weight:900;font-size:24px;letter-spacing:-1px;line-height:1"><span style="color:${C.brand}">Acid</span><span style="color:#fff">help</span></span>
       </a>
       <nav class="nav-scroll" style="flex:1;justify-content:center;min-width:0">
         ${[1,2,3,4,5].map(i=>{  /* Figma order: Nearby · Recovery · Blog · About · Join Us — Emergency is the landing page (logo) */
           const label = t.navItems[i];
           const active = state.page===t.pages[i] || (t.pages[i]==="blog" && state.page==="blogPost");
-          return `<a href="${PAGE_URLS[t.pages[i]]}" onclick="return setPage('${t.pages[i]}')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:${BODY_FF};font-weight:${active?600:400};font-size:16px;letter-spacing:-0.5px;color:${active?"#fff":"rgba(240,243,250,.72)"};border-bottom:2px solid ${active?C.red:"transparent"};white-space:nowrap;text-decoration:none">${label}</a>`;
+          return `<a href="${PAGE_URLS[t.pages[i]]}" onclick="return setPage('${t.pages[i]}')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:${BODY_FF};font-weight:${active?600:400};font-size:16px;letter-spacing:-0.5px;color:${active?"#fff":"rgba(240,243,250,.72)"};border-bottom:2px solid ${active?C.brand:"transparent"};white-space:nowrap;text-decoration:none">${label}</a>`;
         }).join("")}
       </nav>
       <div class="header-controls" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
@@ -1517,7 +1584,7 @@ function render(){
             return `<button onclick="setLang('${l}')" class="lang-btn" style="background:${active?C.card:"transparent"};color:${active?"#fff":C.sub};border:1px solid ${active?C.borderLight:"transparent"};border-radius:16px;padding:3px 9px;font-size:${l==="ur"?12:10.5}px;font-weight:${active?700:500};cursor:pointer;font-family:${ff}">${T[l].name}</button>`;
           }).join("")}
         </div>
-        <a href="tel:1122" class="cta-btn call-pill" style="background:${C.red};border-radius:32px;padding:6px 12px;display:inline-flex;align-items:center;gap:4px">
+        <a href="tel:1122" class="cta-btn call-pill" style="background:${C.brand};border-radius:32px;padding:6px 12px;display:inline-flex;align-items:center;gap:4px">
           ${phoneSVG(17,"#fff")}
           <span style="color:#fff;font-family:${BODY_FF};font-weight:700;font-size:17px;letter-spacing:-0.5px">1122</span>
         </a>
@@ -1677,7 +1744,7 @@ function nearMe(){
       if(map){
         if(mapState.userMarker) mapState.userMarker.remove();
         mapState.userMarker = L.marker([lat,lng],{
-          icon:L.divIcon({className:"",html:`<div style="width:18px;height:18px;background:${C.red};border-radius:50%;border:3px solid white;box-shadow:0 0 0 6px rgba(255,59,48,0.22);"></div>`,iconSize:[18,18],iconAnchor:[9,9]})
+          icon:L.divIcon({className:"",html:`<div style="width:18px;height:18px;background:${C.brand};border-radius:50%;border:3px solid white;box-shadow:0 0 0 6px rgba(186,69,235,0.22);"></div>`,iconSize:[18,18],iconAnchor:[9,9]})
         }).addTo(map);
       }
       const sorted = HOSPITALS.map(h=>({...h,dist:haversine(lat,lng,h.lat,h.lng)})).sort((a,b)=>a.dist-b.dist);
