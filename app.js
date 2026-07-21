@@ -44,6 +44,15 @@ const IMG = {
   icBurns:       "./images/Icons/Burns Unit.png",
   icHospital:    "./images/Icons/Hospital.png",
   icRecon:       "./images/Icons/Resconstructive.png",
+  icRibbon:      "./images/Icons/ribbon.png",
+};
+
+// Hero voice-over tracks — independent of the site's UI language (T[]/state.lang).
+// Picking one just swaps what plays under the (visually muted) hero video.
+const AUDIO = {
+  en: "./Audio/English%20audio.m4a",
+  ur: "./Audio/Urdu%20audio.m4a",
+  pa: "./Audio/Punjabi%20audio.m4a",
 };
 
 // ── VERIFIED ORGANISATIONS ────────────────────────────────────────────────────
@@ -159,7 +168,7 @@ const BLOG_POSTS = [
       "Emotional recovery often runs alongside — and sometimes behind — physical healing. Survivors and families benefit from connecting with counselling services early, rather than waiting for a crisis point.",
       "This guide walks through what families can realistically expect in the first three, six, and twelve months, and where to find support at each stage."
     ]},
-  { id:2, category:"Reconstruction", color:C.blue, dim:C.blueDim,
+  { id:2, category:"Reconstruction", color:C.blue, dim:C.blueDim, hidden:true,
     title:"Understanding Reconstructive Surgery Options",
     excerpt:"From skin grafts to multi-stage procedures — an overview of what reconstructive care can involve and how to access it in Pakistan.",
     author:"Acidhelp Team", date:"Apr 11, 2024", image:IMG.blog2,
@@ -168,7 +177,7 @@ const BLOG_POSTS = [
       "Organisations like the Depilex Smileagain Foundation and Acid Survivors Foundation Pakistan offer free or subsidised reconstructive care — but navigating eligibility and waiting lists can be confusing.",
       "Here's what to ask your medical team, and which organisations to contact first."
     ]},
-  { id:3, category:"Employment", color:C.green, dim:C.greenDim,
+  { id:3, category:"Employment", color:C.green, dim:C.greenDim, hidden:true,
     title:"Returning to Work After an Acid Attack",
     excerpt:"Practical advice on re-entering the workforce, disclosing an injury to employers, and finding organisations that offer skills training.",
     author:"Acidhelp Team", date:"Mar 2, 2024", image:IMG.blog3,
@@ -353,7 +362,7 @@ const T = {
     videoLabel:"Watch: How to flush correctly",
     stepsTitle:"Immediate Action", stepsEyebrow:"First 30 minutes",
     stepsSub:"What you do in the first half hour matters most. Follow these three steps in order.",
-    rescueCta:"Rescue 1122",
+    rescueCta:"1122",
     navItems:["Emergency","Nearby","Recovery","Blog","About","Join Us"],
     pages:["emergency","medical","resources","blog","about","joinus"],
     blogTitle:"The AcidHelp Blog",
@@ -424,7 +433,7 @@ const T = {
     videoLabel:"دیکھیں: صحیح طریقے سے پانی کیسے ڈالیں",
     stepsTitle:"فوری اقدام", stepsEyebrow:"پہلے ۳۰ منٹ",
     stepsSub:"پہلے آدھے گھنٹے میں آپ کا عمل سب سے اہم ہے۔ یہ تین اقدامات ترتیب سے اپنائیں۔",
-    rescueCta:"ریسکیو 1122",
+    rescueCta:"1122",
     navItems:["ہنگامی مدد","قریبی","وسائل","بلاگ","ہمارے بارے میں","شامل ہوں"],
     pages:["emergency","medical","resources","blog","about","joinus"],
     blogTitle:"ایسڈ ہیلپ بلاگ",
@@ -480,7 +489,7 @@ const T = {
     ],
   },
   ro:{
-    dir:"ltr", name:"ROM", ff:"'Helvetica Neue',Helvetica,Arial,sans-serif", hff:HEAD_FF,
+    dir:"ltr", name:"URDU", ff:"'Helvetica Neue',Helvetica,Arial,sans-serif", hff:HEAD_FF,
     steps:[
       { n:"1", icon:"drop",  head:"PAANI SE DHOYEIN", sub:"Lagatar", body:"Thanda paani kam az kam 20 minute tak lagatar daalein. Thoda paani dal kar mat rukein — poore waqt dhote rahein." },
       { n:"2", icon:"phone", head:"1122 CALL KAREIN", sub:"Bolein: tezab hamla", body:"Pakistan ka hangami number. Bolein: 'Tezab hamla — fori ambulance bhejein.' Line mat kaatein." },
@@ -493,7 +502,7 @@ const T = {
     videoLabel:"Dekhein: Sahi tareeqe se paani kaise daalein",
     stepsTitle:"Foran Iqdaam", stepsEyebrow:"Pehle 30 Minute",
     stepsSub:"Pehle adhe ghantay mein aap ka amal sab se ahem hai. In teen iqdamaat ko tarteeb se apnayein.",
-    rescueCta:"Rescue 1122",
+    rescueCta:"1122",
     navItems:["Hangami Madad","Qareeb","Wasail","Blog","Hamare Baare Mein","Shamil Hon"],
     pages:["emergency","medical","resources","blog","about","joinus"],
     blogTitle:"AcidHelp Blog",
@@ -693,31 +702,77 @@ function heroPortrait(t){
         <video id="hero-video" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;object-position:center">
           <source src="${IMG.heroVideo}" type="video/mp4">
         </video>
+        <audio id="hero-audio" loop preload="auto">
+          <source src="${AUDIO[heroAudioLang]}" type="audio/mp4">
+        </audio>
       </div>
       ${heroVideoControls()}
     </div>
   </section>`;
 }
 
-// Circular language toggles + a mute button, stacked vertically in the space to
-// the right of the hero video. The header keeps its own language pills as well.
-function heroVideoControls(){
+// Voice-over language toggles + a mute button, stacked vertically in the space
+// to the right of the hero video. These pick which audio track plays under the
+// (visually muted) hero video — they do NOT change the site's UI language;
+// that's still the header's own EN/UR/ROM pills, wired to setLang().
+let heroAudioLang = "en";
+let heroAudioMuted = false;
+function heroAudioButtonsHTML(){
   const circleBase = "width:40px;height:40px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center";
-  const langCircle = (l)=>{
-    const active = state.lang===l;
-    const ff = l==="ur" ? "'Noto Nastaliq Urdu',sans-serif" : BODY_FF;
-    return `<button onclick="setLang('${l}')" aria-label="${esc(T[l].name)}" style="${circleBase};background:${active?C.brand:"transparent"};color:#fff;border:1.5px solid ${active?C.brand:C.borderLight};font-size:${l==="ur"?12:10}px;font-weight:${active?700:600};letter-spacing:-0.3px;font-family:${ff}">${T[l].name}</button>`;
+  const audioCircle = (l,label,ur)=>{
+    const active = heroAudioLang===l && !heroAudioMuted;
+    const ff = ur ? "'Noto Nastaliq Urdu',sans-serif" : BODY_FF;
+    return `<button onclick="setHeroAudio('${l}')" aria-label="Play ${label} voice-over" style="${circleBase};background:${active?C.brand:"transparent"};color:#fff;border:1.5px solid ${active?C.brand:C.borderLight};font-size:${ur?13:10}px;font-weight:${active?700:600};letter-spacing:-0.3px;font-family:${ff}">${label}</button>`;
   };
-  return `<div class="hero-vid-ctrls" style="display:flex;flex-direction:column;gap:9px;flex-shrink:0;align-items:center">
-    ${["en","ur","ro"].map(langCircle).join("")}
-    <button onclick="toggleHeroMute(this)" aria-label="Toggle video sound" class="hero-mute-btn" style="${circleBase};background:transparent;border:1.5px solid ${C.borderLight}">${speakerSVG(true)}</button>
-  </div>`;
+  return `${audioCircle("en","ENG")}${audioCircle("ur","اردو",true)}${audioCircle("pa","PUN")}
+    <button onclick="toggleHeroMute()" aria-label="Mute voice-over" style="${circleBase};background:${heroAudioMuted?C.brand:"transparent"};border:1.5px solid ${heroAudioMuted?C.brand:C.borderLight}">${speakerSVG(heroAudioMuted)}</button>`;
 }
-function toggleHeroMute(btn){
-  const v = document.getElementById("hero-video");
-  if(!v) return;
-  v.muted = !v.muted;
-  btn.innerHTML = speakerSVG(v.muted);
+function heroVideoControls(){
+  return `<div class="hero-vid-ctrls" style="display:flex;flex-direction:column;gap:9px;flex-shrink:0;align-items:center">${heroAudioButtonsHTML()}</div>`;
+}
+function refreshHeroAudioButtons(){
+  const wrap = document.querySelector(".hero-vid-ctrls");
+  if(wrap) wrap.innerHTML = heroAudioButtonsHTML();
+}
+function setHeroAudio(lang){
+  const changed = heroAudioLang !== lang;
+  heroAudioLang = lang;
+  heroAudioMuted = false;
+  const a = document.getElementById("hero-audio");
+  if(a){
+    a.muted = false;
+    if(changed || !a.src){
+      a.src = AUDIO[lang];
+      a.load();
+    }
+    a.play().catch(()=>{});
+  }
+  refreshHeroAudioButtons();
+}
+function toggleHeroMute(){
+  heroAudioMuted = !heroAudioMuted;
+  const a = document.getElementById("hero-audio");
+  if(a) a.muted = heroAudioMuted;
+  refreshHeroAudioButtons();
+}
+// Browsers routinely block autoplay-with-sound on first load; try immediately,
+// then once more on the visitor's first interaction with the page (a click
+// almost always satisfies the browser's "user gesture" requirement).
+let heroAudioGestureBound = false;
+function initHeroAudio(){
+  if(state.page !== "emergency") return;
+  const a = document.getElementById("hero-audio");
+  if(!a) return;
+  a.muted = heroAudioMuted;
+  a.play().catch(()=>{});
+  if(!heroAudioGestureBound){
+    heroAudioGestureBound = true;
+    const retry = () => {
+      const el = document.getElementById("hero-audio");
+      if(el && el.paused && !heroAudioMuted) el.play().catch(()=>{});
+    };
+    ["pointerdown","keydown"].forEach(evt => document.addEventListener(evt, retry, { once:true, passive:true }));
+  }
 }
 
 // "First response · What to do" — 3 step cards with brand-coloured left rail
@@ -783,7 +838,7 @@ function firstResponseAlt(t){
       </div>
 
       <!-- DO NOT warning: below cards only, same width as the card row -->
-      <div class="fr-alt-warn" style="background:${C.redDim};border:1px solid rgba(255,59,48,0.35);border-radius:16px;padding:16px 20px;display:flex;gap:12px;align-items:center">
+      <div class="fr-alt-warn" style="background:none;border:1px solid rgba(255,59,48,0.35);border-radius:16px;padding:16px 20px;display:flex;gap:12px;align-items:center">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2L1 21h22L12 2zm0 5.5L18.5 19h-13L12 7.5zm-1 5v4h2v-4h-2zm0 5v2h2v-2h-2z" fill="${C.red}"/></svg>
         <span style="font-family:${BODY_FF};font-weight:500;font-size:14px;color:${C.red};line-height:1.5">${t.doNot}</span>
       </div>
@@ -1009,16 +1064,17 @@ const RESOURCE_CATEGORIES = [
     { name:"Ministry of Human Rights Helpline", desc:"Free legal advice on human rights violations incl. violence against women; referrals", area:"Islamabad (nationwide)", phone:"1099", tel:"1099", web:"mohr.gov.pk", webUrl:"https://www.mohr.gov.pk" },
     { name:"Madadgaar National Helpline", desc:"Crisis helpline for women & children; legal support from FIR to lawyers; referrals", area:"Karachi (nationwide)", phone:"1098", tel:"1098", web:"madadgar.org.pk", webUrl:"https://madadgar.org.pk/" },
   ]},
-  { title:"Eye & Vision Care", sub:"Free & specialist eye care", photo:IMG.medical, orgs:[
+  { title:"Rehabilitation & Eye Care", sub:"Counselling, physiotherapy & specialist eye care", photo:IMG.psychological, orgs:[
     { name:"LRBT (Layton Rahmatulla Benevolent Trust)", desc:"Pakistan's largest free eye-care network: corneal transplant, vitreo-retina, glaucoma, oculoplastics — critical for acid-related eye…", area:"19+ hospitals/centres incl. Karachi, Lahore, Multan, Mandra (Rawalpin…", phone:"0800-44441", tel:"080044441", web:"lrbt.org.pk", webUrl:"https://lrbt.org.pk/about/lrbt-locations/" },
     { name:"Al-Shifa Trust Eye Hospitals", desc:"Tertiary eye care incl. CORNEA and OCULOPLASTIC subspecialties and Low Vision programme; free, subsidised and private tiers", area:"Rawalpindi (HQ), Sukkur, Kohat, Muzaffarabad, Chakwal, Gilgit", phone:"+92 51 5487821-5", tel:"+925154878215", web:"alshifaeye.org", webUrl:"https://alshifaeye.org" },
-  ]},
-  { title:"Rehabilitation (Psychological and Physiological)", sub:"Counselling & recovery support", photo:IMG.psychological, orgs:[
     { name:"Dr Khadija Tahir", desc:"recognised EMDR therapist, history of treating Acid burn survivors", area:"Nationwide (online therapy)", web:"drkhadijatahir.com", webUrl:"https://www.drkhadijatahir.com/about-me/" },
     { name:"Rozan Counseling Helpline (RCHL)", desc:"Confidential counselling: emotional health, violence against women, child sexual abuse; phone/in-person/online/email", area:"Islamabad (nationwide phone)", web:"rozan.org", webUrl:"https://rozan.org/rozan-counseling-helpline/" },
     { name:"Taskeen Health Initiative", desc:"Wellness counselling, screening, referral to vetted providers", area:"Karachi (nationwide phone)", phone:"0316-8275336", tel:"03168275336", web:"taskeen.org", webUrl:"https://taskeen.org/seek-help/" },
     { name:"Karwan-e-Hayat", desc:"Psychiatric care, psychotherapy, rehabilitation for low-income patients", area:"Karachi", phone:"(021) 111-534-111", tel:"021111534111", web:"keh.org.pk", webUrl:"https://keh.org.pk" },
     { name:"Medical Teaching Institute (MTI) -Burns and Plastic Surgery Centre Hayatabad Peshawar", desc:"BTC KP provides psychiatry for burn patients;", area:"Peshawar", phone:"091-5830078-82", tel:"091583007882", web:"btckp.gov.pk", webUrl:"https://www.btckp.gov.pk" },
+    { name:"Physiotherapy & rehabilitation at burn centres", desc:"Cross-reference: scar management, occupational therapy and physiotherapy are built into JB&RSC and BTC KP; ask the treating burn unit first", area:"Lahore (JB&RSC), Peshawar (BTC KP), Islamabad (PIMS), Karachi (Patel)", phone:"92-42-99231480", tel:"924299231480", web:"aimc.edu.pk", webUrl:"https://aimc.edu.pk/burn-reconstructive-surgery-center/" },
+    { name:"PSRD (Pakistan Society for the Rehabilitation of the Disabled)", desc:"Physiotherapy, occupational therapy, orthotics & prosthetics, rehabilitation at low cost", area:"Lahore", phone:"042 37427130", tel:"04237427130", web:"psrd.org.pk", webUrl:"https://psrd.org.pk" },
+    { name:"AFIRM (Armed Forces Institute of Rehabilitation Medicine)", desc:"Pakistan's leading rehabilitation medicine institute: physio, occupational therapy, prosthetics", area:"Rawalpindi", phone:"92 51 9272071", tel:"92519272071" },
   ]},
   { title:"Legal Aid & Shelter", sub:"Rights, FIR, court support & shelter", photo:IMG.legal, orgs:[
     { name:"AGHS Legal Aid Cell (Asma Jahangir)", desc:"Pakistan's first free legal aid cell (est. 1980): pro-bono representation for women & victims of violence; crisis officers accompany…", area:"Lahore", phone:"042-35842256-7", tel:"042358422567", web:"aghslaw.net", webUrl:"https://aghslaw.net" },
@@ -1035,11 +1091,6 @@ const RESOURCE_CATEGORIES = [
     { name:"Panah Shelter Home (Panah Trust)", desc:"Free shelter with children, 24/7 security, medical aid, legal counselling, vocational training; est. 2002", area:"Karachi", phone:"+92 21 36360025", tel:"+922136360025", web:"panahshelter.org", webUrl:"https://panahshelter.org" },
     { name:"Dastak Shelter", desc:"Emergency shelter for women & girls with integrated legal aid", area:"Lahore", phone:"03334161610", tel:"03334161610", web:"dastak.org.pk", webUrl:"https://dastak.org.pk" },
     { name:"Pakistan Bait-ul-Mal Shelter / Women Empowerment Homes", desc:"Government shelter network under Pakistan Bait-ul-Mal", area:"Multiple cities", phone:"0800-66666", tel:"080066666", web:"shelterhome.pbm.gov.pk", webUrl:"http://shelterhome.pbm.gov.pk/contact.php" },
-  ]},
-  { title:"Rehabilitation & Physiotherapy", sub:"Physio, scar & mobility rehab", photo:IMG.psychological, orgs:[
-    { name:"Physiotherapy & rehabilitation at burn centres", desc:"Cross-reference: scar management, occupational therapy and physiotherapy are built into JB&RSC and BTC KP; ask the treating burn unit first", area:"Lahore (JB&RSC), Peshawar (BTC KP), Islamabad (PIMS), Karachi (Patel)", phone:"92-42-99231480", tel:"924299231480", web:"aimc.edu.pk", webUrl:"https://aimc.edu.pk/burn-reconstructive-surgery-center/" },
-    { name:"PSRD (Pakistan Society for the Rehabilitation of the Disabled)", desc:"Physiotherapy, occupational therapy, orthotics & prosthetics, rehabilitation at low cost", area:"Lahore", phone:"042 37427130", tel:"04237427130", web:"psrd.org.pk", webUrl:"https://psrd.org.pk" },
-    { name:"AFIRM (Armed Forces Institute of Rehabilitation Medicine)", desc:"Pakistan's leading rehabilitation medicine institute: physio, occupational therapy, prosthetics", area:"Rawalpindi", phone:"92 51 9272071", tel:"92519272071" },
   ]},
   { title:"Financial & Social Support", sub:"Income, skills & reintegration", photo:IMG.employment, orgs:[
     { name:"Benazir Income Support Programme (BISP)", desc:"Cash transfers for low-income women; 8171 eligibility check", area:"Nationwide", phone:"0800-26477", tel:"080026477", web:"bisp.gov.pk", webUrl:"https://bisp.gov.pk" },
@@ -1100,7 +1151,7 @@ function resourcesPage(t){
               ${cat.orgs.map(orgRow).join("")}
             </div>` : "";
           return `<div>
-            <button onclick="toggleCard(${i})" aria-expanded="${isOpen}" class="res-card-wrap${isOpen?' is-open':''}" style="display:block;width:100%;padding:0;border:none;text-align:left;font:inherit;color:inherit;position:relative;height:clamp(220px,20vw,300px);border-radius:20px;overflow:hidden;background:#1c2337">
+            <button onclick="toggleCard(${i})" aria-expanded="${isOpen}" class="res-card-wrap${isOpen?' is-open':''}" style="display:block;width:100%;padding:0;border:none;text-align:left;font:inherit;color:inherit;position:relative;height:${isOpen?'clamp(110px,9vw,140px)':'clamp(220px,20vw,300px)'};border-radius:20px;overflow:hidden;background:#1c2337">
               <!-- Real photo -->
               <div class="res-photo" style="background-image:url('${cat.photo}');background-position:center"></div>
               <!-- Bottom scrim for legibility -->
@@ -1160,7 +1211,10 @@ function readNowVisual(t){
 }
 
 function blogPage(t){
-  const [featured, ...rest] = BLOG_POSTS;
+  // Legal-rights post pinned as featured; Reconstruction and Employment posts
+  // temporarily hidden from the grid (still in BLOG_POSTS, just filtered out).
+  const featured = BLOG_POSTS.find(p=>p.id===4);
+  const rest = BLOG_POSTS.filter(p=>p.id!==4);
   return `<div>
     <div style="background:${C.bg}">
     <!-- Hero -->
@@ -1190,7 +1244,9 @@ function blogPage(t){
     <!-- Post grid -->
     <section class="reveal" data-reveal-id="blog-grid" style="padding:0 clamp(28px,5vw,80px) clamp(40px,5vw,60px)">
       <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:20px">
-        ${rest.map(post=>`
+        ${rest.map(post=>post.hidden ? `
+          <div aria-hidden="true" style="min-height:360px;background:${C.card};opacity:0.4;border:1px solid ${C.border};border-radius:20px"></div>
+        ` : `
           <button class="blog-card" onclick="openBlogPost(${post.id})" style="display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;width:100%;text-align:left;background:${C.card};border:1px solid ${C.border};border-radius:20px;overflow:hidden;padding:0;font:inherit;color:inherit;cursor:pointer">
             <div style="height:200px;overflow:hidden;flex-shrink:0">
               <img class="blog-photo" src="${post.image}" alt="${esc(post.title)}" style="width:100%;height:100%;object-fit:cover;display:block">
@@ -1272,12 +1328,13 @@ function blogPostPage(t){
   </div>`;
 }
 
-// ── ABOUT PAGE ─────────────────────────────────────────────────────────────────
 // "What AcidHelp Provides" icons — thin, rounded line style consistent with
 // the app's other drawn SVGs (restartSVG, res-arrow).
 const provChecklistSVG = (s,c)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2.5" stroke="${c}" stroke-width="1.8"/><path d="M8 8h8M8 12.2l2 2 4-4M8 17h5" stroke="${c}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const provChatSVG = (s,c)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8A2.5 2.5 0 0 1 17.5 16H10l-4.5 4v-4H6.5A2.5 2.5 0 0 1 4 13.5v-8Z" stroke="${c}" stroke-width="1.8" stroke-linejoin="round"/><circle cx="9" cy="9.5" r="1" fill="${c}"/><circle cx="12.5" cy="9.5" r="1" fill="${c}"/><circle cx="16" cy="9.5" r="1" fill="${c}"/></svg>`;
 const advIdSVG = (s,c)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5" stroke="${c}" stroke-width="1.8"/><circle cx="8" cy="11" r="2" stroke="${c}" stroke-width="1.8"/><path d="M5 15.6c.5-1.4 1.7-2 3-2s2.5.6 3 2M13.5 10h5M13.5 13.5h5" stroke="${c}" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+
+// ── ABOUT PAGE ─────────────────────────────────────────────────────────────────
 
 // New, expanded About page content. This is deliberately English-only (like
 // BLOG_POSTS) rather than run through T{} per-language — it quotes specific
@@ -1298,10 +1355,10 @@ const ABOUT_CONTENT = {
 
   providesTitle: "What AcidHelp Provides",
   provides: [
-    "Step-by-step first aid guidance for acid attacks and chemical burns.",
-    "An AI emergency assistant that answers acid attack first aid questions in regional languages.",
-    "A directory of hospitals with burn treatment capacity in Pakistan, verified where possible, and expanding as we grow.",
-    "Contact details for support organisations offering medical, psychosocial, and legal help to acid attack survivors.",
+    { head:"First Aid Guidance", body:"Step-by-step first aid guidance for acid attacks and chemical burns." },
+    { head:"AI Emergency Assistant", body:"An AI assistant that answers acid attack first aid questions in regional languages." },
+    { head:"Hospital Directory", body:"A directory of hospitals with burn treatment capacity in Pakistan, verified where possible, and expanding as we grow." },
+    { head:"Support Network", body:"Contact details for support organisations offering medical, psychosocial, and legal help to acid attack survivors." },
   ],
 
   advocacyIntro: "Acid violence in Pakistan is a policy failure and a gender-based violence crisis. While The Acid and Burn Crime Act 2018 exists on paper, in practice, acid remains openly available in chemical markets, convictions are rare, and the free treatment the law already promises survivors is not consistently delivered by public hospitals. Meanwhile, the conditions that produce acid violence in the first place — patriarchal control over women's decisions, weak enforcement of gender-based violence laws, and limited economic autonomy for women — remain largely unaddressed.",
@@ -1321,9 +1378,8 @@ const ABOUT_CONTENT = {
 };
 
 function aboutPage(t){
-  const AMBER = "#9010BF", AMBER_DIM = "rgba(144,16,191,0.14)";
   const AC = ABOUT_CONTENT;
-  const provideIcons = [provChecklistSVG(24,AMBER), provChatSVG(24,AMBER), pinSVG(24,AMBER), advIdSVG(24,AMBER)];
+  const provideIcons = [provChecklistSVG(26,"#DFA4F8"), provChatSVG(26,"#DFA4F8"), pinSVG(26,"#DFA4F8"), advIdSVG(26,"#DFA4F8")];
   return `<div>
     <!-- Hero: photo left, title + subcopy right, so both are visible together -->
     <section class="reveal" data-reveal-id="abt-hero" style="background:${C.bg};padding:clamp(28px,4vw,56px) clamp(28px,5vw,80px)">
@@ -1346,7 +1402,7 @@ function aboutPage(t){
     <section class="reveal" data-reveal-id="abt-why" style="background:${C.bg};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
       <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:clamp(28px,4vw,56px);align-items:center">
         <div>
-          <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3.4vw,40px);letter-spacing:-1px;line-height:1.15;color:#fff;margin:0 0 20px">${AC.whyTitle}</h2>
+          <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,3.4vw,52px);letter-spacing:-1px;line-height:1.06;text-transform:uppercase;color:#fff;margin:0 0 20px">${AC.whyTitle}</h2>
           <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0 0 24px">${AC.whyPara1}</p>
           <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0 0 24px">${AC.whyPara2}</p>
           <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0">${AC.whyPara3}</p>
@@ -1360,12 +1416,17 @@ function aboutPage(t){
     <!-- What AcidHelp Provides -->
     <section class="reveal" data-reveal-id="abt-provides" style="background:${C.bg};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
       <div style="max-width:1440px;margin:0 auto">
-        <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0 0 28px">${AC.providesTitle}</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px">
+        <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0 0 28px">${AC.providesTitle.replace(/Acid/, `<span style="color:${C.brand}">Acid</span>`)}</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:16px">
           ${AC.provides.map((p,i)=>`
-            <div class="about-pillar" style="background:${C.card};border:1px solid ${C.border};border-radius:20px;padding:26px 22px">
-              <span style="width:48px;height:48px;border-radius:14px;background:${AMBER_DIM};display:flex;align-items:center;justify-content:center;margin-bottom:18px">${provideIcons[i]||""}</span>
-              <div style="font-family:${BODY_FF};font-weight:500;font-size:15px;color:${C.text};line-height:1.55">${p}</div>
+            <div class="about-pillar" style="background:none;border:1px solid rgba(246,226,254,0.3);border-radius:20px;padding:24px 22px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:14px">
+              <div style="flex-shrink:0;display:flex;align-items:center;justify-content:center">
+                ${provideIcons[i]||""}
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="font-family:${BODY_FF};font-weight:700;font-size:16px;letter-spacing:0.2px;color:#fff">${p.head.toUpperCase()}</div>
+                <div style="font-family:${BODY_FF};font-size:13.5px;color:${C.sub};line-height:1.6">${p.body}</div>
+              </div>
             </div>`).join("")}
         </div>
       </div>
@@ -1375,7 +1436,7 @@ function aboutPage(t){
     <section class="reveal" data-reveal-id="abt-advocacy" style="background:${C.bg};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
       <div style="max-width:1440px;margin:0 auto">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
-          <span style="width:38px;height:38px;border-radius:11px;background:${AMBER_DIM};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:19px">🎗</span>
+          <span aria-hidden="true" style="flex-shrink:0;display:inline-block;width:36px;height:36px;background:#DFA4F8;-webkit-mask:url('${IMG.icRibbon}') center/contain no-repeat;mask:url('${IMG.icRibbon}') center/contain no-repeat"></span>
           <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0">${t.advocacyTitle}</h2>
         </div>
         <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;max-width:80ch;margin:0 0 20px">${AC.advocacyIntro}</p>
@@ -1383,7 +1444,7 @@ function aboutPage(t){
         <div style="display:flex;flex-direction:column;border-top:1px solid ${C.border}">
           ${AC.advocacyList.map((p,i)=>`
             <div style="display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:1px solid ${C.border}">
-              <span style="width:26px;height:26px;border-radius:50%;background:${AMBER_DIM};color:${AMBER};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:${BODY_FF};font-weight:700;font-size:12px;margin-top:1px">${i+1}</span>
+              <span style="color:#DFA4F8;flex-shrink:0;font-family:${BODY_FF};font-weight:700;font-size:14px;line-height:1.7">${i+1}</span>
               <span style="font-family:${BODY_FF};font-size:14.5px;color:${C.sub};line-height:1.7;max-width:78ch">${p}</span>
             </div>`).join("")}
         </div>
@@ -1417,7 +1478,7 @@ function joinUsPage(t){
           <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(14px,1.2vw,16px);color:rgba(255,255,255,.7);line-height:1.7;margin:16px 0 0;max-width:44ch">${t.conSub}</p>
 
           <!-- Image -->
-          <div style="border-radius:20px;overflow:hidden;height:clamp(220px,26vw,300px);margin-top:30px;background:${C.card}">
+          <div style="border-radius:20px;overflow:hidden;height:clamp(260px,30vw,360px);margin-top:30px;background:${C.card}">
             <img src="${IMG.psychological}" alt="Survivors and support workers together" style="width:100%;height:100%;object-fit:cover;display:block">
           </div>
         </div>
@@ -1426,7 +1487,7 @@ function joinUsPage(t){
              divider sits at the actual grid-column edge so it's independent of the
              560px form box being right-aligned within its (wider) column. -->
         <div class="join-form-col" style="display:flex;flex-direction:column;border-inline-start:1px solid ${C.border};padding-inline-start:clamp(16px,2.6vw,32px)">
-          <div style="width:100%;max-width:560px;margin-left:auto;display:flex;flex-direction:column;flex:1">
+          <div style="width:100%;max-width:560px;margin-left:auto;margin-top:34px;display:flex;flex-direction:column;flex:1">
             ${joinUsForm(t)}
           </div>
         </div>
@@ -1451,7 +1512,7 @@ function joinUsForm(t){
   const submitLabel = isSurvivor ? t.survivorSubmitLabel : t.submitLabel;
   const submittedMsg = isSurvivor ? t.survivorSubmittedMsg : t.submittedMsg;
   const isRTL = t.dir==="rtl";
-  const inputStyle = `width:100%;padding:11px 14px;border-radius:11px;border:1.5px solid ${C.border};font-size:15px;font-weight:500;background:${C.surface};color:${C.text};font-family:${BODY_FF}`;
+  const inputStyle = `width:100%;padding:11px 14px;border-radius:11px;border:1.5px solid ${C.border};font-size:15px;font-weight:500;background:none;color:${C.text};font-family:${BODY_FF}`;
   // Native select arrows sit flush against the border in most browsers regardless of
   // padding, so we hide it and draw our own chevron with real breathing room. The SVG
   // is run through encodeURIComponent so its own quote marks can't collide with the
@@ -1459,7 +1520,7 @@ function joinUsForm(t){
   const chevronSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="#7A8BA0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   const chevron = `data:image/svg+xml,${encodeURIComponent(chevronSVG)}`;
   const selectStyle = `${inputStyle};appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-inline-end:40px;background-image:url(${chevron});background-repeat:no-repeat;background-position:${isRTL?"left 16px center":"right 16px center"}`;
-  const labelStyle = `font-size:14.5px;letter-spacing:0.4px;font-weight:300;color:${C.sub};display:block;margin-bottom:4px;padding-inline-start:14px;font-family:${BODY_FF}`;
+  const labelStyle = `font-size:14.5px;letter-spacing:0.4px;font-weight:300;color:${C.sub};display:block;margin-bottom:7px;padding-inline-start:14px;font-family:${BODY_FF}`;
   const tabStyle = active=>`text-align:left;padding:10px 4px;margin-bottom:-1.5px;background:none;border:none;border-bottom:2.5px solid ${active?"#DFA4F8":"transparent"};color:${active?"#DFA4F8":C.sub};font-weight:${active?700:500};font-size:15px;font-family:${BODY_FF}`;
 
   const tabs = `<div class="join-tabs" style="display:flex;gap:24px;margin-bottom:14px;border-bottom:1.5px solid ${C.border}">
@@ -1476,7 +1537,7 @@ function joinUsForm(t){
         <div style="font-size:19px;font-weight:300;color:#fff;margin-top:22px;font-family:${BODY_FF}">${submittedMsg}</div>
       </div>`;
   }
-  return tabs + `<div class="join-form-card" style="flex:1;display:flex;flex-direction:column;gap:12px">
+  return tabs + `<div class="join-form-card" style="flex:1;display:flex;flex-direction:column;gap:20px">
       <div>
         <label for="join-name" style="${labelStyle}">${t.nameLabel}</label>
         <input id="join-name" value="${esc(data.name)}" oninput="updateJoinForm('name', this.value)" style="${inputStyle}">
@@ -1492,12 +1553,13 @@ function joinUsForm(t){
           ${fourthOptions.map(o=>`<option value="${esc(o)}"${data[fourthKey]===o?" selected":""}>${o}</option>`).join("")}
         </select>
       </div>
-      <div style="flex:1;display:flex;flex-direction:column;min-height:100px">
+      <div style="display:flex;flex-direction:column">
         <label for="join-notes" style="${labelStyle}">${t.notesLabel}</label>
-        <textarea id="join-notes" rows="4" oninput="updateJoinForm('notes', this.value)" style="${inputStyle};flex:1;resize:vertical;min-height:100px;line-height:1.5">${esc(data.notes)}</textarea>
+        <textarea id="join-notes" rows="3" oninput="updateJoinForm('notes', this.value)" style="${inputStyle};resize:vertical;min-height:76px;line-height:1.5">${esc(data.notes)}</textarea>
       </div>
-      <div style="text-align:left;font-family:${BODY_FF};font-size:12.5px;color:${C.sub};margin-top:2px">Your information will remain completely confidential</div>
+      <div style="text-align:left;font-family:${BODY_FF};font-size:12.5px;color:${C.sub};margin-top:-8px">Your information will remain completely confidential</div>
       <button onclick="submitJoinForm()" class="cta-btn" style="align-self:flex-start;background:#DFA4F8;color:${C.bg};border:none;padding:13px 36px;border-radius:28px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px">${submitLabel}</button>
+      <div style="flex:1"></div>
     </div>`;
 }
 
@@ -1618,6 +1680,7 @@ function hydrate(){
   initCounters();
   initReveals();
   initNavReveal();
+  initHeroAudio();
 }
 
 // ── CHATBOT WIDGET ─────────────────────────────────────────────────────────────
@@ -1723,19 +1786,19 @@ function render(){
 
   // HEADER — logo · nav tabs (Figma) · language · 1122 pill
   const header = `<header id="site-header" style="position:sticky;top:0;z-index:1200;background:${C.bg};border-bottom:1px solid ${C.border}">
-    <div class="site-header-inner" style="max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:11px 16px 12px">
-      <a href="/" onclick="return setPage('emergency')" class="logo-btn" aria-label="Acidhelp — home" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;gap:9px;flex-shrink:0;text-decoration:none">
+    <div class="site-header-inner" style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:18px;padding:11px 16px 12px">
+      <a href="/" onclick="return setPage('emergency')" class="logo-btn" aria-label="Acidhelp — home" style="justify-self:start;background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;gap:9px;min-width:0;text-decoration:none">
         ${logoMark(26)}
         <span class="brand-wordmark" style="font-family:${HEAD_FF};font-weight:900;font-size:24px;letter-spacing:-1px;line-height:1"><span style="color:${C.brand}">Acid</span><span style="color:#fff">help</span></span>
       </a>
-      <nav class="nav-scroll" style="flex:1;justify-content:center;min-width:0">
+      <nav class="nav-scroll" style="min-width:0">
         ${[1,2,3,4,5].map(i=>{  /* Figma order: Nearby · Recovery · Blog · About · Join Us — Emergency is the landing page (logo) */
           const label = t.navItems[i];
           const active = state.page===t.pages[i] || (t.pages[i]==="blog" && state.page==="blogPost");
           return `<a href="${PAGE_URLS[t.pages[i]]}" onclick="return setPage('${t.pages[i]}')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:${BODY_FF};font-weight:${active?600:400};font-size:16px;letter-spacing:-0.5px;color:${active?"#fff":"rgba(240,243,250,.72)"};border-bottom:2px solid ${active?C.brand:"transparent"};white-space:nowrap;text-decoration:none">${label}</a>`;
         }).join("")}
       </nav>
-      <div class="header-controls" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+      <div class="header-controls" style="justify-self:end;display:flex;align-items:center;gap:10px;min-width:0">
         <div class="lang-group" style="display:flex;gap:4px">
           ${["en","ur","ro"].map(l=>{
             const active = state.lang===l;
@@ -1768,6 +1831,7 @@ function render(){
   if(state.page==="emergency") initCounters();
   initReveals();
   initNavReveal();
+  initHeroAudio();
 }
 
 // ── HANDLERS ──────────────────────────────────────────────────────────────────
