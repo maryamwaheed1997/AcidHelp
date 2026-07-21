@@ -1,5 +1,5 @@
 :root{
-    --bg:#0B0F1C; --surface:#141924; --card:#1C2337;
+    --bg:#121212; --surface:#1A1A1C; --card:#1C2337;
     --border:#252E45; --borderLight:#2E3850;
     --red:#FF3B30; --redDark:#B02820; --redDim:rgba(255,59,48,0.14);
     --brand:#BA45EB; --brandDark:#8113AF; --brandDim:rgba(186,69,235,0.14);
@@ -33,6 +33,18 @@
     outline:2px solid var(--warn);
     outline-offset:2px;
     border-radius:4px;
+  }
+
+  /* ── Type system: Lexend for nav + headings (display), Helvetica for body ─
+     Body copy is inline-styled with the Helvetica stack (BODY_FF in app.js);
+     these rules re-assert Lexend on the nav tabs and heading/display elements,
+     so !important is needed to win over their inline font-family. The Nastaliq
+     fallback is kept so Urdu headings still render correctly. */
+  .nav-tab-btn,
+  h1, h2, h3,
+  .stat-counter, .fr-alt-card-head, .bf-label,
+  .hero-sub, .hero-cta-text{
+    font-family:'Lexend','Noto Nastaliq Urdu',sans-serif !important;
   }
 
   /* Urdu/Pashto rendering is handled entirely through per-glyph font fallback:
@@ -99,6 +111,22 @@
 
   #map-overlays{position:absolute;inset:0;pointer-events:none}
   #map-overlays > *{pointer-events:auto}
+
+  /* ── Map page: collapsible results panel (overlaid on the map) ──────── */
+  .crumb-link{transition:color .18s ease}
+  .crumb-link:hover{color:#fff!important}
+
+  .hosp-card{transition:background-color .18s ease}
+  .hosp-card:hover{background:rgba(255,255,255,0.05)}
+  .hosp-card.is-closest{margin-bottom:6px}
+  .hosp-card.is-closest:hover{background:rgba(223,164,248,0.12)!important}
+  .hosp-card + .hosp-card{border-top:1px solid var(--border)}
+  .hosp-card.is-closest + .hosp-card{border-top:none}
+  /* Clamp the result-card note to two lines */
+  .hosp-card-note{overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .map-panel-scroll{scrollbar-width:thin;scrollbar-color:var(--muted) transparent}
+  .map-panel-scroll::-webkit-scrollbar{width:5px}
+  .map-panel-scroll::-webkit-scrollbar-thumb{background:var(--muted);border-radius:4px}
 
   .nav-scroll{display:flex;gap:22px;align-items:center;overflow-x:auto;scrollbar-width:none}
   .nav-scroll::-webkit-scrollbar{display:none}
@@ -169,7 +197,10 @@
   .chat-panel{animation:chatPopIn .22s cubic-bezier(.22,1,.36,1) both}
   .chat-prompt-btn{transition:transform .2s ease, border-color .2s ease, background-color .2s ease}
   .chat-prompt-btn:hover{transform:translateY(-1px);border-color:var(--borderLight)}
-  .chat-capsule{animation:chatPopIn .3s cubic-bezier(.22,1,.36,1) both; transition:transform .2s ease, box-shadow .2s ease}
+  /* No chatPopIn mount animation here: on the home page the capsule enters via
+     the .nav-hidden slide-in (see the landing reveal block), and a filled
+     keyframe animation would override that transform. */
+  .chat-capsule{transition:transform .2s ease, box-shadow .2s ease}
   .chat-capsule:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(144,16,191,0.6),0 10px 28px rgba(0,0,0,0.4)}
   .chat-capsule:active{transform:translateY(0) scale(0.98)}
 
@@ -225,67 +256,55 @@
     to{transform:rotate(360deg)}
   }
 
-  /* ── "What to do" variation: glass cards that expand rightward on hover ─
-     Cards share the row equally; hovering (or keyboard-focusing) one grows
-     its flex share while the step's body text slides in beside the ghost
-     number. The body sits in a 0fr→1fr grid wrapper so its width animates
-     smoothly without the hidden text ever reserving space or wrapping the
-     collapsed card's layout. */
+  /* ── "Immediate Action": eyebrow/heading/CTA on the left, three numbered
+     steps on the right. The steps share one vertical connector line (drawn
+     once behind all three number-rings via ::before) instead of each card
+     drawing its own segment, so it reads as a single continuous timeline. */
   .fr-alt-grid{
-    display:grid;grid-template-columns:minmax(220px,auto) 1fr;align-items:end;
+    display:grid;grid-template-columns:minmax(260px,360px) 1fr;align-items:start;
   }
-  .fr-alt-heading{
-    grid-column:1;grid-row:1;
-    display:flex;flex-direction:column;justify-content:flex-end;
-    min-height:clamp(190px,18vw,250px);padding-bottom:22px;
+  .fr-alt-heading{grid-column:1;grid-row:1;padding-top:6px}
+  .fr-alt-row{grid-column:2;grid-row:1;position:relative;display:flex;flex-direction:column;gap:20px}
+  .fr-alt-row::before{
+    content:"";position:absolute;top:26px;bottom:26px;left:26px;width:2px;
+    background:rgba(186,69,235,0.55);
   }
-  .fr-alt-row{grid-column:2;grid-row:1}
-  .fr-alt-warn{grid-column:2;grid-row:2}
+  .fr-alt-warn{grid-column:2;grid-row:2;margin-top:14px}
+  .fr-alt-num-circle{position:relative;z-index:1}
   .fr-alt-card{
-    flex:1 1 0;min-width:0;min-height:clamp(190px,18vw,250px);
-    display:flex;flex-direction:column;justify-content:space-between;gap:24px;
-    background:rgba(28,35,55,0.5);
-    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-    border:1px solid rgba(255,255,255,0.06);
-    border-radius:26px;padding:26px 26px 30px;overflow:hidden;
-    transition:flex .55s cubic-bezier(.22,1,.36,1), background-color .35s ease, border-color .35s ease;
+    transition:background-color .25s ease, border-color .25s ease, transform .25s cubic-bezier(.22,1,.36,1);
   }
   .fr-alt-card:hover, .fr-alt-card:focus-visible{
-    flex:2.6 1 0;
-    background:rgba(28,35,55,0.72);
-    border-color:rgba(255,255,255,0.12);
+    border-color:#DFA4F8!important;
+    transform:translateX(4px);
   }
-  .fr-alt-body-wrap{
-    flex:1;min-width:0;
-    display:grid;grid-template-columns:0fr;
-    transition:grid-template-columns .55s cubic-bezier(.22,1,.36,1);
-  }
-  .fr-alt-body-wrap > .fr-alt-body{overflow:hidden;opacity:0;transition:opacity .3s ease}
-  .fr-alt-card:hover .fr-alt-body-wrap, .fr-alt-card:focus-visible .fr-alt-body-wrap{grid-template-columns:1fr}
-  .fr-alt-card:hover .fr-alt-body, .fr-alt-card:focus-visible .fr-alt-body{opacity:1;transition:opacity .4s ease .18s}
   @media (max-width:860px){
     .fr-alt-grid{grid-template-columns:1fr}
-    .fr-alt-heading{grid-column:1;grid-row:1;min-height:0;padding-bottom:0;justify-content:flex-start}
-    .fr-alt-row{grid-column:1;grid-row:2;flex-direction:column}
+    .fr-alt-heading{grid-column:1;grid-row:1;padding-top:0}
+    .fr-alt-row{grid-column:1;grid-row:2}
     .fr-alt-warn{grid-column:1;grid-row:3}
-    .fr-alt-card{min-height:0;flex:none!important;transition:none}
-    .fr-alt-card:hover, .fr-alt-card:focus-visible{flex:none!important;background:rgba(28,35,55,0.5)}
-    .fr-alt-num{display:none}
-    .fr-alt-card-head{
-      order:-1;display:flex;align-items:baseline;gap:8px;
-      font-size:16px!important;
-    }
-    .fr-alt-card-head::before{
-      content:attr(data-num) ".";
-      font-weight:700;color:#BA45EB;flex-shrink:0;
-    }
-    .fr-alt-body-wrap{grid-template-columns:1fr}
-    .fr-alt-body{opacity:1!important;min-width:0!important}
   }
 
   /* ── Scroll reveal: sections rise into place as they enter view ──────── */
   .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);will-change:opacity,transform}
   .reveal.is-visible{opacity:1;transform:translateY(0)}
+
+  /* ── Landing nav + chat reveal ────────────────────────────────────────
+     On the home page the nav slides down from the top edge and the chat bot
+     slides in from the right on first scroll. initNavReveal() toggles
+     .nav-hidden on #root (present while at the very top). The header keeps its
+     sticky layout space while hidden, so revealing it causes no layout shift.
+     Non-home pages and reduced-motion users never get .nav-hidden. */
+  #site-header{transition:transform .55s cubic-bezier(.22,1,.36,1), opacity .4s ease}
+  #chat-fab-wrap{transition:transform .55s cubic-bezier(.22,1,.36,1), opacity .4s ease, box-shadow .2s ease}
+  .nav-hidden #site-header{transform:translateY(-100%);opacity:0;pointer-events:none}
+  .nav-hidden #chat-fab-wrap{transform:translateX(135%);opacity:0;pointer-events:none}
+  .nav-hidden[dir="rtl"] #chat-fab-wrap{transform:translateX(-135%)}
+  /* On the landing frame (nav hidden) the hero is pulled up into the empty
+     space the hidden header leaves, so the heading sits higher; it settles
+     back down as the nav slides in. --header-h is measured in initNavReveal. */
+  .hero-lift{transition:margin-top .55s cubic-bezier(.22,1,.36,1)}
+  .nav-hidden .hero-lift{margin-top:calc(-1 * var(--header-h, 60px))}
 
   /* ── Micro-interactions ───────────────────────────────────────────────
      All of the below are additive polish on top of the existing hover/reveal
@@ -313,23 +332,30 @@
   .hero-anim > *:nth-child(2){animation-delay:.16s}
   .hero-anim > *:nth-child(3){animation-delay:.26s}
 
-  /* Text inputs / selects glow to the brand colour as they gain focus. */
+  /* Text inputs / selects: a single accent-1 stroke on focus, no glow ring —
+     letting the :focus-visible outline below stack on top gave a doubled,
+     concentric-ring look, so it's suppressed here the same way #chat-input is. */
   .join-form-card input, .join-form-card select, .join-form-card textarea, #chat-input{
     transition:border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
   }
   .join-form-card input:focus, .join-form-card select:focus,
-  .join-form-card textarea:focus, #chat-input:focus{
-    border-color:var(--brand)!important;
-    box-shadow:0 0 0 3px rgba(186,69,235,0.18);
+  .join-form-card textarea:focus{
+    border-color:#F6E2FE!important;
+    box-shadow:none;
   }
+  .join-form-card input:focus-visible, .join-form-card select:focus-visible,
+  .join-form-card textarea:focus-visible{
+    outline:none;
+  }
+  /* Chat input keeps a single secondary-colour stroke on focus: no glow ring,
+     and no offset :focus-visible outline (which post-rebrand is also purple and
+     read as a second concentric stroke). Its own border is the focus cue. */
+  #chat-input:focus{border-color:#DFA4F8!important;box-shadow:none}
+  #chat-input:focus-visible{outline:none}
 
   /* Blog grid card: the mustard arrowhead nudges right on card hover. */
   .blog-card-arrow{transition:transform .3s cubic-bezier(.22,1,.36,1)}
   .blog-card:hover .blog-card-arrow{transform:translateX(5px)}
-
-  /* Rinse/Ring/Remove cells warm slightly on hover, reading as one grouped set. */
-  .rrr-step{transition:background-color .25s ease}
-  .rrr-step:hover{background:rgba(0,200,83,0.06)}
 
   /* The chat "restart" icon spins a quarter-turn on hover. */
   .icon-btn.spin-hover svg{transition:transform .35s cubic-bezier(.22,1,.36,1)}
@@ -338,6 +364,11 @@
   /* Press feedback for the header nav tabs and language pills. */
   .nav-tab-btn:active{transform:translateY(0) scale(.96)}
   .lang-btn:active{transform:scale(.94)}
+
+  /* Circular language + mute controls on the hero video. */
+  .hero-vid-ctrls button{transition:transform .18s ease, background-color .2s ease, border-color .2s ease}
+  .hero-vid-ctrls button:hover{transform:scale(1.08)}
+  .hero-vid-ctrls button:active{transform:scale(.95)}
 
   /* ── Responsive: header drops to two rows instead of clipping/crowding ─ */
   @media (max-width:640px){
@@ -348,24 +379,12 @@
     .nav-scroll{order:3;flex:1 1 100%!important;justify-content:flex-start!important;gap:16px!important}
   }
 
-  /* ── Responsive: stats banner becomes a 2x2 grid on small screens ──────
-     The row's own horizontal padding used to sit *inside* the grid's
-     background (var(--border)), which painted as two dark navy strips down
-     the left/right edges. Zeroing the row's padding and letting each item
-     stretch to fill its column removes the strips and spaces the four
-     stats out evenly instead of leaving them huddled in the middle. */
-  @media (max-width:760px){
-    .stats-row{display:grid!important;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);padding:0!important}
-    .stats-item{background:rgba(20,25,36,0.9);justify-content:center;width:100%;max-width:none!important}
-    .stats-divider{display:none}
-  }
-
-  /* ── Responsive: Rinse/Ring/Remove card stacks its three steps, and the
-     column dividers flip from side borders to top borders ───────────── */
-  @media (max-width:720px){
-    .rrr-steps{grid-template-columns:1fr!important}
-    .rrr-step{border-inline-start:none!important;border-top:1px solid var(--border)}
-    .rrr-step:first-child{border-top:none}
+  /* ── Responsive: stats wrap to a 2x2 grid on small screens, with the
+     divider borders reflowed so each cell is separated cleanly. */
+  @media (max-width:640px){
+    .stats-item{flex:1 1 50%!important;min-width:0!important}
+    .stats-item:nth-child(3){border-left:none!important}   /* left column, row 2 */
+    .stats-item:nth-child(n+3){border-top:1px solid var(--border)} /* row 2 top rule */
   }
 
   /* ── Responsive: keep "Hospitals Near Me" clear of the mobile browser's
@@ -414,10 +433,16 @@
   @media (max-width:640px){
     .join-hero-grid{padding-top:20px!important;padding-bottom:24px!important}
     .join-tabs{margin-bottom:10px!important}
-    .join-form-card{padding:16px 16px!important;gap:9px!important;border-radius:16px!important}
+    .join-form-card{gap:9px!important}
     .join-form-card label{margin-bottom:2px!important}
     .join-form-card input, .join-form-card select{padding:9px 12px!important}
-    .join-form-card button{padding:11px!important}
+    .join-form-card button{padding:11px 28px!important}
+  }
+
+  /* ── Responsive: the form's divider only reads correctly side-by-side with
+     the image column — once the grid stacks, drop the border/indent ────── */
+  @media (max-width:800px){
+    .join-form-col{border-inline-start:none!important;padding-inline-start:0!important}
   }
 
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}

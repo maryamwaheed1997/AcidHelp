@@ -1,6 +1,6 @@
 // ── COLOURS ───────────────────────────────────────────────────────────────────
 const C = {
-  bg:"#0B0F1C", surface:"#141924", card:"#1C2337",
+  bg:"#121212", surface:"#1A1A1C", card:"#1C2337",
   border:"#252E45", borderLight:"#2E3850",
   // `red` is now reserved only for genuine caution/error semantics: DO NOT
   // warnings, the burns-severity map colour key, and the location-error
@@ -18,18 +18,13 @@ const C = {
   teal:"#30D5C8", tealDim:"rgba(48,213,200,0.14)",
   text:"#F0F3FA", sub:"#8B9CB0", muted:"#38465A",
 };
-// Extra height (beyond its own content) that the "What to do" section's photo
-// backdrop extends upward by — the stats bar is pulled down into that extra
-// band via negative margin-bottom, so it reads as an overlay on that photo
-// instead of a flush block above it.
-const STATS_OVERLAP = 130;
 // Nastaliq is appended only as a *fallback*: Latin glyphs (the logo wordmark,
 // brand names, numbers) keep rendering in Lexend/Noto Sans, and the browser
 // substitutes Noto Nastaliq Urdu per-glyph only for Arabic-script characters.
 // This keeps every Latin element's font and metrics identical across languages,
 // so switching to Urdu/Pashto no longer restyles the logo or shifts the layout.
 const HEAD_FF = "'Noto Sans','Noto Nastaliq Urdu',sans-serif";   // display / headings (Figma: Noto Sans Medium)
-const BODY_FF = "'Lexend','Noto Nastaliq Urdu',sans-serif";      // nav / body / UI (Figma: Lexend)
+const BODY_FF = "'Helvetica Neue',Helvetica,'Noto Nastaliq Urdu',Arial,sans-serif";  // nav / body / UI
 const BODY_2_FF = "'Lexend','Noto Nastaliq Urdu',sans-serif";      // nav / body / UI (Figma: Lexend Light)
 
 // ── ASSETS ──────────────────────────────────────────────────────────────────
@@ -345,7 +340,7 @@ const BLOG_POSTS = [
 // ── TRANSLATIONS ──────────────────────────────────────────────────────────────
 const T = {
   en:{
-    dir:"ltr", name:"EN", ff:"'Lexend','Noto Sans',sans-serif", hff:HEAD_FF,
+    dir:"ltr", name:"EN", ff:"'Helvetica Neue',Helvetica,Arial,sans-serif", hff:HEAD_FF,
     steps:[
       { n:"1", icon:"drop",  head:"FLUSH WITH WATER", sub:"Non-stop", body:"Pour cool running water over the area continuously for at least 20 minutes. Do not use a small amount and stop — keep flushing the entire time." },
       { n:"2", icon:"phone", head:"CALL 1122", sub:"Say: acid attack", body:"Pakistan's emergency response number. Say: 'Acid attack — send ambulance immediately.' Stay on the line." },
@@ -356,7 +351,9 @@ const T = {
     callBtn:"CALL 1122", altLabel:"Also call:", edhi:"Edhi: 115", asf:"ASF: 051-2305354",
     playVideo:"PLAY VIDEO",
     videoLabel:"Watch: How to flush correctly",
-    stepsTitle:"What to do", stepsEyebrow:"First response",
+    stepsTitle:"Immediate Action", stepsEyebrow:"First 30 minutes",
+    stepsSub:"What you do in the first half hour matters most. Follow these three steps in order.",
+    rescueCta:"Rescue 1122",
     navItems:["Emergency","Nearby","Recovery","Blog","About","Join Us"],
     pages:["emergency","medical","resources","blog","about","joinus"],
     blogTitle:"The AcidHelp Blog",
@@ -378,7 +375,7 @@ const T = {
       { icon:"➕", color:C.green, dim:C.greenDim, title:"Employment & Livelihood", sub:"Skills training, income & job placement", orgs:[
         { ...ORGS.asf },{ ...ORGS.depilex}]},
     ],
-    conTitle:"Get Help or Get Involved", conSub:"Reach out for support, or partner with us to help more survivors across Pakistan",
+    conTitle:"Get Help or Help Someone Heal", conSub:"Reach out for support, or partner with us to help more survivors heal and rebuild across Pakistan.",
     survivorTab:"I'm a Survivor", volunteerTab:"I'm a Volunteer",
     nameLabel:"Name", emailLabel:"Email", notesLabel:"Additional Information",
     helpLabel:"Help Required", helpOptions:["Medical","Legal","Employment","Share Your Story"],
@@ -425,7 +422,9 @@ const T = {
     callBtn:"ابھی ۱۱۲۲ کال کریں", altLabel:"یہ بھی آزمائیں:", edhi:"ایدھی: ۱۱۵", asf:"ASF: 051-2305354",
     playVideo:"ویڈیو چلائیں",
     videoLabel:"دیکھیں: صحیح طریقے سے پانی کیسے ڈالیں",
-    stepsTitle:"کیا کریں", stepsEyebrow:"پہلا ردعمل",
+    stepsTitle:"فوری اقدام", stepsEyebrow:"پہلے ۳۰ منٹ",
+    stepsSub:"پہلے آدھے گھنٹے میں آپ کا عمل سب سے اہم ہے۔ یہ تین اقدامات ترتیب سے اپنائیں۔",
+    rescueCta:"ریسکیو 1122",
     navItems:["ہنگامی مدد","قریبی","وسائل","بلاگ","ہمارے بارے میں","شامل ہوں"],
     pages:["emergency","medical","resources","blog","about","joinus"],
     blogTitle:"ایسڈ ہیلپ بلاگ",
@@ -481,7 +480,7 @@ const T = {
     ],
   },
   ro:{
-    dir:"ltr", name:"ROM", ff:"'Lexend','Noto Sans',sans-serif", hff:HEAD_FF,
+    dir:"ltr", name:"ROM", ff:"'Helvetica Neue',Helvetica,Arial,sans-serif", hff:HEAD_FF,
     steps:[
       { n:"1", icon:"drop",  head:"PAANI SE DHOYEIN", sub:"Lagatar", body:"Thanda paani kam az kam 20 minute tak lagatar daalein. Thoda paani dal kar mat rukein — poore waqt dhote rahein." },
       { n:"2", icon:"phone", head:"1122 CALL KAREIN", sub:"Bolein: tezab hamla", body:"Pakistan ka hangami number. Bolein: 'Tezab hamla — fori ambulance bhejein.' Line mat kaatein." },
@@ -492,7 +491,9 @@ const T = {
     callBtn:"ABHI 1122 CALL KAREIN", altLabel:"Ya call karein:", edhi:"Edhi: 115", asf:"ASF: 051-2305354",
     playVideo:"VIDEO CHALAYEIN",
     videoLabel:"Dekhein: Sahi tareeqe se paani kaise daalein",
-    stepsTitle:"Kya karein", stepsEyebrow:"Pehla iqdaam",
+    stepsTitle:"Foran Iqdaam", stepsEyebrow:"Pehle 30 Minute",
+    stepsSub:"Pehle adhe ghantay mein aap ka amal sab se ahem hai. In teen iqdamaat ko tarteeb se apnayein.",
+    rescueCta:"Rescue 1122",
     navItems:["Hangami Madad","Qareeb","Wasail","Blog","Hamare Baare Mein","Shamil Hon"],
     pages:["emergency","medical","resources","blog","about","joinus"],
     blogTitle:"AcidHelp Blog",
@@ -574,7 +575,7 @@ const state = {
 };
 let openCard = null;
 let openFaq = 0;
-const mapState = { map:null, userMarker:null, selected:null, nearbyList:[], loading:false, locError:null };
+const mapState = { map:null, userMarker:null, selected:null, nearbyList:[], loading:false, locError:null, panelCollapsed:false, markers:{}, userLoc:null };
 const revealedSections = new Set();
 
 const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
@@ -586,6 +587,9 @@ const rtlLH = (t, tight, loose) => state.lang==="ur" ? loose : tight;
 
 // ── SHARED SVG BITS ───────────────────────────────────────────────────────────
 const phoneSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z" fill="${fill}"/></svg>`;
+// Speaker icon for the hero video mute toggle — crossed-out when muted,
+// with sound waves when playing.
+const speakerSVG = (muted)=>`<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H3v6h3l5 4V5z" fill="#fff"/>${muted ? `<path d="M16.5 9.5l5 5M21.5 9.5l-5 5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>` : `<path d="M16 9a4 4 0 010 6M18.7 6.8a7.5 7.5 0 010 10.4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>`}</svg>`;
 const xCircleSVG = (size,color)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><circle cx="12" cy="12" r="10" fill="${color}" fill-opacity="0.16"/><path d="M15 9l-6 6M9 9l6 6" stroke="${color}" stroke-width="2" stroke-linecap="round"/></svg>`;
 const checkCircleSVG = (size,color)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><circle cx="12" cy="12" r="10" fill="${color}" fill-opacity="0.16"/><path d="M8 12.4l2.4 2.4L16 9" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 // stroke uses currentColor so the open/closed tint is driven entirely by the
@@ -609,9 +613,11 @@ const HOSP_IMG = { "🔥":IMG.icBurns, "✂️":IMG.icRecon, "🏥":IMG.icHospit
 // HOSP_IMG (a stray emoji on an older entry, say) still falls back to the
 // generic hospital icon rather than a plain SVG glyph, so no marker on the
 // map is ever left without a proper illustrated icon.
-const hospBadge = (emoji,diameter,col)=>{
+const hospBadge = (emoji,diameter,col,ring)=>{
   const img = HOSP_IMG[emoji] || IMG.icHospital;
-  return `<div style="width:${diameter}px;height:${diameter}px;background:#fff;border-radius:50%;border:3px solid ${col};box-shadow:0 3px 14px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:${Math.round(diameter*0.16)}px"><img src="${img}" alt="" style="width:100%;height:100%;object-fit:contain;display:block"></div>`;
+  // `ring` adds an outer stroke (used to flag the closest hospital).
+  const shadow = ring ? `0 0 0 3px ${ring},0 3px 14px rgba(0,0,0,0.4)` : `0 3px 14px rgba(0,0,0,0.4)`;
+  return `<div style="width:${diameter}px;height:${diameter}px;background:#fff;border-radius:50%;border:3px solid ${col};box-shadow:${shadow};display:flex;align-items:center;justify-content:center;cursor:pointer;padding:${Math.round(diameter*0.16)}px"><img src="${img}" alt="" style="width:100%;height:100%;object-fit:contain;display:block"></div>`;
 };
 const pinSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.6A2.6 2.6 0 1112 6.4a2.6 2.6 0 010 5.2z" fill="${fill}"/></svg>`;
 const navSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M21 3L3 10.6l7.1 2.9 2.9 7.1L21 3z" fill="${fill}"/></svg>`;
@@ -653,19 +659,15 @@ function emergencyPage(t){
   </div>`;
 }
 
-// "The Reality in Pakistan" — a slim stat banner that reads as an extension of
-// the hero rather than its own heavy section, sitting flush underneath it.
+// "The Reality in Pakistan" — a row of key stats sitting directly under the
+// hero video, aligned to its edges (same max-width), separated by dividers.
+// No background bar: it reads as plain text on the page beneath the video.
 function statsSection(t){
-  // The overlap onto the "What to do" section's photo is created entirely by
-  // that section's own negative margin-top (see firstResponseAlt's
-  // STATS_OVERLAP) pulling itself up underneath this bar — this element is
-  // just a normal flush block.
-  return `<div class="reveal" data-reveal-id="stats" style="position:relative;z-index:2;background:rgba(20,25,36,0.9);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom:1px solid ${C.border}">
-    <div class="stats-row" style="max-width:1440px;margin:0 auto;padding:0 clamp(24px,4vw,64px);display:flex;flex-wrap:wrap;align-items:stretch;justify-content:space-between">
+  return `<div class="reveal" data-reveal-id="stats" style="background:${C.bg};padding:0 clamp(20px,4vw,48px) clamp(20px,3vw,36px)">
+    <div class="stats-row" style="max-width:1920px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:stretch">
       ${STATS_EN.map((s,i)=>`
-        ${i>0?`<span class="stats-divider" style="width:1px;height:88px;align-self:center;background:${C.border};flex-shrink:0"></span>`:""}
-        <div class="stats-item" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:20px 14px;max-width:300px">
-          <span class="stat-counter" data-target="${s.num}" data-suffix="${s.suffix||""}" data-prefix="${s.prefix||""}" style="font-family:${BODY_FF};font-weight:900;font-size:36px;color:${s.color};font-variant-numeric:tabular-nums;flex-shrink:0;line-height:1">${s.prefix||""}0${s.suffix||""}</span>
+        <div class="stats-item" style="flex:1;min-width:140px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:16px 14px;${i>0?`border-left:1px solid ${C.border};`:""}">
+          <span class="stat-counter" data-target="${s.num}" data-suffix="${s.suffix||""}" data-prefix="${s.prefix||""}" style="font-family:${BODY_FF};font-weight:900;font-size:34px;color:${s.color};font-variant-numeric:tabular-nums;line-height:1">${s.prefix||""}0${s.suffix||""}</span>
           <span style="font-family:${BODY_FF};font-size:14px;color:${C.sub};line-height:1.35">${s.label}</span>
           <span style="font-family:${BODY_FF};font-size:10px;color:${C.sub};opacity:0.75;line-height:1.3;margin-top:auto;padding-top:8px">${t.statsSource} ${s.src}</span>
         </div>`).join("")}
@@ -673,38 +675,49 @@ function statsSection(t){
   </div>`;
 }
 
-// Hero: full-bleed portrait photo with the ACID ATTACK content overlaid on the left
+// Hero: centered heading + call-to-action above the full video in a rounded
+// 16:9 box. On the landing page the nav and chat bot start hidden and slide in
+// on first scroll (see initNavReveal + the .nav-hidden CSS).
 function heroPortrait(t){
-  const isRTL = t.dir==="rtl";
-  return `<section class="reveal" data-reveal-id="hero" style="position:relative;width:100%;height:calc(100vh - 68px);height:calc(100dvh - 68px);min-height:480px;overflow:hidden;background:${C.bg}">
-    <!-- Background video -->
-    <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:${isRTL?"left":"center right"}">
-      <source src="${IMG.heroVideo}" type="video/mp4">
-    </video>
-    <!-- Left-side scrim: strong black on left fading fully to transparent past the older man's face -->
-    <div style="position:absolute;inset:0;background:linear-gradient(${isRTL?"270deg":"90deg"},rgba(0,0,0,0.95) 0%,rgba(0,0,0,0.85) 15%,rgba(0,0,0,0.55) 35%,rgba(0,0,0,0.2) 55%,rgba(0,0,0,0) 72%)"></div>
-
-    <!-- Content overlay -->
-    <div style="position:absolute;inset:0;display:flex;align-items:flex-end">
-      <div style="max-width:1440px;width:100%;margin:0 auto;padding:0 clamp(28px,5vw,80px) clamp(32px,4vw,56px)">
-        <div class="hero-anim" style="max-width:640px">
-          <h1 style="font-family:${BODY_FF};font-weight:900;font-size:clamp(44px,7vw,82px);letter-spacing:-2.5px;line-height:${rtlLH(t,0.95,1.3)};color:#fff;margin:0;text-shadow:0 2px 24px rgba(0,0,0,0.4)">${t.emTitle}</h1>
-          <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(15px,1.3vw,18px);color:rgba(255,255,255,.9);margin:10px 0 32px;text-shadow:0 1px 12px rgba(0,0,0,0.5)">${t.emSub}</p>
-          <div style="display:inline-flex;flex-direction:column;align-items:flex-start">
-            <a href="tel:1122" class="cta-btn" style="background:${C.brand};border-radius:40px;padding:14px 22px;display:inline-flex;align-items:center;gap:10px;text-decoration:none;box-shadow:0 8px 32px rgba(186,69,235,0.35)">
-              ${phoneSVG(20,"#fff")}
-              <span style="color:#fff;font-family:${BODY_FF};font-weight:700;font-size:clamp(17px,1.5vw,22px);letter-spacing:-0.5px">${t.callBtn}</span>
-            </a>
-            <div style="display:flex;gap:14px;align-items:center;justify-content:center;margin-top:12px;flex-wrap:wrap">
-              <span style="font-family:${BODY_FF};font-size:11px;color:rgba(255,255,255,.6);text-shadow:0 1px 8px rgba(0,0,0,0.6)">${t.altLabel}</span>
-              <a href="tel:115" class="text-link-alt" style="font-family:${BODY_FF};font-size:11px;color:rgba(255,255,255,.85);text-decoration:underline;text-underline-offset:3px;text-shadow:0 1px 8px rgba(0,0,0,0.6)">${t.edhi}</a>
-              <a href="tel:05123053540" class="text-link-alt" style="font-family:${BODY_FF};font-size:11px;color:rgba(255,255,255,.85);text-decoration:underline;text-underline-offset:3px;text-shadow:0 1px 8px rgba(0,0,0,0.6)">${t.asf}</a>
-            </div>
-          </div>
-        </div>
+  return `<section class="reveal hero-lift" data-reveal-id="hero" style="background:${C.bg};padding:20px clamp(20px,4vw,48px) clamp(6px,1.2vw,14px)">
+    <div class="hero-anim" style="max-width:720px;margin:0 auto;text-align:center;padding-bottom:clamp(14px,2vw,22px)">
+      <h1 style="font-family:${BODY_FF};font-weight:700;font-size:clamp(44px,4.2vw,64px);letter-spacing:-1px;line-height:1.05;color:#fff;margin:0">${t.emTitle}</h1>
+      <p class="hero-sub" style="font-family:${BODY_FF};font-weight:300;font-size:clamp(14px,1.2vw,16px);color:rgba(255,255,255,.85);margin:8px 0 18px">${t.emSub}</p>
+      <a href="tel:1122" class="cta-btn" style="background:${C.brand};border-radius:40px;padding:12px 24px;display:inline-flex;align-items:center;gap:10px;text-decoration:none;box-shadow:0 8px 32px rgba(186,69,235,0.35)">
+        ${phoneSVG(19,"#fff")}
+        <span class="hero-cta-text" style="color:#fff;font-family:${BODY_FF};font-weight:700;font-size:clamp(16px,1.4vw,20px);letter-spacing:-0.5px">${t.callBtn}</span>
+      </a>
+    </div>
+    <div style="max-width:1920px;margin:0 auto;display:flex;align-items:center;gap:clamp(10px,1.2vw,16px)">
+      <div style="flex:1;min-width:0;border-radius:24px;overflow:hidden;aspect-ratio:1920/800;background:#050508">
+        <video id="hero-video" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;object-position:center">
+          <source src="${IMG.heroVideo}" type="video/mp4">
+        </video>
       </div>
+      ${heroVideoControls()}
     </div>
   </section>`;
+}
+
+// Circular language toggles + a mute button, stacked vertically in the space to
+// the right of the hero video. The header keeps its own language pills as well.
+function heroVideoControls(){
+  const circleBase = "width:40px;height:40px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center";
+  const langCircle = (l)=>{
+    const active = state.lang===l;
+    const ff = l==="ur" ? "'Noto Nastaliq Urdu',sans-serif" : BODY_FF;
+    return `<button onclick="setLang('${l}')" aria-label="${esc(T[l].name)}" style="${circleBase};background:${active?C.brand:"transparent"};color:#fff;border:1.5px solid ${active?C.brand:C.borderLight};font-size:${l==="ur"?12:10}px;font-weight:${active?700:600};letter-spacing:-0.3px;font-family:${ff}">${T[l].name}</button>`;
+  };
+  return `<div class="hero-vid-ctrls" style="display:flex;flex-direction:column;gap:9px;flex-shrink:0;align-items:center">
+    ${["en","ur","ro"].map(langCircle).join("")}
+    <button onclick="toggleHeroMute(this)" aria-label="Toggle video sound" class="hero-mute-btn" style="${circleBase};background:transparent;border:1.5px solid ${C.borderLight}">${speakerSVG(true)}</button>
+  </div>`;
+}
+function toggleHeroMute(btn){
+  const v = document.getElementById("hero-video");
+  if(!v) return;
+  v.muted = !v.muted;
+  btn.innerHTML = speakerSVG(v.muted);
 }
 
 // "First response · What to do" — 3 step cards with brand-coloured left rail
@@ -737,44 +750,40 @@ function firstResponse(t){
   </section>`;
 }
 
-// Variation of "What to do" — full-bleed dark photo band with the heading on
-// the left and three translucent glass cards on the right. Each card shows a
-// large ghost number and its step title; hovering a card expands it to the
-// right, sliding the step's body text in beside the number (see the .fr-alt-*
-// rules in styles.css). On mobile the cards stack and body text stays visible.
+// Variation of "What to do" — eyebrow + heading + subcopy + a "Rescue 1122"
+// CTA on the left, and three numbered steps connected by a single vertical
+// line on the right (each number in a glowing ring beside its own card),
+// with the DO NOT warning underneath. See the .fr-alt-* rules in styles.css.
 function firstResponseAlt(t){
-  // margin-top:-STATS_OVERLAP pulls this section's top edge up underneath the
-  // stats bar above it; padding-top is increased by the same amount so the
-  // heading/cards still start at their original visual position — only the
-  // section's own photo backdrop (position:absolute;inset:0, so it fills the
-  // taller box) extends into that overlap band for the stats bar to sit on.
-  return `<section class="reveal" data-reveal-id="steps-alt" style="position:relative;overflow:hidden;background:#050508;margin-top:-${STATS_OVERLAP}px;padding:calc(clamp(48px,7vw,90px) + ${STATS_OVERLAP}px) clamp(28px,5vw,80px) clamp(48px,7vw,90px)">
-    <!-- Darkened photo backdrop -->
-    <div style="position:absolute;inset:0;background-image:url('${IMG.whatToDo}');background-size:cover;background-position:center;filter:grayscale(1) brightness(0.32)"></div>
-    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.55) 45%,rgba(0,0,0,0.7) 100%)"></div>
-
-    <div class="fr-alt-grid" style="position:relative;max-width:1440px;margin:0 auto;column-gap:clamp(28px,4vw,64px);row-gap:16px">
-      <!-- Left: eyebrow + heading — same min-height + bottom padding as the
-           cards, so the text sits on the exact same baseline as "FLUSH WITH
-           WATER" regardless of viewport width -->
+  // The three cards use the canonical Rinse / Ring / Remove first-aid steps
+  // (shared with the About page's ABOUT_CONTENT.rrr).
+  return `<section class="reveal" data-reveal-id="steps-alt" style="background:${C.bg};padding:clamp(48px,7vw,90px) clamp(20px,4vw,48px)">
+    <div class="fr-alt-grid" style="max-width:1920px;margin:0 auto;column-gap:clamp(28px,4vw,64px);row-gap:16px">
+      <!-- Left: eyebrow, heading, subcopy, CTA -->
       <div class="fr-alt-heading">
-        <h2 style="font-family:${BODY_FF};font-size:36px;font-weight:300;letter-spacing:0;text-transform:uppercase;color:${C.brand};margin:0;line-height:${rtlLH(t,1.4,1.8)}">${t.stepsTitle}</h2>
+        <div style="font-family:${BODY_FF};font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#DFA4F8;margin:0 0 12px">${t.stepsEyebrow}</div>
+        <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,3.4vw,52px);letter-spacing:-1px;line-height:1.06;text-transform:uppercase;color:#fff;margin:0">${t.stepsTitle}</h2>
+        <p style="font-family:${BODY_FF};font-weight:300;font-size:15px;color:${C.sub};line-height:1.65;margin:16px 0 0;max-width:32ch">${t.stepsSub}</p>
+        <a href="tel:1122" class="cta-btn" style="margin-top:24px;background:${C.brand};border-radius:40px;padding:12px 24px;display:inline-flex;align-items:center;gap:10px;text-decoration:none;box-shadow:0 8px 32px rgba(186,69,235,0.35)">
+          ${phoneSVG(19,"#fff")}
+          <span class="hero-cta-text" style="color:#fff;font-family:${BODY_FF};font-weight:700;font-size:clamp(16px,1.4vw,20px);letter-spacing:-0.5px">${t.rescueCta}</span>
+        </a>
       </div>
 
-      <!-- Right: three expanding glass cards -->
-      <div class="fr-alt-row" style="display:flex;gap:16px;min-width:0">
-        ${t.steps.map(s=>`
-          <div class="fr-alt-card" tabindex="0">
-            <div class="fr-alt-card-body" style="display:flex;align-items:flex-start;gap:20px;min-width:0">
-              <span class="fr-alt-num" style="font-family:${BODY_FF};font-weight:300;font-size:clamp(44px,4vw,60px);line-height:1;color:rgba(255,255,255,0.42);flex-shrink:0">${s.n}</span>
-              <span class="fr-alt-body-wrap"><span class="fr-alt-body" style="font-family:${BODY_FF};font-size:13.5px;color:rgba(255,255,255,.75);line-height:1.65;display:block;min-width:200px;padding-top:6px">${s.body}</span></span>
+      <!-- Right: three numbered steps, connected by one vertical line -->
+      <div class="fr-alt-row">
+        ${ABOUT_CONTENT.rrr.map((r,i)=>`
+          <div class="fr-alt-item" style="display:flex;align-items:center;gap:22px">
+            <span class="fr-alt-num-circle" style="width:52px;height:52px;border-radius:50%;border:1.5px solid ${C.brand};box-shadow:0 0 14px rgba(186,69,235,0.45);background:${C.bg};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:${BODY_FF};font-weight:700;font-size:19px;color:${C.brand}">${i+1}</span>
+            <div class="fr-alt-card" tabindex="0" style="flex:1;min-width:0;background:none;border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:18px 22px;display:flex;flex-direction:column;gap:6px">
+              <div class="fr-alt-card-head" style="font-family:${BODY_FF};font-weight:700;font-size:clamp(17px,1.5vw,21px);letter-spacing:0.4px;color:#fff;line-height:${rtlLH(t,1.3,1.7)}">${r.step.toUpperCase()}</div>
+              <div class="fr-alt-body" style="font-family:${BODY_FF};font-size:14.5px;color:rgba(255,255,255,.75);line-height:1.65">${r.body}</div>
             </div>
-            <div class="fr-alt-card-head" data-num="${s.n}" style="font-family:${BODY_FF};font-weight:500;font-size:clamp(18px,1.6vw,22px);letter-spacing:0.4px;color:#fff;line-height:${rtlLH(t,1.3,1.7)}">${s.head}</div>
           </div>`).join("")}
       </div>
 
       <!-- DO NOT warning: below cards only, same width as the card row -->
-      <div class="fr-alt-warn" style="background:rgba(28,35,55,0.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:16px 20px;display:flex;gap:12px;align-items:center">
+      <div class="fr-alt-warn" style="background:${C.redDim};border:1px solid rgba(255,59,48,0.35);border-radius:16px;padding:16px 20px;display:flex;gap:12px;align-items:center">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2L1 21h22L12 2zm0 5.5L18.5 19h-13L12 7.5zm-1 5v4h2v-4h-2zm0 5v2h2v-2h-2z" fill="${C.red}"/></svg>
         <span style="font-family:${BODY_FF};font-weight:500;font-size:14px;color:${C.red};line-height:1.5">${t.doNot}</span>
       </div>
@@ -821,10 +830,13 @@ function footerStrip(t){
 }
 
 // ── MAP PAGE (kept majorly the same; brand text/fonts updated) ────────────────
+// Map page: full-screen map with a floating "Hospitals Near Me" button. Tapping
+// it drops a collapsible results panel (closest hospital first) over the left of
+// the map; clicking a result (or a pin) swaps it to that hospital's detail.
 function mapPage(){
   return `<div style="position:relative;height:calc(100vh - 64px);height:calc(100dvh - 64px);overflow:hidden;background:${C.bg}">
     <div id="map" style="width:100%;height:100%"></div>
-    <div id="map-loading" style="position:absolute;inset:0;background:${C.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px">
+    <div id="map-loading" style="position:absolute;inset:0;background:${C.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:5">
       <div style="opacity:0.5">${pinSVG(44,C.sub)}</div>
       <div style="color:${C.sub};font-size:14px;font-weight:600;font-family:${BODY_FF}">Loading map…</div>
     </div>
@@ -832,61 +844,89 @@ function mapPage(){
   </div>`;
 }
 
+// One hospital result card in the side panel's list. The closest one (isClosest)
+// is outlined in the secondary colour and clicking it opens directions directly
+// rather than its detail view.
+function hospResultCard(h, isClosest){
+  const outline = isClosest ? `border:1.5px solid #DFA4F8;background:rgba(223,164,248,0.06)` : `border:1.5px solid transparent;background:none`;
+  const action = isClosest ? `openDirections(${h.id})` : `selectHospital(${h.id})`;
+  return `<button onclick="${action}" class="hosp-card${isClosest?' is-closest':''}" style="width:100%;display:flex;gap:12px;align-items:flex-start;padding:12px;${outline};border-radius:12px;text-align:left;cursor:pointer">
+    <div style="flex-shrink:0">${hospBadge(h.icon,40,sColor(h.specialty),isClosest?"#DFA4F8":null)}</div>
+    <div style="flex:1;min-width:0">
+      <div style="color:${C.text};font-size:14px;font-weight:600;font-family:${BODY_FF};line-height:1.3">${h.name}${isClosest?` <span style="color:#DFA4F8;font-size:11px;font-weight:700">· Closest</span>`:""}</div>
+      <div style="color:${C.sub};font-size:12px;margin-top:2px;font-family:${BODY_FF}">${h.city} · <span style="color:${sColor(h.specialty)}">${h.specialty}</span></div>
+      <div class="hosp-card-note" style="color:${C.sub};font-size:11.5px;margin-top:3px;font-family:${BODY_FF};line-height:1.4">${isClosest?"Tap for directions":h.note}</div>
+    </div>
+    <span style="flex-shrink:0;background:rgba(223,164,248,0.14);color:#DFA4F8;font-size:12px;font-weight:700;font-family:${BODY_FF};padding:4px 9px;border-radius:16px;white-space:nowrap">${h.dist} km</span>
+  </button>`;
+}
+
 function renderMapOverlays(){
   const t = T[state.lang];
   const ov = document.getElementById("map-overlays");
   if(!ov) return;
   const sel = mapState.selected;
+  const hasPanel = mapState.nearbyList.length>0 || !!sel; // there's something to show
+  const panelOpen = hasPanel && !mapState.panelCollapsed;
 
-  const title = `<div style="position:absolute;top:12px;left:12px;z-index:900;background:rgba(11,15,28,0.86);backdrop-filter:blur(8px);border-radius:12px;padding:9px 14px">
-      <div style="color:${C.text};font-size:14px;font-weight:900;font-family:${BODY_FF}">${t.medTitle}</div>
+  // Floating "Hospitals Near Me" button — original bottom-right position.
+  const nearBtn = `<button onclick="nearMe()" ${mapState.loading?"disabled":""} class="cta-btn near-me-btn" style="position:absolute;bottom:20px;right:14px;z-index:1000;background:${mapState.loading?C.muted:C.brandDark};color:white;border:none;border-radius:30px;padding:13px 20px;font-size:14px;font-weight:800;font-family:${BODY_FF};cursor:${mapState.loading?"not-allowed":"pointer"};display:flex;align-items:center;gap:8px;box-shadow:${mapState.loading?"none":"0 4px 28px rgba(186,69,235,0.45)"}">${mapState.loading?"⏳":pinSVG(16,"#fff")} ${mapState.loading?t.locating:t.nearMe}</button>`;
+
+  // Title pill (top-left) — only when nothing is expanded there.
+  const title = (panelOpen || (hasPanel && mapState.panelCollapsed)) ? "" : `<div style="position:absolute;top:12px;left:12px;z-index:900;background:rgba(18,18,18,0.86);backdrop-filter:blur(8px);border-radius:12px;padding:9px 14px;max-width:calc(100% - 24px)">
+      <div style="color:${C.text};font-size:14px;font-weight:800;font-family:${BODY_FF}">${t.medTitle}</div>
       <div style="color:${C.sub};font-size:11px;margin-top:1px;font-family:${BODY_FF}">${t.medSub}</div>
     </div>`;
 
-  const nearBtn = `<button onclick="nearMe()" ${mapState.loading?"disabled":""} class="cta-btn near-me-btn" style="position:absolute;bottom:20px;right:14px;z-index:1000;background:${mapState.loading?C.muted:C.brandDark};color:white;border:none;border-radius:30px;padding:13px 20px;font-size:14px;font-weight:800;font-family:${BODY_FF};cursor:${mapState.loading?"not-allowed":"pointer"};display:flex;align-items:center;gap:8px;box-shadow:${mapState.loading?"none":"0 4px 28px rgba(186,69,235,0.45)"}">${mapState.loading?"⏳":pinSVG(16,"#fff")} ${mapState.loading?t.locating:t.nearMe}</button>`;
+  const err = mapState.locError ? `<div style="position:absolute;top:12px;left:12px;right:14px;z-index:1002;background:${C.redDark};color:white;padding:12px 14px;border-radius:12px;font-size:13px;font-weight:600;font-family:${BODY_FF};line-height:1.4;display:flex;justify-content:space-between;gap:10px;align-items:center;box-shadow:0 4px 20px rgba(0,0,0,0.3)"><span>⚠️ ${esc(mapState.locError)}</span><button onclick="clearError()" style="background:none;border:none;color:#fff;font-size:15px;cursor:pointer;flex-shrink:0">✕</button></div>` : "";
 
-  const err = mapState.locError ? `<button onclick="clearError()" style="position:absolute;top:12px;left:12px;right:12px;z-index:1001;background:${C.redDark};color:white;padding:12px 14px;border-radius:12px;font-size:13px;font-weight:600;font-family:${BODY_FF};line-height:1.4;text-align:left;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.3)">⚠️ ${esc(mapState.locError)}</button>` : "";
+  // Collapsed → a small tab to reopen the panel.
+  const reopen = (hasPanel && mapState.panelCollapsed) ? `<button onclick="expandPanel()" class="cta-btn" style="position:absolute;top:12px;left:12px;z-index:1000;background:${C.surface};border:1px solid ${C.border};color:${C.text};border-radius:24px;padding:9px 14px;font-size:13px;font-weight:700;font-family:${BODY_FF};cursor:pointer;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.35)">${pinSVG(15,C.brand)} ${mapState.nearbyList.length||1} nearby <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="${C.sub}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>` : "";
 
-  let sheet = "";
-  if(mapState.nearbyList.length>0 && !sel){
-    sheet = `<div class="nearest-hosp-scroll" style="position:absolute;bottom:16px;left:16px;width:min(400px, calc(100% - 32px));z-index:1000;background:rgba(20,25,36,0.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:20px;padding:18px 18px 10px;max-height:50%;overflow-y:auto;box-shadow:0 12px 44px rgba(0,0,0,0.55);animation:slideInLeft 0.28s cubic-bezier(.22,1,.36,1)">
-        <div style="color:${C.sub};font-size:11px;font-weight:700;letter-spacing:1.5px;margin:0 4px 6px;font-family:${BODY_FF}">NEAREST HOSPITALS</div>
-        ${mapState.nearbyList.map((h,i)=>`
-          <button onclick="selectHospital(${h.id})" class="hosp-row" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 10px;border:none;${i>0?`border-top:1px solid rgba(255,255,255,0.07);`:""}background:none;border-radius:12px;text-align:left;cursor:pointer">
+  let panel = "";
+  if(panelOpen){
+    const collapseBtn = `<button onclick="collapsePanel()" class="icon-btn" aria-label="Collapse" style="background:${C.card};border:none;color:${C.sub};border-radius:50%;width:30px;height:30px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
+
+    let body;
+    if(sel){
+      const col = sColor(sel.specialty);
+      const telHref = "tel:"+sel.phone.replace(/[\s\-()]/g,"");
+      const dirHref = `https://www.google.com/maps/dir/?api=1&destination=${sel.lat},${sel.lng}&travelmode=driving`;
+      body = `<div class="map-panel-scroll" style="flex:1;min-height:0;overflow-y:auto;padding:14px 16px 20px">
+          ${mapState.nearbyList.length>0?`<button onclick="closeSheet()" class="back-link" style="background:none;border:none;color:${C.sub};font-family:${BODY_FF};font-size:13px;font-weight:600;cursor:pointer;padding:0;margin-bottom:14px;display:inline-flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Back to list</button>`:""}
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="flex-shrink:0">${hospBadge(sel.icon,46,col)}</div>
             <div style="min-width:0">
-              <div style="color:${C.text};font-size:14px;font-weight:600;font-family:${BODY_FF};line-height:1.3">${h.name}</div>
-              <div style="color:${C.sub};font-size:12px;margin-top:3px;font-family:${BODY_FF}">${h.city} · <span style="color:${sColor(h.specialty)}">${h.specialty}</span></div>
-            </div>
-            <span style="flex-shrink:0;background:rgba(223,164,248,0.14);color:#DFA4F8;font-size:12.5px;font-weight:700;font-family:${BODY_FF};padding:5px 11px;border-radius:20px;white-space:nowrap">${h.dist} km</span>
-          </button>`).join("")}
-      </div>`;
-  } else if(sel){
-    const col = sColor(sel.specialty);
-    const telHref = "tel:"+sel.phone.replace(/[\s\-()]/g,"");
-    const dirHref = `https://www.google.com/maps/dir/?api=1&destination=${sel.lat},${sel.lng}&travelmode=driving`;
-    sheet = `<div style="position:absolute;bottom:16px;left:16px;width:min(460px, calc(100% - 32px));z-index:1000;background:rgba(20,25,36,0.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:20px;padding:12px 18px 22px;box-shadow:0 12px 44px rgba(0,0,0,0.55);animation:slideInLeft 0.28s cubic-bezier(.22,1,.36,1)">
-        <div style="width:36px;height:4px;background:${C.muted};border-radius:2px;margin:0 auto 14px"></div>
-        <div style="display:flex;gap:12px;align-items:flex-start">
-          <div style="flex-shrink:0;margin-top:2px">${hospBadge(sel.icon,46,col)}</div>
-          <div style="flex:1;min-width:0">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap">
-              <span style="background:${col};color:white;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;font-family:${BODY_FF}">${sel.specialty}</span>
-              ${sel.dist?`<span style="color:${C.brand};font-size:12px;font-weight:700;font-family:${BODY_FF};display:inline-flex;align-items:center;gap:4px">${navSVG(12,C.brand)} ${sel.dist} km</span>`:""}
-            </div>
-            <div style="color:${C.text};font-size:17px;font-weight:900;line-height:1.2;font-family:${BODY_FF}">${sel.name}</div>
-            <div style="color:${C.sub};font-size:12px;margin-top:4px;font-family:${BODY_FF};display:flex;align-items:center;gap:4px">${pinSVG(13,C.sub)} ${sel.city}</div>
-            <div style="color:${C.sub};font-size:12px;margin-top:3px;line-height:1.4;font-family:${BODY_FF}">${sel.note}</div>
-            <div style="display:flex;gap:10px;margin-top:14px">
-              <a href="${telHref}" class="cta-btn" style="background:${C.brandDark};color:white;padding:9px 16px;border-radius:24px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${phoneSVG(14,"#fff")} ${t.callHosp}</a>
-              <a href="${dirHref}" target="_blank" rel="noreferrer" class="cta-btn" style="background:${C.card};color:${C.text};padding:9px 16px;border-radius:24px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${navSVG(14,C.text)} ${t.directions}</a>
+              <span style="background:${col};color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;font-family:${BODY_FF}">${sel.specialty}</span>
+              <div style="color:${C.text};font-size:18px;font-weight:900;line-height:1.2;margin-top:8px;font-family:${BODY_FF}">${sel.name}</div>
+              <div style="color:${C.sub};font-size:12px;margin-top:6px;font-family:${BODY_FF};display:flex;align-items:center;gap:5px">${pinSVG(13,C.sub)} ${sel.city}${sel.dist?` · <span style="color:${C.brand};font-weight:700">${sel.dist} km</span>`:""}</div>
+              <div style="color:${C.sub};font-size:12.5px;margin-top:8px;line-height:1.5;font-family:${BODY_FF}">${sel.note}</div>
             </div>
           </div>
-          <button onclick="closeSheet()" class="icon-btn" aria-label="Close" style="background:${C.card};border:none;color:${C.sub};border-radius:50%;width:32px;height:32px;font-size:14px;cursor:pointer;flex-shrink:0">✕</button>
+          <div style="display:flex;gap:10px;margin-top:16px">
+            <a href="${telHref}" class="cta-btn" style="flex:1;background:${C.brandDark};color:#fff;padding:11px;border-radius:12px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${phoneSVG(14,"#fff")} ${t.callHosp}</a>
+            <a href="${dirHref}" target="_blank" rel="noreferrer" class="cta-btn" style="flex:1;background:${C.card};color:${C.text};padding:11px;border-radius:12px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${navSVG(14,C.text)} ${t.directions}</a>
+          </div>
+        </div>`;
+    } else {
+      body = `<div class="map-panel-scroll" style="flex:1;min-height:0;overflow-y:auto;padding:6px 8px 16px">
+          ${mapState.nearbyList.map((h,i)=>hospResultCard(h, i===0)).join("")}
+        </div>`;
+    }
+
+    panel = `<div class="map-panel" style="position:absolute;top:12px;left:12px;bottom:20px;width:min(360px, calc(100% - 26px));z-index:1001;background:${C.surface};border:1px solid ${C.border};border-radius:16px;box-shadow:0 12px 44px rgba(0,0,0,0.5);display:flex;flex-direction:column;overflow:hidden;animation:slideInLeft 0.3s cubic-bezier(.22,1,.36,1)">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 14px 12px 18px;border-bottom:1px solid ${C.border};flex-shrink:0">
+          <div style="min-width:0">
+            <div style="color:${C.text};font-size:16px;font-weight:800;font-family:${BODY_FF}">${t.medTitle}</div>
+            <div style="color:${C.sub};font-size:11.5px;margin-top:1px;font-family:${BODY_FF}">${sel?"":`${mapState.nearbyList.length} nearest · sorted by distance`}</div>
+          </div>
+          ${collapseBtn}
         </div>
+        ${body}
       </div>`;
   }
 
-  ov.innerHTML = title + nearBtn + err + sheet;
+  ov.innerHTML = title + err + nearBtn + reopen + panel;
 }
 
 function mountMap(){
@@ -904,6 +944,7 @@ function mountMap(){
     L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",{ attribution:"Tiles © Esri — Esri, HERE, Garmin, USGS, EPA, NPS", maxZoom:19 }).addTo(map);
     L.control.zoom({ position:"topright" }).addTo(map);
     mapState.map = map;
+    mapState.markers = {};
     HOSPITALS.forEach(h=>{
       const col = sColor(h.specialty);
       const icon = L.divIcon({
@@ -911,12 +952,19 @@ function mountMap(){
         html:hospBadge(h.icon,42,col),
         iconSize:[42,42], iconAnchor:[21,21],
       });
-      L.marker([h.lat,h.lng],{icon}).addTo(map).on("click",()=>{
+      const marker = L.marker([h.lat,h.lng],{icon}).addTo(map).on("click",()=>{
+        // Closest hospital jumps straight to directions; the rest open detail.
+        if(mapState.nearbyList[0] && mapState.nearbyList[0].id===h.id){ openDirections(h.id); return; }
         mapState.selected = h;
+        mapState.panelCollapsed = false;
         map.setView([h.lat,h.lng], Math.max(map.getZoom(),13), {animate:true});
         renderMapOverlays();
       });
+      mapState.markers[h.id] = marker;
     });
+    // The map lives in a flex child next to the panel; nudge Leaflet to
+    // re-measure once layout has settled so tiles fill the canvas.
+    setTimeout(()=>map.invalidateSize(),60);
     renderMapOverlays();
   };
   if(window.L){ init(); return; }
@@ -932,69 +980,136 @@ function mountMap(){
   }
 }
 
+// Breadcrumb shown above a page heading: Home › <current page> (the current
+// page is underlined + in the brand colour to read as the selected item).
+function breadcrumb(label){
+  return `<div style="display:flex;align-items:center;gap:9px;font-family:${BODY_FF};font-size:13px;font-weight:300">
+    <a href="/" onclick="return setPage('emergency')" class="crumb-link" style="color:${C.sub};text-decoration:none">Home</a>
+    <span style="color:${C.muted};font-size:20px;line-height:1">›</span>
+    <span style="color:${C.brand};font-weight:400;text-decoration:underline;text-underline-offset:3px">${label}</span>
+  </div>`;
+}
+
 // ── RESOURCES PAGE ────────────────────────────────────────────────────────────
+// Directory of vetted support organisations, grouped by category. Sourced from
+// the AcidHelp resources spreadsheet — deliberately English-only (factual
+// directory data), like BLOG_POSTS / ABOUT_CONTENT. Categories are added over
+// time; the page renders whatever is in RESOURCE_CATEGORIES.
+const RESOURCE_CATEGORIES = [
+  { title:"Emergency & First Response", sub:"Ambulances, helplines & first response", photo:IMG.medical, orgs:[
+    { name:"Rescue 1122", desc:"24/7 ambulance, medical first response, fire rescue — the first call after an acid attack", area:"All major cities", phone:"1122", tel:"1122", web:"rescue.gov.pk", webUrl:"https://www.rescue.gov.pk" },
+    { name:"Police Emergency", desc:"Emergency police response; FIR registration; Punjab Police women help desks", area:"Nationwide", phone:"15", tel:"15", web:"punjabpolice.gov.pk", webUrl:"https://punjabpolice.gov.pk/women_help" },
+    { name:"Edhi Foundation Ambulance", desc:"24/7 ambulance, largest volunteer ambulance network; also runs shelters", area:"Nationwide", phone:"115", tel:"115", web:"edhi.org", webUrl:"https://edhi.org" },
+    { name:"Chhipa Ambulance Service", desc:"24/7 ambulance and emergency response", area:"Karachi + Sindh cities", phone:"1020", tel:"1020", web:"chhipa.org", webUrl:"https://chhipa.org" },
+    { name:"Violence Against Women Centre (VAWC) Multan", desc:"24/7 all-women facility with everything under one roof: FIRST AID, POLICE REPORTING & FIR, MEDICAL EXAMINATION & FORENSICS, PROSECUTION,…", area:"Multan", phone:"1737", tel:"1737", web:"pwpa.punjab.gov.pk", webUrl:"https://pwpa.punjab.gov.pk/services" },
+    { name:"Punjab Women's Helpline (PCSW)", desc:"24/7 all-women agents, legal advisors, psychosocial counsellor", area:"Lahore (province-wide)", phone:"1043", tel:"1043", web:"pcsw.punjab.gov.pk", webUrl:"https://pcsw.punjab.gov.pk/helpline_" },
+    { name:"Punjab Violence Against Women Helpline", desc:"Guidance, counselling and referral for women victims of violence (PWPA)", area:"Province-wide", phone:"1737", tel:"1737", web:"pwpa.punjab.gov.pk", webUrl:"https://pwpa.punjab.gov.pk" },
+    { name:"Sindh Women Development Dept Helpline", desc:"Helpline for women facing violence; guidance and referral", area:"Karachi (province-wide)", phone:"1094", tel:"1094" },
+    { name:"Bolo Helpline (KP)", desc:"Helpline for women facing violence in KP", area:"Peshawar (province-wide)", phone:"0336 1097123", tel:"03361097123", web:"findahelpline.com", webUrl:"https://findahelpline.com/organizations/bolo-helpline-kpk" },
+    { name:"Ministry of Human Rights Helpline", desc:"Free legal advice on human rights violations incl. violence against women; referrals", area:"Islamabad (nationwide)", phone:"1099", tel:"1099", web:"mohr.gov.pk", webUrl:"https://www.mohr.gov.pk" },
+    { name:"Madadgaar National Helpline", desc:"Crisis helpline for women & children; legal support from FIR to lawyers; referrals", area:"Karachi (nationwide)", phone:"1098", tel:"1098", web:"madadgar.org.pk", webUrl:"https://madadgar.org.pk/" },
+  ]},
+  { title:"Eye & Vision Care", sub:"Free & specialist eye care", photo:IMG.medical, orgs:[
+    { name:"LRBT (Layton Rahmatulla Benevolent Trust)", desc:"Pakistan's largest free eye-care network: corneal transplant, vitreo-retina, glaucoma, oculoplastics — critical for acid-related eye…", area:"19+ hospitals/centres incl. Karachi, Lahore, Multan, Mandra (Rawalpin…", phone:"0800-44441", tel:"080044441", web:"lrbt.org.pk", webUrl:"https://lrbt.org.pk/about/lrbt-locations/" },
+    { name:"Al-Shifa Trust Eye Hospitals", desc:"Tertiary eye care incl. CORNEA and OCULOPLASTIC subspecialties and Low Vision programme; free, subsidised and private tiers", area:"Rawalpindi (HQ), Sukkur, Kohat, Muzaffarabad, Chakwal, Gilgit", phone:"+92 51 5487821-5", tel:"+925154878215", web:"alshifaeye.org", webUrl:"https://alshifaeye.org" },
+  ]},
+  { title:"Rehabilitation (Psychological and Physiological)", sub:"Counselling & recovery support", photo:IMG.psychological, orgs:[
+    { name:"Dr Khadija Tahir", desc:"recognised EMDR therapist, history of treating Acid burn survivors", area:"Nationwide (online therapy)", web:"drkhadijatahir.com", webUrl:"https://www.drkhadijatahir.com/about-me/" },
+    { name:"Rozan Counseling Helpline (RCHL)", desc:"Confidential counselling: emotional health, violence against women, child sexual abuse; phone/in-person/online/email", area:"Islamabad (nationwide phone)", web:"rozan.org", webUrl:"https://rozan.org/rozan-counseling-helpline/" },
+    { name:"Taskeen Health Initiative", desc:"Wellness counselling, screening, referral to vetted providers", area:"Karachi (nationwide phone)", phone:"0316-8275336", tel:"03168275336", web:"taskeen.org", webUrl:"https://taskeen.org/seek-help/" },
+    { name:"Karwan-e-Hayat", desc:"Psychiatric care, psychotherapy, rehabilitation for low-income patients", area:"Karachi", phone:"(021) 111-534-111", tel:"021111534111", web:"keh.org.pk", webUrl:"https://keh.org.pk" },
+    { name:"Medical Teaching Institute (MTI) -Burns and Plastic Surgery Centre Hayatabad Peshawar", desc:"BTC KP provides psychiatry for burn patients;", area:"Peshawar", phone:"091-5830078-82", tel:"091583007882", web:"btckp.gov.pk", webUrl:"https://www.btckp.gov.pk" },
+  ]},
+  { title:"Legal Aid & Shelter", sub:"Rights, FIR, court support & shelter", photo:IMG.legal, orgs:[
+    { name:"AGHS Legal Aid Cell (Asma Jahangir)", desc:"Pakistan's first free legal aid cell (est. 1980): pro-bono representation for women & victims of violence; crisis officers accompany…", area:"Lahore", phone:"042-35842256-7", tel:"042358422567", web:"aghslaw.net", webUrl:"https://aghslaw.net" },
+    { name:"Dastak Charitable Trust", desc:"Access-to-justice centre: legal aid, emergency shelter, protection since 1996", area:"Lahore", phone:"03334161610", tel:"03334161610", web:"dastak.org.pk", webUrl:"https://dastak.org.pk" },
+    { name:"Legal Aid Society (LAS) / Sindh Legal Advisory Call Center (SLACC)", desc:"Free legal guidance call centre, legal clinics for women & marginalised groups, paralegal network; also publishes the PUNJAB GBV SERVICES…", area:"Karachi", phone:"92-21-35634112", tel:"922135634112", web:"las.org.pk", webUrl:"https://www.las.org.pk" },
+    { name:"Sahil", desc:"Free legal aid for child sexual abuse, early marriage, women victims of domestic violence — nationwide", area:"Islamabad (nationwide)", phone:"051-2260636", tel:"0512260636", web:"sahil.org", webUrl:"https://sahil.org/free-legal-aid/" },
+    { name:"Human Rights Commission of Pakistan (HRCP)’s Complaints Cell", desc:"Complaints on rights violations; fact-finding; legal aid in grave collective cases", area:"Lahore (HQ), Islamabad, Karachi, Multan, Hyderabad, Quetta, Peshawar,…", phone:"042-3584-5969", tel:"04235845969", web:"hrcp-web.org", webUrl:"https://hrcp-web.org/hrcpweb/complaints-cell/" },
+    { name:"Madadgaar National Helpline 1098", desc:"Legal support from FIR registration through provision of lawyers", area:"Karachi (nationwide)", phone:"1098", tel:"1098", web:"victimservicedirectory.org", webUrl:"https://victimservicedirectory.org/directory/details/52" },
+    { name:"Legal Aid Foundation Pakistan", desc:"Legal representation and advice", area:"Karachi, Lahore, Islamabad", phone:"(+92)-3412277806", tel:"+923412277806", web:"legalaidfoundation.com.pk", webUrl:"https://legalaidfoundation.com.pk" },
+    { name:"National Commission on the Status of Women (NCSW)", desc:"Statutory women's rights body; complaints referral; coordinates GBV helpline network", area:"Islamabad", phone:"051-9224875", tel:"0519224875", web:"ncsw.gov.pk", webUrl:"https://ncsw.gov.pk" },
+    { name:"Women Shelter Homes (Dar-ul-Aman)", desc:"Shelter for women facing violence; ADMISSION ANY TIME OF DAY OR NIGHT; children may stay; 20-50 residents per home", area:"All 36 districts of Punjab", phone:"(042) 99232178-9", tel:"042992321789", web:"swd.punjab.gov.pk", webUrl:"https://swd.punjab.gov.pk/women_shelter_homes" },
+    { name:"Shaheed Benazir Bhutto Human Rights Centre for Women (Islamabad)", desc:"Confidential support for victims of violence: FREE MEDICAL, LEGAL AID and SHELTER HOME", area:"Islamabad", phone:"1099", tel:"1099", web:"mohr.gov.pk", webUrl:"https://www.mohr.gov.pk/Detail/YWRiYjU0NzktMGE2Zi00NDYyLTljNzktMTA2N2M2MjBlZWZl" },
+    { name:"Punjab Women Protection Authority (PWPA)", desc:"Runs VAWC Multan and the 1737 helpline; expanding VAWCs to 4 more districts", area:"Lahore (province-wide)", phone:"1737", tel:"1737", web:"pwpa.punjab.gov.pk", webUrl:"https://pwpa.punjab.gov.pk" },
+    { name:"Panah Shelter Home (Panah Trust)", desc:"Free shelter with children, 24/7 security, medical aid, legal counselling, vocational training; est. 2002", area:"Karachi", phone:"+92 21 36360025", tel:"+922136360025", web:"panahshelter.org", webUrl:"https://panahshelter.org" },
+    { name:"Dastak Shelter", desc:"Emergency shelter for women & girls with integrated legal aid", area:"Lahore", phone:"03334161610", tel:"03334161610", web:"dastak.org.pk", webUrl:"https://dastak.org.pk" },
+    { name:"Pakistan Bait-ul-Mal Shelter / Women Empowerment Homes", desc:"Government shelter network under Pakistan Bait-ul-Mal", area:"Multiple cities", phone:"0800-66666", tel:"080066666", web:"shelterhome.pbm.gov.pk", webUrl:"http://shelterhome.pbm.gov.pk/contact.php" },
+  ]},
+  { title:"Rehabilitation & Physiotherapy", sub:"Physio, scar & mobility rehab", photo:IMG.psychological, orgs:[
+    { name:"Physiotherapy & rehabilitation at burn centres", desc:"Cross-reference: scar management, occupational therapy and physiotherapy are built into JB&RSC and BTC KP; ask the treating burn unit first", area:"Lahore (JB&RSC), Peshawar (BTC KP), Islamabad (PIMS), Karachi (Patel)", phone:"92-42-99231480", tel:"924299231480", web:"aimc.edu.pk", webUrl:"https://aimc.edu.pk/burn-reconstructive-surgery-center/" },
+    { name:"PSRD (Pakistan Society for the Rehabilitation of the Disabled)", desc:"Physiotherapy, occupational therapy, orthotics & prosthetics, rehabilitation at low cost", area:"Lahore", phone:"042 37427130", tel:"04237427130", web:"psrd.org.pk", webUrl:"https://psrd.org.pk" },
+    { name:"AFIRM (Armed Forces Institute of Rehabilitation Medicine)", desc:"Pakistan's leading rehabilitation medicine institute: physio, occupational therapy, prosthetics", area:"Rawalpindi", phone:"92 51 9272071", tel:"92519272071" },
+  ]},
+  { title:"Financial & Social Support", sub:"Income, skills & reintegration", photo:IMG.employment, orgs:[
+    { name:"Benazir Income Support Programme (BISP)", desc:"Cash transfers for low-income women; 8171 eligibility check", area:"Nationwide", phone:"0800-26477", tel:"080026477", web:"bisp.gov.pk", webUrl:"https://bisp.gov.pk" },
+    { name:"Pakistan Bait-ul-Mal - Individual Financial Assistance (Medical)", desc:"Financial assistance for medical treatment for those who cannot afford it — relevant for surgery costs at private facilities", area:"Nationwide", phone:"0800-66666", tel:"080066666", web:"pbm.gov.pk", webUrl:"https://www.pbm.gov.pk" },
+    { name:"Sehat Sahulat Program (health card)", desc:"Public health insurance covering hospitalisation at empanelled hospitals; check current coverage in survivor's province", area:"Nationwide (province-dependent)", phone:"8500", tel:"8500", web:"governmentschemes.pk", webUrl:"https://governmentschemes.pk/sehat-sahulat-program-eligibility/" },
+    { name:"Depilex Smileagain Foundation - Economic Empowerment", desc:"Vocational training (incl. beautician training with job placement in Depilex salons), micro-business support, reintegration for burn…", area:"Lahore (nationwide reach)", phone:"+92", tel:"+92", web:"depilexsmileagain.com", webUrl:"https://depilexsmileagain.com" },
+    { name:"ASF Pakistan - Personal Development & Reintegration", desc:"Personal development and economic reintegration services within ASF's rehabilitation package", area:"Islamabad (nationwide)", phone:"0301-8550011", tel:"03018550011", web:"asfpakistan.org", webUrl:"https://asfpakistan.org" },
+    { name:"TEVTA (Punjab Technical Education & Vocational Training Authority)", desc:"Free/low-cost vocational and technical courses incl. women-focused trades", area:"Punjab-wide", phone:"92 4299263055-59", tel:"92429926305559", web:"tevta.gop.pk", webUrl:"https://tevta.gop.pk" },
+    { name:"NAVTTC (National Vocational & Technical Training Commission)", desc:"National skills programmes (e.g. Hunarmand Pakistan-type schemes); check current offerings", area:"Nationwide", phone:"0800 88866", tel:"080088866", web:"navttc.gov.pk", webUrl:"https://navttc.gov.pk" },
+    { name:"Acid Survivors Foundation (ASF) Pakistan", desc:"Case management: medical, legal aid, psychological support, reintegration for acid/burn survivors since 2006", area:"Islamabad", web:"asfpakistan.org", webUrl:"https://asfpakistan.org" },
+    { name:"Depilex Smileagain Foundation (DSF)", desc:"Reconstructive surgery coordination, psychosocial support, economic empowerment since 2003", area:"Lahore", phone:"+92", tel:"+92", web:"depilexsmileagain.com", webUrl:"https://depilexsmileagain.com" },
+    { name:"War Against Rape (WAR)", desc:"Legal aid, medico-legal guidance and counselling for survivors of sexual violence", area:"Karachi", phone:"(021) 35373008", tel:"02135373008", web:"facebook.com", webUrl:"https://www.facebook.com/WarAgainstRape1989/about/?ref=page_internal&_rdc=1&_rdr#" },
+    { name:"Shirkat Gah", desc:"Women's rights advocacy and legal referrals", area:"Head Office-Lahore + presence in multiple cities", phone:"(+92-42) 35838815", tel:"+924235838815", web:"shirkatgah.org", webUrl:"https://shirkatgah.org" },
+    { name:"Aurat Foundation", desc:"Women's rights information, advocacy, referrals to legal aid and protection", area:"Multiple cities", phone:"051-2609596", tel:"0512609596", web:"af.org.pk", webUrl:"https://www.af.org.pk" },
+    { name:"Bedari", desc:"GBV support and legal referrals", area:"Islamabad", phone:"0300-5251717", tel:"03005251717", web:"bedari.org.pk", webUrl:"https://bedari.org.pk" },
+    { name:"Chayn Pakistan", desc:"Online guides for women facing violence incl. emergency planning and provincial helpline lists — useful content partner for AcidHelp", area:"Online", web:"chaynpakistan.org", webUrl:"https://chaynpakistan.org" },
+  ]},
+];
+
+// One organisation row inside an expanded category.
+function orgRow(org){
+  const ACCENT = "#F6E2FE";
+  const link = (svg,text,href)=>`<span class="res-org-meta" style="display:inline-flex;align-items:center;gap:6px;min-width:0;max-width:100%">${svg}${href
+    ? `<a href="${href}" target="_blank" rel="noopener noreferrer" style="font-family:${BODY_FF};font-size:12px;color:${C.sub};text-decoration:underline;text-underline-offset:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${text}</a>`
+    : `<span style="font-family:${BODY_FF};font-size:12px;color:${C.sub};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${text}</span>`}</span>`;
+  return `<div class="res-org" style="display:flex;gap:14px;align-items:flex-start;padding:14px 12px;border-radius:12px">
+    <div style="flex:1;min-width:0">
+      <div class="res-org-name" style="font-family:${BODY_FF};font-size:15px;font-weight:500;color:${C.text};line-height:1.3">${esc(org.name)}</div>
+      ${org.desc?`<div style="font-family:${BODY_FF};font-size:12.5px;color:${C.sub};line-height:1.55;margin-top:4px">${esc(org.desc)}</div>`:""}
+      <div style="display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:8px">
+        ${org.area?link(pinSVG(12,C.sub),esc(org.area)):""}
+        ${org.web?link(globeSVG(12,C.sub),esc(org.web),org.webUrl):""}
+      </div>
+    </div>
+    ${org.phone?`<a href="tel:${org.tel||org.phone.replace(/[^\d+]/g,"")}" class="phone-pill res-call" style="background:${ACCENT};color:${C.bg};padding:9px 14px;border-radius:22px;font-family:${BODY_FF};font-size:12px;font-weight:500;text-decoration:none;white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;gap:6px">${phoneSVG(13,C.bg)} ${esc(org.phone)}</a>`:""}
+  </div>`;
+}
+
 function resourcesPage(t){
-  // Figma shows 4 cards — drop the "Dos & Don'ts Guide" card (index 2) here
-  const cards = t.resCards.filter((_,i)=>i!==2);
-  // Post-filter index → photo mapping (Psych, Medical, Legal, Employment)
-  const CARD_PHOTOS = [
-    IMG.psychological,
-    IMG.medical,
-    IMG.legal,
-    IMG.employment,
-  ];
-  const CARD_FOCUS = ["center 35%","center","center 30%","center 30%"];
+  const ACCENT = "#F6E2FE";
   return `<div>
-    <div style="background:#141924">
+    <div style="background:${C.bg}">
     <!-- Hero -->
     <section class="reveal" data-reveal-id="res-hero" style="padding:clamp(18px,2.2vw,32px) clamp(28px,5vw,80px) clamp(28px,3vw,44px)">
       <div style="max-width:1440px;margin:0 auto">
-        <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.resTitle.toUpperCase()}</h1>
+        ${breadcrumb(t.navItems[2])}
+        <h1 style="font-family:${BODY_FF};font-weight:500;font-size:clamp(36px,3.4vw,52px);letter-spacing:-1px;line-height:1.06;color:#fff;margin:14px 0 0">${t.resTitle.toUpperCase().replace(/RECOVERY/, `<span style="color:#DFA4F8">RECOVERY</span>`)}</h1>
         <p style="font-family:${BODY_FF};font-weight:300;font-size:16px;color:rgba(255,255,255,.65);margin:14px 0 0">${t.resSub}</p>
       </div>
     </section>
 
-    <!-- 2x2 photo card grid -->
+    <!-- Photo card grid — one per category, expands to its organisations -->
     <section class="reveal" data-reveal-id="res-grid" style="padding:0 clamp(28px,5vw,80px) clamp(40px,5vw,60px)">
       <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(460px,100%),1fr));gap:20px">
-        ${cards.map((card,i)=>{
+        ${RESOURCE_CATEGORIES.map((cat,i)=>{
           const isOpen = openCard===i;
-          // Unified accent for all Resources dropdowns
-          const ACCENT = "#F6E2FE";
-          const ACCENT_DIM = "rgba(246,226,254,0.16)";
-          const metaRow = (icon,text,href)=>{
-            const textEl = href
-              ? `<a href="${href}" target="_blank" rel="noopener noreferrer" style="font-family:${BODY_FF};font-size:12px;color:${C.sub};overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:underline;text-underline-offset:2px">${text}</a>`
-              : `<span style="font-family:${BODY_FF};font-size:12px;color:${C.sub};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${text}</span>`;
-            return `<div class="res-org-meta" style="display:flex;align-items:center;gap:7px;margin-top:5px;min-width:0"><span style="display:flex;flex-shrink:0">${icon}</span>${textEl}</div>`;
-          };
           const orgList = isOpen ? `<div class="res-dropdown" style="background:${C.card};border:1px solid ${ACCENT};border-radius:20px;padding:8px">
-              ${card.orgs.map(org=>{
-                return `
-                <div class="res-org" style="display:flex;gap:14px;align-items:center;padding:14px 12px;border-radius:14px">
-                  <span class="res-org-dot" style="width:9px;height:9px;border-radius:50%;background:${ACCENT};box-shadow:0 0 0 4px ${ACCENT_DIM};flex-shrink:0;margin:0 6px"></span>
-                  <div style="flex:1;min-width:0">
-                    <div class="res-org-name" style="font-family:${BODY_FF};font-size:15px;font-weight:400;color:${C.text};line-height:1.3">${org.name}</div>
-                    ${org.web?metaRow(globeSVG(13,C.sub),org.web,`https://${org.web}`):""}
-                    ${org.email?metaRow(mailSVG(13,C.sub),org.email):""}
-                    ${org.phone2?metaRow(phoneSVG(12,C.sub),org.phone2):""}
-                  </div>
-                  <a href="tel:${org.phone.replace(/[\s\-()+]/g,"")}" class="phone-pill res-call" style="background:${ACCENT};color:${C.bg};padding:9px 15px;border-radius:22px;font-family:${BODY_FF};font-size:12px;font-weight:500;text-decoration:none;white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;gap:6px">${phoneSVG(13,C.bg)} ${org.phone}</a>
-                </div>`;
-              }).join("")}
+              ${cat.orgs.map(orgRow).join("")}
             </div>` : "";
-
           return `<div>
             <button onclick="toggleCard(${i})" aria-expanded="${isOpen}" class="res-card-wrap${isOpen?' is-open':''}" style="display:block;width:100%;padding:0;border:none;text-align:left;font:inherit;color:inherit;position:relative;height:clamp(220px,20vw,300px);border-radius:20px;overflow:hidden;background:#1c2337">
               <!-- Real photo -->
-              <div class="res-photo" style="background-image:url('${CARD_PHOTOS[i]}');background-position:${CARD_FOCUS[i]}"></div>
+              <div class="res-photo" style="background-image:url('${cat.photo}');background-position:center"></div>
               <!-- Bottom scrim for legibility -->
               <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.15) 40%,rgba(0,0,0,0.85) 100%);pointer-events:none"></div>
               <!-- Content -->
               <div style="position:absolute;bottom:0;left:0;right:0;padding:24px 28px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;pointer-events:none">
-                <div>
-                  <h3 style="font-family:${BODY_FF};font-weight:400;font-size:clamp(22px,2vw,28px);letter-spacing:-0.3px;line-height:${rtlLH(t,1.15,1.6)};color:#fff;margin:0;text-shadow:0 2px 12px rgba(0,0,0,0.5)">${card.title.toUpperCase()}</h3>
-                  <p style="font-family:${BODY_FF};font-size:14px;color:rgba(255,255,255,.9);margin:8px 0 0;text-shadow:0 1px 8px rgba(0,0,0,0.5)">${card.sub}</p>
+                <div style="min-width:0">
+                  <h3 style="font-family:${BODY_FF};font-weight:400;font-size:clamp(22px,2vw,28px);letter-spacing:-0.3px;line-height:${rtlLH(t,1.15,1.6)};color:#fff;margin:0;text-shadow:0 2px 12px rgba(0,0,0,0.5)">${cat.title.toUpperCase()}</h3>
+                  <p style="font-family:${BODY_FF};font-size:14px;color:rgba(255,255,255,.9);margin:8px 0 0;text-shadow:0 1px 8px rgba(0,0,0,0.5)">${cat.sub}</p>
                 </div>
                 <svg class="res-arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.5));${isOpen?'transform:rotate(90deg)':''}"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
@@ -1009,11 +1124,10 @@ function resourcesPage(t){
     ${footerStrip(t)}
   </div>`;
 }
-
 // FAQs — shown on the landing page, after "What to do"
 function faqSection(t){
-  return `<section class="reveal" data-reveal-id="faq" style="padding:clamp(36px,6vw,76px) clamp(28px,5vw,80px) clamp(64px,8vw,96px)">
-    <div style="max-width:1308px;margin:0 auto">
+  return `<section class="reveal" data-reveal-id="faq" style="padding:clamp(36px,6vw,76px) clamp(20px,4vw,48px) clamp(64px,8vw,96px)">
+    <div style="max-width:1920px;margin:0 auto">
       <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(42px,3.2vw,56px);letter-spacing:-1px;line-height:1.1;margin:0 0 28px;color:${C.text}">${t.faqTitle}</h2>
       <div style="display:flex;flex-direction:column;border-top:1px solid ${C.border}">
         ${t.faqs.map((item,i)=>{
@@ -1025,7 +1139,7 @@ function faqSection(t){
                 <span class="faq-icon-badge" style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:${C.surface};display:flex;align-items:center;justify-content:center">${plusSVG(15)}</span>
               </div>
             </button>
-            <div class="faq-answer" style="font-family:${BODY_FF};font-size:13.5px;color:${C.sub};line-height:1.7;padding-inline-end:46px">${item.a}</div>
+            <div class="faq-answer" style="font-family:${BODY_FF};font-size:14.5px;color:${C.sub};line-height:1.7;padding-inline-end:46px">${item.a}</div>
           </div>`;
         }).join("")}
       </div>
@@ -1048,11 +1162,12 @@ function readNowVisual(t){
 function blogPage(t){
   const [featured, ...rest] = BLOG_POSTS;
   return `<div>
-    <div style="background:#141924">
+    <div style="background:${C.bg}">
     <!-- Hero -->
     <section class="reveal" data-reveal-id="blog-hero" style="padding:clamp(18px,2.2vw,32px) clamp(28px,5vw,80px) clamp(28px,3vw,44px)">
       <div style="max-width:1440px;margin:0 auto">
-        <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.blogTitle.toUpperCase().replace(/ACID/, `<span style="color:${C.brand}">ACID</span>`)}</h1>
+        ${breadcrumb(t.navItems[3])}
+        <h1 style="font-family:${BODY_FF};font-weight:500;font-size:clamp(36px,3.4vw,52px);letter-spacing:-1px;line-height:1.06;color:#fff;margin:14px 0 0">${t.blogTitle.toUpperCase().replace(/ACID/, `<span style="color:${C.brand}">ACID</span>`)}</h1>
       </div>
     </section>
 
@@ -1173,11 +1288,10 @@ const advIdSVG = (s,c)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fil
 const ABOUT_CONTENT = {
   whyTitle: "Why We Exist",
   whyPara1: "Acid attack survivors in Pakistan lose critical time to first aid misinformation. While toothpaste, milk, ghee, oil, baking soda, and wet cloth are still widely believed to be effective responses to an acid burn, none of them are actually effective remedies. These agents trap acid against the skin and deepen the burn, and in the case of milk and baking soda, react chemically to release additional heat into the wound. In the first thirty minutes after an acid attack, this misinformation determines whether a survivor heals or is scarred for life.",
-  rrrLabel: "The correct response is three actions: Rinse. Ring. Remove.",
   rrr: [
-    { step:"Rinse",  body:"Rinse the acid burn with cool, continuously running water for at least thirty minutes." },
-    { step:"Ring",   body:"Ring Rescue 1122 and stay on the line while rinsing continues." },
-    { step:"Remove", body:"Remove contaminated clothing by cutting it away, never by pulling it over the head." },
+    { step:"Rinse",  body:`Rinse the acid burn with cool, continuously running water for <span style="color:#DFA4F8;font-weight:600">at least thirty minutes</span>.` },
+    { step:"Ring",   body:`Ring Rescue <span style="color:#DFA4F8;font-weight:600">1122</span> and stay on the line while rinsing continues.` },
+    { step:"Remove", body:`Remove contaminated clothing by <span style="color:#DFA4F8;font-weight:600">cutting it away</span>, never by pulling it over the head.` },
   ],
   whyPara2: "Beyond emergency relief, acid attack survivors face a longer struggle. Reliable information on where to go for reconstructive care, psychosocial support, legal aid, and vocational reintegration is scattered across separate organisations, or unavailable altogether. AcidHelp exists to consolidate that information into a single verified database of acid attack support resources in Pakistan, so that survivors and their families can find, in one place, what has taken others years to piece together.",
   whyPara3: "AcidHelp also exists to spread awareness of what to do after an acid attack. Public knowledge of correct first aid remains one of the most preventable causes of long-term damage from acid violence in Pakistan, and this platform is one contribution to closing that gap.",
@@ -1220,7 +1334,8 @@ function aboutPage(t){
           <img src="${IMG.footer}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div style="padding-bottom:12px">
-          <h1 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,5.5vw,60px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.abtTitle.toUpperCase().replace(/ACID/, `<span style="color:${C.brand}">ACID</span>`)}</h1>
+          ${breadcrumb(t.navItems[4])}
+          <h1 style="font-family:${BODY_FF};font-weight:500;font-size:clamp(36px,3.4vw,52px);letter-spacing:-1px;line-height:1.06;color:#fff;margin:14px 0 0">${t.abtTitle.toUpperCase().replace(/ACID/, `<span style="color:${C.brand}">ACID</span>`)}</h1>
           <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(14px,1.2vw,16px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:60ch">${t.abtMission}</p>
           <a href="/joinus" onclick="return setPage('joinus')" class="cta-btn" style="margin-top:24px;background:none;border:1.5px solid #DFA4F8;color:#DFA4F8;padding:12px 28px;border-radius:32px;font-size:14px;font-weight:600;font-family:${BODY_FF};letter-spacing:-0.2px;display:inline-block;text-decoration:none">${AC.involvedCta}</a>
         </div>
@@ -1229,26 +1344,16 @@ function aboutPage(t){
 
     <!-- Why We Exist -->
     <section class="reveal" data-reveal-id="abt-why" style="background:${C.bg};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
-      <div style="max-width:1440px;margin:0 auto">
-        <h2 style="font-family:${BODY_FF};font-weight:200;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;text-transform:uppercase;color:#fff;margin:0 0 20px">${AC.whyTitle}</h2>
-        <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;max-width:80ch;margin:0 0 24px">${AC.whyPara1}</p>
-
-        <div style="background:${C.card};border:1px solid rgba(0,200,83,0.35);border-radius:20px;overflow:hidden;max-width:80ch;margin:0 0 24px">
-          <div style="background:${C.greenDim};border-bottom:1px solid rgba(0,200,83,0.25);padding:16px 26px;font-family:${BODY_FF};font-weight:500;font-size:15px;color:${C.green};letter-spacing:0.2px">${AC.rrrLabel}</div>
-          <div class="rrr-steps" style="display:grid;grid-template-columns:repeat(3,1fr)">
-            ${AC.rrr.map((r,i)=>`
-              <div class="rrr-step" style="padding:22px 26px;${i>0?`border-inline-start:1px solid ${C.border};`:""}display:flex;flex-direction:column;gap:10px">
-                <div style="display:flex;align-items:center;gap:10px">
-                  <span style="width:26px;height:26px;border-radius:50%;background:${C.greenDim};border:1px solid rgba(0,200,83,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:${BODY_FF};font-weight:600;font-size:12.5px;color:${C.green}">${i+1}</span>
-                  <span style="font-family:${BODY_FF};font-weight:600;font-size:15px;letter-spacing:0.4px;text-transform:uppercase;color:${C.green}">${r.step}</span>
-                </div>
-                <span style="font-family:${BODY_FF};font-size:13.5px;color:${C.sub};line-height:1.65">${r.body}</span>
-              </div>`).join("")}
-          </div>
+      <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:clamp(28px,4vw,56px);align-items:center">
+        <div>
+          <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3.4vw,40px);letter-spacing:-1px;line-height:1.15;color:#fff;margin:0 0 20px">${AC.whyTitle}</h2>
+          <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0 0 24px">${AC.whyPara1}</p>
+          <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0 0 24px">${AC.whyPara2}</p>
+          <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0">${AC.whyPara3}</p>
         </div>
-
-        <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;max-width:80ch;margin:0 0 24px">${AC.whyPara2}</p>
-        <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;max-width:80ch;margin:0">${AC.whyPara3}</p>
+        <div style="border-radius:20px;overflow:hidden;height:clamp(280px,32vw,420px)">
+          <img src="${IMG.whatToDo}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
       </div>
     </section>
 
@@ -1290,7 +1395,7 @@ function aboutPage(t){
       <div style="max-width:720px;margin:0 auto;text-align:center">
         <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0 0 16px">${AC.involvedTitle}</h2>
         <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.75;margin:0 0 28px">${AC.involvedBody}</p>
-        <a href="/joinus" onclick="return setPage('joinus')" class="cta-btn" style="background:${C.brandDark};color:white;border:none;padding:14px 30px;border-radius:32px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px;display:inline-block;text-decoration:none">${AC.involvedCta}</a>
+        <a href="/joinus" onclick="return setPage('joinus')" class="cta-btn" style="background:none;border:1.5px solid #DFA4F8;color:#DFA4F8;padding:12px 28px;border-radius:32px;font-size:14px;font-weight:600;font-family:${BODY_FF};letter-spacing:-0.2px;display:inline-block;text-decoration:none">${AC.involvedCta}</a>
       </div>
     </section>
 
@@ -1303,13 +1408,28 @@ function aboutPage(t){
 function joinUsPage(t){
   return `<div>
     <!-- Hero + form, side by side so the form is visible without scrolling -->
-    <section class="reveal join-hero-grid" data-reveal-id="join-hero" style="background:#141924;border-bottom:1px solid ${C.border};padding:clamp(28px,4vw,56px) clamp(28px,5vw,80px)">
-      <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:clamp(28px,4vw,56px);align-items:center">
+    <section class="reveal join-hero-grid" data-reveal-id="join-hero" style="background:${C.bg};padding:clamp(28px,4vw,56px) clamp(28px,5vw,80px)">
+      <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(360px,100%),1fr));gap:clamp(32px,5vw,72px);align-items:stretch">
+        <!-- Left: intro + placeholder image + stats -->
         <div>
-          <h1 style="max-width:340px;font-family:${BODY_FF};font-weight:300;font-size:clamp(28px,3.6vw,44px);letter-spacing:-0.5px;line-height:${rtlLH(t,1.05,1.5)};color:#fff;margin:0">${t.conTitle.toUpperCase()}</h1>
-          <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(14px,1.2vw,16px);color:rgba(255,255,255,.7);line-height:1.75;margin:16px 0 0;max-width:52ch">${t.conSub}</p>
+          ${breadcrumb(t.navItems[5])}
+          <h1 style="font-family:${BODY_FF};font-weight:500;font-size:clamp(28px,3.4vw,44px);letter-spacing:-1px;line-height:1.06;color:#fff;margin:14px 0 0">${t.conTitle.toUpperCase().replace(/\bHEAL\b/, `<span style="color:#DFA4F8">HEAL</span>`)}</h1>
+          <p style="font-family:${BODY_FF};font-weight:300;font-size:clamp(14px,1.2vw,16px);color:rgba(255,255,255,.7);line-height:1.7;margin:16px 0 0;max-width:44ch">${t.conSub}</p>
+
+          <!-- Image -->
+          <div style="border-radius:20px;overflow:hidden;height:clamp(220px,26vw,300px);margin-top:30px;background:${C.card}">
+            <img src="${IMG.psychological}" alt="Survivors and support workers together" style="width:100%;height:100%;object-fit:cover;display:block">
+          </div>
         </div>
-        <div style="max-width:480px;width:100%;text-align:start">${joinUsForm(t)}</div>
+
+        <!-- Right: form (fills the column height so it aligns with the image). The
+             divider sits at the actual grid-column edge so it's independent of the
+             560px form box being right-aligned within its (wider) column. -->
+        <div class="join-form-col" style="display:flex;flex-direction:column;border-inline-start:1px solid ${C.border};padding-inline-start:clamp(16px,2.6vw,32px)">
+          <div style="width:100%;max-width:560px;margin-left:auto;display:flex;flex-direction:column;flex:1">
+            ${joinUsForm(t)}
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1331,7 +1451,7 @@ function joinUsForm(t){
   const submitLabel = isSurvivor ? t.survivorSubmitLabel : t.submitLabel;
   const submittedMsg = isSurvivor ? t.survivorSubmittedMsg : t.submittedMsg;
   const isRTL = t.dir==="rtl";
-  const inputStyle = `width:100%;padding:11px 14px;border-radius:11px;border:1.5px solid ${C.border};font-size:14px;background:${C.bg};color:${C.text};font-family:${BODY_FF}`;
+  const inputStyle = `width:100%;padding:11px 14px;border-radius:11px;border:1.5px solid ${C.border};font-size:15px;font-weight:500;background:${C.surface};color:${C.text};font-family:${BODY_FF}`;
   // Native select arrows sit flush against the border in most browsers regardless of
   // padding, so we hide it and draw our own chevron with real breathing room. The SVG
   // is run through encodeURIComponent so its own quote marks can't collide with the
@@ -1339,10 +1459,10 @@ function joinUsForm(t){
   const chevronSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="#7A8BA0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   const chevron = `data:image/svg+xml,${encodeURIComponent(chevronSVG)}`;
   const selectStyle = `${inputStyle};appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-inline-end:40px;background-image:url(${chevron});background-repeat:no-repeat;background-position:${isRTL?"left 16px center":"right 16px center"}`;
-  const labelStyle = `font-size:13px;font-weight:300;color:${C.sub};display:block;margin-bottom:4px;padding-inline-start:14px;font-family:${BODY_FF}`;
-  const tabStyle = active=>`flex:1;text-align:center;padding:10px 4px;margin-bottom:-1.5px;background:none;border:none;border-bottom:2.5px solid ${active?"#DFA4F8":"transparent"};color:${active?"#DFA4F8":C.sub};font-weight:${active?700:500};font-size:15px;font-family:${BODY_FF}`;
+  const labelStyle = `font-size:14.5px;letter-spacing:0.4px;font-weight:300;color:${C.sub};display:block;margin-bottom:4px;padding-inline-start:14px;font-family:${BODY_FF}`;
+  const tabStyle = active=>`text-align:left;padding:10px 4px;margin-bottom:-1.5px;background:none;border:none;border-bottom:2.5px solid ${active?"#DFA4F8":"transparent"};color:${active?"#DFA4F8":C.sub};font-weight:${active?700:500};font-size:15px;font-family:${BODY_FF}`;
 
-  const tabs = `<div class="join-tabs" style="display:flex;gap:0;margin-bottom:14px;border-bottom:1.5px solid ${C.border}">
+  const tabs = `<div class="join-tabs" style="display:flex;gap:24px;margin-bottom:14px;border-bottom:1.5px solid ${C.border}">
       <button onclick="setJoinTab('survivor')" class="join-tab-btn${isSurvivor?" is-active":""}" style="${tabStyle(isSurvivor)}">${t.survivorTab}</button>
       <button onclick="setJoinTab('volunteer')" class="join-tab-btn${!isSurvivor?" is-active":""}" style="${tabStyle(!isSurvivor)}">${t.volunteerTab}</button>
     </div>`;
@@ -1356,7 +1476,7 @@ function joinUsForm(t){
         <div style="font-size:19px;font-weight:300;color:#fff;margin-top:22px;font-family:${BODY_FF}">${submittedMsg}</div>
       </div>`;
   }
-  return tabs + `<div class="join-form-card" style="background:${C.card};border-radius:20px;padding:20px 22px;border:1px solid ${C.border};display:flex;flex-direction:column;gap:12px">
+  return tabs + `<div class="join-form-card" style="flex:1;display:flex;flex-direction:column;gap:12px">
       <div>
         <label for="join-name" style="${labelStyle}">${t.nameLabel}</label>
         <input id="join-name" value="${esc(data.name)}" oninput="updateJoinForm('name', this.value)" style="${inputStyle}">
@@ -1372,11 +1492,12 @@ function joinUsForm(t){
           ${fourthOptions.map(o=>`<option value="${esc(o)}"${data[fourthKey]===o?" selected":""}>${o}</option>`).join("")}
         </select>
       </div>
-      <div>
+      <div style="flex:1;display:flex;flex-direction:column;min-height:100px">
         <label for="join-notes" style="${labelStyle}">${t.notesLabel}</label>
-        <textarea id="join-notes" rows="4" oninput="updateJoinForm('notes', this.value)" style="${inputStyle};resize:vertical;min-height:100px;line-height:1.5">${esc(data.notes)}</textarea>
+        <textarea id="join-notes" rows="4" oninput="updateJoinForm('notes', this.value)" style="${inputStyle};flex:1;resize:vertical;min-height:100px;line-height:1.5">${esc(data.notes)}</textarea>
       </div>
-      <button onclick="submitJoinForm()" class="cta-btn" style="background:#DFA4F8;color:${C.bg};border:none;padding:13px;border-radius:28px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px;margin-top:2px">${submitLabel}</button>
+      <div style="text-align:left;font-family:${BODY_FF};font-size:12.5px;color:${C.sub};margin-top:2px">Your information will remain completely confidential</div>
+      <button onclick="submitJoinForm()" class="cta-btn" style="align-self:flex-start;background:#DFA4F8;color:${C.bg};border:none;padding:13px 36px;border-radius:28px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px">${submitLabel}</button>
     </div>`;
 }
 
@@ -1419,6 +1540,43 @@ function initReveals(){
   });
 }
 
+// ── NAV + CHAT SCROLL REVEAL ────────────────────────────────────────────────
+// On the landing page the header nav and the chat bot start off-screen (nav
+// above the top edge, chat off the right) and slide into view on the first
+// scroll — the immersive hero fills the screen until you engage with it. The
+// visibility is toggled by adding/removing `.nav-hidden` on #root; the CSS
+// handles the slide transitions. Other pages, and reduced-motion users, always
+// show the nav + chat.
+let navRevealCleanup = null;
+function initNavReveal(){
+  if(navRevealCleanup){ navRevealCleanup(); navRevealCleanup = null; }
+  const root = document.getElementById("root");
+  if(!root) return;
+
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(state.page !== "emergency" || reduce){ root.classList.remove("nav-hidden"); return; }
+
+  // Measure the header so the hero can be pulled up by exactly its height on
+  // the landing frame (see .nav-hidden .hero-lift in styles.css).
+  const header = document.getElementById("site-header");
+  if(header) root.style.setProperty("--header-h", header.offsetHeight + "px");
+
+  const THRESHOLD = 24; // px scrolled before the nav + chat slide in
+  // One-way reveal: hidden only until the first scroll, then they stay put —
+  // scrolling back to the top does not hide them again.
+  if(window.scrollY > THRESHOLD){ root.classList.remove("nav-hidden"); return; }
+  root.classList.add("nav-hidden");
+  const onScroll = () => {
+    if(window.scrollY > THRESHOLD){
+      root.classList.remove("nav-hidden");
+      window.removeEventListener("scroll", onScroll);
+      navRevealCleanup = null;
+    }
+  };
+  window.addEventListener("scroll", onScroll, { passive:true });
+  navRevealCleanup = () => window.removeEventListener("scroll", onScroll);
+}
+
 // ── HYDRATION ─────────────────────────────────────────────────────────────
 // index.html bakes a static, English, crawler-readable version of the header
 // + hero + "what to do" + hospital snippet directly into #root (marked with
@@ -1451,14 +1609,15 @@ function hydrate(){
   revealedSections.add("steps");
 
   heroEl.insertAdjacentHTML("afterend", statsSection(t));
-  // The shell ends with the "steps" section, so appending here keeps the same
-  // order as emergencyPage(): steps → steps-alt → FAQ → footer.
+  // Keeps the same order as emergencyPage(): hero → stats → (hidden legacy
+  // steps) → steps-alt → FAQ → footer.
   pageEl.insertAdjacentHTML("beforeend", firstResponseAlt(t) + faqSection(t) + footerStrip(t));
   root.insertAdjacentHTML("beforeend", chatWidget(t));
 
   root.removeAttribute("data-ssr");
   initCounters();
   initReveals();
+  initNavReveal();
 }
 
 // ── CHATBOT WIDGET ─────────────────────────────────────────────────────────────
@@ -1485,7 +1644,7 @@ function chatWidget(t){
     const iconBadge = `<span class="chat-orb" style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"></span>`;
     const teaserText = `<span style="font-family:${BODY_FF};font-size:14px;font-weight:300;color:#DFA4F8;text-shadow:0 0 4px rgba(223,164,248,0.9),0 0 14px rgba(223,164,248,0.7);white-space:nowrap">${esc(t.chatTeaser)}</span>`;
     const edgePad = isRTL ? "6px 22px 6px 6px" : "6px 6px 6px 22px";
-    return `<button onclick="toggleChat()" id="chat-fab-wrap" class="chat-capsule" aria-label="${esc(t.chatTitle)}" style="position:fixed;bottom:24px;${side}:24px;z-index:1500;display:flex;align-items:center;gap:12px;padding:${edgePad};border-radius:40px;border:1.5px solid rgba(223,164,248,0.55);background:rgba(20,25,36,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 0 22px rgba(223,164,248,0.45),0 8px 24px rgba(0,0,0,0.35);cursor:pointer">
+    return `<button onclick="toggleChat()" id="chat-fab-wrap" class="chat-capsule" aria-label="${esc(t.chatTitle)}" style="position:fixed;bottom:24px;${side}:24px;z-index:1500;display:flex;align-items:center;gap:12px;padding:${edgePad};border-radius:40px;border:1.5px solid rgba(223,164,248,0.55);background:rgba(26,26,28,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 0 22px rgba(223,164,248,0.45),0 8px 24px rgba(0,0,0,0.35);cursor:pointer">
         ${isRTL ? iconBadge + teaserText : teaserText + iconBadge}
       </button>`;
   }
@@ -1499,7 +1658,7 @@ function chatWidget(t){
   // Header is its own floating glass pill (matching the collapsed teaser
   // capsule's language) sitting above the message panel with a visible gap,
   // rather than a flat bar fused to the panel's top edge.
-  const headerPill = `<div style="flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 8px 8px 20px;border-radius:40px;border:1.5px solid rgba(223,164,248,0.55);background:rgba(20,25,36,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 8px 24px rgba(0,0,0,0.35)">
+  const headerPill = `<div style="flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 8px 8px 20px;border-radius:40px;border:1.5px solid rgba(223,164,248,0.55);background:rgba(26,26,28,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 8px 24px rgba(0,0,0,0.35)">
       <div style="font-family:${BODY_FF};font-weight:300;font-size:15px;letter-spacing:.02em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">${esc(t.chatTitle)}</div>
       <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
         <button onclick="resetChat()" class="icon-btn spin-hover" aria-label="Restart" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:50%;width:26px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">${restartSVG("#fff")}</button>
@@ -1508,7 +1667,7 @@ function chatWidget(t){
       </div>
     </div>`;
 
-  const messagesPanel = `<div class="chat-panel" style="flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;background:rgba(20,25,36,0.6);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(223,164,248,0.3);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.5)">
+  const messagesPanel = `<div class="chat-panel" style="flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;background:rgba(26,26,28,0.6);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(223,164,248,0.3);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.5)">
       <div id="chat-messages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:transparent;min-height:160px">
         ${state.chatMessages.map(chatMessageBubble).join("")}
       </div>
@@ -1516,8 +1675,8 @@ function chatWidget(t){
       ${prompts}
 
       <div style="display:flex;gap:8px;padding:12px;border-top:1px solid ${C.border};background:transparent;flex-shrink:0">
-        <input id="chat-input" aria-label="${esc(t.chatPlaceholder)}" placeholder="${esc(t.chatPlaceholder)}" oninput="updateChatDraft(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();sendChatMessage();}" value="${esc(state.chatDraft)}" style="flex:1;min-width:0;padding:10px 14px;border-radius:20px;border:1.5px solid ${C.border};background:rgba(11,15,28,0.6);color:${C.text};font-size:13px;font-family:${BODY_FF}">
-        <button onclick="sendChatMessage()" class="cta-btn" aria-label="${esc(t.chatPlaceholder)}" style="background:${STATS_ACCENT};border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">${sendSVG(C.bg)}</button>
+        <input id="chat-input" aria-label="${esc(t.chatPlaceholder)}" placeholder="${esc(t.chatPlaceholder)}" oninput="updateChatDraft(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();sendChatMessage();}" value="${esc(state.chatDraft)}" style="flex:1;min-width:0;padding:10px 14px;border-radius:20px;border:1.5px solid #DFA4F8;background:rgba(11,15,28,0.6);color:${C.text};font-size:13px;font-family:${BODY_FF}">
+        <button onclick="sendChatMessage()" class="cta-btn" aria-label="${esc(t.chatPlaceholder)}" style="background:#DFA4F8;border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">${sendSVG(C.bg)}</button>
       </div>
     </div>`;
 
@@ -1563,7 +1722,7 @@ function render(){
   root.style.color = C.text;
 
   // HEADER — logo · nav tabs (Figma) · language · 1122 pill
-  const header = `<header style="position:sticky;top:0;z-index:1200;background:${C.surface};border-bottom:1px solid ${C.border}">
+  const header = `<header id="site-header" style="position:sticky;top:0;z-index:1200;background:${C.bg};border-bottom:1px solid ${C.border}">
     <div class="site-header-inner" style="max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:11px 16px 12px">
       <a href="/" onclick="return setPage('emergency')" class="logo-btn" aria-label="Acidhelp — home" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;gap:9px;flex-shrink:0;text-decoration:none">
         ${logoMark(26)}
@@ -1608,6 +1767,7 @@ function render(){
   if(state.page==="medical") mountMap();
   if(state.page==="emergency") initCounters();
   initReveals();
+  initNavReveal();
 }
 
 // ── HANDLERS ──────────────────────────────────────────────────────────────────
@@ -1726,11 +1886,35 @@ function selectHospital(id){
   const h = HOSPITALS.find(x=>x.id===id);
   if(!h) return;
   mapState.selected = h;
+  mapState.panelCollapsed = false; // ensure the detail is visible
   if(mapState.map) mapState.map.setView([h.lat,h.lng],14,{animate:true});
   renderMapOverlays();
 }
 function closeSheet(){ mapState.selected = null; renderMapOverlays(); }
 function clearError(){ mapState.locError = null; renderMapOverlays(); }
+function collapsePanel(){ mapState.panelCollapsed = true; renderMapOverlays(); }
+function expandPanel(){ mapState.panelCollapsed = false; renderMapOverlays(); }
+
+// Open Google Maps driving directions to a hospital (from the user's location
+// when we have it, otherwise Google uses the device's current location).
+function openDirections(id){
+  const h = HOSPITALS.find(x=>x.id===id);
+  if(!h) return;
+  const origin = mapState.userLoc ? `&origin=${mapState.userLoc.lat},${mapState.userLoc.lng}` : "";
+  window.open(`https://www.google.com/maps/dir/?api=1${origin}&destination=${h.lat},${h.lng}&travelmode=driving`, "_blank", "noopener");
+}
+
+// Re-style markers so the closest hospital gets a secondary-colour ring.
+function refreshMarkers(){
+  const L = window.L;
+  if(!L || !mapState.markers) return;
+  const closestId = mapState.nearbyList[0] ? mapState.nearbyList[0].id : null;
+  HOSPITALS.forEach(h=>{
+    const m = mapState.markers[h.id];
+    if(!m) return;
+    m.setIcon(L.divIcon({ className:"", html:hospBadge(h.icon,42,sColor(h.specialty), h.id===closestId?"#DFA4F8":null), iconSize:[42,42], iconAnchor:[21,21] }));
+  });
+}
 
 function nearMe(){
   mapState.locError = null;
@@ -1747,10 +1931,13 @@ function nearMe(){
           icon:L.divIcon({className:"",html:`<div style="width:18px;height:18px;background:${C.brand};border-radius:50%;border:3px solid white;box-shadow:0 0 0 6px rgba(186,69,235,0.22);"></div>`,iconSize:[18,18],iconAnchor:[9,9]})
         }).addTo(map);
       }
+      mapState.userLoc = { lat, lng };
       const sorted = HOSPITALS.map(h=>({...h,dist:haversine(lat,lng,h.lat,h.lng)})).sort((a,b)=>a.dist-b.dist);
-      mapState.nearbyList = sorted.slice(0,5);
-      mapState.selected = sorted[0];
-      if(map) map.flyTo([sorted[0].lat,sorted[0].lng],13,{duration:1.6});
+      mapState.nearbyList = sorted.slice(0,5); // closest first
+      mapState.selected = null;                // show the list, not a single detail
+      mapState.panelCollapsed = false;         // open the panel on locate
+      refreshMarkers();                        // ring the closest hospital's pin
+      if(map) map.flyTo([lat,lng],11,{duration:1.4});
       renderMapOverlays();
     },
     ()=>{ mapState.loading=false; mapState.locError="Location access denied. Allow it in browser settings."; renderMapOverlays(); },
