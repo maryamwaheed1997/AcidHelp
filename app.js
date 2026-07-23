@@ -402,7 +402,7 @@ const T = {
       { n:"3", icon:"cross", head:"GET TO HOSPITAL", sub:"Burns unit", body:"Burns unit. Do not cover the wound with cloth — contact with fabric worsens the burn. Keep flushing until medical help arrives." },
     ],
     emTitle:"ACID ATTACK?", emSub:"Act immediately. Every second matters",
-    doNot:"DO NOT apply: toothpaste · cream · milk · oil · baking soda — and do NOT cover with cloth",
+    doNot:"DO NOT APPLY: toothpaste · cream · milk · oil · baking soda | DO NOT cover with cloth",
     callBtn:"CALL 1122", altLabel:"Also call:", edhi:"Edhi: 115", asf:"ASF: 051-2305354",
     playVideo:"PLAY VIDEO",
     videoLabel:"Watch: How to flush correctly",
@@ -1399,7 +1399,7 @@ function blogPostPage(t){
             ${t.backToBlogLabel}
           </button>
           <div style="display:inline-block;background:${post.dim};color:${post.color};font-family:${BODY_FF};font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:12px">${post.category}</div>
-          <h1 style="font-family:${BODY_FF};font-weight:900;font-size:clamp(28px,4vw,48px);letter-spacing:-1px;line-height:1.1;color:#fff;margin:0 0 12px;text-shadow:0 2px 16px rgba(0,0,0,.4)">${post.title}</h1>
+          <h1 style="font-family:${BODY_FF};font-weight:500;font-size:clamp(36px,3.4vw,52px);letter-spacing:-1px;line-height:1.06;color:#fff;margin:0 0 12px;text-shadow:0 2px 16px rgba(0,0,0,.4)">${post.title}</h1>
           <div style="font-family:${BODY_FF};font-size:13px;color:rgba(255,255,255,.75)">${t.byLabel} <span style="color:#fff;font-weight:600">${post.author}</span> &nbsp;|&nbsp; ${post.date}</div>
         </div>
       </div>
@@ -1483,14 +1483,14 @@ function aboutPage(t){
 
     <!-- Why We Exist -->
     <section class="reveal" data-reveal-id="abt-why" style="background:${C.bg};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
-      <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:clamp(28px,4vw,56px);align-items:center">
+      <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:clamp(28px,4vw,56px);align-items:stretch">
         <div>
           <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,3.4vw,52px);letter-spacing:-1px;line-height:1.06;text-transform:uppercase;color:#fff;margin:0 0 20px">${AC.whyTitle}</h2>
           <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0 0 24px">${AC.whyPara1}</p>
           <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0 0 24px">${AC.whyPara2}</p>
           <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0">${AC.whyPara3}</p>
         </div>
-        <div style="border-radius:20px;overflow:hidden;height:clamp(280px,32vw,420px)">
+        <div style="border-radius:20px;overflow:hidden;min-height:clamp(280px,32vw,420px)">
           <img src="${IMG.whyWeExist}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
       </div>
