@@ -11,13 +11,13 @@
   <meta property="og:site_name" content="Acidhelp.com">
   <meta property="og:title" content="Acidhelp.com — Emergency Help for Acid Attack Survivors in Pakistan">
   <meta property="og:description" content="Immediate first-aid steps, the 1122 emergency number, nearby burns units, and free legal/medical/psychological support for acid attack survivors and families in Pakistan.">
-  <meta property="og:image" content="https://www.acidhelp.com/images/footer.png">
+  <meta property="og:image" content="https://www.acidhelp.com/images/footer.webp">
   <meta property="og:url" content="https://www.acidhelp.com/">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Acidhelp.com — Emergency Help for Acid Attack Survivors in Pakistan">
   <meta name="twitter:description" content="Immediate first-aid steps, the 1122 emergency number, nearby burns units, and free legal/medical/psychological support for acid attack survivors and families in Pakistan.">
-  <meta name="twitter:image" content="https://www.acidhelp.com/images/footer.png">
+  <meta name="twitter:image" content="https://www.acidhelp.com/images/footer.webp">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="./images/Icons/Favicon.png">
@@ -78,6 +78,7 @@
           <div style="max-width:1920px;margin:0 auto;display:flex;align-items:center;gap:clamp(10px,1.2vw,16px)">
             <div style="flex:1;min-width:0;border-radius:24px;overflow:hidden;aspect-ratio:1920/800;background:#050508">
               <video id="hero-video" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;object-position:center">
+                <source media="(max-width:760px)" src="./images/AcidHelpMobileVideo.webm" type="video/webm">
                 <source src="./images/hero-video-purple.mp4" type="video/mp4">
               </video>
               <audio id="hero-audio" loop preload="auto">
@@ -87,7 +88,7 @@
             <div class="hero-vid-ctrls" style="display:flex;flex-direction:column;gap:9px;flex-shrink:0;align-items:center">
               <button onclick="setHeroAudio('en')" aria-label="Play ENG voice-over" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:var(--brand);color:#fff;border:1.5px solid var(--brand);font-size:10px;font-weight:700;letter-spacing:-0.3px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif">ENG</button>
               <button onclick="setHeroAudio('ur')" aria-label="Play اردو voice-over" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:transparent;color:#fff;border:1.5px solid var(--borderLight);font-size:13px;font-weight:600;letter-spacing:-0.3px;font-family:'Noto Nastaliq Urdu',sans-serif">اردو</button>
-              <button onclick="setHeroAudio('pa')" aria-label="Play PUN voice-over" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:transparent;color:#fff;border:1.5px solid var(--borderLight);font-size:10px;font-weight:600;letter-spacing:-0.3px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif">PUN</button>
+              <button onclick="setHeroAudio('pa')" aria-label="Play پنجابی voice-over" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:transparent;color:#fff;border:1.5px solid var(--borderLight);font-size:13px;font-weight:600;letter-spacing:-0.3px;font-family:'Noto Nastaliq Urdu',sans-serif">پنجابی</button>
               <button onclick="toggleHeroMute()" aria-label="Mute voice-over" class="hero-mute-btn" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:transparent;border:1.5px solid var(--borderLight)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H3v6h3l5 4V5z" fill="#fff"/><path d="M16 9a4 4 0 010 6M18.7 6.8a7.5 7.5 0 010 10.4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></button>
             </div>
           </div>

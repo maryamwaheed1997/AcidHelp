@@ -31,11 +31,12 @@ const BODY_2_FF = "'Lexend','Noto Nastaliq Urdu',sans-serif";      // nav / body
 const IMG = {
   logo:          "./images/logo.png",
   heroVideo:     "./images/hero-video-purple.mp4",
-  psychological: "./images/psychological.png",
-  medical:       "./images/medical.png",
-  legal:         "./images/legal.png",
-  employment:    "./images/employment.png",
-  footer:        "./images/footer.png",
+  heroVideoMobile: "./images/AcidHelpMobileVideo.webm",
+  psychological: "./images/psychologicalsupport.webp",
+  medical:       "./images/medicalandsurgical.webp",
+  legal:         "./images/legal.webp",
+  employment:    "./images/employment.webp",
+  footer:        "./images/footer.webp",
   whatToDo:      "./images/What-to-do.png",
   blog2:         "./images/blog-2.png",
   blog3:         "./images/blog-3.png",
@@ -149,7 +150,6 @@ function sColor(s){
 const ACCENT_GREEN = "#74B2B8";
 
 // ── STATS DATA (kept as-is per brief) ─────────────────────────────────────────
-const STATS_ACCENT = "#9010BF";
 const STATS_EN = [
   { num:1000, suffix:"+",  label:"Acid attacks reported annually in Pakistan", src:"Depilex Smileagain Foundation", color:"#DFA4F8" },
   { num:85,   suffix:"%",  label:"Of victims are women and girls", src:"ASF Pakistan", color:"#DFA4F8" },
@@ -450,10 +450,11 @@ const T = {
     advocacy:"Acidhelp.com advocates for a complete ban on the open retail sale of acid in Pakistan, mandatory ID verification for all purchases, enhanced sentencing for perpetrators, and free reconstructive care for every survivor.",
     advocacyPoints:["Ban on open acid sales","Mandatory ID verification","Tougher sentencing for perpetrators","Free reconstructive care"],
     footerLine2:"Acidhelp.com is not a substitute for emergency services. If someone is in danger, call 1122 immediately.",
-    chatTitle:"Ask AcidHelp", chatTeaser:"How can we help?",
+    chatTitle:"AI Agaahi", chatTeaser:"How can we help?",
     chatGreeting:"Hi, I'm here to help with quick first-aid questions. Ask me something, or pick a question below.",
     chatPlaceholder:"Type your question…",
     chatFallback:"I'm not sure about that one. For anything urgent, please call 1122 immediately. You can also try one of the questions below.",
+    restartChatLabel:"Restart chat",
     chatPrompts:[
       { q:"Can I apply milk?", a:"No — milk, like toothpaste, cream, oil, and baking soda, is not safe on an acid burn. It traps heat and can worsen the injury. Only flush with cool running water for at least 20 minutes." },
       { q:"Can I apply toothpaste?", a:"No — toothpaste does not neutralise acid and can trap heat against the skin. Stick to cool running water, continuously, for at least 20 minutes." },
@@ -519,10 +520,11 @@ const T = {
     advocacy:"Acidhelp.com تیزاب کی عام فروخت پر مکمل پابندی اور تمام بچ جانے والوں کے لیے مفت سرجری کی وکالت کرتا ہے۔",
     advocacyPoints:["تیزاب کی کھلی فروخت پر پابندی","لازمی شناختی تصدیق","مجرموں کے لیے سخت سزائیں","مفت تعمیرِ نو کی سرجری"],
     footerLine2:"Acidhelp.com ہنگامی خدمات کا متبادل نہیں۔ فوری ۱۱۲۲ کال کریں۔",
-    chatTitle:"AcidHelp سے پوچھیں", chatTeaser:"ہم کیسے مدد کر سکتے ہیں؟",
+    chatTitle:"AI Agaahi", chatTeaser:"ہم کیسے مدد کر سکتے ہیں؟",
     chatGreeting:"السلام علیکم، میں فوری ابتدائی طبی امداد کے سوالات میں مدد کے لیے حاضر ہوں۔ کچھ پوچھیں یا نیچے دیے گئے سوالات میں سے کوئی منتخب کریں۔",
     chatPlaceholder:"اپنا سوال لکھیں…",
     chatFallback:"مجھے اس کا یقین نہیں۔ کسی بھی ہنگامی صورتحال میں فوری طور پر ۱۱۲۲ پر کال کریں۔ آپ نیچے دیے گئے سوالات بھی آزما سکتے ہیں۔",
+    restartChatLabel:"چیٹ دوبارہ شروع کریں",
     chatPrompts:[
       { q:"کیا دودھ لگا سکتے ہیں؟", a:"نہیں — دودھ، ٹوتھ پیسٹ، کریم، تیل اور سوڈا کی طرح تیزاب کے زخم پر محفوظ نہیں۔ یہ گرمی کو روکتا ہے اور زخم بڑھا سکتا ہے۔ صرف کم از کم ۲۰ منٹ تک ٹھنڈا بہتا پانی استعمال کریں۔" },
       { q:"کیا ٹوتھ پیسٹ لگا سکتے ہیں؟", a:"نہیں — ٹوتھ پیسٹ تیزاب کو ختم نہیں کرتا اور جلد پر گرمی روک سکتا ہے۔ صرف مسلسل کم از کم ۲۰ منٹ تک ٹھنڈا پانی استعمال کریں۔" },
@@ -588,10 +590,11 @@ const T = {
     advocacy:"Acidhelp.com tezab ki aam farokht par mukammal pabandi aur tamam bachne walon ke liye muft surgery ki waqalat karta hai.",
     advocacyPoints:["Tezab ki khuli farokht par pabandi","Lazmi shanakhti tasdeeq","Mujrimon ke liye sakht sazayen","Muft reconstructive surgery"],
     footerLine2:"Acidhelp.com hangami khidmaat ka mutbadil nahin. Fori 1122 call karein.",
-    chatTitle:"AcidHelp Se Poochein", chatTeaser:"Hum Kaise Madad Kar Sakte Hain?",
+    chatTitle:"AI Agaahi", chatTeaser:"Hum Kaise Madad Kar Sakte Hain?",
     chatGreeting:"Assalam o Alaikum, main fori first aid sawalat mein madad ke liye hazir hoon. Kuch poochein ya neeche diye gaye sawalat mein se koi muntakhib karein.",
     chatPlaceholder:"Apna sawal likhein…",
     chatFallback:"Mujhe iska yaqeen nahin. Kisi bhi hangami surat mein fori 1122 par call karein. Aap neeche diye gaye sawalat bhi azma sakte hain.",
+    restartChatLabel:"Chat dobara shuru karein",
     chatPrompts:[
       { q:"Kya doodh laga sakte hain?", a:"Nahin — doodh, toothpaste, cream, tel aur soda ki tarah tezab ke zakham par mahfooz nahin. Yeh garmi ko rokta hai aur zakham badha sakta hai. Sirf kam az kam 20 minute tak thanda behta paani istemal karein." },
       { q:"Kya toothpaste laga sakte hain?", a:"Nahin — toothpaste tezab ko khatam nahin karta aur jild par garmi rok sakta hai. Sirf musalsal kam az kam 20 minute tak thanda paani istemal karein." },
@@ -743,6 +746,7 @@ function heroPortrait(t){
     <div style="max-width:1920px;margin:0 auto;display:flex;align-items:center;gap:clamp(10px,1.2vw,16px)">
       <div style="flex:1;min-width:0;border-radius:24px;overflow:hidden;aspect-ratio:1920/800;background:#050508">
         <video id="hero-video" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;object-position:center">
+          <source media="(max-width:760px)" src="${IMG.heroVideoMobile}" type="video/webm">
           <source src="${IMG.heroVideo}" type="video/mp4">
         </video>
         <audio id="hero-audio" loop preload="auto">
@@ -767,7 +771,7 @@ function heroAudioButtonsHTML(){
     const ff = ur ? "'Noto Nastaliq Urdu',sans-serif" : BODY_FF;
     return `<button onclick="setHeroAudio('${l}')" aria-label="Play ${label} voice-over" style="${circleBase};background:${active?C.brand:"transparent"};color:#fff;border:1.5px solid ${active?C.brand:C.borderLight};font-size:${ur?13:10}px;font-weight:${active?700:600};letter-spacing:-0.3px;font-family:${ff}">${label}</button>`;
   };
-  return `${audioCircle("en","ENG")}${audioCircle("ur","اردو",true)}${audioCircle("pa","PUN")}
+  return `${audioCircle("en","ENG")}${audioCircle("ur","اردو",true)}${audioCircle("pa","پنجابی",true)}
     <button onclick="toggleHeroMute()" aria-label="Mute voice-over" style="${circleBase};background:${heroAudioMuted?C.brand:"transparent"};border:1.5px solid ${heroAudioMuted?C.brand:C.borderLight}">${speakerSVG(heroAudioMuted)}</button>`;
 }
 function heroVideoControls(){
@@ -1288,7 +1292,9 @@ function blogPage(t){
     <section class="reveal" data-reveal-id="blog-grid" style="padding:0 clamp(28px,5vw,80px) clamp(40px,5vw,60px)">
       <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:20px">
         ${rest.map(post=>post.hidden ? `
-          <div aria-hidden="true" style="min-height:360px;background:${C.card};opacity:0.4;border:1px solid ${C.border};border-radius:20px"></div>
+          <div style="min-height:360px;background:${C.card};opacity:0.4;border:1px solid ${C.border};border-radius:20px;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:${BODY_FF};font-size:12px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:#DFA4F8">Coming Soon</span>
+          </div>
         ` : `
           <button class="blog-card" onclick="openBlogPost(${post.id})" style="display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;width:100%;text-align:left;background:${C.card};border:1px solid ${C.border};border-radius:20px;overflow:hidden;padding:0;font:inherit;color:inherit;cursor:pointer">
             <div style="height:200px;overflow:hidden;flex-shrink:0">
@@ -1427,7 +1433,7 @@ function aboutPage(t){
     <!-- Hero: photo left, title + subcopy right, so both are visible together -->
     <section class="reveal" data-reveal-id="abt-hero" style="background:${C.bg};padding:clamp(28px,4vw,56px) clamp(28px,5vw,80px)">
       <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:clamp(28px,4vw,56px);align-items:flex-end">
-        <!-- Placeholder photo (images/footer.png) until a dedicated About
+        <!-- Placeholder photo (images/footer.webp) until a dedicated About
              image is supplied — swap the src below to replace it. -->
         <div style="border-radius:20px;overflow:hidden;height:clamp(320px,40vw,520px)">
           <img src="${IMG.footer}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
@@ -1497,7 +1503,7 @@ function aboutPage(t){
     <!-- Get Help or Get Involved -->
     <section class="reveal" data-reveal-id="abt-involved" style="background:${C.bg};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
       <div style="max-width:720px;margin:0 auto;text-align:center">
-        <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0 0 16px">${AC.involvedTitle}</h2>
+        <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0 0 16px">${AC.involvedTitle.replace(/Get Involved/, `<span style="color:#DFA4F8">Get Involved</span>`)}</h2>
         <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.75;margin:0 0 28px">${AC.involvedBody}</p>
         <a href="/joinus" onclick="return setPage('joinus')" class="cta-btn" style="background:none;border:1.5px solid #DFA4F8;color:#DFA4F8;padding:12px 28px;border-radius:32px;font-size:14px;font-weight:600;font-family:${BODY_FF};letter-spacing:-0.2px;display:inline-block;text-decoration:none">${AC.involvedCta}</a>
       </div>
@@ -1733,7 +1739,7 @@ function hydrate(){
 function chatMessageBubble(m){
   const isBot = m.from==="bot";
   return `<div style="display:flex;justify-content:${isBot?"flex-start":"flex-end"}">
-      <div style="max-width:82%;background:${isBot?C.card:STATS_ACCENT};color:${isBot?C.text:"#fff"};padding:10px 14px;border-radius:${isBot?"4px 16px 16px 16px":"16px 16px 4px 16px"};font-family:${BODY_FF};font-size:13px;line-height:1.5;white-space:pre-wrap">${esc(m.text)}</div>
+      <div style="max-width:82%;background:${isBot?C.card:"#fff"};color:${isBot?C.text:"#000"};border:${isBot?"none":`1px solid ${C.border}`};padding:10px 14px;border-radius:${isBot?"4px 16px 16px 16px":"16px 16px 4px 16px"};font-family:${BODY_FF};font-size:13px;line-height:1.5;white-space:pre-wrap">${esc(m.text)}</div>
     </div>`;
 }
 
@@ -1764,20 +1770,27 @@ function chatWidget(t){
   // Header is its own floating glass pill (matching the collapsed teaser
   // capsule's language) sitting above the message panel with a visible gap,
   // rather than a flat bar fused to the panel's top edge.
-  const headerPill = `<div style="flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 8px 8px 20px;border-radius:40px;border:1.5px solid rgba(223,164,248,0.55);background:rgba(26,26,28,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 8px 24px rgba(0,0,0,0.35)">
-      <div style="font-family:${BODY_FF};font-weight:300;font-size:15px;letter-spacing:.02em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">${esc(t.chatTitle)}</div>
+  const headerPill = `<div style="flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 8px 8px 20px;border-radius:40px;border:1.5px solid rgba(223,164,248,0.55);background:rgba(26,26,28,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 0 18px rgba(223,164,248,0.5),0 8px 24px rgba(0,0,0,0.35)">
+      <div style="font-family:${BODY_FF};font-weight:600;font-size:15px;letter-spacing:.02em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">${esc(t.chatTitle)}</div>
       <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
         <button onclick="resetChat()" class="icon-btn spin-hover" aria-label="Restart" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:50%;width:26px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">${restartSVG("#fff")}</button>
         <button onclick="toggleChat()" class="icon-btn" aria-label="Close chat" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:50%;width:26px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">✕</button>
-        <span class="chat-orb" style="width:38px;height:38px;border-radius:50%;flex-shrink:0"></span>
       </div>
     </div>`;
 
-  const messagesPanel = `<div class="chat-panel" style="flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;background:rgba(26,26,28,0.6);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(223,164,248,0.3);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.5)">
+  // Once a prompt/question has actually been answered, a restart control sits
+  // right under that answer in the message flow — not just up in the header —
+  // so it's visible exactly where someone would look for it after reading a reply.
+  const restartInline = hasUserMsg ? `<div style="display:flex;justify-content:flex-start;padding:0 16px 12px">
+      <button onclick="resetChat()" class="icon-btn spin-hover" style="display:inline-flex;align-items:center;gap:6px;background:${C.card};border:1px solid ${C.border};color:${C.sub};border-radius:20px;padding:6px 12px;font-family:${BODY_FF};font-size:12px;cursor:pointer">${restartSVG(C.sub)} ${esc(t.restartChatLabel)}</button>
+    </div>` : "";
+
+  const messagesPanel = `<div class="chat-panel" style="flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;background:rgba(26,26,28,0.6);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(223,164,248,0.3);border-radius:20px;box-shadow:0 0 18px rgba(223,164,248,0.4),0 20px 60px rgba(0,0,0,0.5)">
       <div id="chat-messages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:transparent;min-height:160px">
         ${state.chatMessages.map(chatMessageBubble).join("")}
       </div>
 
+      ${restartInline}
       ${prompts}
 
       <div style="display:flex;gap:8px;padding:12px;border-top:1px solid ${C.border};background:transparent;flex-shrink:0">
