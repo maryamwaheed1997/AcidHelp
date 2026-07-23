@@ -31,7 +31,7 @@ const BODY_2_FF = "'Lexend','Noto Nastaliq Urdu',sans-serif";      // nav / body
 const IMG = {
   logo:          "./images/logo.png",
   heroVideo:     "./images/hero-video-purple.mp4",
-  heroVideoMobile: "./images/AcidHelpMobileVideo.webm",
+  heroVideoMobile: "./images/hero-video-mobile.mp4",
   psychological: "./images/psychologicalsupport.webp",
   medical:       "./images/medicalandsurgical.webp",
   legal:         "./images/legal.webp",
@@ -40,7 +40,7 @@ const IMG = {
   whatToDo:      "./images/What-to-do.png",
   blog2:         "./images/blog-2.png",
   blog3:         "./images/blog-3.png",
-  blog4:         "./images/blog-4.png",
+  blog4:         "./images/blog-understandinglegalrights.webp",
   blogCulture:   "./images/blog-culture-or-cheap-acid.webp",
   icBurns:       "./images/Icons/Burns%20Unit.png",
   icHospital:    "./images/Icons/Hospital.png",
@@ -746,7 +746,7 @@ function heroPortrait(t){
     <div style="max-width:1920px;margin:0 auto;display:flex;align-items:center;gap:clamp(10px,1.2vw,16px)">
       <div style="flex:1;min-width:0;border-radius:24px;overflow:hidden;aspect-ratio:1920/800;background:#050508">
         <video id="hero-video" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;object-position:center">
-          <source media="(max-width:760px)" src="${IMG.heroVideoMobile}" type="video/webm">
+          <source media="(max-width:760px)" src="${IMG.heroVideoMobile}" type="video/mp4">
           <source src="${IMG.heroVideo}" type="video/mp4">
         </video>
         <audio id="hero-audio" loop preload="auto">
@@ -819,6 +819,38 @@ function initHeroAudio(){
       if(el && el.paused && !heroAudioMuted) el.play().catch(()=>{});
     };
     ["pointerdown","keydown"].forEach(evt => document.addEventListener(evt, retry, { once:true, passive:true }));
+  }
+}
+
+// Picks the mobile vs. desktop hero video with JS instead of relying on
+// <source media> alone, since browser support for evaluating `media` on
+// <video> <source> elements is inconsistent. Both files are mp4, so no
+// format-support check is needed. Setting the <video> src attribute directly
+// overrides its child <source> tags entirely once JS has run.
+const MOBILE_VIDEO_BREAKPOINT = 760;
+function updateHeroVideoSrc(){
+  const v = document.getElementById("hero-video");
+  if(!v) return;
+  const isMobile = window.innerWidth <= MOBILE_VIDEO_BREAKPOINT;
+  const wantSrc = isMobile ? IMG.heroVideoMobile : IMG.heroVideo;
+  if(v.dataset.activeSrc === wantSrc) return;
+  const wasPlaying = !v.paused;
+  v.dataset.activeSrc = wantSrc;
+  v.src = wantSrc;
+  v.load();
+  if(wasPlaying) v.play().catch(()=>{});
+}
+let heroVideoResizeBound = false;
+function initHeroVideo(){
+  if(state.page !== "emergency") return;
+  updateHeroVideoSrc();
+  if(!heroVideoResizeBound){
+    heroVideoResizeBound = true;
+    let resizeTimer;
+    window.addEventListener("resize", ()=>{
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateHeroVideoSrc, 200);
+    }, { passive:true });
   }
 }
 
@@ -1730,6 +1762,7 @@ function hydrate(){
   initReveals();
   initNavReveal();
   initHeroAudio();
+  initHeroVideo();
 }
 
 // ── CHATBOT WIDGET ─────────────────────────────────────────────────────────────
@@ -1888,6 +1921,7 @@ function render(){
   initReveals();
   initNavReveal();
   initHeroAudio();
+  initHeroVideo();
 }
 
 // ── HANDLERS ──────────────────────────────────────────────────────────────────
