@@ -86,7 +86,7 @@
     transition:transform .7s cubic-bezier(.22,1,.36,1), filter .5s ease;
     will-change:transform;
   }
-  .res-card-wrap{cursor:pointer;transition:box-shadow .35s ease, height .35s cubic-bezier(.22,1,.36,1)}
+  .res-card-wrap{cursor:pointer;transition:box-shadow .35s ease}
   .res-card-wrap:hover .res-photo{transform:scale(1.06);filter:brightness(1.08)}
   .res-card-wrap:hover{box-shadow:0 12px 40px rgba(0,0,0,.35)}
   .res-arrow{transition:transform .3s cubic-bezier(.22,1,.36,1)}
@@ -373,6 +373,27 @@
   .hero-vid-ctrls button:hover{transform:scale(1.08)}
   .hero-vid-ctrls button:active{transform:scale(.95)}
 
+  /* Two independent hero <video> elements, swapped by plain CSS display
+     instead of a shared element's src — see heroPortrait's comment in app.js
+     for why. Whichever one matches the viewport is visible from first paint,
+     so its `autoplay` attribute just works with no JS involved. */
+  .hero-video-mobile{display:none}
+  /* Landscape frame on desktop; portrait on mobile so the 1080x1920 mobile
+     clip fills its box instead of being cropped into the wide landscape strip. */
+  .hero-video-frame{aspect-ratio:1920/800}
+  @media (max-width:760px){
+    .hero-video-desktop{display:none}
+    .hero-video-mobile{display:block}
+    .hero-video-frame{aspect-ratio:1080/1920}
+    /* On the tall portrait frame the controls overlap the video's top-right
+       corner instead of sitting beside it, and switch from the purple accent
+       to a white outline so they stay legible against the video rather than
+       blending into it. */
+    .hero-vid-ctrls{position:absolute;top:14px;right:14px;z-index:2;gap:8px}
+    .hero-vid-ctrls .hero-audio-pill{background:rgba(10,12,20,0.38)!important;border-color:rgba(255,255,255,0.6)!important;color:#fff!important;backdrop-filter:blur(2px)}
+    .hero-vid-ctrls .hero-audio-pill.is-active{background:rgba(255,255,255,0.28)!important;border-color:#fff!important}
+  }
+
   /* ── Responsive: header drops to two rows instead of clipping/crowding ─
      The grid centering (1fr auto 1fr) only makes sense on one row, so mobile
      switches the row back to flex-wrap, same as before the centering fix. */
@@ -380,8 +401,18 @@
     .site-header-inner{display:flex!important;flex-wrap:wrap;row-gap:8px;padding:9px 12px 10px!important}
     .brand-wordmark{font-size:20px!important}
     .lang-btn{padding:2px 7px!important;font-size:9.5px!important}
+    /* Language pills + 1122 CTA stay grouped and pinned to the top-right, so
+       the language tabs always sit right beside the call button. */
+    .header-controls{margin-left:auto!important;flex-shrink:0}
     .call-pill{padding:5px 10px!important}
-    .nav-scroll{order:3;flex:1 1 100%!important;justify-content:flex-start!important;gap:16px!important}
+    /* Secondary nav: its own centred row that collapses on scroll-down and
+       re-appears on scroll-up (see initHeaderScrollHide + .nav-collapsed). */
+    .nav-scroll{
+      order:3;flex:1 1 100%!important;justify-content:center!important;gap:16px!important;
+      max-height:52px;overflow:hidden;
+      transition:max-height .32s cubic-bezier(.22,1,.36,1), opacity .25s ease, margin-top .32s ease;
+    }
+    .nav-collapsed .nav-scroll{max-height:0!important;opacity:0;margin-top:-8px!important;pointer-events:none}
   }
 
   /* ── Responsive: stats wrap to a 2x2 grid on small screens, with the
@@ -424,6 +455,12 @@
       -webkit-box-orient:vertical;
       overflow:hidden;
     }
+  }
+
+  /* ── Responsive: hide the "Coming Soon" blog placeholders on mobile, where
+     empty greyed cards read as broken rather than as upcoming content ──── */
+  @media (max-width:640px){
+    .blog-coming-soon{display:none!important}
   }
 
   /* ── Responsive: footer stacks nav links above the logo/email block ──── */

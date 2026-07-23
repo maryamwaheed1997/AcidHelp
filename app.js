@@ -1,4 +1,5 @@
 // ── COLOURS ───────────────────────────────────────────────────────────────────
+
 const C = {
   bg:"#121212", surface:"#1A1A1C", card:"#1C2337",
   border:"#252E45", borderLight:"#2E3850",
@@ -37,12 +38,14 @@ const IMG = {
   legal:         "./images/legal.webp",
   employment:    "./images/employment.webp",
   footer:        "./images/footer.webp",
-  whatToDo:      "./images/What-to-do.png",
+  whyWeExist:    "./images/whyweexist.png",
+  joinUs:        "./images/joinus.png",
+  aboutUs:       "./images/aboutus.png",
   blog2:         "./images/blog-2.png",
   blog3:         "./images/blog-3.png",
-  blog4:         "./images/blog-understandinglegalrights.webp",
+  blog4:         "./images/blog-understandinglegalrights.png",
   blogCulture:   "./images/blog-culture-or-cheap-acid.webp",
-  icBurns:       "./images/Icons/Burns%20Unit.png",
+  icBurns:       "./images/Icons/burnsunit.png",
   icHospital:    "./images/Icons/Hospital.png",
   icRecon:       "./images/Icons/Resconstructive.png",
   icRibbon:      "./images/Icons/ribbon.png",
@@ -743,11 +746,19 @@ function heroPortrait(t){
         <span class="hero-cta-text" style="color:#fff;font-family:${BODY_FF};font-weight:700;font-size:clamp(16px,1.4vw,20px);letter-spacing:-0.5px">${t.callBtn}</span>
       </a>
     </div>
-    <div style="max-width:1920px;margin:0 auto;display:flex;align-items:center;gap:clamp(10px,1.2vw,16px)">
-      <div style="flex:1;min-width:0;border-radius:24px;overflow:hidden;aspect-ratio:1920/800;background:#050508">
-        <video id="hero-video" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;object-position:center">
-          <source media="(max-width:760px)" src="${IMG.heroVideoMobile}" type="video/mp4">
+    <div style="max-width:1920px;margin:0 auto;position:relative;display:flex;align-items:center;gap:clamp(10px,1.2vw,16px)">
+      <div class="hero-video-frame" style="flex:1;min-width:0;position:relative;border-radius:24px;overflow:hidden;background:#050508">
+        <!-- Two independent <video> elements, swapped by CSS display (see
+             .hero-video-desktop/.hero-video-mobile in styles.css) rather than
+             switching a single element's src via JS: <source media> support on
+             <video> is inconsistent across browsers (notably Safari), and
+             swapping src in JS ran into autoplay-resume edge cases. Each
+             element just autoplays normally once it's the one being shown. -->
+        <video id="hero-video" class="hero-video-desktop" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center">
           <source src="${IMG.heroVideo}" type="video/mp4">
+        </video>
+        <video id="hero-video-mobile" class="hero-video-mobile" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center">
+          <source src="${IMG.heroVideoMobile}" type="video/mp4">
         </video>
         <audio id="hero-audio" loop preload="auto">
           <source src="${AUDIO[heroAudioLang]}" type="audio/mp4">
@@ -769,10 +780,10 @@ function heroAudioButtonsHTML(){
   const audioCircle = (l,label,ur)=>{
     const active = heroAudioLang===l && !heroAudioMuted;
     const ff = ur ? "'Noto Nastaliq Urdu',sans-serif" : BODY_FF;
-    return `<button onclick="setHeroAudio('${l}')" aria-label="Play ${label} voice-over" style="${circleBase};background:${active?C.brand:"transparent"};color:#fff;border:1.5px solid ${active?C.brand:C.borderLight};font-size:${ur?13:10}px;font-weight:${active?700:600};letter-spacing:-0.3px;font-family:${ff}">${label}</button>`;
+    return `<button onclick="setHeroAudio('${l}')" class="hero-audio-pill${active?' is-active':''}" aria-label="Play ${label} voice-over" style="${circleBase};background:${active?C.brand:"transparent"};color:#fff;border:1.5px solid ${active?C.brand:C.borderLight};font-size:${ur?13:10}px;font-weight:${active?700:600};letter-spacing:-0.3px;font-family:${ff}">${label}</button>`;
   };
   return `${audioCircle("en","ENG")}${audioCircle("ur","اردو",true)}${audioCircle("pa","پنجابی",true)}
-    <button onclick="toggleHeroMute()" aria-label="Mute voice-over" style="${circleBase};background:${heroAudioMuted?C.brand:"transparent"};border:1.5px solid ${heroAudioMuted?C.brand:C.borderLight}">${speakerSVG(heroAudioMuted)}</button>`;
+    <button onclick="toggleHeroMute()" class="hero-audio-pill hero-mute-btn${heroAudioMuted?' is-active':''}" aria-label="Mute voice-over" style="${circleBase};background:${heroAudioMuted?C.brand:"transparent"};border:1.5px solid ${heroAudioMuted?C.brand:C.borderLight}">${speakerSVG(heroAudioMuted)}</button>`;
 }
 function heroVideoControls(){
   return `<div class="hero-vid-ctrls" style="display:flex;flex-direction:column;gap:9px;flex-shrink:0;align-items:center">${heroAudioButtonsHTML()}</div>`;
@@ -822,34 +833,27 @@ function initHeroAudio(){
   }
 }
 
-// Picks the mobile vs. desktop hero video with JS instead of relying on
-// <source media> alone, since browser support for evaluating `media` on
-// <video> <source> elements is inconsistent. Both files are mp4, so no
-// format-support check is needed. Setting the <video> src attribute directly
-// overrides its child <source> tags entirely once JS has run.
-const MOBILE_VIDEO_BREAKPOINT = 760;
-function updateHeroVideoSrc(){
-  const v = document.getElementById("hero-video");
-  if(!v) return;
-  const isMobile = window.innerWidth <= MOBILE_VIDEO_BREAKPOINT;
-  const wantSrc = isMobile ? IMG.heroVideoMobile : IMG.heroVideo;
-  if(v.dataset.activeSrc === wantSrc) return;
-  const wasPlaying = !v.paused;
-  v.dataset.activeSrc = wantSrc;
-  v.src = wantSrc;
-  v.load();
-  if(wasPlaying) v.play().catch(()=>{});
+// Both hero <video> elements autoplay independently (see heroPortrait) — CSS
+// alone decides which one is visible at a given viewport width. This is just
+// a safety net for the case where someone resizes across the breakpoint:
+// the element that was previously display:none may not have started playing
+// on its own, since browsers don't reliably autoplay hidden video.
+function ensureVisibleHeroVideoPlaying(){
+  ["hero-video","hero-video-mobile"].forEach(id=>{
+    const v = document.getElementById(id);
+    if(v && v.offsetParent !== null && v.paused) v.play().catch(()=>{});
+  });
 }
 let heroVideoResizeBound = false;
 function initHeroVideo(){
   if(state.page !== "emergency") return;
-  updateHeroVideoSrc();
+  ensureVisibleHeroVideoPlaying();
   if(!heroVideoResizeBound){
     heroVideoResizeBound = true;
     let resizeTimer;
     window.addEventListener("resize", ()=>{
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(updateHeroVideoSrc, 200);
+      resizeTimer = setTimeout(ensureVisibleHeroVideoPlaying, 200);
     }, { passive:true });
   }
 }
@@ -891,7 +895,7 @@ function firstResponse(t){
 function firstResponseAlt(t){
   // The three cards use the canonical Rinse / Ring / Remove first-aid steps
   // (shared with the About page's ABOUT_CONTENT.rrr).
-  return `<section class="reveal" data-reveal-id="steps-alt" style="background:${C.bg};padding:clamp(48px,7vw,90px) clamp(20px,4vw,48px)">
+  return `<section class="reveal" data-reveal-id="steps-alt" style="background:${C.bg};padding:clamp(64px,10vw,112px) clamp(20px,4vw,48px)">
     <div class="fr-alt-grid" style="max-width:1920px;margin:0 auto;column-gap:clamp(28px,4vw,64px);row-gap:16px">
       <!-- Left: eyebrow, heading, subcopy, CTA -->
       <div class="fr-alt-heading">
@@ -917,8 +921,8 @@ function firstResponseAlt(t){
       </div>
 
       <!-- DO NOT warning: below cards only, same width as the card row -->
-      <div class="fr-alt-warn" style="background:none;border:1px solid rgba(255,59,48,0.35);border-radius:16px;padding:16px 20px;display:flex;gap:12px;align-items:center">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2L1 21h22L12 2zm0 5.5L18.5 19h-13L12 7.5zm-1 5v4h2v-4h-2zm0 5v2h2v-2h-2z" fill="${C.red}"/></svg>
+      <div class="fr-alt-warn" style="background:none;border:1px solid rgba(255,59,48,0.35);border-radius:16px;padding:16px 20px;display:flex;gap:12px;align-items:flex-start">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:1px"><path d="M12 2L1 21h22L12 2zm0 5.5L18.5 19h-13L12 7.5zm-1 5v4h2v-4h-2zm0 5v2h2v-2h-2z" fill="${C.red}"/></svg>
         <span style="font-family:${BODY_FF};font-weight:500;font-size:14px;color:${C.red};line-height:1.5">${t.doNot}</span>
       </div>
     </div>
@@ -1230,7 +1234,7 @@ function resourcesPage(t){
               ${cat.orgs.map(orgRow).join("")}
             </div>` : "";
           return `<div>
-            <button onclick="toggleCard(${i})" aria-expanded="${isOpen}" class="res-card-wrap${isOpen?' is-open':''}" style="display:block;width:100%;padding:0;border:none;text-align:left;font:inherit;color:inherit;position:relative;height:${isOpen?'clamp(110px,9vw,140px)':'clamp(220px,20vw,300px)'};border-radius:20px;overflow:hidden;background:#1c2337">
+            <button onclick="toggleCard(${i})" aria-expanded="${isOpen}" class="res-card-wrap${isOpen?' is-open':''}" style="display:block;width:100%;padding:0;border:none;text-align:left;font:inherit;color:inherit;position:relative;height:clamp(220px,20vw,300px);border-radius:20px;overflow:hidden;background:#1c2337">
               <!-- Real photo -->
               <div class="res-photo" style="background-image:url('${cat.photo}');background-position:center"></div>
               <!-- Bottom scrim for legibility -->
@@ -1256,7 +1260,7 @@ function resourcesPage(t){
 }
 // FAQs — shown on the landing page, after "What to do"
 function faqSection(t){
-  return `<section class="reveal" data-reveal-id="faq" style="padding:clamp(36px,6vw,76px) clamp(20px,4vw,48px) clamp(64px,8vw,96px)">
+  return `<section class="reveal" data-reveal-id="faq" style="padding:clamp(52px,8vw,96px) clamp(20px,4vw,48px) clamp(64px,8vw,96px)">
     <div style="max-width:1920px;margin:0 auto">
       <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(42px,3.2vw,56px);letter-spacing:-1px;line-height:1.1;margin:0 0 28px;color:${C.text}">${t.faqTitle}</h2>
       <div style="display:flex;flex-direction:column;border-top:1px solid ${C.border}">
@@ -1324,7 +1328,7 @@ function blogPage(t){
     <section class="reveal" data-reveal-id="blog-grid" style="padding:0 clamp(28px,5vw,80px) clamp(40px,5vw,60px)">
       <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:20px">
         ${rest.map(post=>post.hidden ? `
-          <div style="min-height:360px;background:${C.card};opacity:0.4;border:1px solid ${C.border};border-radius:20px;display:flex;align-items:center;justify-content:center">
+          <div class="blog-coming-soon" style="min-height:360px;background:${C.card};opacity:0.4;border:1px solid ${C.border};border-radius:20px;display:flex;align-items:center;justify-content:center">
             <span style="font-family:${BODY_FF};font-size:12px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:#DFA4F8">Coming Soon</span>
           </div>
         ` : `
@@ -1465,10 +1469,8 @@ function aboutPage(t){
     <!-- Hero: photo left, title + subcopy right, so both are visible together -->
     <section class="reveal" data-reveal-id="abt-hero" style="background:${C.bg};padding:clamp(28px,4vw,56px) clamp(28px,5vw,80px)">
       <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:clamp(28px,4vw,56px);align-items:flex-end">
-        <!-- Placeholder photo (images/footer.webp) until a dedicated About
-             image is supplied — swap the src below to replace it. -->
         <div style="border-radius:20px;overflow:hidden;height:clamp(320px,40vw,520px)">
-          <img src="${IMG.footer}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="${IMG.aboutUs}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
         <div style="padding-bottom:12px">
           ${breadcrumb(t.navItems[4])}
@@ -1489,7 +1491,7 @@ function aboutPage(t){
           <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0">${AC.whyPara3}</p>
         </div>
         <div style="border-radius:20px;overflow:hidden;height:clamp(280px,32vw,420px)">
-          <img src="${IMG.whatToDo}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="${IMG.whyWeExist}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
       </div>
     </section>
@@ -1560,7 +1562,7 @@ function joinUsPage(t){
 
           <!-- Image -->
           <div style="border-radius:20px;overflow:hidden;height:clamp(260px,30vw,360px);margin-top:30px;background:${C.card}">
-            <img src="${IMG.psychological}" alt="Survivors and support workers together" style="width:100%;height:100%;object-fit:cover;display:block">
+            <img src="${IMG.joinUs}" alt="Survivors and support workers together" style="width:100%;height:100%;object-fit:cover;display:block">
           </div>
         </div>
 
@@ -1720,6 +1722,36 @@ function initNavReveal(){
   navRevealCleanup = () => window.removeEventListener("scroll", onScroll);
 }
 
+// Mobile-only (via CSS): the secondary nav row hides when scrolling down and
+// re-appears when scrolling up, so it stays out of the way while reading but
+// is one flick away. Toggles `.nav-collapsed` on #root; the CSS collapse only
+// applies at the mobile breakpoint, so desktop is visually unaffected.
+let headerScrollCleanup = null;
+function initHeaderScrollHide(){
+  if(headerScrollCleanup){ headerScrollCleanup(); headerScrollCleanup = null; }
+  const root = document.getElementById("root");
+  if(!root) return;
+  let lastY = window.scrollY || 0;
+  let ticking = false;
+  const TOP_ZONE = 80;   // always reveal the nav near the top of the page
+  const DELTA = 6;       // ignore sub-pixel / jitter scrolls
+  const apply = () => {
+    const y = window.scrollY || 0;
+    if(y <= TOP_ZONE){
+      root.classList.remove("nav-collapsed");
+    } else if(y - lastY > DELTA){
+      root.classList.add("nav-collapsed");      // scrolling down → hide
+    } else if(lastY - y > DELTA){
+      root.classList.remove("nav-collapsed");   // scrolling up → show
+    }
+    lastY = y;
+    ticking = false;
+  };
+  const onScroll = () => { if(!ticking){ requestAnimationFrame(apply); ticking = true; } };
+  window.addEventListener("scroll", onScroll, { passive:true });
+  headerScrollCleanup = () => window.removeEventListener("scroll", onScroll);
+}
+
 // ── HYDRATION ─────────────────────────────────────────────────────────────
 // index.html bakes a static, English, crawler-readable version of the header
 // + hero + "what to do" + hospital snippet directly into #root (marked with
@@ -1761,6 +1793,7 @@ function hydrate(){
   initCounters();
   initReveals();
   initNavReveal();
+  initHeaderScrollHide();
   initHeroAudio();
   initHeroVideo();
 }
@@ -1920,6 +1953,7 @@ function render(){
   if(state.page==="emergency") initCounters();
   initReveals();
   initNavReveal();
+  initHeaderScrollHide();
   initHeroAudio();
   initHeroVideo();
 }
