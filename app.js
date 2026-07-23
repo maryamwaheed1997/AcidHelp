@@ -37,11 +37,11 @@ const IMG = {
   employment:    "./images/employment.png",
   footer:        "./images/footer.png",
   whatToDo:      "./images/What-to-do.png",
-  blog1:         "./images/blog-1.png",
   blog2:         "./images/blog-2.png",
   blog3:         "./images/blog-3.png",
   blog4:         "./images/blog-4.png",
-  icBurns:       "./images/Icons/Burns Unit.png",
+  blogCulture:   "./images/blog-culture-or-cheap-acid.webp",
+  icBurns:       "./images/Icons/Burns%20Unit.png",
   icHospital:    "./images/Icons/Hospital.png",
   icRecon:       "./images/Icons/Resconstructive.png",
   icRibbon:      "./images/Icons/ribbon.png",
@@ -159,14 +159,57 @@ const STATS_EN = [
 
 // ── BLOG DATA (placeholder editorial content; English only) ───────────────────
 const BLOG_POSTS = [
-  { id:1, category:"Recovery", color:C.purple, dim:C.purpleDim,
-    title:"What to Expect During Burns Recovery",
-    excerpt:"A guide to the physical and emotional stages of healing after an acid attack, and how survivors and families can prepare for each one.",
-    author:"Acidhelp Team", date:"May 23, 2024", image:IMG.blog1,
+  { id:5, category:"Policy", color:C.teal, dim:C.tealDim,
+    title:"The Acid Attack Problem - Culture or Cheap Acid?",
+    excerpt:"Why do acid attacks cluster in Pakistan's cotton belt? A comparative look at what worked in Bangladesh, Cambodia, Colombia, and India — and what it means for Pakistan's new laws in Islamabad and Punjab.",
+    author:"Izza Waheed", date:"Jul 23, 2026", image:IMG.blogCulture,
     body:[
-      "Recovery from an acid burn is rarely linear. In the first weeks, medical teams focus on preventing infection and managing pain, while later stages shift toward scar management, mobility, and reconstructive surgery where needed.",
-      "Emotional recovery often runs alongside — and sometimes behind — physical healing. Survivors and families benefit from connecting with counselling services early, rather than waiting for a crisis point.",
-      "This guide walks through what families can realistically expect in the first three, six, and twelve months, and where to find support at each stage."
+      "Ask most people why acid attacks happen in Pakistan, and the answer comes back almost automatically: a man proposes, a woman refuses, and he retaliates. It's a real pattern, and a well-documented one — rejected marriage or romantic proposals are consistently among the top reported motives across South Asia. But motive only explains why someone wants to hurt another person. It doesn't explain why acid, specifically, is the weapon they reach for, or why some regions see this crime constantly while others with similar social dynamics barely see it at all.",
+      "That second question has a much less discussed answer: acid is cheap, unregulated, and sitting on a shelf. Where it's easy to buy, attacks cluster. Where it isn't, they don't — regardless of how common rejection or domestic conflict is elsewhere. Nowhere is this clearer than in Pakistan's cotton belt.",
+
+      { h:"Where Acid Attacks Cluster, and Why" },
+      "Punjab accounts for the overwhelming majority of Pakistan's reported acid attacks, and within Punjab, the crisis is heavily concentrated in the south. **Multan, Muzaffargarh, Rahim Yar Khan, and Bahawalpur** consistently rank as the country's worst-affected districts (Acid Survivors Foundation Pakistan, cited in The Express Tribune, 2014).",
+      "This isn't a coincidence. South Punjab is Pakistan's cotton-growing and cotton-processing heartland, and sulfuric acid is used locally to clean and treat cotton fibre — meaning the same acid used in disfiguring attacks is sold openly in general stores and hardware shops as an industrial input, easily available to anyone as a devastating weapon. Depilex Smileagain Foundation, which runs Pakistan's main survivor rehabilitation program, reports that **more than 65 percent** of the roughly 250 acid attacks recorded in Pakistan each year happen in Punjab (Community Sentinel, 2026). Where acid is cheapest and easiest to buy, attacks cluster. Where it's licensed and tracked, they fall.",
+      "Acid violence is not unique to Pakistan. Bangladesh, Cambodia, Colombia, and India have all faced the same crisis, and each tried to fix it in a different way. Some of those attempts worked. Some looked good on paper but failed in real life. Looking closely at what actually happened in each place teaches us more than good intentions ever could — and gives a real plan for what Pakistan should fight for next.",
+
+      { h:"What Worked Elsewhere" },
+      { h3:"Bangladesh: control, courts, and awareness together" },
+      "In the early 2000s, Bangladesh had one of the worst acid violence problems in the world. In 2002, the government passed two laws simultaneously: one controlled who could buy and sell acid, the other created special fast courts just for acid cases. At the same time, the government also ran public awareness campaigns, so people understood the new rules right away.",
+      "It worked. Reported attacks fell by around **65 percent** in the years that followed (PassBlue, 2016). Bangladesh is the clearest proof in the world that acid violence can be pushed down, and pushed down hard. The reason isn't one single law — it's that control of acid sales, fast trials, and public awareness all happened together, at the same time.",
+
+      { h3:"Cambodia: what happens when only half the job gets done" },
+      "Cambodia's 2012 Acid Law tightened sales controls and toughened sentences. On the surface, the numbers look great — reported cases dropped from 36 survivors in 2010 to just 6 by 2014 (Southeast Asia Globe, 2021).",
+      "But there's a serious problem underneath those numbers. The law also promised free medical care and legal help to survivors. Years later, Human Rights Watch found that not a single survivor they spoke to had actually received free treatment — many were turned away from hospitals until they could prove they could pay (Human Rights Watch, 2019). This is the most important lesson in this whole comparison: a law that reduces attacks is not the same thing as a law that actually helps survivors. Passing a bill is the easy part; making sure it's followed and funded is the hard part, and it matters just as much.",
+
+      { h3:"Colombia: what a single determined survivor can achieve" },
+      "In 2014, a woman named Natalia Ponce de León was attacked with acid by a man she had rejected. Her story became national news, and she spent years pushing lawmakers for change. Her advocacy led directly to a new law in 2016, now known as the Natalia Ponce de León Law (BBC News, 2015).",
+      "Before this law, an acid attack in Colombia was treated the same as any other assault, with short sentences. The new law made acid attacks their own separate, serious crime, with sentences of up to 50 years, and required the government to pay for survivors' reconstructive surgery and mental health care (BBC News, 2015). Colombia's story shows something different from Bangladesh and Cambodia: sometimes it takes one determined survivor and enough public pressure to finally move a system that had been stuck for years.",
+
+      { h3:"India: the cautionary tale" },
+      "In 2013, India's Supreme Court ordered every state to control acid sales — buyers would need to show ID, and sales to anyone under 18 were banned (BBC News, 2013). On paper, this should have changed everything.",
+      "In real life, it didn't work the same way in every state, and more than ten years later, acid is still easy to buy in most Indian markets. India is the clearest warning in this comparison: a law that nobody enforces isn't really a law. It's just a suggestion that everyone quietly ignores.",
+
+      { h:"Where Pakistan Stands Right Now" },
+      "Pakistan has actually made more progress in the last two years than most news coverage gives it credit for.",
+      "The national Acid Control and Acid Crime Prevention Act, passed in 2011, raised the conviction rate for these cases from under 5 percent to around **30 percent**, according to the Acid Survivors Foundation Pakistan (Pakistan Observer, 2025).",
+      "In 2025, Islamabad passed its own, stronger law: the Acid and Burn Crime Act. It set up a monitoring board with government officials, doctors, lawyers, and community members, created a fund to compensate victims, and set firm deadlines — 30 days to investigate a case, and 60 days to complete the trial (Pakistan Observer, 2025). This law looks a lot like Bangladesh's approach, and it's genuinely strong. The problem is that it only protects people living in Islamabad.",
+      "That same year, Punjab passed its own Acid Control Act, becoming the first province in Pakistan to write a law focused just on acid sales. Anyone selling acid now needs a license from their district's Deputy Commissioner, sales to anyone under 18 are banned, and selling without a license is now a crime (The Express Tribune, 2024). This matters a great deal, because more than 65 percent of Pakistan's roughly 250 reported acid attacks every year happen in Punjab (Community Sentinel, 2026) — a law aimed directly at the place where most attacks happen is a real, testable step forward.",
+      "Sindh, on the other hand, still has no law written just for acid attacks. It relies on older, general laws instead (Community Sentinel, 2026). That's a real gap, because a strong law in Islamabad or Punjab does nothing for a survivor in Karachi.",
+      "There's also good news in the raw numbers. According to the Human Rights Commission of Pakistan, reported acid attacks dropped from **62 cases in 2023 to 30 cases in 2024** (Community Sentinel, 2026). That's a real drop, and it deserves to be said out loud — most coverage of this issue only talks about how bad the problem is, and rarely mentions when something is actually getting better.",
+
+      { h:"The Way Forward" },
+      "Looking at what has worked, what has failed, and what has stalled elsewhere in the world, a few clear next steps stand out for Pakistan.",
+      { list:[
+        "Bring Islamabad's law to every province, starting with Sindh. Islamabad's 2025 law is a strong model — right now, it only protects people who happen to live in the capital.",
+        "Make Punjab's licensing system real, then copy it everywhere. A license rule only works if someone actually checks it. Punjab's system, tying acid sales to a district license, is simple and easy for other provinces to copy once it proves it works.",
+        "Copy Bangladesh's fast-court model nationwide, not just in Islamabad. Slow trials are one of the biggest reasons acid cases in Pakistan fall apart or drag on for years. A firm deadline should be the standard everywhere, not a special benefit for the capital.",
+        "Fund victim compensation, and then check that survivors are actually getting it. Cambodia's story is the clearest warning here — a compensation fund that exists on paper but never reaches survivors is barely different from having no fund at all.",
+        "Treat this as a teamwork problem between provinces, not just a paperwork problem. Because Pakistan's provinces make their own laws, progress in one province doesn't protect someone in another.",
+      ]},
+
+      { h:"The Bottom Line" },
+      "Bangladesh proves that acid violence can be pushed down hard when acid control, fast trials, and public awareness all move together. Cambodia and India both prove that a law by itself, without real enforcement and real funding, only gets a country halfway there. Colombia proves that one survivor's voice, backed by public pressure, can break years of inaction.",
+      "Pakistan now has real momentum, with strong new laws in Islamabad and Punjab, and a genuine drop in reported cases. The next job is making sure that progress doesn't stay locked inside one city and one province, and making sure the laws already passed are actually funded, checked, and enforced — not just left sitting on paper.",
     ]},
   { id:2, category:"Reconstruction", color:C.blue, dim:C.blueDim, hidden:true,
     title:"Understanding Reconstructive Surgery Options",

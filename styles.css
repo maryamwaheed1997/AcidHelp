@@ -269,7 +269,10 @@
     content:"";position:absolute;top:26px;bottom:26px;left:26px;width:2px;
     background:rgba(186,69,235,0.55);
   }
-  .fr-alt-warn{grid-column:2;grid-row:2;margin-top:14px}
+  /* Indented by the number-circle's width + its gap to the card (52px + 22px)
+     so the warning box's left edge lines up with the Rinse/Ring/Remove cards
+     above it, instead of the wider circle-to-edge span of .fr-alt-row. */
+  .fr-alt-warn{grid-column:2;grid-row:2;margin-top:14px;margin-left:74px}
   .fr-alt-num-circle{position:relative;z-index:1}
   .fr-alt-card{
     transition:background-color .25s ease, border-color .25s ease, transform .25s cubic-bezier(.22,1,.36,1);
