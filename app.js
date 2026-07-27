@@ -2532,8 +2532,12 @@ function toggleCard(i){
   const opening = openCard!==i;
   openCard = (openCard===i) ? null : i;
   const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // The morph-expand is a desktop affordance (the selected card grows to the
+  // list width). On mobile, cards are full-width and just open the list
+  // downward, so skip the View Transition there and render plainly.
+  const isMobile = window.matchMedia && window.matchMedia("(max-width:760px)").matches;
   const scroll = ()=>{ if(opening) scrollResourceCatToTop(i, reduce); };
-  if(document.startViewTransition && !reduce){
+  if(document.startViewTransition && !reduce && !isMobile){
     const vt = document.startViewTransition(()=>render());
     vt.finished.then(scroll).catch(scroll);
   } else {

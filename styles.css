@@ -183,9 +183,11 @@
   @media (max-width:640px){
     .join-nav-desktop{display:none!important}
     .join-nav-mobile{display:inline-flex!important}
-    /* Join Us form: centre the audience tabs + submit button on mobile. */
-    .join-tabs{justify-content:center}
-    .join-submit{align-self:center!important}
+    /* Join Us form (mobile): the two audience tabs split the full form width
+       50/50, and the submit button is centred with a little space above it. */
+    .join-tabs{gap:0!important}
+    .join-tab-btn{flex:1;text-align:center!important}
+    .join-submit{align-self:center!important;margin-top:8px}
   }
 
   /* Landing-page "Immediate Action" + FAQ share the hero's 1920px container and
