@@ -38,13 +38,14 @@ const IMG = {
   legal:         "./images/legal.webp",
   employment:    "./images/employment.webp",
   footer:        "./images/footer.webp",
-  whyWeExist:    "./images/whyweexist.png",
-  joinUs:        "./images/joinus.png",
-  aboutUs:       "./images/aboutus.png",
+  whyWeExist:    "./images/whyweexist.webp",
+  joinUs:        "./images/joinus.webp",
+  aboutUs:       "./images/aboutus.webp",
   blog2:         "./images/blog-2.png",
   blog3:         "./images/blog-3.png",
   blog4:         "./images/blog-understandinglegalrights.png",
   blogCulture:   "./images/blog-culture-or-cheap-acid.webp",
+  blogFirstAid:  "./images/blogacidattackfirstaid.webp",
   icBurns:       "./images/Icons/burnsunit.png",
   icHospital:    "./images/Icons/Hospital.png",
   icRecon:       "./images/Icons/Resconstructive.png",
@@ -213,6 +214,47 @@ const BLOG_POSTS = [
       { h:"The Bottom Line" },
       "Bangladesh proves that acid violence can be pushed down hard when acid control, fast trials, and public awareness all move together. Cambodia and India both prove that a law by itself, without real enforcement and real funding, only gets a country halfway there. Colombia proves that one survivor's voice, backed by public pressure, can break years of inaction.",
       "Pakistan now has real momentum, with strong new laws in Islamabad and Punjab, and a genuine drop in reported cases. The next job is making sure that progress doesn't stay locked inside one city and one province, and making sure the laws already passed are actually funded, checked, and enforced — not just left sitting on paper.",
+    ]},
+  { id:6, category:"First Aid", color:C.green, dim:C.greenDim,
+    title:"Acid Attack First Aid: What to Do in the First 24 Hours",
+    excerpt:"A step-by-step first-aid guide for the first 24 hours after an acid attack — immediate water irrigation, how bystanders can help safely, choosing a hospital with a burns unit, preserving evidence, and the common home remedies to avoid.",
+    author:"Acidhelp Team", date:"Jul 24, 2026", image:IMG.blogFirstAid,
+    body:[
+      "Acid attacks are a medical emergency and a crime at the same time. What happens in the first few minutes can decide how much permanent damage is done. What happens in the hours after can decide whether the person responsible is ever held accountable. Knowing these steps once, before you ever need them, matters more than any first-aid course you could look up in the moment.",
+      { h:"The First Response: Water, Immediately" },
+      "The single most important thing to know is this: get water on the injury right away, and keep it running.",
+      "A tap, a shower, a hose, a bottle, whatever is closest. Don't wait for someone to tell you what to do, and don't wait to find the “correct” solution, because plain water already is the correct solution. Pour it over the affected area and keep pouring.",
+      "If the eyes are affected, this matters even more than the skin does. Hold the eyelids open gently, even though it will hurt, and let the water run from the inner corner of the eye outward so it doesn't carry acid into the other eye. The longer acid sits on the eye, the deeper the damage goes, so those extra seconds of forcing the eyes open are worth it.",
+      { h:"If You're a Bystander: What to Do, Safely" },
+      "If you're near someone who has just been attacked, your first job is to help without becoming a second casualty. Acid doesn't stop being dangerous once it's off the original victim. It can still be on the ground, on their clothes, or in the air as fumes, and it can burn you too if you're not careful.",
+      "Protect yourself first. If you have gloves, use them before touching the person or their clothing. If you don't, try to avoid direct contact with the acid itself, and use whatever's on hand — a jacket sleeve, a plastic bag, a cloth — as a barrier if you need to touch anything wet or affected. Don't lean directly over pooled acid on the ground, since fumes can affect your eyes and airway too.",
+      "Get everyone clear of the danger first, moving the injured person, and yourself, away from any acid still on the ground or in the air.",
+      "Call for help immediately, and name someone specifically. If other people are around, point at one person and tell them directly to call an ambulance. Don't just shout for someone to help, because in a crowd, everyone assumes someone else will act, and often nobody does. Naming one person breaks that pattern.",
+      "Start pouring water on the injury right away, using whatever clean water is nearest, without waiting for paramedics to arrive.",
+      "Help remove contaminated clothing carefully. Cut it away rather than pulling it over the head, and put on gloves first if you can. If clothing is stuck to the skin, don't rip it off, since it will tear the skin away with it. Keep it wet instead and let medical staff handle the rest.",
+      "Take off nearby jewellery, since rings, earrings, and watches can trap acid against the skin even after the initial rinse.",
+      "If it's safe, note what the acid was — a container, a bottle, a smell — without touching it yourself. This helps both doctors and police later.",
+      "It's normal to freeze in a moment like this, and it's important not to let panic overrun your body. Survivors have described bystanders standing frozen and unsure while a family member was the one who finally stepped in and acted. If you feel yourself freezing, the fastest way through it is to do the next physical thing in front of you: put on gloves if you have them, get water moving, call out to one specific person for help.",
+      { h:"The First Hour: Getting to Proper Care" },
+      "Keep water running on the skin for at least 20 minutes, and on the eyes for at least 15 to 20 minutes, longer if the chemical is alkaline. Don't stop just because the person seems calmer, since calm doesn't mean the chemical is gone. It can still be working under the surface even after the pain eases.",
+      "Once irrigation has had its full effect, get to a hospital, and be deliberate about which one. Research from Pakistan's National Burn Care Centre has found that many burn patients outside major cities lose critical time because they're first taken to a nearby general facility that isn't equipped for burns, and only reach a proper burns unit after a second referral and a longer journey. If you have any choice in the matter, head straight for a hospital known to have a burns unit, even if it means passing a closer one, since a delayed but correct transfer is often worse than a slightly longer trip taken immediately.",
+      "If there's any difficulty breathing or the throat feels tight, especially after a burn near the face or neck, go straight to emergency care without waiting for irrigation to finish. That's one of the only situations in this guide where you shouldn't wait at all.",
+      { h:"The First 24 Hours: What Family Can Handle" },
+      "Once the person is at the hospital, there's a lot a family member or friend can do without getting in the way of medical staff. Handling this while treatment is underway means less falls through the cracks later, when everyone is more exhausted and less clear-headed.",
+      "On the medical side, ask about referral to a specialist burns unit or eye specialist rather than accepting general emergency treatment alone, and ask about a tetanus booster, since it's routine but easy to forget in the chaos. Over the following day, watch the wound for spreading redness, increasing pain instead of decreasing, pus, or new dark patches, since any of these need urgent medical attention rather than a wait-and-see approach.",
+      "On the legal side, ask for a medico-legal certificate at the first hospital visit, since this officially documents the injury and matters a great deal if the case goes to court later. Keep the person's clothing without washing it, and put it in a bag separately. Take photos of the injury and, if it's safe to do so, the scene itself. Report the attack to the police as early as possible. In Pakistan, acid attacks are a criminal offence under Section 336-B of the Penal Code, carrying sentences of up to life imprisonment, and delayed reporting is one of the most common reasons these cases become harder to prosecute later. Don't wait until things settle down to make the report.",
+      "On the emotional side, shock, confusion, and panic in these first hours are normal, for the survivor and for you. This isn't the moment to process everything that happened. It's the moment to get through it, one practical step at a time. There will be time later for the harder emotional work, and support for that exists when you're ready for it.",
+      { h:"What to Avoid" },
+      "A few instincts feel helpful in the moment but actually make things worse. Here's what not to do, and why.",
+      "**Don't reach for toothpaste.** Observations from Pakistan's National Burn Care Centre have found that toothpaste is the single most common home remedy people in Pakistan actually turn to after a burn, more than any other household substance. It's an understandable instinct, since it feels cooling on contact, but it does nothing to remove the acid and can trap it against the skin while making the wound harder for doctors to clean and assess later. If someone reaches for it out of habit, gently stop them and get water running instead.",
+      "**Don't try to neutralise the acid with something else.** Putting a base on an acid burn, or an acid on an alkaline burn, sounds like it should cancel the damage out, but it doesn't. The reaction between the two releases heat, which adds a fresh burn on top of the original one. Water is the only thing that belongs on the injury.",
+      "**Don't put cream, milk, butter, or any other household substance on it either.** This is the instinct most people have for any kind of burn, but it traps the chemical against the skin instead of washing it away, and can seal in heat rather than releasing it.",
+      "**Don't assume low pain means low damage.** Some chemicals, especially alkaline ones, can feel painless at first while doing the deepest damage underneath. Treat every exposure as serious, no matter how the person says it feels in the moment.",
+      "**Don't pull off clothing that's stuck to the skin,** since it tears the skin away with it. Cut around it instead, and keep it wet until medical staff can take over.",
+      "**Don't stop rinsing just because the person seems calmer,** since calm isn't the same as neutralised. Keep going for the full time, even if it feels like a long time to keep pouring water on someone who's already in pain.",
+      "**Don't touch acid or acid-soaked clothing with bare hands if you can help it.** Use gloves, a barrier, or anything you have on hand, because protecting yourself isn't optional here. An injured helper can't help anyone.",
+      "**Don't settle for the nearest hospital without asking if it can actually treat burns.** A few extra minutes spent choosing the right facility can save the longer delay of a second transfer later.",
+      "**Don't leave evidence and reporting for “later.”** It's tempting to focus only on medical care and deal with the police afterward, but clothing gets washed, memories fade, and delayed reports weaken cases. A family member can usually handle this in parallel while the survivor is being treated, so nothing has to wait.",
     ]},
   { id:2, category:"Reconstruction", color:C.blue, dim:C.blueDim, hidden:true,
     title:"Understanding Reconstructive Surgery Options",
@@ -391,6 +433,493 @@ const BLOG_POSTS = [
       "Punjab's 2025 Acid Control Act pioneered province-specific prevention legislation requiring seller licensing, age restrictions, and enhanced labeling requirements. Reporting delays do not automatically eliminate legal recourse; evidence preservation — medical records, photographs, witness details, communications — strengthens prosecutions. Organisations like the Acid Survivors Foundation Pakistan and Legal Aid and Justice Authority provide survivor support nationwide.",
     ]},
 ];
+
+// ── BLOG TRANSLATIONS (Urdu Nastaliq + Roman Urdu) ──────────────────────────
+// The two published posts (id 5 "Culture or Cheap Acid?" and id 4 legal-rights
+// guide) are translated in full so the blog list + article pages follow the
+// site language toggle instead of staying English. Structural markers
+// ({h}/{h3}/{list}/{note}) and **bold** spans mirror the English body exactly.
+// Quoted phrases use curly “ ” so no straight double-quotes appear inside the
+// double-quoted strings. Attached onto BLOG_POSTS as .i18n below.
+const BLOG_I18N = {
+  5: {
+    ur: {
+      category:"پالیسی",
+      title:"تیزاب حملوں کا مسئلہ - ثقافت یا سستا تیزاب؟",
+      excerpt:"پاکستان کے کاٹن بیلٹ میں تیزاب حملے کیوں مرتکز ہیں؟ بنگلہ دیش، کمبوڈیا، کولمبیا اور بھارت میں کیا کارگر رہا — اور اسلام آباد اور پنجاب کے نئے قوانین کے لیے اس کا کیا مطلب ہے، اس کا تقابلی جائزہ۔",
+      body:[
+        "زیادہ تر لوگوں سے پوچھیں کہ پاکستان میں تیزاب حملے کیوں ہوتے ہیں، تو جواب تقریباً خودبخود آتا ہے: ایک مرد شادی یا تعلق کی پیشکش کرتا ہے، عورت انکار کرتی ہے، اور وہ بدلہ لیتا ہے۔ یہ ایک حقیقی اور بخوبی دستاویزی شدہ رجحان ہے — مسترد شدہ شادی یا رومانوی پیشکشیں پورے جنوبی ایشیا میں سب سے زیادہ رپورٹ ہونے والے محرکات میں شامل ہیں۔ لیکن محرک صرف یہ بتاتا ہے کہ کوئی شخص کسی دوسرے کو نقصان کیوں پہنچانا چاہتا ہے۔ یہ نہیں بتاتا کہ خاص طور پر تیزاب ہی وہ ہتھیار کیوں ہے جس کا وہ سہارا لیتے ہیں، یا کچھ علاقوں میں یہ جرم مسلسل کیوں نظر آتا ہے جبکہ اسی طرح کے سماجی حالات والے دوسرے علاقوں میں یہ شاید ہی دکھائی دیتا ہے۔",
+        "اس دوسرے سوال کا جواب بہت کم زیرِ بحث آتا ہے: تیزاب سستا ہے، غیر منظم ہے، اور دکان کی الماری پر پڑا ہوتا ہے۔ جہاں اسے خریدنا آسان ہے، وہاں حملے مرتکز ہو جاتے ہیں۔ جہاں ایسا نہیں، وہاں نہیں ہوتے — چاہے کہیں اور انکار یا گھریلو جھگڑا کتنا ہی عام کیوں نہ ہو۔ یہ بات پاکستان کے کاٹن بیلٹ سے زیادہ کہیں واضح نہیں۔",
+        { h:"تیزاب حملے کہاں اور کیوں مرتکز ہوتے ہیں" },
+        "پاکستان میں رپورٹ ہونے والے تیزاب حملوں کی بھاری اکثریت پنجاب میں ہوتی ہے، اور پنجاب کے اندر یہ بحران جنوبی حصے میں شدت سے مرتکز ہے۔ **ملتان، مظفرگڑھ، رحیم یار خان اور بہاولپور** مسلسل ملک کے سب سے زیادہ متاثرہ اضلاع میں شمار ہوتے ہیں (ایسڈ سروائیورز فاؤنڈیشن پاکستان، بحوالہ دی ایکسپریس ٹریبیون، 2014)۔",
+        "یہ کوئی اتفاق نہیں۔ جنوبی پنجاب پاکستان کے کپاس کی کاشت اور کپاس کی پروسیسنگ کا مرکز ہے، اور سلفیورک ایسڈ مقامی طور پر کپاس کے ریشے کو صاف اور تیار کرنے کے لیے استعمال ہوتا ہے — یعنی وہی تیزاب جو چہرہ بگاڑنے والے حملوں میں استعمال ہوتا ہے، جنرل اسٹورز اور ہارڈویئر کی دکانوں پر ایک صنعتی مادے کے طور پر کھلے عام بکتا ہے، جو کسی کے لیے بھی ایک تباہ کن ہتھیار کے طور پر آسانی سے دستیاب ہے۔ ڈیپیلیکس اسمائل اگین فاؤنڈیشن، جو پاکستان کا مرکزی متاثرین کی بحالی کا پروگرام چلاتی ہے، بتاتی ہے کہ پاکستان میں ہر سال ریکارڈ ہونے والے تقریباً 250 تیزاب حملوں میں سے **65 فیصد سے زیادہ** پنجاب میں ہوتے ہیں (کمیونٹی سینٹینل، 2026)۔ جہاں تیزاب سب سے سستا اور خریدنے میں آسان ہے، وہاں حملے مرتکز ہوتے ہیں۔ جہاں یہ لائسنس یافتہ اور نگرانی میں ہے، وہاں کم ہو جاتے ہیں۔",
+        "تیزاب تشدد صرف پاکستان تک محدود نہیں۔ بنگلہ دیش، کمبوڈیا، کولمبیا اور بھارت سب کو اسی بحران کا سامنا رہا، اور ہر ایک نے اسے مختلف طریقے سے حل کرنے کی کوشش کی۔ ان میں سے کچھ کوششیں کامیاب رہیں۔ کچھ کاغذ پر اچھی لگیں مگر حقیقی زندگی میں ناکام ہو گئیں۔ ہر جگہ اصل میں کیا ہوا، اسے قریب سے دیکھنا اچھی نیتوں سے کہیں زیادہ سکھاتا ہے — اور یہ بتاتا ہے کہ پاکستان کو آگے کس چیز کے لیے لڑنا چاہیے۔",
+        { h:"کہیں اور کیا کارگر رہا" },
+        { h3:"بنگلہ دیش: کنٹرول، عدالتیں اور آگاہی ایک ساتھ" },
+        "2000 کی دہائی کے اوائل میں بنگلہ دیش کو دنیا کے بدترین تیزاب تشدد کے مسائل میں سے ایک کا سامنا تھا۔ 2002 میں حکومت نے بیک وقت دو قوانین منظور کیے: ایک نے یہ کنٹرول کیا کہ تیزاب کون خرید اور بیچ سکتا ہے، دوسرے نے صرف تیزاب کے مقدمات کے لیے خصوصی فوری عدالتیں قائم کیں۔ اسی وقت حکومت نے عوامی آگاہی مہمات بھی چلائیں، تاکہ لوگ نئے قوانین کو فوراً سمجھ جائیں۔",
+        "یہ کارگر رہا۔ اس کے بعد کے سالوں میں رپورٹ ہونے والے حملوں میں تقریباً **65 فیصد** کمی آئی (پاس بلیو، 2016)۔ بنگلہ دیش دنیا میں سب سے واضح ثبوت ہے کہ تیزاب تشدد کو کم کیا جا سکتا ہے، اور بہت زیادہ کم کیا جا سکتا ہے۔ اس کی وجہ کوئی ایک قانون نہیں — بلکہ یہ کہ تیزاب کی فروخت پر کنٹرول، فوری مقدمات اور عوامی آگاہی سب ایک ساتھ، بیک وقت ہوئے۔",
+        { h3:"کمبوڈیا: جب کام صرف آدھا ہو تو کیا ہوتا ہے" },
+        "کمبوڈیا کے 2012 کے ایسڈ قانون نے فروخت پر کنٹرول سخت کیا اور سزائیں بڑھائیں۔ بظاہر اعداد و شمار بہت اچھے لگتے ہیں — رپورٹ ہونے والے کیسز 2010 میں 36 متاثرین سے کم ہو کر 2014 تک صرف 6 رہ گئے (ساؤتھ ایسٹ ایشیا گلوب، 2021)۔",
+        "لیکن ان اعداد و شمار کے نیچے ایک سنگین مسئلہ ہے۔ قانون نے متاثرین کو مفت طبی علاج اور قانونی مدد کا بھی وعدہ کیا تھا۔ برسوں بعد ہیومن رائٹس واچ نے پایا کہ جن متاثرین سے انہوں نے بات کی ان میں سے ایک کو بھی درحقیقت مفت علاج نہیں ملا — بہت سوں کو ہسپتالوں سے واپس بھیج دیا گیا جب تک وہ یہ ثابت نہ کر سکیں کہ وہ ادائیگی کر سکتے ہیں (ہیومن رائٹس واچ، 2019)۔ اس پورے موازنے کا یہ سب سے اہم سبق ہے: ایک ایسا قانون جو حملے کم کرے، اس قانون جیسا نہیں جو درحقیقت متاثرین کی مدد کرے۔ بل منظور کرانا آسان حصہ ہے؛ اس بات کو یقینی بنانا کہ اس پر عمل ہو اور اس کے لیے فنڈ ہو، مشکل حصہ ہے، اور یہ اتنا ہی اہم ہے۔",
+        { h3:"کولمبیا: ایک پُرعزم متاثرہ کیا کچھ حاصل کر سکتی ہے" },
+        "2014 میں نتالیا پونس دے لیون نامی ایک خاتون پر ایک ایسے شخص نے تیزاب پھینکا جسے اس نے مسترد کیا تھا۔ اس کی کہانی قومی خبر بن گئی، اور اس نے قانون سازوں کو تبدیلی پر مجبور کرنے میں برسوں صرف کیے۔ اس کی جدوجہد براہِ راست 2016 میں ایک نئے قانون کا سبب بنی، جو اب نتالیا پونس دے لیون قانون کے نام سے جانا جاتا ہے (بی بی سی نیوز، 2015)۔",
+        "اس قانون سے پہلے کولمبیا میں تیزاب حملے کو کسی بھی دوسرے حملے جیسا سمجھا جاتا تھا، مختصر سزاؤں کے ساتھ۔ نئے قانون نے تیزاب حملوں کو ایک الگ، سنگین جرم بنا دیا، 50 سال تک کی سزاؤں کے ساتھ، اور حکومت کے لیے لازم کیا کہ وہ متاثرین کی تعمیرِ نو کی سرجری اور دماغی صحت کی دیکھ بھال کا خرچ اٹھائے (بی بی سی نیوز، 2015)۔ کولمبیا کی کہانی بنگلہ دیش اور کمبوڈیا سے مختلف کچھ دکھاتی ہے: بعض اوقات ایک پُرعزم متاثرہ اور کافی عوامی دباؤ ہی برسوں سے جامد نظام کو بالآخر حرکت میں لانے کے لیے کافی ہوتے ہیں۔",
+        { h3:"بھارت: ایک تنبیہی کہانی" },
+        "2013 میں بھارت کی سپریم کورٹ نے ہر ریاست کو تیزاب کی فروخت کنٹرول کرنے کا حکم دیا — خریداروں کو شناخت دکھانی ہوگی، اور 18 سال سے کم عمر کسی بھی شخص کو فروخت پر پابندی لگا دی گئی (بی بی سی نیوز، 2013)۔ کاغذ پر اسے سب کچھ بدل دینا چاہیے تھا۔",
+        "حقیقی زندگی میں یہ ہر ریاست میں ایک جیسا کارگر نہ رہا، اور دس سال سے زیادہ گزرنے کے بعد بھی زیادہ تر بھارتی بازاروں میں تیزاب خریدنا آسان ہے۔ اس موازنے میں بھارت سب سے واضح انتباہ ہے: ایک ایسا قانون جسے کوئی نافذ نہ کرے، درحقیقت قانون نہیں ہوتا۔ یہ محض ایک تجویز ہے جسے ہر کوئی خاموشی سے نظرانداز کر دیتا ہے۔",
+        { h:"پاکستان اس وقت کہاں کھڑا ہے" },
+        "پاکستان نے درحقیقت پچھلے دو سالوں میں اس سے زیادہ پیش رفت کی ہے جتنا زیادہ تر خبروں کی کوریج اسے سراہتی ہے۔",
+        "2011 میں منظور ہونے والے قومی ایسڈ کنٹرول اینڈ ایسڈ کرائم پریوینشن ایکٹ نے ان کیسز میں سزا کی شرح کو 5 فیصد سے کم سے بڑھا کر تقریباً **30 فیصد** کر دیا، ایسڈ سروائیورز فاؤنڈیشن پاکستان کے مطابق (پاکستان آبزرور، 2025)۔",
+        "2025 میں اسلام آباد نے اپنا، زیادہ مضبوط قانون منظور کیا: ایسڈ اینڈ برن کرائم ایکٹ۔ اس نے سرکاری افسران، ڈاکٹروں، وکلاء اور کمیونٹی کے افراد پر مشتمل ایک نگرانی بورڈ قائم کیا، متاثرین کو معاوضہ دینے کے لیے ایک فنڈ بنایا، اور سخت مدتیں مقرر کیں — کیس کی تفتیش کے لیے 30 دن، اور مقدمہ مکمل کرنے کے لیے 60 دن (پاکستان آبزرور، 2025)۔ یہ قانون کافی حد تک بنگلہ دیش کے طریقہ کار جیسا لگتا ہے، اور یہ واقعی مضبوط ہے۔ مسئلہ یہ ہے کہ یہ صرف اسلام آباد میں رہنے والے لوگوں کی حفاظت کرتا ہے۔",
+        "اسی سال پنجاب نے اپنا ایسڈ کنٹرول ایکٹ منظور کیا، اور صرف تیزاب کی فروخت پر مرکوز قانون بنانے والا پاکستان کا پہلا صوبہ بن گیا۔ اب تیزاب بیچنے والے کسی بھی شخص کو اپنے ضلع کے ڈپٹی کمشنر سے لائسنس درکار ہے، 18 سال سے کم عمر کسی کو فروخت پر پابندی ہے، اور بغیر لائسنس بیچنا اب جرم ہے (دی ایکسپریس ٹریبیون، 2024)۔ یہ بہت اہمیت رکھتا ہے، کیونکہ پاکستان میں ہر سال رپورٹ ہونے والے تقریباً 250 تیزاب حملوں میں سے 65 فیصد سے زیادہ پنجاب میں ہوتے ہیں (کمیونٹی سینٹینل، 2026) — ایک ایسا قانون جو براہِ راست اس جگہ کو نشانہ بناتا ہے جہاں زیادہ تر حملے ہوتے ہیں، ایک حقیقی، قابلِ آزمائش قدم ہے۔",
+        "دوسری طرف سندھ کے پاس اب بھی صرف تیزاب حملوں کے لیے لکھا گیا کوئی قانون نہیں۔ یہ اس کے بجائے پرانے، عمومی قوانین پر انحصار کرتا ہے (کمیونٹی سینٹینل، 2026)۔ یہ ایک حقیقی خلا ہے، کیونکہ اسلام آباد یا پنجاب میں ایک مضبوط قانون کراچی میں کسی متاثرہ کے لیے کچھ نہیں کرتا۔",
+        "خام اعداد و شمار میں بھی اچھی خبر ہے۔ ہیومن رائٹس کمیشن آف پاکستان کے مطابق، رپورٹ ہونے والے تیزاب حملے **2023 میں 62 کیسز سے کم ہو کر 2024 میں 30 کیسز** رہ گئے (کمیونٹی سینٹینل، 2026)۔ یہ ایک حقیقی کمی ہے، اور اسے کھل کر کہا جانا چاہیے — اس مسئلے کی زیادہ تر کوریج صرف یہ بات کرتی ہے کہ مسئلہ کتنا برا ہے، اور شاذ و نادر ہی اس کا ذکر کرتی ہے جب واقعی کچھ بہتر ہو رہا ہو۔",
+        { h:"آگے کا راستہ" },
+        "دنیا میں کہیں اور کیا کارگر رہا، کیا ناکام ہوا، اور کیا رُکا رہا، اس پر نظر ڈالیں تو پاکستان کے لیے چند واضح اگلے اقدامات نمایاں ہوتے ہیں۔",
+        { list:[
+          "اسلام آباد کے قانون کو ہر صوبے تک پہنچائیں، سندھ سے شروع کرتے ہوئے۔ اسلام آباد کا 2025 کا قانون ایک مضبوط نمونہ ہے — ابھی یہ صرف ان لوگوں کی حفاظت کرتا ہے جو دارالحکومت میں رہتے ہیں۔",
+          "پنجاب کے لائسنسنگ نظام کو حقیقت بنائیں، پھر اسے ہر جگہ نقل کریں۔ لائسنس کا قاعدہ تبھی کام کرتا ہے جب کوئی واقعی اسے جانچے۔ پنجاب کا نظام، جو تیزاب کی فروخت کو ضلعی لائسنس سے جوڑتا ہے، سادہ ہے اور دوسرے صوبوں کے لیے نقل کرنا آسان ہے، جب یہ ثابت کر دے کہ یہ کارگر ہے۔",
+          "بنگلہ دیش کے فوری عدالتی نمونے کو پورے ملک میں نقل کریں، صرف اسلام آباد میں نہیں۔ سست مقدمات پاکستان میں تیزاب کیسز کے بکھر جانے یا برسوں کھنچنے کی سب سے بڑی وجوہات میں سے ایک ہیں۔ ایک سخت مدت ہر جگہ معیار ہونی چاہیے، دارالحکومت کے لیے کوئی خاص رعایت نہیں۔",
+          "متاثرین کے معاوضے کے لیے فنڈ فراہم کریں، اور پھر یہ جانچیں کہ متاثرین کو واقعی یہ مل رہا ہے۔ یہاں کمبوڈیا کی کہانی سب سے واضح انتباہ ہے — ایک معاوضہ فنڈ جو کاغذ پر موجود ہے مگر متاثرین تک کبھی نہیں پہنچتا، کوئی فنڈ نہ ہونے سے مشکل ہی سے مختلف ہے۔",
+          "اسے صوبوں کے درمیان ٹیم ورک کا مسئلہ سمجھیں، صرف کاغذی کارروائی کا مسئلہ نہیں۔ چونکہ پاکستان کے صوبے اپنے اپنے قوانین بناتے ہیں، ایک صوبے میں پیش رفت دوسرے صوبے میں کسی کی حفاظت نہیں کرتی۔",
+        ]},
+        { h:"خلاصہ کلام" },
+        "بنگلہ دیش ثابت کرتا ہے کہ جب تیزاب کنٹرول، فوری مقدمات اور عوامی آگاہی سب ایک ساتھ چلیں تو تیزاب تشدد کو بہت زیادہ کم کیا جا سکتا ہے۔ کمبوڈیا اور بھارت دونوں ثابت کرتے ہیں کہ اکیلا قانون، حقیقی نفاذ اور حقیقی فنڈنگ کے بغیر، کسی ملک کو صرف آدھے راستے تک لے جاتا ہے۔ کولمبیا ثابت کرتا ہے کہ ایک متاثرہ کی آواز، عوامی دباؤ کی حمایت سے، برسوں کی بے عملی کو توڑ سکتی ہے۔",
+        "پاکستان کے پاس اب حقیقی رفتار ہے، اسلام آباد اور پنجاب میں مضبوط نئے قوانین کے ساتھ، اور رپورٹ ہونے والے کیسز میں حقیقی کمی کے ساتھ۔ اگلا کام یہ یقینی بنانا ہے کہ یہ پیش رفت ایک شہر اور ایک صوبے کے اندر بند نہ رہے، اور یہ یقینی بنانا کہ پہلے سے منظور شدہ قوانین کے لیے واقعی فنڈ ہو، ان کی جانچ ہو، اور ان پر عمل ہو — محض کاغذ پر پڑے نہ رہیں۔",
+      ]},
+    ro: {
+      category:"Policy",
+      title:"Tezaab Hamlon ka Masla - Saqafat ya Sasta Tezaab?",
+      excerpt:"Pakistan ke cotton belt mein tezaab hamle kyun markooz hain? Bangladesh, Cambodia, Colombia aur India mein kya kaargar raha — aur Islamabad aur Punjab ke naye qawaneen ke liye is ka kya matlab hai, is ka taqabuli jaiza.",
+      body:[
+        "Zyada tar logon se poochhein ke Pakistan mein tezaab hamle kyun hote hain, to jawab taqreeban khudbakhud aata hai: aik mard shaadi ya taalluq ki peshkash karta hai, aurat inkaar karti hai, aur woh badla leta hai. Yeh aik haqeeqi aur bakhoobi documented rujhaan hai — mustard shuda shaadi ya romantic peshkashein poore South Asia mein sab se zyada report hone waale mahrikaat mein shaamil hain. Lekin mahrik sirf yeh batata hai ke koi shakhs kisi doosre ko nuqsaan kyun pahunchana chahta hai. Yeh nahi batata ke khaas taur par tezaab hi woh hathyaar kyun hai jis ka woh sahaara lete hain, ya kuch ilaqon mein yeh jurm musalsal kyun nazar aata hai jabke isi tarah ke samaji haalaat waale doosre ilaqon mein yeh shaayad hi dikhai deta hai.",
+        "Is doosre sawaal ka jawab bahut kam zer-e-behes aata hai: tezaab sasta hai, ghair munazzam hai, aur dukaan ki almaari par para hota hai. Jahan ise khareedna aasaan hai, wahan hamle markooz ho jaate hain. Jahan aisa nahi, wahan nahi hote — chahe kahin aur inkaar ya ghareloo jhagra kitna hi aam kyun na ho. Yeh baat Pakistan ke cotton belt se zyada kahin waazeh nahi.",
+        { h:"Tezaab Hamle Kahan aur Kyun Markooz Hote Hain" },
+        "Pakistan mein report hone waale tezaab hamlon ki bhaari aksariyat Punjab mein hoti hai, aur Punjab ke andar yeh bohraan junoobi hisse mein shiddat se markooz hai. **Multan, Muzaffargarh, Rahim Yar Khan aur Bahawalpur** musalsal mulk ke sab se zyada mutassira azlaa mein shumaar hote hain (Acid Survivors Foundation Pakistan, bahawala The Express Tribune, 2014).",
+        "Yeh koi ittefaaq nahi. Junoobi Punjab Pakistan ke kapaas ki kaasht aur kapaas ki processing ka markaz hai, aur sulfuric acid muqami taur par kapaas ke reshay ko saaf aur tayyar karne ke liye istemaal hota hai — yani wohi tezaab jo chehra bigaarne waale hamlon mein istemaal hota hai, general stores aur hardware ki dukaanon par aik sanaati maaddey ke taur par khulle aam bikta hai, jo kisi ke liye bhi aik tabaahkun hathyaar ke taur par aasaani se dastyaab hai. Depilex Smileagain Foundation, jo Pakistan ka markazi mutassireen ki bahaali ka program chalati hai, batati hai ke Pakistan mein har saal record hone waale taqreeban 250 tezaab hamlon mein se **65 percent se zyada** Punjab mein hote hain (Community Sentinel, 2026). Jahan tezaab sab se sasta aur khareedne mein aasaan hai, wahan hamle markooz hote hain. Jahan yeh licensed aur nigraani mein hai, wahan kam ho jaate hain.",
+        "Tezaab tashaddud sirf Pakistan tak mehdood nahi. Bangladesh, Cambodia, Colombia aur India sab ko isi bohraan ka saamna raha, aur har aik ne ise mukhtalif tareeqe se hal karne ki koshish ki. In mein se kuch koshishein kaamyaab raheen. Kuch kaaghaz par achhi lageen magar haqeeqi zindagi mein naakaam ho gayeen. Har jagah asal mein kya hua, ise qareeb se dekhna achhi niyaton se kahin zyada sikhata hai — aur yeh batata hai ke Pakistan ko aage kis cheez ke liye larna chahiye.",
+        { h:"Kahin Aur Kya Kaargar Raha" },
+        { h3:"Bangladesh: Control, Adaalatein aur Aagahi Aik Saath" },
+        "2000 ki dahai ke awail mein Bangladesh ko duniya ke badtareen tezaab tashaddud ke masail mein se aik ka saamna tha. 2002 mein hukoomat ne baik waqt do qawaneen manzoor kiye: aik ne yeh control kiya ke tezaab kaun khareed aur bech sakta hai, doosre ne sirf tezaab ke muqadmaat ke liye khusoosi fauri adaalatein qaaim keen. Isi waqt hukoomat ne awaami aagahi muhimmaat bhi chalaayeen, taake log naye qawaneen ko foran samajh jaayein.",
+        "Yeh kaargar raha. Is ke baad ke saalon mein report hone waale hamlon mein taqreeban **65 percent** kami aayi (PassBlue, 2016). Bangladesh duniya mein sab se waazeh saboot hai ke tezaab tashaddud ko kam kiya ja sakta hai, aur bahut zyada kam kiya ja sakta hai. Is ki wajah koi aik qanoon nahi — balke yeh ke tezaab ki farokht par control, fauri muqadmaat aur awaami aagahi sab aik saath, baik waqt hue.",
+        { h3:"Cambodia: Jab Kaam Sirf Aadha Ho To Kya Hota Hai" },
+        "Cambodia ke 2012 ke Acid qanoon ne farokht par control sakht kiya aur sazaayein barhaayeen. Bazahir aadaad-o-shumaar bahut achhe lagte hain — report hone waale cases 2010 mein 36 mutassireen se kam ho kar 2014 tak sirf 6 reh gaye (Southeast Asia Globe, 2021).",
+        "Lekin in aadaad-o-shumaar ke neeche aik sangeen masla hai. Qanoon ne mutassireen ko muft tibbi ilaaj aur qanooni madad ka bhi waada kiya tha. Barson baad Human Rights Watch ne paaya ke jin mutassireen se unhon ne baat ki un mein se aik ko bhi darhaqeeqat muft ilaaj nahi mila — bahuton ko hospitalon se waapas bhej diya gaya jab tak woh yeh saabit na kar sakein ke woh adaaigi kar sakte hain (Human Rights Watch, 2019). Is poore muwaazne ka yeh sab se aham sabaq hai: aik aisa qanoon jo hamle kam kare, is qanoon jaisa nahi jo darhaqeeqat mutassireen ki madad kare. Bill manzoor karana aasaan hissa hai; is baat ko yaqeeni banana ke is par amal ho aur is ke liye fund ho, mushkil hissa hai, aur yeh utna hi aham hai.",
+        { h3:"Colombia: Aik Pur-azm Mutassira Kya Kuch Haasil Kar Sakti Hai" },
+        "2014 mein Natalia Ponce de León naami aik khatoon par aik aise shakhs ne tezaab phenka jise us ne mustard kiya tha. Us ki kahani qaumi khabar ban gayi, aur us ne qanoon saazon ko tabdeeli par majboor karne mein barson sarf kiye. Us ki jadd-o-jehad baraah-e-raast 2016 mein aik naye qanoon ka sabab bani, jo ab Natalia Ponce de León qanoon ke naam se jaana jaata hai (BBC News, 2015).",
+        "Is qanoon se pehle Colombia mein tezaab hamle ko kisi bhi doosre hamle jaisa samjha jaata tha, mukhtasar sazaaon ke saath. Naye qanoon ne tezaab hamlon ko aik alag, sangeen jurm bana diya, 50 saal tak ki sazaaon ke saath, aur hukoomat ke liye laazim kiya ke woh mutassireen ki taameer-e-nau ki surgery aur dimaghi sehat ki dekh bhaal ka kharch uthaaye (BBC News, 2015). Colombia ki kahani Bangladesh aur Cambodia se mukhtalif kuch dikhaati hai: baaz auqaat aik pur-azm mutassira aur kaafi awaami dabaao hi barson se jaamid nizaam ko bil-aakhir harkat mein laane ke liye kaafi hote hain.",
+        { h3:"India: Aik Tanbeehi Kahani" },
+        "2013 mein India ki Supreme Court ne har riyaasat ko tezaab ki farokht control karne ka hukm diya — khareedaron ko shanaakht dikhaani hogi, aur 18 saal se kam umar kisi bhi shakhs ko farokht par paabandi laga di gayi (BBC News, 2013). Kaaghaz par ise sab kuch badal dena chahiye tha.",
+        "Haqeeqi zindagi mein yeh har riyaasat mein aik jaisa kaargar na raha, aur das saal se zyada guzarne ke baad bhi zyada tar Bharti baazaaron mein tezaab khareedna aasaan hai. Is muwaazne mein India sab se waazeh intibaah hai: aik aisa qanoon jise koi naafiz na kare, darhaqeeqat qanoon nahi hota. Yeh mahaz aik tajweez hai jise har koi khaamoshi se nazarandaaz kar deta hai.",
+        { h:"Pakistan Is Waqt Kahan Khara Hai" },
+        "Pakistan ne darhaqeeqat pichhle do saalon mein is se zyada paish raft ki hai jitna zyada tar khabron ki coverage ise saraahti hai.",
+        "2011 mein manzoor hone waale qaumi Acid Control and Acid Crime Prevention Act ne in cases mein saza ki sharah ko 5 percent se kam se barha kar taqreeban **30 percent** kar diya, Acid Survivors Foundation Pakistan ke mutabiq (Pakistan Observer, 2025).",
+        "2025 mein Islamabad ne apna, zyada mazboot qanoon manzoor kiya: Acid and Burn Crime Act. Is ne sarkaari afsraan, doctoron, wukala aur community ke afraad par mushtamil aik nigraani board qaaim kiya, mutassireen ko muaawza dene ke liye aik fund banaaya, aur sakht muddatein muqarrar keen — case ki tafteesh ke liye 30 din, aur muqadma mukammal karne ke liye 60 din (Pakistan Observer, 2025). Yeh qanoon kaafi had tak Bangladesh ke tareeqa-e-kaar jaisa lagta hai, aur yeh waqai mazboot hai. Masla yeh hai ke yeh sirf Islamabad mein rehne waale logon ki hifaazat karta hai.",
+        "Isi saal Punjab ne apna Acid Control Act manzoor kiya, aur sirf tezaab ki farokht par markooz qanoon banaane waala Pakistan ka pehla sooba ban gaya. Ab tezaab bechne waale kisi bhi shakhs ko apne zile ke Deputy Commissioner se license darkaar hai, 18 saal se kam umar kisi ko farokht par paabandi hai, aur baghair license bechna ab jurm hai (The Express Tribune, 2024). Yeh bahut ahmiyat rakhta hai, kyunke Pakistan mein har saal report hone waale taqreeban 250 tezaab hamlon mein se 65 percent se zyada Punjab mein hote hain (Community Sentinel, 2026) — aik aisa qanoon jo baraah-e-raast us jagah ko nishaana banaata hai jahan zyada tar hamle hote hain, aik haqeeqi, qaabil-e-aazmaaish qadam hai.",
+        "Doosri taraf Sindh ke paas ab bhi sirf tezaab hamlon ke liye likha gaya koi qanoon nahi. Yeh is ke bajaaye puraane, umoomi qawaneen par inhesaar karta hai (Community Sentinel, 2026). Yeh aik haqeeqi khala hai, kyunke Islamabad ya Punjab mein aik mazboot qanoon Karachi mein kisi mutassira ke liye kuch nahi karta.",
+        "Khaam aadaad-o-shumaar mein bhi achhi khabar hai. Human Rights Commission of Pakistan ke mutabiq, report hone waale tezaab hamle **2023 mein 62 cases se kam ho kar 2024 mein 30 cases** reh gaye (Community Sentinel, 2026). Yeh aik haqeeqi kami hai, aur ise khul kar kaha jaana chahiye — is masle ki zyada tar coverage sirf yeh baat karti hai ke masla kitna bura hai, aur shaaz-o-naadir hi is ka zikr karti hai jab waqai kuch behtar ho raha ho.",
+        { h:"Aage Ka Raasta" },
+        "Duniya mein kahin aur kya kaargar raha, kya naakaam hua, aur kya ruka raha, is par nazar daalein to Pakistan ke liye chand waazeh agle iqdaamaat numaayaan hote hain.",
+        { list:[
+          "Islamabad ke qanoon ko har soobe tak pahunchaayein, Sindh se shuru karte hue. Islamabad ka 2025 ka qanoon aik mazboot namoona hai — abhi yeh sirf un logon ki hifaazat karta hai jo daar-ul-hukoomat mein rehte hain.",
+          "Punjab ke licensing nizaam ko haqeeqat banaayein, phir ise har jagah naqal karein. License ka qaaida tabhi kaam karta hai jab koi waqai ise jaanche. Punjab ka nizaam, jo tezaab ki farokht ko zilaai license se jorta hai, saada hai aur doosre soobon ke liye naqal karna aasaan hai, jab yeh saabit kar de ke yeh kaargar hai.",
+          "Bangladesh ke fauri adaalati namoone ko poore mulk mein naqal karein, sirf Islamabad mein nahi. Sust muqadmaat Pakistan mein tezaab cases ke bikhar jaane ya barson khinchne ki sab se bari wujoohaat mein se aik hain. Aik sakht muddat har jagah mayaar honi chahiye, daar-ul-hukoomat ke liye koi khaas riaayat nahi.",
+          "Mutassireen ke muaawze ke liye fund faraham karein, aur phir yeh jaanchein ke mutassireen ko waqai yeh mil raha hai. Yahan Cambodia ki kahani sab se waazeh intibaah hai — aik muaawza fund jo kaaghaz par maujood hai magar mutassireen tak kabhi nahi pahunchta, koi fund na hone se mushkil hi se mukhtalif hai.",
+          "Ise soobon ke darmiyaan teamwork ka masla samjhein, sirf kaaghazi kaarwai ka masla nahi. Chunke Pakistan ke soobe apne apne qawaneen banaate hain, aik soobe mein paish raft doosre soobe mein kisi ki hifaazat nahi karti.",
+        ]},
+        { h:"Khulaasa Kalaam" },
+        "Bangladesh saabit karta hai ke jab tezaab control, fauri muqadmaat aur awaami aagahi sab aik saath chalein to tezaab tashaddud ko bahut zyada kam kiya ja sakta hai. Cambodia aur India dono saabit karte hain ke akela qanoon, haqeeqi nafaaz aur haqeeqi funding ke baghair, kisi mulk ko sirf aadhe raaste tak le jaata hai. Colombia saabit karta hai ke aik mutassira ki aawaaz, awaami dabaao ki himayat se, barson ki be-amali ko tor sakti hai.",
+        "Pakistan ke paas ab haqeeqi raftaar hai, Islamabad aur Punjab mein mazboot naye qawaneen ke saath, aur report hone waale cases mein haqeeqi kami ke saath. Agla kaam yeh yaqeeni banana hai ke yeh paish raft aik shehar aur aik soobe ke andar band na rahe, aur yeh yaqeeni banana ke pehle se manzoor shuda qawaneen ke liye waqai fund ho, un ki jaanch ho, aur un par amal ho — mahaz kaaghaz par pare na rahein.",
+      ]},
+  },
+  4: {
+    ur: {
+      category:"قانونی",
+      title:"پاکستان میں تیزاب حملے کے بعد اپنے قانونی حقوق کو سمجھنا",
+      excerpt:"پاکستان میں متاثرین کے قانونی حقوق اور تحفظات کے بارے میں ایک سادہ زبان میں رہنمائی — فوجداری سزائیں، 2026 کا سپریم کورٹ فیصلہ، پنجاب کا نیا ایسڈ کنٹرول ایکٹ، معاوضہ، شواہد کا تحفظ، اور مدد کہاں سے حاصل کریں۔",
+      body:[
+        { note:"دستبرداری: یہ مضمون پاکستانی قانون کے تحت دستیاب قانونی حقوق اور تحفظات کے بارے میں عمومی معلومات فراہم کرتا ہے۔ یہ قانونی مشورے کا متبادل نہیں، اور ہر کیس اپنے حقائق اور شواہد پر منحصر ہوتا ہے۔ اگر آپ یا آپ کا کوئی عزیز قانونی کارروائی پر غور کر رہا ہے، تو براہِ کرم اپنی مخصوص صورتحال کے بارے میں کسی مستند وکیل یا قانونی امداد کے ادارے سے بات کریں۔" },
+        "اگر آپ ایک متاثرہ ہیں، کسی متاثرہ کی مدد کرنے والے خاندان کے فرد ہیں، یا کوئی ایسا شخص جو یہ سمجھنے کی کوشش کر رہا ہے کہ پاکستان میں کیا تحفظات موجود ہیں، تو یہ رہنمائی آپ کے لیے ہے۔ حملے کے بعد کے دن اور ہفتے بھاری محسوس ہو سکتے ہیں؛ طبی علاج پہلے آتا ہے، اور قانونی نظام دور یا الجھا ہوا لگ سکتا ہے۔ لیکن پاکستانی قانون واقعی سنجیدہ تحفظات فراہم کرتا ہے۔ اس رہنمائی کا مقصد انہیں واضح زبان میں سمجھانا ہے، تاکہ آپ اپنی رفتار سے باخبر فیصلے کر سکیں۔",
+        "بہت سے متاثرین خاموشی سے انہی باتوں کی فکر کرتے ہیں: کیا حملہ آور کو واقعی سزا ملے گی؟ کیا میں اس کا خرچ اٹھا سکتا/سکتی ہوں؟ کیا کیس برسوں چلے گا اور کہیں نہیں پہنچے گا؟ اگر پولیس نہ سنے تو؟ اگر حملہ آور میرا شوہر، میرا رشتہ دار، یا کوئی بااثر شخص ہو تو؟ یہ فکریں حقیقی ہیں۔ لیکن یہ بھی سچ ہے کہ تیزاب حملے اب پاکستانی قانون کے تحت تسلیم شدہ سب سے سنگین جرائم میں سے ہیں، اور عدالتیں ان سے ہونے والے نقصان کے بارے میں پہلے سے کہیں زیادہ واضح ہو چکی ہیں۔",
+        "اگلا قدم اٹھانے سے پہلے آپ کو سب کچھ جاننے کی ضرورت نہیں۔ آپ کو صرف یہ جاننا ہے کہ راستے موجود ہیں۔",
+        { h:"تیزاب حملے پاکستانی قانون کے تحت سنگین فوجداری جرائم ہیں" },
+        "2011 سے پہلے تیزاب حملوں پر عام طور پر عمومی حملے کے قوانین کے تحت مقدمہ چلایا جاتا تھا۔ کریمنل لا (سیکنڈ امینڈمنٹ) ایکٹ، 2011 کے ساتھ یہ بدل گیا، جس نے پاکستان پینل کوڈ (پی پی سی) میں خاص طور پر تیزاب اور دیگر تیزابی مادوں کے لیے دو نئی دفعات شامل کیں:",
+        { list:[
+          "دفعہ 336-A تیزابی مادے کے ذریعے نقصان پہنچانے کے جرم کی تعریف کرتی ہے۔",
+          "دفعہ 336-B سزا مقرر کرتی ہے۔",
+        ]},
+        "دفعہ 336-B کے تحت، تیزاب حملے میں مجرم قرار پانے والے شخص کو یہ سزا دی جانی چاہیے:",
+        { list:[
+          "عمر قید، یا کم از کم 14 سال قید، اور",
+          "کم از کم دس لاکھ روپے جرمانہ۔",
+        ]},
+        "یہ پاکستان کے فوجداری نظامِ انصاف میں سخت ترین سزاؤں میں سے ہیں۔ یہ اس لیے موجود ہیں کیونکہ قانون تسلیم کرتا ہے کہ تیزاب تشدد تاعمر نقصان پہنچاتا ہے — نہ صرف جسم کو، بلکہ متاثرہ کی آمدنی، تعلیم، رشتوں اور دماغی صحت کو بھی۔",
+        "حملہ آور کون ہے، اس سے قانون نہیں بدلتا۔ چاہے ذمہ دار شخص کوئی اجنبی ہو، پڑوسی، ساتھی، مسترد شدہ خواستگار، شریکِ حیات، یا خاندان کا فرد، جرم ایک ہی ہے۔ متاثرین اپنے حملہ آور کو جاننے کی وجہ سے اپنے حقوق نہیں کھوتے۔",
+        { h:"بطور متاثرہ آپ کے بنیادی قانونی حقوق" },
+        "سب سے اہم بات یہ سمجھنا ہے کہ ایک بار فرسٹ انفارمیشن رپورٹ (ایف آئی آر) درج ہو جائے تو کیس ریاست کا ہو جاتا ہے، کسی ایک خاندان کا نہیں۔ آپ کو اکیلے استغاثہ نہیں چلانا پڑتا۔ یہ وہ حقوق ہیں جن کے بارے میں ہر متاثرہ کو جاننا چاہیے:",
+        { list:[
+          "ایف آئی آر درج کرانے کا حق۔ حملے کی اطلاع دینے سے باقاعدہ فوجداری تفتیش شروع ہو جاتی ہے۔ ایف آئی آر درج کرانے کے لیے آپ کو وکیل کی ضرورت نہیں۔",
+          "پولیس کی بے عملی کو چیلنج کرنے کا حق۔ اگر کوئی تھانہ آپ کی ایف آئی آر درج کرنے سے انکار کرے، تو ضابطہ فوجداری کی دفعات 22-A اور 22-B آپ کو براہِ راست مجسٹریٹ سے رجوع کرنے اور اندراج کے حکم کی درخواست کرنے کی اجازت دیتی ہیں۔ انصاف تک رسائی کسی ایک افسر کے فیصلے پر منحصر نہیں۔",
+          "اگر آپ وکیل کا خرچ نہیں اٹھا سکتے تو مفت قانونی امداد کا حق۔ لیگل ایڈ اینڈ جسٹس اتھارٹی ایکٹ 2020 فوجداری معاملات میں ریاستی معاون قانونی امداد کے لیے ایک ڈھانچہ فراہم کرتا ہے۔ دستیابی ہر ضلع میں مختلف ہوتی ہے، لیکن مالی مشکل کو خود بخود آپ کو نظامِ انصاف سے باہر نہیں کر دینا چاہیے۔",
+          "معاوضے کا حق۔ عدالتوں کے پاس متاثرین کو معاوضہ دینے کا اختیار ہے (ذیل میں مزید تفصیل سے وضاحت کی گئی ہے)۔",
+          "بعض حالات میں رازداری کا حق۔ کیس کے مطابق، ان کیمرہ کارروائی جیسے تحفظات دستیاب ہو سکتے ہیں تاکہ آپ کو کھلی عدالت میں حساس گواہی نہ دینی پڑے۔",
+          "پاکستان کے صنفی بنیاد پر تشدد کے وسیع تر ڈھانچے کے تحت تحفظ کا حق۔ اس میں مخصوص عدالتیں، مربوط معاون خدمات، اور مقدمے کے دوران حفاظتی اقدامات شامل ہو سکتے ہیں۔",
+        ]},
+        "یہ حقوق چاہے حملہ آور اجنبی ہو یا آپ کا کوئی جاننے والا، دونوں صورتوں میں لاگو ہوتے ہیں۔ قانون اس لیے کمزور تحفظ فراہم نہیں کرتا کہ مجرم شوہر، سابق شوہر، خاندان کا فرد، یا کوئی واقف کار تھا۔",
+        { h:"کیا اطلاع دینے میں بہت دیر ہو گئی؟" },
+        "بہت سے متاثرین فوراً اطلاع نہیں دیتے۔ کچھ ہنگامی طبی علاج پر توجہ مرکوز رکھتے ہیں۔ کچھ کو خاندان کی جانب سے دباؤ کا سامنا ہوتا ہے۔ کچھ کو جوابی کارروائی کا خوف ہوتا ہے۔ کچھ کو سیدھی سی بات یہ معلوم ہی نہیں ہوتا کہ کون سے راستے موجود ہیں۔",
+        "تاخیر خود بخود دروازہ بند نہیں کرتی۔ جلد اطلاع دینا شواہد جمع کرنا آسان بنا دیتا ہے، لیکن ہر کیس اپنے حقائق پر منحصر ہوتا ہے۔ اگر حملہ مہینوں یا حتیٰ کہ برسوں پہلے ہوا تھا، تو یہ نہ سمجھیں کہ اب کچھ نہیں ہو سکتا۔ کسی وکیل یا قانونی امداد کے ادارے سے بات کرنا ہی یہ جاننے کا واحد طریقہ ہے کہ اب بھی کیا ممکن ہو سکتا ہے۔",
+        { h:"شواہد محفوظ رکھنا مستقبل کے کیس کو مضبوط بنا سکتا ہے" },
+        "طبی علاج ہمیشہ پہلے آتا ہے۔ لیکن حملے کے بعد کے گھنٹوں اور دنوں میں جمع کیے گئے شواہد اکثر کیس میں فیصلہ کن کردار ادا کرتے ہیں۔ جہاں ممکن ہو، یہ محفوظ رکھنے کی کوشش کریں:",
+        { list:[
+          "طبی ریکارڈ اور میڈیکو-لیگل رپورٹس (ایم ایل آر)",
+          "شفایابی کے مختلف مراحل پر زخموں کی تصاویر",
+          "کپڑے اور حملے میں شامل کوئی بھی مادی اشیاء",
+          "گواہوں کے نام اور رابطے کی تفصیلات",
+          "حملہ آور یا اس کے خاندان کی جانب سے دھمکی آمیز پیغامات، کال ریکارڈ، یا سوشل میڈیا پر رابطے",
+          "قریبی احاطوں کی سی سی ٹی وی فوٹیج",
+          "علاج، سفر، اور حملے سے متعلق دیگر اخراجات کی رسیدیں",
+        ]},
+        "جہاں ممکن ہو نقول رکھیں۔ انہیں کسی محفوظ جگہ رکھیں، بہتر ہے کہ فوری صورتحال سے باہر کسی قابلِ اعتماد شخص کے پاس۔",
+        { h:"کیا تیزاب حملے کا کیس نجی طور پر طے ہو سکتا ہے؟" },
+        "بہت سے متاثرین اور خاندان تیزاب حملے کے کیس کو عدالتوں سے باہر “طے” کرنے کے دباؤ کے بارے میں فکرمند ہوتے ہیں۔ یہ خاص طور پر اس وقت عام ہے جب حملہ آور شوہر، سابق شوہر، رشتہ دار، پڑوسی، یا خاندان کا کوئی جاننے والا ہو۔ متاثرین سے خاندان کے بزرگ، برادری کے رہنما، ثالث، یا مجرم کے نمائندے رابطہ کر سکتے ہیں جو قانونی کارروائی کے بجائے صلح کی ترغیب دیتے ہیں۔",
+        "ان حالات میں قانون کو سمجھنا اہم ہے۔ پاکستان پینل کوڈ کی دفعہ 336-B کے تحت زیرِ مقدمہ تیزاب حملے ناقابلِ راضی نامہ (non-compoundable) جرائم میں شمار ہوتے ہیں۔ سادہ الفاظ میں، اس کا مطلب ہے کہ جرم کو اتنا سنگین سمجھا جاتا ہے کہ اسے اس طرح خاندانوں کے درمیان نجی معاہدے کے ذریعے واپس یا حل نہیں کیا جا سکتا جیسے بعض دیگر فوجداری معاملات میں ہو سکتا ہے۔ یہ تحفظ اس لیے موجود ہے کیونکہ تیزاب تشدد کو شدید اور اکثر تاعمر نقصان پہنچانے والا تسلیم کیا جاتا ہے۔ پارلیمنٹ نے جان بوجھ کر مضبوط حفاظتی تدابیر بنائیں تاکہ متاثرین کو ان کی مرضی کے خلاف قانونی کارروائی چھوڑنے پر مجبور نہ کیا جا سکے۔",
+        "اس کا مطلب یہ نہیں کہ متاثرین کو کبھی دباؤ کا سامنا نہیں ہوتا۔ عملی طور پر، کچھ خاندان پھر بھی سمجھوتے کی ترغیب دے سکتے ہیں کیونکہ وہ سماجی بدنامی، برادری کی کشیدگی، مالی خدشات، یا مجرم کی جانب سے جوابی کارروائی کے بارے میں فکرمند ہوتے ہیں۔ متاثرین کو جاننا چاہیے کہ معاف کرنے، صلح کرنے، یا خاموش رہنے کے دباؤ کا محسوس ہونا ان کے قانونی حقوق نہیں چھینتا۔",
+        "اگر آپ کو کیس طے کرنے کے دباؤ کا سامنا ہے، تو کوئی بھی فیصلہ کرنے سے پہلے کسی آزاد وکیل یا قانونی امداد کے ادارے سے بات کرنا مددگار ہو سکتا ہے۔ اپنے حقوق، اپنے کیس کی صورتحال، اور کسی بھی تجویز کردہ انتظام کے قانونی نتائج کو سمجھنا اس بات کو یقینی بنانے میں مدد کر سکتا ہے کہ فیصلے آزادانہ اور مکمل معلومات کے ساتھ کیے جائیں۔",
+        "سب سے اہم بات، متاثرین کو یاد رکھنا چاہیے کہ پاکستانی قانون تیزاب حملوں کو پرتشدد جرائم کی سب سے سنگین اقسام میں شمار کرتا ہے۔ قانونی نظام متاثرین کی حفاظت کے لیے بنایا گیا ہے، انہیں ایسے معاہدوں پر مجبور کرنے کے لیے نہیں جو وہ نہیں چاہتے۔ یہ جاننا کہ ان جرائم کو عام تنازعات سے مختلف طریقے سے برتا جاتا ہے، متاثرین اور خاندانوں کو اس راستے کے بارے میں باخبر فیصلے کرنے میں مدد دے سکتا ہے جسے وہ اختیار کرنا چاہتے ہیں۔",
+        { h3:"اگر مجھے جوابی کارروائی کا خوف ہو تو؟" },
+        "جوابی کارروائی کا خوف متاثرین کی اطلاع دینے میں تاخیر کی سب سے عام وجوہات میں سے ایک ہے — خاص طور پر جب حملہ آور شوہر، سابق شوہر، رشتہ دار، یا کوئی بااثر شخص ہو۔ یہ خوف قابلِ فہم ہے، اور اسے محسوس کرنے پر آپ کمزور نہیں ہیں۔",
+        "چند باتیں جاننے کے قابل ہیں:",
+        { list:[
+          "چونکہ جرم ناقابلِ راضی نامہ ہے، کیس مکمل طور پر دباؤ برداشت کرنے کی آپ کی آمادگی پر منحصر نہیں۔ ایک بار ایف آئی آر درج ہو جائے تو استغاثہ چلانے کی ذمہ داری ریاست پر آ جاتی ہے۔",
+          "دھمکیاں، ڈرانا دھمکانا، اور کیس واپس لینے کا دباؤ خود سنگین معاملات ہیں۔ انہیں تفتیشی افسر اور اپنے وکیل کو رپورٹ کریں۔",
+          "ڈرانے دھمکانے کے شواہد محفوظ رکھیں: پیغامات کے اسکرین شاٹس، کال لاگز، وائس نوٹس، سوشل میڈیا دھمکیاں، اور آپ کے خاندان سے رابطہ کرنے والے کسی بھی ثالث کے نام۔",
+          "اگر آپ خود کو جسمانی طور پر غیر محفوظ محسوس کریں، تو اپنے وکیل، تفتیشی افسر، اور آپ کی مدد کرنے والے کسی بھی ادارے سے حفاظتی اقدامات پر بات کریں۔",
+        ]},
+        "کوئی بھی نظام خطرے کو مکمل طور پر ختم نہیں کر سکتا۔ لیکن دباؤ ڈالا جانا، دھمکایا جانا، یا شرمندہ کیا جانا آپ کے قانونی حقوق نہیں چھینتا۔",
+        { h:"معاوضہ اور مالی معاونت" },
+        "متاثرین کا یہ جاننا فطری ہے: کیا مجھے پیسے ملیں گے؟ کتنے؟ کب؟",
+        "ایماندارانہ جواب یہ ہے کہ پاکستانی قانون معاوضے کے راستے بناتا ہے، لیکن ہر متاثرہ کو کسی مخصوص رقم کی ضمانت نہیں دیتا۔ دو بنیادی راستے ہیں:",
+        { list:[
+          "دفعہ 336-B پی پی سی کے تحت دس لاکھ روپے جرمانہ۔ یہ مجرم قرار پانے والے پر عائد کم از کم جرمانہ ہے۔ عدالتیں ہدایت دے سکتی ہیں کہ مجرم سے وصول کی گئی رقم متاثرہ کو ادا کی جائے، لیکن اسے فوجداری سزا کا حصہ سمجھا جاتا ہے، کوئی خودکار منتقلی نہیں۔",
+          "ضابطہ فوجداری کی دفعہ 544-A کے تحت معاوضہ۔ سزا کے بعد عدالت مجرم کو حکم دے سکتی ہے کہ وہ متاثرہ کو معاوضہ ادا کرے۔ دس لاکھ روپے جرمانے کے برعکس، اس کی کوئی مقررہ رقم نہیں — عدالت حالات کی بنیاد پر فیصلہ کرتی ہے، بشمول زخموں کی شدت، طبی شواہد، اور مالی نقصانات۔",
+        ]},
+        "چونکہ دونوں راستے سزا اور عدالتی حکم پر منحصر ہیں، اس لیے پورے دوران محتاط ریکارڈ رکھنا مددگار ہوتا ہے — طبی بل، سرجری کے اخراجات، بحالی کے اخراجات، آمدنی کے نقصان کا ثبوت، اور کوئی بھی دیگر دستاویزی مالی اثر۔ یہ ریکارڈ عدالت کے لیے یہ دیکھنا آسان بنا دیتے ہیں کہ حملے نے آپ کو کتنا نقصان پہنچایا۔",
+        "پنجاب ایسڈ کنٹرول ایکٹ 2025 (ذیل میں زیرِ بحث) کے تحت، اگر حملہ تیزاب کی غیر قانونی یا غفلت سے کی گئی فروخت کے نتیجے میں ہوا ہو تو غفلت برتنے والے تیزاب فروش سے معاوضے کا راستہ بھی موجود ہے۔",
+        { h:"حالیہ عدالتی فیصلوں کا متاثرین کے لیے کیا مطلب ہے" },
+        "پاکستانی عدالتیں تیزاب تشدد کو کس نظر سے دیکھتی ہیں، اس بارے میں سب سے مضبوط حالیہ اشارہ جون 2026 میں آیا، جب سپریم کورٹ نے عبدالمنان عرف عمران کے کیس میں ایک تاریخی فیصلہ سنایا۔",
+        "مجرم نے 4 ستمبر 2019 کو فیصل آباد میں اقرا پروین کے گھر میں، جب وہ کھانا پکا رہی تھیں، ان پر تیزاب پھینکا تھا۔ ان کے جسم کے تقریباً 40 فیصد حصے پر تیسرے درجے کے جلنے کے زخم آئے، بشمول چہرہ، سینہ، کمر اور بایاں پاؤں، اور ان کا بایاں کان مکمل طور پر ضائع ہو گیا۔ انسدادِ دہشت گردی عدالت، فیصل آباد نے 2020 میں اسے دفعہ 336-B کے تحت مجرم قرار دیا اور اسے عمر قید کے ساتھ دس لاکھ روپے جرمانے کی سزا سنائی۔ لاہور ہائی کورٹ نے 2022 میں سزا برقرار رکھی۔ اس کے بعد مجرم نے سپریم کورٹ میں اپیل کی، اس بنیاد پر سزا میں کمی کی درخواست کرتے ہوئے کہ وہ اس وقت تقریباً 17 تا 18 سال کا تھا۔",
+        "جسٹس محمد ہاشم خان کاکڑ، جسٹس صلاح الدین پنہور، اور جسٹس اشتیاق ابراہیم پر مشتمل تین رکنی بینچ نے اپیل مسترد کر دی اور عمر قید اور جرمانہ برقرار رکھا۔ ایک تفصیلی 13 صفحات کے فیصلے میں جسٹس کاکڑ نے لکھا کہ:",
+        { list:[
+          "تیزاب تشدد “قتل سے زیادہ سنگین” جرم ہے۔ جہاں قتل کا شکار ایک بار مرتا ہے، وہیں تیزاب حملے کا متاثرہ ہر روز اس نقصان کو جھیلنے پر مجبور رہتا ہے۔",
+          "تیزاب تشدد کی جڑیں صنفی بنیاد پر تشدد، عورت دشمنی، اور پدر سری جارحیت میں گہری پیوست ہیں۔",
+          "کم سنی سفاک، سوچے سمجھے جرائم کے مرتکبین کو تحفظ فراہم نہیں کر سکتی۔",
+        ]},
+        "عدالت نے کئی سفارشات بھی کیں جن پر اگر عمل کیا جائے تو پاکستان میں متاثرین کی مدد کے طریقے میں بامعنی تبدیلی آ سکتی ہے:",
+        { list:[
+          "تعمیرِ نو کی سرجری، فزیوتھراپی، اور طویل مدتی نفسیاتی علاج کے لیے ایک قومی تیزاب متاثرین بحالی فنڈ۔",
+          "تیزاب حملے کے مقدمات میں چار ماہ کے اندر مقدمے کی تکمیل، جس میں ہائی کورٹس فعال طور پر مدت کی نگرانی کریں۔",
+          "تیزاب حملے کے متاثرین کو معذور افراد کے طور پر تسلیم کرنا، معذوری کے سرٹیفکیٹ اور ملازمت، تعلیم، اور فلاحی اسکیموں میں کوٹے کے ساتھ۔",
+          "مستقل طور پر معذور یا کام کرنے سے قاصر رہ جانے والے متاثرین کے لیے ماہانہ مالی معاونت۔",
+          "تیزاب کی فروخت کے لیے ایک مرکزی ڈیجیٹل نظام، جس میں شناخت کی تصدیق، بایومیٹرک ریکارڈ، اور حقیقی وقت میں نگرانی لازم ہو۔",
+          "نجی افراد کو تیزاب کی خوردہ فروخت پر مکمل پابندی، اور قانونی فروخت کو ڈیجیٹل نظام کے ذریعے صرف رجسٹرڈ صارفین تک محدود رکھنا۔",
+        ]},
+        "یہ خودکار استحقاق کے بجائے سفارشات ہیں — لیکن اب یہ ایک مستند سپریم کورٹ فیصلے کا حصہ ہیں۔ یہ اُس وقت اہمیت رکھتا ہے جب متاثرین، وکلاء، اور وکالت کرنے والے ادارے ریاست پر عمل کرنے کے لیے دباؤ ڈالتے ہیں۔",
+        { h:"پنجاب کا ایسڈ کنٹرول ایکٹ تحفظ کو کیسے مضبوط کرتا ہے" },
+        "2025 میں پنجاب نے پنجاب ایسڈ کنٹرول ایکٹ 2025 منظور کیا — پاکستان میں صوبائی سطح کا پہلا قانون جو خاص طور پر فروخت کے مقام پر تیزاب تشدد کو روکنے پر مرکوز ہے۔",
+        "اہم خصوصیات:",
+        { list:[
+          "تیزاب بیچنے، ذخیرہ کرنے، منتقل کرنے، درآمد کرنے، یا تیار کرنے والے ہر شخص کے لیے لائسنس لازمی ہے، اور 30 تیزابی کیمیکلز کو ضابطے میں لایا گیا ہے (بشمول سلفیورک، نائٹرک، ہائیڈروکلورک، اور ہائیڈروفلورک ایسڈ)۔",
+          "بغیر لائسنس تیزاب بیچنا ناقابلِ ضمانت جرم ہے، جس کی سزا 3 سال تک قید اور 5 لاکھ روپے تک جرمانہ ہے۔",
+          "غفلت برتنے والے لائسنس یافتہ فروخت کنندگان کو 2 سے 5 سال قید اور 2 لاکھ سے دس لاکھ روپے تک جرمانے کا سامنا ہوتا ہے۔",
+          "18 سال سے کم عمر افراد کو تیزاب کی فروخت ممنوع ہے۔",
+          "اگر حملہ فروخت کنندہ کی غفلت کے نتیجے میں ہوا ہو تو قانونی طور پر ان سے متاثرین کو معاوضہ دینے کا مطالبہ کیا جا سکتا ہے، اور رقم کا فیصلہ عدالت کرے گی۔",
+          "ہر تیزاب کے ڈبے پر کیمیکل کا نام، فروخت کنندہ کی تفصیلات، لائسنس نمبر، معیار، مقدار، اور تیاری اور میعاد ختم ہونے کی تاریخیں درج ہونی چاہئیں۔",
+        ]},
+        "ہر ضلع کا ڈپٹی کمشنر لائسنسنگ اتھارٹی کے طور پر کام کرتا ہے۔ نفاذ کو پنجاب ہوم ڈیپارٹمنٹ اور پنجاب ویمن پروٹیکشن اتھارٹی مربوط کرتی ہیں۔",
+        "لکھنے کے وقت تک، اسی طرح کی مخصوص قانون سازی سندھ، خیبر پختونخوا، یا بلوچستان میں ابھی نافذ نہیں ہوئی۔ تاہم، پنجاب کا قانون ایک قابلِ عمل نمونہ فراہم کرتا ہے، اور سپریم کورٹ کے 2026 کے فیصلے نے ملک بھر میں تیزاب کے سخت ضابطے کا مطالبہ کیا ہے۔",
+        { h:"قانونی معاونت کہاں سے حاصل کریں" },
+        "کسی قانونی امداد کے ادارے سے رابطہ کرنا آپ کو عدالت جانے کا پابند نہیں بناتا۔ یہ محض آپ کو معلومات دیتا ہے۔ بہت سے متاثرین اور خاندانوں کے لیے وہ پہلی گفتگو سب سے قیمتی قدم ہوتی ہے، کیونکہ یہ ایک الجھی ہوئی صورتحال کو واضح اختیارات والی چیز میں بدل دیتی ہے۔",
+        "وہ ادارے جو قانونی مشورے، حوالہ جات، نمائندگی، یا وکالت میں مدد کر سکتے ہیں، ان میں شامل ہیں:",
+        { list:[
+          "لیگل ایڈ اینڈ جسٹس اتھارٹی (وزارتِ انسانی حقوق)",
+          "ایسڈ سروائیورز فاؤنڈیشن پاکستان (اے ایس ایف پاکستان)",
+          "اے جی ایچ ایس لیگل ایڈ سیل",
+          "عورت فاؤنڈیشن",
+          "صوبائی ویمن پروٹیکشن اتھارٹیز (خاص طور پر پنجاب ویمن پروٹیکشن اتھارٹی)",
+          "پاکستان بار کونسل اور ضلعی بار ایسوسی ایشنز کی قانونی امداد کمیٹیاں",
+        ]},
+        "دستیابی، رابطے کی تفصیلات، اور خدمات وقت کے ساتھ بدلتی رہتی ہیں۔ براہِ کرم فیصلے کرنے سے پہلے موجودہ معلومات کی براہِ راست ادارے سے تصدیق کریں۔",
+        { h:"چیلنجز جن کا متاثرین کو اب بھی سامنا ہے" },
+        "اگرچہ قانونی تحفظات نمایاں طور پر مضبوط ہو گئے ہیں، ان چیلنجز کے بارے میں ایماندار ہونا ضروری ہے جو باقی ہیں۔",
+        "بہت سے متاثرین کو اب بھی طویل طبی علاج، مالی مشکلات، سماجی بدنامی، اور نظامِ انصاف میں تاخیر کا سامنا رہتا ہے۔ خصوصی قانونی معاونت تک رسائی مقام کے لحاظ سے مختلف ہو سکتی ہے، اور دیہی علاقوں میں رہنے والے متاثرین کو طبی دیکھ بھال یا قانونی مدد حاصل کرتے وقت اضافی رکاوٹوں کا سامنا ہو سکتا ہے۔",
+        "آج کا قانونی منظرنامہ ایک دہائی پہلے کے مقابلے میں بہت زیادہ مضبوط ہے۔ سزائیں سخت ہیں۔ سپریم کورٹ نے علانیہ طور پر اس تاعمر نقصان کو تسلیم کیا ہے جو متاثرین اٹھاتے ہیں۔ پنجاب نے فروخت کے مقام پر روک تھام کی جانب پہلا سنجیدہ قدم اٹھایا ہے۔ ملک بھر کے ادارے قانونی، طبی، اور سماجی معاونت پر ہر روز کام کر رہے ہیں۔ نظام کامل نہیں، لیکن متاثرین اس کے لیے غیر مرئی نہیں ہیں، اور انہیں کبھی ایسا محسوس نہیں کرنا چاہیے۔",
+        { h:"آخری بات" },
+        "تیزاب حملے کے بعد صحت یابی شاذ و نادر ہی تیز ہوتی ہے۔ بہت سے متاثرین اپنی صحت، اپنے اعتماد، اپنی تعلیم، اپنی آمدنی، اور اپنی ذات کے احساس کو دوبارہ بنانے میں برسوں لگاتے ہیں۔ یہ جس بھی رفتار سے ہو، یہ آپ کی اپنی ہے۔",
+        "قانونی مشورہ لینا ایک ذاتی فیصلہ ہے۔ کچھ متاثرین جلد از جلد استغاثہ چاہتے ہیں۔ دوسروں کو عدالت کے بارے میں سوچنے سے پہلے بھی وقت درکار ہوتا ہے۔ دونوں راستے درست ہیں۔ اہم بات یہ جاننا ہے کہ آپ کے خلاف کیا گیا تشدد، پاکستانی قانون کی نظر میں، ان سنگین ترین جرائم میں سے ایک تسلیم کیا جاتا ہے جو کوئی شخص کر سکتا ہے — اور یہ کہ آپ تحفظ، وقار، اور انصاف تک رسائی کے حقدار ہیں۔",
+        "آپ اکیلے نہیں ہیں۔ اور آپ کے پاس اُس سے زیادہ راستے ہیں جتنے آپ کو بتائے گئے ہوں گے۔",
+        { h:"اکثر پوچھے جانے والے سوالات" },
+        "**اگر حملہ آور میرا شوہر یا خاندان کا فرد تھا تو کیا میں قانونی کارروائی کر سکتی ہوں؟** جی ہاں۔ قانون اس لیے کم تحفظ فراہم نہیں کرتا کہ مجرم شریکِ حیات، سابق شریکِ حیات، یا رشتہ دار تھا۔ دفعہ 336-B کے تحت جرم رشتے سے قطع نظر ایک ہی ہے۔",
+        "**اگر مجھے معلوم نہ ہو کہ حملہ کس نے کیا؟** آپ پھر بھی اطلاع دے سکتی ہیں۔ تفتیش گواہوں کے بیانات، فرانزک شواہد، سی سی ٹی وی فوٹیج، موبائل فون ڈیٹا، اور دیگر طریقوں سے مشتبہ افراد کی شناخت کر سکتی ہے۔",
+        "**اگر پولیس میری ایف آئی آر درج کرنے سے انکار کرے تو؟** آپ ضابطہ فوجداری کی دفعات 22-A اور 22-B کے تحت مجسٹریٹ سے رجوع کر سکتی ہیں اور پولیس کو ایف آئی آر درج کرنے کی ہدایت کا حکم مانگ سکتی ہیں۔",
+        "**تیزاب حملے کی اطلاع دینے کے لیے کیا مجھے وکیل کی ضرورت ہے؟** نہیں۔ لیکن تفتیش شروع ہونے کے بعد قانونی مشورہ بہت مددگار ہوتا ہے اور مقدمے اور معاوضے کی کارروائی کے دوران اور بھی زیادہ۔",
+        "**کیا مجھے مفت قانونی امداد مل سکتی ہے؟** ممکنہ طور پر۔ لیگل ایڈ اینڈ جسٹس اتھارٹی ایکٹ 2020 ریاستی معاون قانونی امداد کے لیے ایک ڈھانچہ فراہم کرتا ہے۔ کچھ این جی اوز اور بار کونسل کمیٹیاں بھی مفت یا کم فیس پر نمائندگی فراہم کرتی ہیں۔",
+        "**کیا متاثرین کو معاوضہ مل سکتا ہے؟** عدالتیں سزا کے بعد دفعہ 544-A سی آر پی سی کے تحت معاوضہ دے سکتی ہیں، اور دفعہ 336-B کے تحت دس لاکھ روپے جرمانے کی ادائیگی کی ہدایت کر سکتی ہیں۔ رقم کیس کے مطابق مختلف ہوتی ہے۔",
+        "**حملہ آور کو کیا سزا مل سکتی ہے؟** دفعہ 336-B پی پی سی کے تحت: عمر قید یا کم از کم 14 سال، اور کم از کم دس لاکھ روپے جرمانہ۔",
+        "**کیا میرا کیس کھلی عدالت میں سنا جائے گا؟** حالات کے مطابق، ان کیمرہ کارروائی جیسے رازداری کے تحفظات دستیاب ہو سکتے ہیں۔",
+        "**اگر میں نے حملہ آور کو معاف کر دیا تھا یا ابتدا میں قانونی کارروائی نہ کرنے کا فیصلہ کیا تھا تو؟** فوری بعد کے بہت سے فیصلے زبردست دباؤ میں کیے جاتے ہیں۔ اگر آپ کے حالات بدل گئے ہیں، تو وکیل سے بات کرنا یہ سمجھنے کا بہترین طریقہ ہے کہ آپ کے مخصوص کیس میں کیا ممکن رہ گیا ہے۔",
+        "**مجھے بطور ثبوت کیا رکھنے کی کوشش کرنی چاہیے؟** طبی ریکارڈ، میڈیکو-لیگل رپورٹس، زخموں کی تصاویر، علاج کی رسیدیں، گواہوں کی تفصیلات، دھمکی آمیز پیغامات، کال ریکارڈ، اور حملے سے متعلق کوئی بھی دستاویزات۔",
+        "**کیا پنجاب ایسڈ کنٹرول ایکٹ 2025 پنجاب سے باہر نافذ ہے؟** نہیں۔ یہ صرف پنجاب میں لاگو ہوتا ہے۔ دوسرے صوبے کریمنل لا (سیکنڈ امینڈمنٹ) ایکٹ 2011 اور پاکستان پینل کوڈ کے تحت عمومی ڈھانچے پر انحصار کرتے رہتے ہیں۔",
+        "اگر آپ یا آپ کا کوئی جاننے والا تیزاب حملے کا متاثرہ ہے اور مدد کی ضرورت ہے، تو ایسڈ ہیلپ پاکستان بھر میں ہسپتالوں، قانونی امداد کے اداروں، خواتین کے تحفظ کے وسائل، اور نفسیاتی معاونت کی خدمات کی ایک ڈائریکٹری رکھتا ہے۔ تصدیق شدہ رابطوں اور مزید رہنمائی کے لیے acidhelp.com ملاحظہ کریں۔",
+        { h:"خلاصہ" },
+        "پاکستانی قانون کے تحت، تیزاب حملے انتہائی سنگین فوجداری جرائم ہیں۔ کریمنل لا (سیکنڈ امینڈمنٹ) ایکٹ، 2011 نے مخصوص دفعات (دفعہ 336-A اور 336-B، پاکستان پینل کوڈ) قائم کیں جو عمر قید یا کم از کم 14 سال کی سزاؤں اور دس لاکھ روپے جرمانے کو لازم قرار دیتی ہیں۔ متاثرین کے پاس حقوق ہیں جن میں ابتدائی طور پر قانونی نمائندگی کی ضرورت کے بغیر ایف آئی آر درج کرانے کا حق، مفت قانونی معاونت تک رسائی، معاوضے کی اہلیت، اور رازداری کے تحفظات شامل ہیں۔ اہم بات یہ کہ یہ تحفظات مجرم کی شناخت سے قطع نظر یکساں طور پر لاگو ہوتے ہیں — چاہے وہ اجنبی ہو یا خاندان کا فرد۔",
+        "تیزاب حملے ناقابلِ راضی نامہ جرائم میں شمار ہوتے ہیں، یعنی متاثرین کو نجی سمجھوتوں پر مجبور نہیں کیا جا سکتا۔ 2026 کے ایک تاریخی سپریم کورٹ فیصلے نے ایسے تشدد کو “قتل سے زیادہ سنگین” قرار دیا اور متاثرین کی بحالی کے لیے فنڈنگ، معذوری کے طور پر تسلیم، تیز رفتار مقدمات، اور تیزاب کی فروخت کے جامع ضابطے کے قیام کی سفارش کی۔",
+        "پنجاب کے 2025 کے ایسڈ کنٹرول ایکٹ نے صوبہ مخصوص روک تھام کی قانون سازی کا آغاز کیا جس میں فروخت کنندہ کی لائسنسنگ، عمر کی پابندیاں، اور بہتر لیبلنگ کے تقاضے شامل ہیں۔ اطلاع میں تاخیر خود بخود قانونی چارہ جوئی کو ختم نہیں کرتی؛ شواہد کا تحفظ — طبی ریکارڈ، تصاویر، گواہوں کی تفصیلات، رابطے — استغاثہ کو مضبوط بناتا ہے۔ ایسڈ سروائیورز فاؤنڈیشن پاکستان اور لیگل ایڈ اینڈ جسٹس اتھارٹی جیسے ادارے ملک بھر میں متاثرین کی معاونت فراہم کرتے ہیں۔",
+      ]},
+    ro: {
+      category:"Legal",
+      title:"Pakistan mein Tezaab Hamle ke Baad Apne Qanooni Huqooq ko Samajhna",
+      excerpt:"Pakistan mein mutassireen ke qanooni huqooq aur tahaffuzaat ke baare mein aik saada zabaan mein rehnumai — faujdaari sazaayein, 2026 ka Supreme Court faisla, Punjab ka naya Acid Control Act, muaawza, shawaahid ka tahaffuz, aur madad kahan se haasil karein.",
+      body:[
+        { note:"Dastbardaari: Yeh mazmoon Pakistani qanoon ke tehat dastyaab qanooni huqooq aur tahaffuzaat ke baare mein umoomi maloomaat faraham karta hai. Yeh qanooni mashware ka mutabaadil nahi, aur har case apne haqaaiq aur shawaahid par munhasir hota hai. Agar aap ya aap ka koi azeez qanooni kaarwai par ghaur kar raha hai, to baraah-e-karam apni makhsoos soorat-e-haal ke baare mein kisi mustanad wakeel ya qanooni imdaad ke idaare se baat karein." },
+        "Agar aap aik mutassira hain, kisi mutassira ki madad karne waale khaandaan ke fard hain, ya koi aisa shakhs jo yeh samajhne ki koshish kar raha hai ke Pakistan mein kya tahaffuzaat maujood hain, to yeh rehnumai aap ke liye hai. Hamle ke baad ke din aur hafte bhaari mehsoos ho sakte hain; tibbi ilaaj pehle aata hai, aur qanooni nizaam door ya uljha hua lag sakta hai. Lekin Pakistani qanoon waqai sanjeeda tahaffuzaat faraham karta hai. Is rehnumai ka maqsad unhein waazeh zabaan mein samjhaana hai, taake aap apni raftaar se baakhabar faisle kar sakein.",
+        "Bahut se mutassireen khaamoshi se inhi baaton ki fikr karte hain: Kya hamla aawar ko waqai saza milegi? Kya main is ka kharch utha sakta/sakti hoon? Kya case barson chalega aur kahin nahi pahunchega? Agar police na sune to? Agar hamla aawar mera shauhar, mera rishtedaar, ya koi baa-asar shakhs ho to? Yeh fikrein haqeeqi hain. Lekin yeh bhi sach hai ke tezaab hamle ab Pakistani qanoon ke tehat tasleem shuda sab se sangeen jaraaim mein se hain, aur adaalatein un se hone waale nuqsaan ke baare mein pehle se kahin zyada waazeh ho chuki hain.",
+        "Agla qadam uthaane se pehle aap ko sab kuch jaanne ki zaroorat nahi. Aap ko sirf yeh jaanna hai ke raaste maujood hain.",
+        { h:"Tezaab Hamle Pakistani Qanoon ke Tehat Sangeen Faujdaari Jaraaim Hain" },
+        "2011 se pehle tezaab hamlon par aam taur par umoomi hamle ke qawaneen ke tehat muqadma chalaaya jaata tha. Criminal Law (Second Amendment) Act, 2011 ke saath yeh badal gaya, jis ne Pakistan Penal Code (PPC) mein khaas taur par tezaab aur deegar tezaabi maaddon ke liye do nayi dafaat shaamil keen:",
+        { list:[
+          "Dafaa 336-A tezaabi maaddey ke zariye nuqsaan pahunchaane ke jurm ki taareef karti hai.",
+          "Dafaa 336-B saza muqarrar karti hai.",
+        ]},
+        "Dafaa 336-B ke tehat, tezaab hamle mein mujrim qaraar paane waale shakhs ko yeh saza di jaani chahiye:",
+        { list:[
+          "Umar qaid, ya kam az kam 14 saal qaid, aur",
+          "Kam az kam das laakh rupay jurmaana.",
+        ]},
+        "Yeh Pakistan ke faujdaari nizaam-e-insaaf mein sakht tareen sazaaon mein se hain. Yeh is liye maujood hain kyunke qanoon tasleem karta hai ke tezaab tashaddud taa-umar nuqsaan pahunchaata hai — na sirf jism ko, balke mutassira ki aamdani, taaleem, rishton aur dimaghi sehat ko bhi.",
+        "Hamla aawar kaun hai, is se qanoon nahi badalta. Chahe zimmedaar shakhs koi ajnabi ho, parosi, saathi, mustard shuda khwaastgaar, shareek-e-hayaat, ya khaandaan ka fard, jurm aik hi hai. Mutassireen apne hamla aawar ko jaanne ki wajah se apne huqooq nahi khote.",
+        { h:"Bator Mutassira Aap ke Bunyaadi Qanooni Huqooq" },
+        "Sab se aham baat yeh samajhna hai ke aik baar First Information Report (FIR) darj ho jaaye to case riyaasat ka ho jaata hai, kisi aik khaandaan ka nahi. Aap ko akele istaghaasa nahi chalaana parta. Yeh woh huqooq hain jin ke baare mein har mutassira ko jaanna chahiye:",
+        { list:[
+          "FIR darj karaane ka haq. Hamle ki ittila dene se baaqaida faujdaari tafteesh shuru ho jaati hai. FIR darj karaane ke liye aap ko wakeel ki zaroorat nahi.",
+          "Police ki be-amali ko challenge karne ka haq. Agar koi thaana aap ki FIR darj karne se inkaar kare, to Zaabta Faujdaari ki dafaat 22-A aur 22-B aap ko baraah-e-raast Magistrate se rujoo karne aur indraaj ke hukm ki darkhwaast karne ki ijaazat deti hain. Insaaf tak rasaai kisi aik afsar ke faisle par munhasir nahi.",
+          "Agar aap wakeel ka kharch nahi utha sakte to muft qanooni imdaad ka haq. Legal Aid and Justice Authority Act 2020 faujdaari maamlaat mein riyaasati muaawin qanooni imdaad ke liye aik dhaancha faraham karta hai. Dastyaabi har zile mein mukhtalif hoti hai, lekin maali mushkil ko khudbakhud aap ko nizaam-e-insaaf se baahar nahi kar dena chahiye.",
+          "Muaawze ka haq. Adaalaton ke paas mutassireen ko muaawza dene ka ikhtiyaar hai (zail mein mazeed tafseel se wazaahat ki gayi hai).",
+          "Baaz haalaat mein raazdaari ka haq. Case ke mutabiq, in-camera kaarwai jaise tahaffuzaat dastyaab ho sakte hain taake aap ko khulli adaalat mein hassaas gawahi na deni pare.",
+          "Pakistan ke sinfi bunyaad par tashaddud ke wasee tar dhaanche ke tehat tahaffuz ka haq. Is mein makhsoos adaalatein, marboot muaawin khidmaat, aur muqadme ke dauraan hifaazati iqdaamaat shaamil ho sakte hain.",
+        ]},
+        "Yeh huqooq chahe hamla aawar ajnabi ho ya aap ka koi jaanne waala, dono sooraton mein laagu hote hain. Qanoon is liye kamzor tahaffuz faraham nahi karta ke mujrim shauhar, saabiq shauhar, khaandaan ka fard, ya koi waaqif kaar tha.",
+        { h:"Kya Ittila Dene Mein Bahut Der Ho Gayi?" },
+        "Bahut se mutassireen foran ittila nahi dete. Kuch hungaami tibbi ilaaj par tawajjo markooz rakhte hain. Kuch ko khaandaan ki jaanib se dabaao ka saamna hota hai. Kuch ko jawaabi kaarwai ka khauf hota hai. Kuch ko seedhi si baat yeh maloom hi nahi hota ke kaun se raaste maujood hain.",
+        "Taakheer khudbakhud darwaaza band nahi karti. Jald ittila dena shawaahid jama karna aasaan bana deta hai, lekin har case apne haqaaiq par munhasir hota hai. Agar hamla maheenon ya hatta ke barson pehle hua tha, to yeh na samjhein ke ab kuch nahi ho sakta. Kisi wakeel ya qanooni imdaad ke idaare se baat karna hi yeh jaanne ka waahid tareeqa hai ke ab bhi kya mumkin ho sakta hai.",
+        { h:"Shawaahid Mehfooz Rakhna Mustaqbil ke Case ko Mazboot Bana Sakta Hai" },
+        "Tibbi ilaaj hamesha pehle aata hai. Lekin hamle ke baad ke ghanton aur dinon mein jama kiye gaye shawaahid aksar case mein faislakun kirdaar ada karte hain. Jahan mumkin ho, yeh mehfooz rakhne ki koshish karein:",
+        { list:[
+          "Tibbi record aur medico-legal reports (MLRs)",
+          "Shifaayaabi ke mukhtalif maraahil par zakhmon ki tasaaweer",
+          "Kapre aur hamle mein shaamil koi bhi maaddi ashya",
+          "Gawaahon ke naam aur raabte ki tafseelaat",
+          "Hamla aawar ya us ke khaandaan ki jaanib se dhamki aamez paighaamaat, call record, ya social media par raabte",
+          "Qareebi ahaaton ki CCTV footage",
+          "Ilaaj, safar, aur hamle se mutalliq deegar akhraajaat ki raseedein",
+        ]},
+        "Jahan mumkin ho nuqool rakhein. Unhein kisi mehfooz jagah rakhein, behtar hai ke fauri soorat-e-haal se baahar kisi qaabil-e-aitmaad shakhs ke paas.",
+        { h:"Kya Tezaab Hamle ka Case Niji Taur Par Tay Ho Sakta Hai?" },
+        "Bahut se mutassireen aur khaandaan tezaab hamle ke case ko adaalaton se baahar “tay” karne ke dabaao ke baare mein fikrmand hote hain. Yeh khaas taur par us waqt aam hai jab hamla aawar shauhar, saabiq shauhar, rishtedaar, parosi, ya khaandaan ka koi jaanne waala ho. Mutassireen se khaandaan ke buzurg, biraadari ke rehnuma, saalis, ya mujrim ke numaayande raabta kar sakte hain jo qanooni kaarwai ke bajaaye sulah ki targheeb dete hain.",
+        "In haalaat mein qanoon ko samajhna aham hai. Pakistan Penal Code ki dafaa 336-B ke tehat zer-e-muqadma tezaab hamle naaqaabil-e-raazi naama (non-compoundable) jaraaim mein shumaar hote hain. Saada alfaaz mein, is ka matlab hai ke jurm ko itna sangeen samjha jaata hai ke ise is tarah khaandaanon ke darmiyaan niji muaahide ke zariye waapas ya hal nahi kiya ja sakta jaise baaz deegar faujdaari maamlaat mein ho sakta hai. Yeh tahaffuz is liye maujood hai kyunke tezaab tashaddud ko shadeed aur aksar taa-umar nuqsaan pahunchaane waala tasleem kiya jaata hai. Parliament ne jaan boojh kar mazboot hifaazati tadaabeer banaayeen taake mutassireen ko un ki marzi ke khilaaf qanooni kaarwai chhorne par majboor na kiya ja sake.",
+        "Is ka matlab yeh nahi ke mutassireen ko kabhi dabaao ka saamna nahi hota. Amali taur par, kuch khaandaan phir bhi samjhaute ki targheeb de sakte hain kyunke woh samaji badnaami, biraadari ki kasheedgi, maali khadshaat, ya mujrim ki jaanib se jawaabi kaarwai ke baare mein fikrmand hote hain. Mutassireen ko jaanna chahiye ke maaf karne, sulah karne, ya khaamosh rehne ke dabaao ka mehsoos hona un ke qanooni huqooq nahi chheenta.",
+        "Agar aap ko case tay karne ke dabaao ka saamna hai, to koi bhi faisla karne se pehle kisi aazaad wakeel ya qanooni imdaad ke idaare se baat karna madadgaar ho sakta hai. Apne huqooq, apne case ki soorat-e-haal, aur kisi bhi tajweez karda intizaam ke qanooni nataaij ko samajhna is baat ko yaqeeni banaane mein madad kar sakta hai ke faisle aazaadaana aur mukammal maloomaat ke saath kiye jaayein.",
+        "Sab se aham baat, mutassireen ko yaad rakhna chahiye ke Pakistani qanoon tezaab hamlon ko purtashaddud jaraaim ki sab se sangeen aqsaam mein shumaar karta hai. Qanooni nizaam mutassireen ki hifaazat ke liye banaaya gaya hai, unhein aise muaahidon par majboor karne ke liye nahi jo woh nahi chahte. Yeh jaanna ke in jaraaim ko aam tanaaza-aat se mukhtalif tareeqe se barta jaata hai, mutassireen aur khaandaanon ko us raaste ke baare mein baakhabar faisle karne mein madad de sakta hai jise woh ikhtiyaar karna chahte hain.",
+        { h3:"Agar Mujhe Jawaabi Kaarwai ka Khauf Ho To?" },
+        "Jawaabi kaarwai ka khauf mutassireen ki ittila dene mein taakheer ki sab se aam wujoohaat mein se aik hai — khaas taur par jab hamla aawar shauhar, saabiq shauhar, rishtedaar, ya koi baa-asar shakhs ho. Yeh khauf qaabil-e-fehm hai, aur ise mehsoos karne par aap kamzor nahi hain.",
+        "Chand baatein jaanne ke qaabil hain:",
+        { list:[
+          "Chunke jurm naaqaabil-e-raazi naama hai, case mukammal taur par dabaao bardaasht karne ki aap ki aamaadgi par munhasir nahi. Aik baar FIR darj ho jaaye to istaghaasa chalaane ki zimmedaari riyaasat par aa jaati hai.",
+          "Dhamkiyaan, daraana dhamkaana, aur case waapas lene ka dabaao khud sangeen maamlaat hain. Unhein tafteeshi afsar aur apne wakeel ko report karein.",
+          "Daraane dhamkaane ke shawaahid mehfooz rakhein: paighaamaat ke screenshots, call logs, voice notes, social media dhamkiyaan, aur aap ke khaandaan se raabta karne waale kisi bhi saalis ke naam.",
+          "Agar aap khud ko jismaani taur par ghair mehfooz mehsoos karein, to apne wakeel, tafteeshi afsar, aur aap ki madad karne waale kisi bhi idaare se hifaazati iqdaamaat par baat karein.",
+        ]},
+        "Koi bhi nizaam khatre ko mukammal taur par khatm nahi kar sakta. Lekin dabaao daala jaana, dhamkaaya jaana, ya sharminda kiya jaana aap ke qanooni huqooq nahi chheenta.",
+        { h:"Muaawza aur Maali Muaawanat" },
+        "Mutassireen ka yeh jaanna fitri hai: Kya mujhe paise milenge? Kitne? Kab?",
+        "Imaandaaraana jawab yeh hai ke Pakistani qanoon muaawze ke raaste banaata hai, lekin har mutassira ko kisi makhsoos raqam ki zamaanat nahi deta. Do bunyaadi raaste hain:",
+        { list:[
+          "Dafaa 336-B PPC ke tehat das laakh rupay jurmaana. Yeh mujrim qaraar paane waale par aaid kam az kam jurmaana hai. Adaalatein hidaayat de sakti hain ke mujrim se wusool ki gayi raqam mutassira ko ada ki jaaye, lekin ise faujdaari saza ka hissa samjha jaata hai, koi khudkaar muntaqli nahi.",
+          "Zaabta Faujdaari ki dafaa 544-A ke tehat muaawza. Saza ke baad adaalat mujrim ko hukm de sakti hai ke woh mutassira ko muaawza ada kare. Das laakh rupay jurmaane ke bar-aks, is ki koi muqarrara raqam nahi — adaalat haalaat ki bunyaad par faisla karti hai, bashamool zakhmon ki shiddat, tibbi shawaahid, aur maali nuqsaanaat.",
+        ]},
+        "Chunke dono raaste saza aur adaalati hukm par munhasir hain, is liye poore dauraan muhtaat record rakhna madadgaar hota hai — tibbi bill, surgery ke akhraajaat, bahaali ke akhraajaat, aamdani ke nuqsaan ka saboot, aur koi bhi deegar dastaawezi maali asar. Yeh record adaalat ke liye yeh dekhna aasaan bana dete hain ke hamle ne aap ko kitna nuqsaan pahunchaaya.",
+        "Punjab Acid Control Act 2025 (zail mein zer-e-behes) ke tehat, agar hamla tezaab ki ghair qanooni ya ghaflat se ki gayi farokht ke nateeje mein hua ho to ghaflat baratne waale tezaab farosh se muaawze ka raasta bhi maujood hai.",
+        { h:"Haaliya Adaalati Faislon ka Mutassireen ke Liye Kya Matlab Hai" },
+        "Pakistani adaalatein tezaab tashaddud ko kis nazar se dekhti hain, is baare mein sab se mazboot haaliya ishaara June 2026 mein aaya, jab Supreme Court ne Abdul Manan urf Imran ke case mein aik taareekhi faisla sunaaya.",
+        "Mujrim ne 4 September 2019 ko Faisalabad mein Iqra Perveen ke ghar mein, jab woh khaana paka rahi theen, un par tezaab phenka tha. Un ke jism ke taqreeban 40 percent hisse par teesre darje ke jalne ke zakhm aaye, bashamool chehra, seena, kamar aur baayaan paaon, aur un ka baayaan kaan mukammal taur par zaaya ho gaya. Insidaad-e-Dehshatgardi Adaalat, Faisalabad ne 2020 mein use dafaa 336-B ke tehat mujrim qaraar diya aur use umar qaid ke saath das laakh rupay jurmaane ki saza sunaayi. Lahore High Court ne 2022 mein saza barqaraar rakhi. Is ke baad mujrim ne Supreme Court mein appeal ki, is bunyaad par saza mein kami ki darkhwaast karte hue ke woh us waqt taqreeban 17 taa 18 saal ka tha.",
+        "Justice Muhammad Hashim Khan Kakar, Justice Salahuddin Panhwar, aur Justice Ishtiaq Ibrahim par mushtamil teen rukni bench ne appeal mustard kar di aur umar qaid aur jurmaana barqaraar rakha. Aik tafseeli 13 safhaat ke faisle mein Justice Kakar ne likha ke:",
+        { list:[
+          "Tezaab tashaddud “qatl se zyada sangeen” jurm hai. Jahan qatl ka shikaar aik baar marta hai, wahin tezaab hamle ka mutassira har roz is nuqsaan ko jhelne par majboor rehta hai.",
+          "Tezaab tashaddud ki jarein sinfi bunyaad par tashaddud, aurat dushmani, aur pidr-saari jaarhiyat mein gehri paiwast hain.",
+          "Kam-sini saffaak, soche samjhe jaraaim ke murtakibeen ko tahaffuz faraham nahi kar sakti.",
+        ]},
+        "Adaalat ne kayi sifaarshaat bhi keen jin par agar amal kiya jaaye to Pakistan mein mutassireen ki madad ke tareeqe mein baa-maani tabdeeli aa sakti hai:",
+        { list:[
+          "Taameer-e-nau ki surgery, physiotherapy, aur taweel muddati nafsiyaati ilaaj ke liye aik qaumi tezaab mutassireen bahaali fund.",
+          "Tezaab hamle ke muqadmaat mein chaar maah ke andar muqadme ki takmeel, jis mein High Courts fa-aal taur par muddat ki nigraani karein.",
+          "Tezaab hamle ke mutassireen ko maazoor afraad ke taur par tasleem karna, maazoori ke certificate aur mulaazmat, taaleem, aur falaahi scheme mein cotay ke saath.",
+          "Mustaqil taur par maazoor ya kaam karne se qaasir reh jaane waale mutassireen ke liye maahaana maali muaawanat.",
+          "Tezaab ki farokht ke liye aik markazi digital nizaam, jis mein shanaakht ki tasdeeq, biometric record, aur haqeeqi waqt mein nigraani laazim ho.",
+          "Niji afraad ko tezaab ki khurda farokht par mukammal paabandi, aur qanooni farokht ko digital nizaam ke zariye sirf registered saarfeen tak mehdood rakhna.",
+        ]},
+        "Yeh khudkaar istehqaaq ke bajaaye sifaarshaat hain — lekin ab yeh aik mustanad Supreme Court faisle ka hissa hain. Yeh us waqt ahmiyat rakhta hai jab mutassireen, wukala, aur wakaalat karne waale idaare riyaasat par amal karne ke liye dabaao daalte hain.",
+        { h:"Punjab ka Acid Control Act Tahaffuz ko Kaise Mazboot Karta Hai" },
+        "2025 mein Punjab ne Punjab Acid Control Act 2025 manzoor kiya — Pakistan mein soobaai satah ka pehla qanoon jo khaas taur par farokht ke muqaam par tezaab tashaddud ko rokne par markooz hai.",
+        "Aham khusoosiyaat:",
+        { list:[
+          "Tezaab bechne, zakheera karne, muntaqil karne, daraamad karne, ya tayyar karne waale har shakhs ke liye license laazmi hai, aur 30 tezaabi chemicals ko zaabte mein laaya gaya hai (bashamool sulfuric, nitric, hydrochloric, aur hydrofluoric acid).",
+          "Baghair license tezaab bechna naaqaabil-e-zamaanat jurm hai, jis ki saza 3 saal tak qaid aur 5 laakh rupay tak jurmaana hai.",
+          "Ghaflat baratne waale license yaafta farokht kunindgaan ko 2 se 5 saal qaid aur 2 laakh se das laakh rupay tak jurmaane ka saamna hota hai.",
+          "18 saal se kam umar afraad ko tezaab ki farokht mamnoo hai.",
+          "Agar hamla farokht kuninda ki ghaflat ke nateeje mein hua ho to qanooni taur par un se mutassireen ko muaawza dene ka mutaaliba kiya ja sakta hai, aur raqam ka faisla adaalat karegi.",
+          "Har tezaab ke dabbe par chemical ka naam, farokht kuninda ki tafseelaat, license number, mayaar, miqdaar, aur tayyari aur miyaad khatm hone ki taareekhein darj honi chahiyein.",
+        ]},
+        "Har zile ka Deputy Commissioner licensing authority ke taur par kaam karta hai. Nafaaz ko Punjab Home Department aur Punjab Women Protection Authority marboot karti hain.",
+        "Likhne ke waqt tak, isi tarah ki makhsoos qanoon saazi Sindh, Khyber Pakhtunkhwa, ya Balochistan mein abhi naafiz nahi hui. Taahum, Punjab ka qanoon aik qaabil-e-amal namoona faraham karta hai, aur Supreme Court ke 2026 ke faisle ne mulk bhar mein tezaab ke sakht zaabte ka mutaaliba kiya hai.",
+        { h:"Qanooni Muaawanat Kahan se Haasil Karein" },
+        "Kisi qanooni imdaad ke idaare se raabta karna aap ko adaalat jaane ka paaband nahi banaata. Yeh mahaz aap ko maloomaat deta hai. Bahut se mutassireen aur khaandaanon ke liye woh pehli guftagu sab se qeemti qadam hoti hai, kyunke yeh aik uljhi hui soorat-e-haal ko waazeh ikhtiyaaraat waali cheez mein badal deti hai.",
+        "Woh idaare jo qanooni mashware, hawaala jaat, numaayindagi, ya wakaalat mein madad kar sakte hain, un mein shaamil hain:",
+        { list:[
+          "Legal Aid and Justice Authority (Wazaarat-e-Insaani Huqooq)",
+          "Acid Survivors Foundation Pakistan (ASF Pakistan)",
+          "AGHS Legal Aid Cell",
+          "Aurat Foundation",
+          "Soobaai Women Protection Authorities (khaas taur par Punjab Women Protection Authority)",
+          "Pakistan Bar Council aur zilaai bar associations ki qanooni imdaad committees",
+        ]},
+        "Dastyaabi, raabte ki tafseelaat, aur khidmaat waqt ke saath badalti rehti hain. Baraah-e-karam faisle karne se pehle maujooda maloomaat ki baraah-e-raast idaare se tasdeeq karein.",
+        { h:"Challenges Jin ka Mutassireen ko Ab Bhi Saamna Hai" },
+        "Agarche qanooni tahaffuzaat numaayaan taur par mazboot ho gaye hain, in challenges ke baare mein imaandaar hona zaroori hai jo baaqi hain.",
+        "Bahut se mutassireen ko ab bhi taweel tibbi ilaaj, maali mushkilaat, samaji badnaami, aur nizaam-e-insaaf mein taakheer ka saamna rehta hai. Khusoosi qanooni muaawanat tak rasaai muqaam ke lihaaz se mukhtalif ho sakti hai, aur dehi ilaqon mein rehne waale mutassireen ko tibbi dekh bhaal ya qanooni madad haasil karte waqt izaafi rukaawaton ka saamna ho sakta hai.",
+        "Aaj ka qanooni manzarnaama aik dahai pehle ke muqaable mein bahut zyada mazboot hai. Sazaayein sakht hain. Supreme Court ne alaaniya taur par us taa-umar nuqsaan ko tasleem kiya hai jo mutassireen uthaate hain. Punjab ne farokht ke muqaam par rok thaam ki jaanib pehla sanjeeda qadam uthaaya hai. Mulk bhar ke idaare qanooni, tibbi, aur samaji muaawanat par har roz kaam kar rahe hain. Nizaam kaamil nahi, lekin mutassireen is ke liye ghair mari nahi hain, aur unhein kabhi aisa mehsoos nahi karna chahiye.",
+        { h:"Aakhri Baat" },
+        "Tezaab hamle ke baad sehatyaabi shaaz-o-naadir hi tez hoti hai. Bahut se mutassireen apni sehat, apne aitmaad, apni taaleem, apni aamdani, aur apni zaat ke ehsaas ko dobaara banaane mein barson lagaate hain. Yeh jis bhi raftaar se ho, yeh aap ki apni hai.",
+        "Qanooni mashwara lena aik zaati faisla hai. Kuch mutassireen jald az jald istaghaasa chahte hain. Doosron ko adaalat ke baare mein sochne se pehle bhi waqt darkaar hota hai. Dono raaste durust hain. Aham baat yeh jaanna hai ke aap ke khilaaf kiya gaya tashaddud, Pakistani qanoon ki nazar mein, un sangeen tareen jaraaim mein se aik tasleem kiya jaata hai jo koi shakhs kar sakta hai — aur yeh ke aap tahaffuz, waqaar, aur insaaf tak rasaai ke haqdaar hain.",
+        "Aap akele nahi hain. Aur aap ke paas us se zyada raaste hain jitne aap ko bataaye gaye honge.",
+        { h:"Aksar Poochhe Jaane Waale Sawaalaat" },
+        "**Agar hamla aawar mera shauhar ya khaandaan ka fard tha to kya main qanooni kaarwai kar sakti hoon?** Ji haan. Qanoon is liye kam tahaffuz faraham nahi karta ke mujrim shareek-e-hayaat, saabiq shareek-e-hayaat, ya rishtedaar tha. Dafaa 336-B ke tehat jurm rishte se qata nazar aik hi hai.",
+        "**Agar mujhe maloom na ho ke hamla kis ne kiya?** Aap phir bhi ittila de sakti hain. Tafteesh gawaahon ke bayaanaat, forensic shawaahid, CCTV footage, mobile phone data, aur deegar tareeqon se mushtaba afraad ki shanaakht kar sakti hai.",
+        "**Agar police meri FIR darj karne se inkaar kare to?** Aap Zaabta Faujdaari ki dafaat 22-A aur 22-B ke tehat Magistrate se rujoo kar sakti hain aur police ko FIR darj karne ki hidaayat ka hukm maang sakti hain.",
+        "**Tezaab hamle ki ittila dene ke liye kya mujhe wakeel ki zaroorat hai?** Nahi. Lekin tafteesh shuru hone ke baad qanooni mashwara bahut madadgaar hota hai aur muqadme aur muaawze ki kaarwai ke dauraan aur bhi zyada.",
+        "**Kya mujhe muft qanooni imdaad mil sakti hai?** Mumkina taur par. Legal Aid and Justice Authority Act 2020 riyaasati muaawin qanooni imdaad ke liye aik dhaancha faraham karta hai. Kuch NGOs aur bar council committees bhi muft ya kam fees par numaayindagi faraham karti hain.",
+        "**Kya mutassireen ko muaawza mil sakta hai?** Adaalatein saza ke baad dafaa 544-A CrPC ke tehat muaawza de sakti hain, aur dafaa 336-B ke tehat das laakh rupay jurmaane ki adaaigi ki hidaayat kar sakti hain. Raqam case ke mutabiq mukhtalif hoti hai.",
+        "**Hamla aawar ko kya saza mil sakti hai?** Dafaa 336-B PPC ke tehat: umar qaid ya kam az kam 14 saal, aur kam az kam das laakh rupay jurmaana.",
+        "**Kya mera case khulli adaalat mein suna jaayega?** Haalaat ke mutabiq, in-camera kaarwai jaise raazdaari ke tahaffuzaat dastyaab ho sakte hain.",
+        "**Agar main ne hamla aawar ko maaf kar diya tha ya ibtida mein qanooni kaarwai na karne ka faisla kiya tha to?** Fauri baad ke bahut se faisle zabardast dabaao mein kiye jaate hain. Agar aap ke haalaat badal gaye hain, to wakeel se baat karna yeh samajhne ka behtareen tareeqa hai ke aap ke makhsoos case mein kya mumkin reh gaya hai.",
+        "**Mujhe bator saboot kya rakhne ki koshish karni chahiye?** Tibbi record, medico-legal reports, zakhmon ki tasaaweer, ilaaj ki raseedein, gawaahon ki tafseelaat, dhamki aamez paighaamaat, call record, aur hamle se mutalliq koi bhi dastaawezaat.",
+        "**Kya Punjab Acid Control Act 2025 Punjab se baahar naafiz hai?** Nahi. Yeh sirf Punjab mein laagu hota hai. Doosre soobe Criminal Law (Second Amendment) Act 2011 aur Pakistan Penal Code ke tehat umoomi dhaanche par inhesaar karte rehte hain.",
+        "Agar aap ya aap ka koi jaanne waala tezaab hamle ka mutassira hai aur madad ki zaroorat hai, to AcidHelp Pakistan bhar mein hospitalon, qanooni imdaad ke idaaron, khawaateen ke tahaffuz ke wasaail, aur nafsiyaati muaawanat ki khidmaat ki aik directory rakhta hai. Tasdeeq shuda raabton aur mazeed rehnumai ke liye acidhelp.com mulaahiza karein.",
+        { h:"Khulaasa" },
+        "Pakistani qanoon ke tehat, tezaab hamle intihaai sangeen faujdaari jaraaim hain. Criminal Law (Second Amendment) Act, 2011 ne makhsoos dafaat (dafaa 336-A aur 336-B, Pakistan Penal Code) qaaim keen jo umar qaid ya kam az kam 14 saal ki sazaaon aur das laakh rupay jurmaane ko laazim qaraar deti hain. Mutassireen ke paas huqooq hain jin mein ibtidaai taur par qanooni numaayindagi ki zaroorat ke baghair FIR darj karaane ka haq, muft qanooni muaawanat tak rasaai, muaawze ki ahliyat, aur raazdaari ke tahaffuzaat shaamil hain. Aham baat yeh ke yeh tahaffuzaat mujrim ki shanaakht se qata nazar yaksaan taur par laagu hote hain — chahe woh ajnabi ho ya khaandaan ka fard.",
+        "Tezaab hamle naaqaabil-e-raazi naama jaraaim mein shumaar hote hain, yani mutassireen ko niji samjhauton par majboor nahi kiya ja sakta. 2026 ke aik taareekhi Supreme Court faisle ne aise tashaddud ko “qatl se zyada sangeen” qaraar diya aur mutassireen ki bahaali ke liye funding, maazoori ke taur par tasleem, tez raftaar muqadmaat, aur tezaab ki farokht ke jaame zaabte ke qiyaam ki sifaarish ki.",
+        "Punjab ke 2025 ke Acid Control Act ne sooba makhsoos rok thaam ki qanoon saazi ka aaghaaz kiya jis mein farokht kuninda ki licensing, umar ki paabandiyaan, aur behtar labeling ke taqaaze shaamil hain. Ittila mein taakheer khudbakhud qanooni chaara joyi ko khatm nahi karti; shawaahid ka tahaffuz — tibbi record, tasaaweer, gawaahon ki tafseelaat, raabte — istaghaasa ko mazboot banaata hai. Acid Survivors Foundation Pakistan aur Legal Aid and Justice Authority jaise idaare mulk bhar mein mutassireen ki muaawanat faraham karte hain.",
+      ]},
+  },
+  6: {
+    ur: {
+      category:"ابتدائی طبی امداد",
+      title:"تیزاب حملے کی ابتدائی طبی امداد: پہلے 24 گھنٹوں میں کیا کریں",
+      excerpt:"تیزاب حملے کے بعد پہلے 24 گھنٹوں کے لیے مرحلہ وار ابتدائی طبی امداد کی رہنمائی — فوری طور پر پانی سے دھونا، تماشائی محفوظ طریقے سے کیسے مدد کریں، برنز یونٹ والے ہسپتال کا انتخاب، شواہد کا تحفظ، اور وہ گھریلو ٹوٹکے جن سے بچنا چاہیے۔",
+      body:[
+        "تیزاب حملے بیک وقت ایک طبی ہنگامی صورتحال اور ایک جرم ہیں۔ پہلے چند منٹوں میں جو ہوتا ہے وہ طے کر سکتا ہے کہ کتنا مستقل نقصان ہوگا۔ اس کے بعد کے گھنٹوں میں جو ہوتا ہے وہ طے کر سکتا ہے کہ ذمہ دار شخص کبھی جوابدہ ٹھہرایا جاتا ہے یا نہیں۔ ان اقدامات کو ایک بار جان لینا، اس سے پہلے کہ آپ کو کبھی ان کی ضرورت پڑے، اُس وقت انٹرنیٹ پر ڈھونڈے گئے کسی بھی ابتدائی طبی امداد کے کورس سے زیادہ اہم ہے۔",
+        { h:"پہلا ردعمل: فوراً پانی" },
+        "سب سے اہم بات جو جاننی چاہیے وہ یہ ہے: زخم پر فوراً پانی ڈالیں، اور اسے مسلسل بہنے دیں۔",
+        "نلکا، شاور، پائپ، بوتل — جو بھی قریب ترین ہو۔ اس کا انتظار نہ کریں کہ کوئی آپ کو بتائے کہ کیا کرنا ہے، اور “درست” حل ڈھونڈنے کا انتظار نہ کریں، کیونکہ سادہ پانی پہلے ہی درست حل ہے۔ اسے متاثرہ حصے پر ڈالیں اور ڈالتے رہیں۔",
+        "اگر آنکھیں متاثر ہوں تو یہ جِلد سے بھی زیادہ اہم ہو جاتا ہے۔ پلکوں کو نرمی سے کھلا رکھیں، چاہے یہ تکلیف دہ ہو، اور پانی کو آنکھ کے اندرونی کونے سے باہر کی طرف بہنے دیں تاکہ یہ تیزاب کو دوسری آنکھ میں نہ لے جائے۔ تیزاب جتنی دیر آنکھ پر رہے گا، نقصان اتنا ہی گہرا ہوگا، اس لیے آنکھوں کو زبردستی کھلا رکھنے کے وہ چند اضافی سیکنڈ قیمتی ہیں۔",
+        { h:"اگر آپ تماشائی ہیں: محفوظ طریقے سے کیا کریں" },
+        "اگر آپ کسی ایسے شخص کے قریب ہیں جس پر ابھی حملہ ہوا ہے، تو آپ کا پہلا کام مدد کرنا ہے بغیر خود دوسرے متاثرہ بنے۔ تیزاب اصل متاثرہ سے ہٹنے کے بعد بھی خطرناک رہتا ہے۔ یہ اب بھی زمین پر، ان کے کپڑوں پر، یا ہوا میں دھوئیں کی صورت میں ہو سکتا ہے، اور اگر آپ محتاط نہ ہوں تو آپ کو بھی جلا سکتا ہے۔",
+        "پہلے خود کو محفوظ رکھیں۔ اگر آپ کے پاس دستانے ہیں تو شخص یا اس کے کپڑوں کو چھونے سے پہلے انہیں پہنیں۔ اگر نہیں، تو خود تیزاب سے براہِ راست رابطے سے بچنے کی کوشش کریں، اور اگر آپ کو کوئی گیلی یا متاثرہ چیز چھونی ہو تو جو کچھ ہاتھ میں ہو — جیکٹ کی آستین، پلاسٹک بیگ، کپڑا — اسے رکاوٹ کے طور پر استعمال کریں۔ زمین پر جمع تیزاب کے اوپر براہِ راست نہ جھکیں، کیونکہ دھواں آپ کی آنکھوں اور سانس کی نالی کو بھی متاثر کر سکتا ہے۔",
+        "پہلے سب کو خطرے سے دور کریں، زخمی شخص کو اور خود کو زمین یا ہوا میں موجود کسی بھی تیزاب سے دور لے جائیں۔",
+        "فوراً مدد کے لیے پکاریں، اور کسی ایک شخص کو خاص طور پر نامزد کریں۔ اگر آس پاس دوسرے لوگ ہوں تو ایک شخص کی طرف اشارہ کریں اور اسے براہِ راست کہیں کہ ایمبولینس کو فون کرے۔ صرف یہ نہ چلائیں کہ کوئی مدد کرے، کیونکہ ہجوم میں ہر کوئی یہ سمجھتا ہے کہ کوئی اور کارروائی کرے گا، اور اکثر کوئی نہیں کرتا۔ ایک شخص کو نامزد کرنا اس سلسلے کو توڑ دیتا ہے۔",
+        "زخم پر فوراً پانی ڈالنا شروع کریں، جو بھی صاف پانی قریب ترین ہو اسے استعمال کرتے ہوئے، ایمبولینس کے آنے کا انتظار کیے بغیر۔",
+        "آلودہ کپڑے احتیاط سے اتارنے میں مدد کریں۔ انہیں سر کے اوپر سے کھینچنے کے بجائے کاٹ دیں، اور اگر ممکن ہو تو پہلے دستانے پہن لیں۔ اگر کپڑا جِلد سے چپکا ہوا ہو تو اسے مت نوچیں، کیونکہ یہ جِلد کو اپنے ساتھ اکھاڑ دے گا۔ اس کے بجائے اسے گیلا رکھیں اور باقی کام طبی عملے پر چھوڑ دیں۔",
+        "قریبی زیورات اتار دیں، کیونکہ انگوٹھیاں، بالیاں، اور گھڑیاں ابتدائی دھلائی کے بعد بھی تیزاب کو جِلد کے ساتھ پھنسا سکتی ہیں۔",
+        "اگر محفوظ ہو، تو یہ نوٹ کریں کہ تیزاب کیا تھا — کوئی ڈبہ، بوتل، یا بو — خود اسے چھوئے بغیر۔ یہ بعد میں ڈاکٹروں اور پولیس دونوں کی مدد کرتا ہے۔",
+        "ایسے لمحے میں جم جانا معمول کی بات ہے، اور یہ اہم ہے کہ گھبراہٹ کو اپنے جسم پر حاوی نہ ہونے دیں۔ متاثرین نے بتایا ہے کہ تماشائی جمے ہوئے اور غیر یقینی کھڑے رہے جبکہ آخرکار قدم اٹھا کر کارروائی کرنے والا خاندان کا ایک فرد تھا۔ اگر آپ خود کو جمتا ہوا محسوس کریں، تو اس سے نکلنے کا تیز ترین راستہ یہ ہے کہ اپنے سامنے موجود اگلا جسمانی کام کریں: اگر دستانے ہیں تو پہنیں، پانی بہائیں، مدد کے لیے کسی ایک مخصوص شخص کو پکاریں۔",
+        { h:"پہلا گھنٹہ: مناسب علاج تک پہنچنا" },
+        "جِلد پر کم از کم 20 منٹ اور آنکھوں پر کم از کم 15 سے 20 منٹ پانی بہاتے رہیں، اگر کیمیکل الکلائن ہو تو اور زیادہ دیر۔ صرف اس لیے نہ رکیں کہ شخص پرسکون لگ رہا ہے، کیونکہ سکون کا مطلب یہ نہیں کہ کیمیکل ختم ہو گیا ہے۔ درد کم ہونے کے بعد بھی یہ سطح کے نیچے کام کرتا رہ سکتا ہے۔",
+        "جب پانی سے دھلائی اپنا مکمل اثر دکھا لے، تو ہسپتال پہنچیں، اور اس بارے میں سوچ سمجھ کر فیصلہ کریں کہ کون سا۔ پاکستان کے نیشنل برن کیئر سینٹر کی تحقیق سے پتا چلا ہے کہ بڑے شہروں سے باہر بہت سے برن مریض قیمتی وقت گنوا دیتے ہیں کیونکہ انہیں پہلے کسی قریبی جنرل ہسپتال لے جایا جاتا ہے جو برنز کے لیے لیس نہیں ہوتا، اور وہ دوسرے ریفرل اور طویل سفر کے بعد ہی کسی مناسب برنز یونٹ تک پہنچتے ہیں۔ اگر آپ کے پاس کوئی اختیار ہو، تو سیدھا ایسے ہسپتال جائیں جس کے بارے میں معلوم ہو کہ اس میں برنز یونٹ ہے، چاہے اس کے لیے کسی قریبی ہسپتال سے آگے گزرنا پڑے، کیونکہ تاخیر سے مگر درست منتقلی اکثر فوراً کیے گئے ذرا لمبے سفر سے بدتر ہوتی ہے۔",
+        "اگر سانس لینے میں کوئی دشواری ہو یا گلا تنگ محسوس ہو، خاص طور پر چہرے یا گردن کے قریب جلنے کے بعد، تو دھلائی مکمل ہونے کا انتظار کیے بغیر سیدھا ایمرجنسی علاج کے لیے جائیں۔ یہ اس رہنمائی میں ان چند صورتوں میں سے ایک ہے جہاں آپ کو بالکل انتظار نہیں کرنا چاہیے۔",
+        { h:"پہلے 24 گھنٹے: خاندان کیا سنبھال سکتا ہے" },
+        "جب شخص ہسپتال پہنچ جائے، تو خاندان کا کوئی فرد یا دوست طبی عملے کی راہ میں آئے بغیر بہت کچھ کر سکتا ہے۔ علاج جاری رہنے کے دوران یہ سنبھالنے کا مطلب ہے کہ بعد میں کم چیزیں نظرانداز ہوں گی، جب ہر کوئی زیادہ تھکا ہوا اور کم واضح ذہن کا ہوگا۔",
+        "طبی پہلو پر، صرف عمومی ایمرجنسی علاج قبول کرنے کے بجائے کسی ماہر برنز یونٹ یا آنکھوں کے ماہر کے پاس ریفرل کے بارے میں پوچھیں، اور ٹیٹنس بوسٹر کے بارے میں پوچھیں، کیونکہ یہ معمول کی بات ہے مگر افراتفری میں بھولنا آسان ہے۔ اگلے دن کے دوران، زخم پر پھیلتی ہوئی سرخی، درد کے کم ہونے کے بجائے بڑھنے، پیپ، یا نئے سیاہ دھبوں پر نظر رکھیں، کیونکہ ان میں سے کسی کو بھی انتظار کرو اور دیکھو کے بجائے فوری طبی توجہ کی ضرورت ہوتی ہے۔",
+        "قانونی پہلو پر، پہلے ہسپتال کے دورے پر میڈیکو-لیگل سرٹیفکیٹ مانگیں، کیونکہ یہ زخم کو باقاعدہ دستاویز کرتا ہے اور اگر کیس بعد میں عدالت جائے تو بہت اہمیت رکھتا ہے۔ شخص کے کپڑے بغیر دھوئے رکھیں، اور انہیں الگ سے ایک تھیلے میں ڈالیں۔ زخم کی، اور اگر ایسا کرنا محفوظ ہو تو خود جائے وقوعہ کی، تصاویر لیں۔ حملے کی اطلاع پولیس کو جلد از جلد دیں۔ پاکستان میں، تیزاب حملے پینل کوڈ کی دفعہ 336-B کے تحت ایک فوجداری جرم ہیں، جس کی سزا عمر قید تک ہو سکتی ہے، اور تاخیر سے اطلاع دینا ان سب سے عام وجوہات میں سے ایک ہے جن کی بنا پر یہ کیس بعد میں چلانا مشکل ہو جاتے ہیں۔ اطلاع دینے کے لیے حالات کے پرسکون ہونے کا انتظار نہ کریں۔",
+        "جذباتی پہلو پر، ان پہلے گھنٹوں میں صدمہ، الجھن، اور گھبراہٹ معمول کی بات ہے — متاثرہ کے لیے بھی اور آپ کے لیے بھی۔ یہ سب کچھ جو ہوا اسے سمجھنے کا لمحہ نہیں ہے۔ یہ اس سے گزرنے کا لمحہ ہے، ایک وقت میں ایک عملی قدم۔ مشکل جذباتی کام کے لیے بعد میں وقت ہوگا، اور جب آپ تیار ہوں تو اس کے لیے مدد موجود ہے۔",
+        { h:"کن چیزوں سے بچیں" },
+        "کچھ رجحانات اس لمحے میں مددگار محسوس ہوتے ہیں مگر درحقیقت معاملات کو بدتر بنا دیتے ہیں۔ یہ ہے کہ کیا نہیں کرنا، اور کیوں۔",
+        "**ٹوتھ پیسٹ کی طرف ہاتھ نہ بڑھائیں۔** پاکستان کے نیشنل برن کیئر سینٹر کے مشاہدات سے پتا چلا ہے کہ ٹوتھ پیسٹ وہ سب سے عام گھریلو ٹوٹکا ہے جس کی طرف پاکستان میں لوگ جلنے کے بعد درحقیقت رجوع کرتے ہیں، کسی بھی دوسری گھریلو چیز سے زیادہ۔ یہ ایک قابلِ فہم رجحان ہے، کیونکہ یہ چھوتے ہی ٹھنڈک کا احساس دیتا ہے، لیکن یہ تیزاب ہٹانے میں کچھ نہیں کرتا اور اسے جِلد کے ساتھ پھنسا سکتا ہے جبکہ زخم کو ڈاکٹروں کے لیے بعد میں صاف کرنا اور جانچنا مشکل بنا دیتا ہے۔ اگر کوئی عادتاً اس کی طرف ہاتھ بڑھائے، تو نرمی سے اسے روکیں اور اس کے بجائے پانی بہائیں۔",
+        "**تیزاب کو کسی اور چیز سے بے اثر کرنے کی کوشش نہ کریں۔** تیزاب کے زخم پر کوئی بیس ڈالنا، یا الکلائن زخم پر تیزاب، سننے میں ایسا لگتا ہے کہ یہ نقصان کو ختم کر دے گا، مگر ایسا نہیں ہوتا۔ دونوں کے درمیان ردعمل حرارت خارج کرتا ہے، جو اصل زخم کے اوپر ایک نیا زخم بڑھا دیتا ہے۔ پانی ہی واحد چیز ہے جو زخم پر ہونی چاہیے۔",
+        "**اس پر کریم، دودھ، مکھن، یا کوئی اور گھریلو چیز بھی نہ لگائیں۔** یہ وہ رجحان ہے جو زیادہ تر لوگوں کو کسی بھی قسم کے جلنے پر ہوتا ہے، لیکن یہ کیمیکل کو دھونے کے بجائے جِلد کے ساتھ پھنسا دیتا ہے، اور حرارت خارج کرنے کے بجائے اسے اندر بند کر سکتا ہے۔",
+        "**یہ نہ سمجھیں کہ کم درد کا مطلب کم نقصان ہے۔** کچھ کیمیکلز، خاص طور پر الکلائن، پہلے پہل بے درد محسوس ہو سکتے ہیں جبکہ اندر سب سے گہرا نقصان کر رہے ہوتے ہیں۔ ہر تعرض کو سنجیدہ سمجھیں، چاہے شخص اس لمحے کچھ بھی محسوس ہونے کا کہے۔",
+        "**جو کپڑا جِلد سے چپکا ہو اسے مت اتاریں،** کیونکہ یہ جِلد کو اپنے ساتھ اکھاڑ دیتا ہے۔ اس کے بجائے اس کے گرد سے کاٹ دیں، اور طبی عملے کے سنبھالنے تک اسے گیلا رکھیں۔",
+        "**صرف اس لیے دھونا نہ روکیں کہ شخص پرسکون لگ رہا ہے،** کیونکہ سکون بے اثر ہونے کے برابر نہیں۔ پوری مدت تک جاری رکھیں، چاہے ایسا محسوس ہو کہ کسی پہلے سے تکلیف میں مبتلا شخص پر اتنی دیر پانی ڈالنا لمبا وقت ہے۔",
+        "**اگر ہو سکے تو تیزاب یا تیزاب میں بھیگے کپڑے کو ننگے ہاتھوں سے نہ چھوئیں۔** دستانے، کوئی رکاوٹ، یا جو کچھ آپ کے پاس ہو استعمال کریں، کیونکہ یہاں خود کو محفوظ رکھنا اختیاری نہیں۔ ایک زخمی مددگار کسی کی مدد نہیں کر سکتا۔",
+        "**قریب ترین ہسپتال پر یہ پوچھے بغیر اکتفا نہ کریں کہ آیا وہ واقعی برنز کا علاج کر سکتا ہے۔** درست ہسپتال کے انتخاب پر خرچ کیے گئے چند اضافی منٹ بعد میں دوسری منتقلی کی طویل تاخیر بچا سکتے ہیں۔",
+        "**شواہد اور اطلاع کو “بعد” کے لیے نہ چھوڑیں۔** صرف طبی علاج پر توجہ دینا اور پولیس سے بعد میں نمٹنا پُرکشش لگتا ہے، مگر کپڑے دھل جاتے ہیں، یادداشتیں دھندلا جاتی ہیں، اور تاخیر سے دی گئی اطلاعات کیس کو کمزور کرتی ہیں۔ خاندان کا کوئی فرد عموماً یہ کام متاثرہ کے زیرِ علاج رہنے کے دوران ساتھ ساتھ سنبھال سکتا ہے، تاکہ کسی چیز کو انتظار نہ کرنا پڑے۔",
+      ]},
+    ro: {
+      category:"First Aid",
+      title:"Tezaab Hamle ki Ibtidai Tibbi Imdaad: Pehle 24 Ghanton Mein Kya Karein",
+      excerpt:"Tezaab hamle ke baad pehle 24 ghanton ke liye marhala-waar ibtidai tibbi imdaad ki rehnumai — foran paani se dhona, tamashai mehfooz tareeqe se kaise madad karein, burns unit waale hospital ka intekhaab, shawaahid ka tahaffuz, aur woh gharelu totkay jin se bachna chahiye.",
+      body:[
+        "Tezaab hamle baik waqt aik tibbi hungaami soorat-e-haal aur aik jurm hain. Pehle chand minton mein jo hota hai woh tay kar sakta hai ke kitna mustaqil nuqsaan hoga. Is ke baad ke ghanton mein jo hota hai woh tay kar sakta hai ke zimmedaar shakhs kabhi jawaabdeh thehraaya jaata hai ya nahi. In iqdaamaat ko aik baar jaan lena, is se pehle ke aap ko kabhi in ki zaroorat pare, us waqt internet par dhoonde gaye kisi bhi ibtidai tibbi imdaad ke course se zyada aham hai.",
+        { h:"Pehla Radd-e-amal: Foran Paani" },
+        "Sab se aham baat jo jaanni chahiye woh yeh hai: zakhm par foran paani daalein, aur ise musalsal behne dein.",
+        "Nalka, shower, pipe, bottle — jo bhi qareeb tareen ho. Is ka intezaar na karein ke koi aap ko bataaye ke kya karna hai, aur “durust” hal dhoondne ka intezaar na karein, kyunke saada paani pehle hi durust hal hai. Ise mutassira hisse par daalein aur daalte rahein.",
+        "Agar aankhein mutassir hon to yeh jild se bhi zyada aham ho jaata hai. Palkon ko narmi se khula rakhein, chahe yeh takleef deh ho, aur paani ko aankh ke androoni kone se baahar ki taraf behne dein taake yeh tezaab ko doosri aankh mein na le jaaye. Tezaab jitni der aankh par rahega, nuqsaan utna hi gehra hoga, is liye aankhon ko zabardasti khula rakhne ke woh chand izaafi seconds qeemti hain.",
+        { h:"Agar Aap Tamashai Hain: Mehfooz Tareeqe se Kya Karein" },
+        "Agar aap kisi aise shakhs ke qareeb hain jis par abhi hamla hua hai, to aap ka pehla kaam madad karna hai baghair khud doosre mutassira bane. Tezaab asal mutassira se hatne ke baad bhi khatarnaak rehta hai. Yeh ab bhi zameen par, un ke kapron par, ya hawa mein dhuein ki soorat mein ho sakta hai, aur agar aap muhtaat na hon to aap ko bhi jala sakta hai.",
+        "Pehle khud ko mehfooz rakhein. Agar aap ke paas dastaane hain to shakhs ya us ke kapron ko chhoone se pehle unhein pehnein. Agar nahi, to khud tezaab se baraah-e-raast raabte se bachne ki koshish karein, aur agar aap ko koi geeli ya mutassira cheez chhoona ho to jo kuch haath mein ho — jacket ki aasteen, plastic bag, kapra — ise rukaawat ke taur par istemaal karein. Zameen par jama tezaab ke oopar baraah-e-raast na jhukein, kyunke dhuaan aap ki aankhon aur saans ki naali ko bhi mutassir kar sakta hai.",
+        "Pehle sab ko khatre se door karein, zakhmi shakhs ko aur khud ko zameen ya hawa mein maujood kisi bhi tezaab se door le jaayein.",
+        "Foran madad ke liye pukaarein, aur kisi aik shakhs ko khaas taur par naamzad karein. Agar aas paas doosre log hon to aik shakhs ki taraf ishaara karein aur use baraah-e-raast kahein ke ambulance ko phone kare. Sirf yeh na chillaayein ke koi madad kare, kyunke hujoom mein har koi yeh samajhta hai ke koi aur kaarwai karega, aur aksar koi nahi karta. Aik shakhs ko naamzad karna is silsile ko tor deta hai.",
+        "Zakhm par foran paani daalna shuru karein, jo bhi saaf paani qareeb tareen ho ise istemaal karte hue, ambulance ke aane ka intezaar kiye baghair.",
+        "Aaloodah kapre ehtiyaat se utaarne mein madad karein. Unhein sar ke oopar se kheenchne ke bajaaye kaat dein, aur agar mumkin ho to pehle dastaane pehn lein. Agar kapra jild se chipka hua ho to ise mat nochein, kyunke yeh jild ko apne saath ukhaar dega. Is ke bajaaye ise geela rakhein aur baaqi kaam tibbi amle par chhor dein.",
+        "Qareebi zewaraat utaar dein, kyunke angoothiyaan, baaliyaan, aur ghariyaan ibtidai dhulaai ke baad bhi tezaab ko jild ke saath phansa sakti hain.",
+        "Agar mehfooz ho, to yeh note karein ke tezaab kya tha — koi dabba, bottle, ya boo — khud ise chhue baghair. Yeh baad mein doctoron aur police dono ki madad karta hai.",
+        "Aise lamhe mein jam jaana maamool ki baat hai, aur yeh aham hai ke ghabraahat ko apne jism par haavi na hone dein. Mutassireen ne bataaya hai ke tamashai jame hue aur ghair yaqeeni khare rahe jabke aakhirkaar qadam utha kar kaarwai karne waala khaandaan ka aik fard tha. Agar aap khud ko jamta hua mehsoos karein, to is se nikalne ka tez tareen raasta yeh hai ke apne saamne maujood agla jismaani kaam karein: agar dastaane hain to pehnein, paani bahaayein, madad ke liye kisi aik makhsoos shakhs ko pukaarein.",
+        { h:"Pehla Ghanta: Munaasib Ilaaj Tak Pahunchna" },
+        "Jild par kam az kam 20 minute aur aankhon par kam az kam 15 se 20 minute paani bahaate rahein, agar chemical alkaline ho to aur zyada der. Sirf is liye na rukein ke shakhs pursukoon lag raha hai, kyunke sukoon ka matlab yeh nahi ke chemical khatm ho gaya hai. Dard kam hone ke baad bhi yeh satah ke neeche kaam karta reh sakta hai.",
+        "Jab paani se dhulaai apna mukammal asar dikha le, to hospital pahunchein, aur is baare mein soch samajh kar faisla karein ke kaun sa. Pakistan ke National Burn Care Centre ki tahqeeq se pata chala hai ke baray shehron se baahar bahut se burn mareez qeemti waqt gunwa dete hain kyunke unhein pehle kisi qareebi general hospital le jaaya jaata hai jo burns ke liye lais nahi hota, aur woh doosre referral aur taweel safar ke baad hi kisi munaasib burns unit tak pahunchte hain. Agar aap ke paas koi ikhtiyaar ho, to seedha aise hospital jaayein jis ke baare mein maloom ho ke is mein burns unit hai, chahe is ke liye kisi qareebi hospital se aage guzarna pare, kyunke taakheer se magar durust muntaqli aksar foran kiye gaye zara lambe safar se badtar hoti hai.",
+        "Agar saans lene mein koi dushwaari ho ya gala tang mehsoos ho, khaas taur par chehre ya gardan ke qareeb jalne ke baad, to dhulaai mukammal hone ka intezaar kiye baghair seedha emergency ilaaj ke liye jaayein. Yeh is rehnumai mein un chand sooraton mein se aik hai jahan aap ko bilkul intezaar nahi karna chahiye.",
+        { h:"Pehle 24 Ghante: Khaandaan Kya Sambhaal Sakta Hai" },
+        "Jab shakhs hospital pahunch jaaye, to khaandaan ka koi fard ya dost tibbi amle ki raah mein aaye baghair bahut kuch kar sakta hai. Ilaaj jaari rehne ke dauraan yeh sambhaalne ka matlab hai ke baad mein kam cheezein nazarandaaz hongi, jab har koi zyada thaka hua aur kam waazeh zehan ka hoga.",
+        "Tibbi pehlu par, sirf umoomi emergency ilaaj qabool karne ke bajaaye kisi maahir burns unit ya aankhon ke maahir ke paas referral ke baare mein poochhein, aur tetanus booster ke baare mein poochhein, kyunke yeh maamool ki baat hai magar afra-tafri mein bhoolna aasaan hai. Agle din ke dauraan, zakhm par phailti hui surkhi, dard ke kam hone ke bajaaye barhne, peep, ya naye siyaah dhabbon par nazar rakhein, kyunke in mein se kisi ko bhi intezaar karo aur dekho ke bajaaye fauri tibbi tawajjo ki zaroorat hoti hai.",
+        "Qanooni pehlu par, pehle hospital ke daure par medico-legal certificate maangein, kyunke yeh zakhm ko baaqaida dastaawez karta hai aur agar case baad mein adaalat jaaye to bahut ahmiyat rakhta hai. Shakhs ke kapre baghair dhoye rakhein, aur unhein alag se aik thaile mein daalein. Zakhm ki, aur agar aisa karna mehfooz ho to khud jaaye wuqooa ki, tasaaweer lein. Hamle ki ittila police ko jald az jald dein. Pakistan mein, tezaab hamle Penal Code ki dafaa 336-B ke tehat aik faujdaari jurm hain, jis ki saza umar qaid tak ho sakti hai, aur taakheer se ittila dena un sab se aam wujoohaat mein se aik hai jin ki bina par yeh case baad mein chalaana mushkil ho jaate hain. Ittila dene ke liye haalaat ke pursukoon hone ka intezaar na karein.",
+        "Jazbaati pehlu par, in pehle ghanton mein sadma, uljhan, aur ghabraahat maamool ki baat hai — mutassira ke liye bhi aur aap ke liye bhi. Yeh sab kuch jo hua ise samajhne ka lamha nahi hai. Yeh is se guzarne ka lamha hai, aik waqt mein aik amali qadam. Mushkil jazbaati kaam ke liye baad mein waqt hoga, aur jab aap tayyar hon to is ke liye madad maujood hai.",
+        { h:"Kin Cheezon se Bachein" },
+        "Kuch rujhaanat is lamhe mein madadgaar mehsoos hote hain magar darhaqeeqat maamlaat ko badtar bana dete hain. Yeh hai ke kya nahi karna, aur kyun.",
+        "**Toothpaste ki taraf haath na barhaayein.** Pakistan ke National Burn Care Centre ke mushaahidaat se pata chala hai ke toothpaste woh sab se aam gharelu totka hai jis ki taraf Pakistan mein log jalne ke baad darhaqeeqat rujoo karte hain, kisi bhi doosri gharelu cheez se zyada. Yeh aik qaabil-e-fehm rujhaan hai, kyunke yeh chhoote hi thandak ka ehsaas deta hai, lekin yeh tezaab hataane mein kuch nahi karta aur ise jild ke saath phansa sakta hai jabke zakhm ko doctoron ke liye baad mein saaf karna aur jaanchna mushkil bana deta hai. Agar koi aadatan is ki taraf haath barhaaye, to narmi se ise rokein aur is ke bajaaye paani bahaayein.",
+        "**Tezaab ko kisi aur cheez se be-asar karne ki koshish na karein.** Tezaab ke zakhm par koi base daalna, ya alkaline zakhm par tezaab, sunne mein aisa lagta hai ke yeh nuqsaan ko khatm kar dega, magar aisa nahi hota. Dono ke darmiyaan radd-e-amal haraarat khaarij karta hai, jo asal zakhm ke oopar aik naya zakhm barha deta hai. Paani hi waahid cheez hai jo zakhm par honi chahiye.",
+        "**Is par cream, doodh, makkhan, ya koi aur gharelu cheez bhi na lagaayein.** Yeh woh rujhaan hai jo zyada tar logon ko kisi bhi qism ke jalne par hota hai, lekin yeh chemical ko dhone ke bajaaye jild ke saath phansa deta hai, aur haraarat khaarij karne ke bajaaye ise andar band kar sakta hai.",
+        "**Yeh na samjhein ke kam dard ka matlab kam nuqsaan hai.** Kuch chemicals, khaas taur par alkaline, pehle pehal be-dard mehsoos ho sakte hain jabke andar sab se gehra nuqsaan kar rahe hote hain. Har taaruz ko sanjeeda samjhein, chahe shakhs us lamhe kuch bhi mehsoos hone ka kahe.",
+        "**Jo kapra jild se chipka ho use mat utaarein,** kyunke yeh jild ko apne saath ukhaar deta hai. Is ke bajaaye is ke gird se kaat dein, aur tibbi amle ke sambhaalne tak ise geela rakhein.",
+        "**Sirf is liye dhona na rokein ke shakhs pursukoon lag raha hai,** kyunke sukoon be-asar hone ke baraabar nahi. Poori muddat tak jaari rakhein, chahe aisa mehsoos ho ke kisi pehle se takleef mein mubtala shakhs par itni der paani daalna lamba waqt hai.",
+        "**Agar ho sake to tezaab ya tezaab mein bheege kapre ko nange haathon se na chhuein.** Dastaane, koi rukaawat, ya jo kuch aap ke paas ho istemaal karein, kyunke yahan khud ko mehfooz rakhna ikhtiyaari nahi. Aik zakhmi madadgaar kisi ki madad nahi kar sakta.",
+        "**Qareeb tareen hospital par yeh poochhe baghair iktifa na karein ke aaya woh waqai burns ka ilaaj kar sakta hai.** Durust hospital ke intekhaab par kharch kiye gaye chand izaafi minute baad mein doosri muntaqli ki taweel taakheer bacha sakte hain.",
+        "**Shawaahid aur ittila ko “baad” ke liye na chhorein.** Sirf tibbi ilaaj par tawajjo dena aur police se baad mein nimatna purkashish lagta hai, magar kapre dhul jaate hain, yaaddashtein dhundla jaati hain, aur taakheer se di gayi ittilaat case ko kamzor karti hain. Khaandaan ka koi fard umooman yeh kaam mutassira ke zer-e-ilaaj rehne ke dauraan saath saath sambhaal sakta hai, taake kisi cheez ko intezaar na karna pare.",
+      ]},
+  },
+};
+BLOG_POSTS.forEach(p=>{ if(BLOG_I18N[p.id]) p.i18n = BLOG_I18N[p.id]; });
+
+// Returns a shallow copy of a post with its title/excerpt/category/body swapped
+// for the selected language's translation, when one exists. English (or any
+// post without an i18n entry) is returned unchanged.
+function localizeBlog(post, lang){
+  if(!post || lang==="en" || !post.i18n || !post.i18n[lang]) return post;
+  const tr = post.i18n[lang];
+  return Object.assign({}, post, {
+    title: tr.title || post.title,
+    excerpt: tr.excerpt || post.excerpt,
+    category: tr.category || post.category,
+    body: tr.body || post.body,
+  });
+}
 
 // ── TRANSLATIONS ──────────────────────────────────────────────────────────────
 const T = {
@@ -786,7 +1315,7 @@ function heroAudioButtonsHTML(){
     <button onclick="toggleHeroMute()" class="hero-audio-pill hero-mute-btn${heroAudioMuted?' is-active':''}" aria-label="Mute voice-over" style="${circleBase};background:${heroAudioMuted?C.brand:"transparent"};border:1.5px solid ${heroAudioMuted?C.brand:C.borderLight}">${speakerSVG(heroAudioMuted)}</button>`;
 }
 function heroVideoControls(){
-  return `<div class="hero-vid-ctrls" style="display:flex;flex-direction:column;gap:9px;flex-shrink:0;align-items:center">${heroAudioButtonsHTML()}</div>`;
+  return `<div class="hero-vid-ctrls" style="display:flex;flex-direction:column;gap:9px;flex-shrink:0;align-items:center;align-self:flex-start">${heroAudioButtonsHTML()}</div>`;
 }
 function refreshHeroAudioButtons(){
   const wrap = document.querySelector(".hero-vid-ctrls");
@@ -896,7 +1425,7 @@ function firstResponseAlt(t){
   // The three cards use the canonical Rinse / Ring / Remove first-aid steps
   // (shared with the About page's ABOUT_CONTENT.rrr).
   return `<section class="reveal" data-reveal-id="steps-alt" style="background:${C.bg};padding:clamp(64px,10vw,112px) clamp(20px,4vw,48px)">
-    <div class="fr-alt-grid" style="max-width:1920px;margin:0 auto;column-gap:clamp(28px,4vw,64px);row-gap:16px">
+    <div class="fr-alt-grid landing-video-align" style="max-width:1920px;margin:0 auto;column-gap:clamp(28px,4vw,64px);row-gap:16px">
       <!-- Left: eyebrow, heading, subcopy, CTA -->
       <div class="fr-alt-heading">
         <div style="font-family:${BODY_FF};font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#DFA4F8;margin:0 0 12px">${t.stepsEyebrow}</div>
@@ -1074,7 +1603,7 @@ function mountMap(){
     if(!el || !window.L) return;
     if(loadingEl) loadingEl.style.display="none";
     const L = window.L;
-    const map = L.map(el,{ center:[30.4,69.4], zoom:5, zoomControl:false });
+    const map = L.map(el,{ center:[30.4,69.4], zoom:6, zoomControl:false });
     // Esri's basemap is its own compiled cartographic dataset (not a pass-through of
     // OSM's per-feature "name" tag), so it labels places in English by default
     // worldwide instead of the local script — unlike standard OSM tiles, which
@@ -1202,7 +1731,7 @@ function orgRow(org){
   return `<div class="res-org" style="display:flex;gap:14px;align-items:flex-start;padding:14px 12px;border-radius:12px">
     <div style="flex:1;min-width:0">
       <div class="res-org-name" style="font-family:${BODY_FF};font-size:15px;font-weight:500;color:${C.text};line-height:1.3">${esc(org.name)}</div>
-      ${org.desc?`<div style="font-family:${BODY_FF};font-size:12.5px;color:${C.sub};line-height:1.55;margin-top:4px">${esc(org.desc)}</div>`:""}
+      ${org.desc?`<div style="font-family:${BODY_FF};font-size:12.5px;color:${C.sub};line-height:1.55;margin-top:4px;max-width:calc(100% - 80px)">${esc(org.desc)}</div>`:""}
       <div style="display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:8px">
         ${org.area?link(pinSVG(12,C.sub),esc(org.area)):""}
         ${org.web?link(globeSVG(12,C.sub),esc(org.web),org.webUrl):""}
@@ -1225,32 +1754,42 @@ function resourcesPage(t){
       </div>
     </section>
 
-    <!-- Photo card grid — one per category, expands to its organisations -->
+    <!-- Photo card grid (2-up rows). Opening a category drops its resource list
+         directly beneath that card's row, left-aligned at 3/4 width. -->
     <section class="reveal" data-reveal-id="res-grid" style="padding:0 clamp(28px,5vw,80px) clamp(40px,5vw,60px)">
-      <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(460px,100%),1fr));gap:20px">
-        ${RESOURCE_CATEGORIES.map((cat,i)=>{
-          const isOpen = openCard===i;
-          const orgList = isOpen ? `<div class="res-dropdown" style="background:${C.card};border:1px solid ${ACCENT};border-radius:20px;padding:8px">
-              ${cat.orgs.map(orgRow).join("")}
+      <div style="max-width:1440px;margin:0 auto;display:flex;flex-direction:column;gap:20px">
+        ${(()=>{
+          const rows = [];
+          for(let r=0;r<RESOURCE_CATEGORIES.length;r+=2) rows.push([r,r+1].filter(x=>x<RESOURCE_CATEGORIES.length));
+          return rows.map(row=>{
+            const cards = row.map(i=>{
+              const cat = RESOURCE_CATEGORIES[i];
+              const isOpen = openCard===i;
+              return `<button id="rescat-${i}" onclick="toggleCard(${i})" aria-expanded="${isOpen}" class="res-card-wrap${isOpen?' is-open':''}" style="display:block;width:100%;padding:0;border:none;text-align:left;font:inherit;color:inherit;position:relative;height:clamp(220px,20vw,300px);border-radius:20px;overflow:hidden;background:#1c2337;view-transition-name:res-card-${i}">
+                  <div class="res-photo" style="background-image:url('${cat.photo}');background-position:center"></div>
+                  <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.15) 40%,rgba(0,0,0,0.85) 100%);pointer-events:none"></div>
+                  <div style="position:absolute;bottom:0;left:0;right:0;padding:24px 28px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;pointer-events:none">
+                    <div style="min-width:0">
+                      <h3 style="font-family:${BODY_FF};font-weight:400;font-size:clamp(22px,2vw,28px);letter-spacing:-0.3px;line-height:${rtlLH(t,1.15,1.6)};color:#fff;margin:0;text-shadow:0 2px 12px rgba(0,0,0,0.5)">${cat.title.toUpperCase()}</h3>
+                      <p style="font-family:${BODY_FF};font-size:14px;color:rgba(255,255,255,.9);margin:8px 0 0;text-shadow:0 1px 8px rgba(0,0,0,0.5)">${cat.sub}</p>
+                    </div>
+                    <svg class="res-arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.5));${isOpen?'transform:rotate(90deg)':''}"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                </button>`;
+            }).join("");
+            const openInRow = row.includes(openCard) ? openCard : null;
+            // Selected card grows to the resource-list width; its row-mate shrinks
+            // to fill the rest. The list opens flush under the selected card, so a
+            // right-hand selection right-aligns both the row split and the list.
+            const openLeft = openInRow!=null && openInRow===row[0];
+            const rowOpenCls = (openInRow!=null && row.length===2) ? (openLeft ? " res-row-open-left" : " res-row-open-right") : "";
+            const dropCls = (openInRow!=null && !openLeft && row.length===2) ? " res-dropdown-right" : "";
+            const dropdown = openInRow!=null ? `<div class="res-dropdown res-dropdown-3q${dropCls}" style="background:${C.surface};border:1px solid ${ACCENT};border-radius:20px;padding:8px">
+              ${RESOURCE_CATEGORIES[openInRow].orgs.map(orgRow).join("")}
             </div>` : "";
-          return `<div>
-            <button onclick="toggleCard(${i})" aria-expanded="${isOpen}" class="res-card-wrap${isOpen?' is-open':''}" style="display:block;width:100%;padding:0;border:none;text-align:left;font:inherit;color:inherit;position:relative;height:clamp(220px,20vw,300px);border-radius:20px;overflow:hidden;background:#1c2337">
-              <!-- Real photo -->
-              <div class="res-photo" style="background-image:url('${cat.photo}');background-position:center"></div>
-              <!-- Bottom scrim for legibility -->
-              <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.15) 40%,rgba(0,0,0,0.85) 100%);pointer-events:none"></div>
-              <!-- Content -->
-              <div style="position:absolute;bottom:0;left:0;right:0;padding:24px 28px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;pointer-events:none">
-                <div style="min-width:0">
-                  <h3 style="font-family:${BODY_FF};font-weight:400;font-size:clamp(22px,2vw,28px);letter-spacing:-0.3px;line-height:${rtlLH(t,1.15,1.6)};color:#fff;margin:0;text-shadow:0 2px 12px rgba(0,0,0,0.5)">${cat.title.toUpperCase()}</h3>
-                  <p style="font-family:${BODY_FF};font-size:14px;color:rgba(255,255,255,.9);margin:8px 0 0;text-shadow:0 1px 8px rgba(0,0,0,0.5)">${cat.sub}</p>
-                </div>
-                <svg class="res-arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.5));${isOpen?'transform:rotate(90deg)':''}"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </button>
-            ${orgList}
-          </div>`;
-        }).join("")}
+            return `<div class="res-row${rowOpenCls}">${cards}</div>${dropdown}`;
+          }).join("");
+        })()}
       </div>
     </section>
     </div>
@@ -1261,7 +1800,7 @@ function resourcesPage(t){
 // FAQs — shown on the landing page, after "What to do"
 function faqSection(t){
   return `<section class="reveal" data-reveal-id="faq" style="padding:clamp(52px,8vw,96px) clamp(20px,4vw,48px) clamp(64px,8vw,96px)">
-    <div style="max-width:1920px;margin:0 auto">
+    <div class="landing-video-align" style="max-width:1920px;margin:0 auto">
       <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(42px,3.2vw,56px);letter-spacing:-1px;line-height:1.1;margin:0 0 28px;color:${C.text}">${t.faqTitle}</h2>
       <div style="display:flex;flex-direction:column;border-top:1px solid ${C.border}">
         ${t.faqs.map((item,i)=>{
@@ -1296,8 +1835,8 @@ function readNowVisual(t){
 function blogPage(t){
   // Legal-rights post pinned as featured; Reconstruction and Employment posts
   // temporarily hidden from the grid (still in BLOG_POSTS, just filtered out).
-  const featured = BLOG_POSTS.find(p=>p.id===4);
-  const rest = BLOG_POSTS.filter(p=>p.id!==4);
+  const featured = localizeBlog(BLOG_POSTS.find(p=>p.id===4), state.lang);
+  const rest = BLOG_POSTS.filter(p=>p.id!==4 && p.id!==3).map(p=>localizeBlog(p, state.lang));
   return `<div>
     <div style="background:${C.bg}">
     <!-- Hero -->
@@ -1328,11 +1867,11 @@ function blogPage(t){
     <section class="reveal" data-reveal-id="blog-grid" style="padding:0 clamp(28px,5vw,80px) clamp(40px,5vw,60px)">
       <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:20px">
         ${rest.map(post=>post.hidden ? `
-          <div class="blog-coming-soon" style="min-height:360px;background:${C.card};opacity:0.4;border:1px solid ${C.border};border-radius:20px;display:flex;align-items:center;justify-content:center">
+          <div class="blog-coming-soon" style="min-height:360px;background:${C.surface};opacity:0.4;border:1px solid rgba(246,226,254,0.3);border-radius:20px;display:flex;align-items:center;justify-content:center">
             <span style="font-family:${BODY_FF};font-size:12px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:#DFA4F8">Coming Soon</span>
           </div>
         ` : `
-          <button class="blog-card" onclick="openBlogPost(${post.id})" style="display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;width:100%;text-align:left;background:${C.card};border:1px solid ${C.border};border-radius:20px;overflow:hidden;padding:0;font:inherit;color:inherit;cursor:pointer">
+          <button class="blog-card" onclick="openBlogPost(${post.id})" style="display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;width:100%;text-align:left;background:${C.surface};border:1px solid rgba(246,226,254,0.3);border-radius:20px;overflow:hidden;padding:0;font:inherit;color:inherit;cursor:pointer">
             <div style="height:200px;overflow:hidden;flex-shrink:0">
               <img class="blog-photo" src="${post.image}" alt="${esc(post.title)}" style="width:100%;height:100%;object-fit:cover;display:block">
             </div>
@@ -1387,7 +1926,7 @@ function blogBodyItem(item){
   return "";
 }
 function blogPostPage(t){
-  const post = BLOG_POSTS.find(p=>p.id===state.activeBlogId) || BLOG_POSTS[0];
+  const post = localizeBlog(BLOG_POSTS.find(p=>p.id===state.activeBlogId) || BLOG_POSTS[0], state.lang);
   return `<div>
     <div style="position:relative;height:clamp(280px,40vw,480px);overflow:hidden;background:${C.bg}">
       <img src="${post.image}" alt="${esc(post.title)}" style="width:100%;height:100%;object-fit:cover;display:block">
@@ -1552,7 +2091,7 @@ function aboutPage(t){
 function joinUsPage(t){
   return `<div>
     <!-- Hero + form, side by side so the form is visible without scrolling -->
-    <section class="reveal join-hero-grid" data-reveal-id="join-hero" style="background:${C.bg};padding:clamp(28px,4vw,56px) clamp(28px,5vw,80px)">
+    <section class="reveal join-hero-grid" data-reveal-id="join-hero" style="background:${C.bg};padding:clamp(28px,4vw,56px) clamp(28px,5vw,80px) 80px">
       <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(360px,100%),1fr));gap:clamp(32px,5vw,72px);align-items:stretch">
         <!-- Left: intro + placeholder image + stats -->
         <div>
@@ -1640,7 +2179,6 @@ function joinUsForm(t){
         <label for="join-notes" style="${labelStyle}">${t.notesLabel}</label>
         <textarea id="join-notes" rows="3" oninput="updateJoinForm('notes', this.value)" style="${inputStyle};resize:vertical;min-height:76px;line-height:1.5">${esc(data.notes)}</textarea>
       </div>
-      <div style="text-align:left;font-family:${BODY_FF};font-size:12.5px;color:${C.sub};margin-top:-8px">Your information will remain completely confidential</div>
       <button onclick="submitJoinForm()" class="cta-btn" style="align-self:flex-start;background:#DFA4F8;color:${C.bg};border:none;padding:13px 36px;border-radius:28px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px">${submitLabel}</button>
       <div style="flex:1"></div>
     </div>`;
@@ -1914,7 +2452,7 @@ function render(){
         <span class="brand-wordmark" style="font-family:${HEAD_FF};font-weight:900;font-size:24px;letter-spacing:-1px;line-height:1"><span style="color:${C.brand}">Acid</span><span style="color:#fff">help</span></span>
       </a>
       <nav class="nav-scroll" style="min-width:0">
-        ${[1,2,3,4,5].map(i=>{  /* Figma order: Nearby · Recovery · Blog · About · Join Us — Emergency is the landing page (logo) */
+        ${[1,2,3,4].map(i=>{  /* Figma order: Nearby · Recovery · Blog · About — Join Us moved beside the 1122 CTA; Emergency is the landing page (logo) */
           const label = t.navItems[i];
           const active = state.page===t.pages[i] || (t.pages[i]==="blog" && state.page==="blogPost");
           return `<a href="${PAGE_URLS[t.pages[i]]}" onclick="return setPage('${t.pages[i]}')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:${BODY_FF};font-weight:${active?600:400};font-size:16px;letter-spacing:-0.5px;color:${active?"#fff":"rgba(240,243,250,.72)"};border-bottom:2px solid ${active?C.brand:"transparent"};white-space:nowrap;text-decoration:none">${label}</a>`;
@@ -1928,6 +2466,7 @@ function render(){
             return `<button onclick="setLang('${l}')" class="lang-btn" style="background:${active?C.card:"transparent"};color:${active?"#fff":C.sub};border:1px solid ${active?C.borderLight:"transparent"};border-radius:16px;padding:3px 9px;font-size:${l==="ur"?12:10.5}px;font-weight:${active?700:500};cursor:pointer;font-family:${ff}">${T[l].name}</button>`;
           }).join("")}
         </div>
+        <a href="${PAGE_URLS[t.pages[5]]}" onclick="return setPage('${t.pages[5]}')" class="cta-btn join-nav-btn" style="background:none;border:1.5px solid #DFA4F8;color:#DFA4F8;border-radius:32px;padding:6px 16px;font-family:${BODY_FF};font-weight:400;font-size:14px;letter-spacing:-0.3px;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center">${t.navItems[5]}</a>
         <a href="tel:1122" class="cta-btn call-pill" style="background:${C.brand};border-radius:32px;padding:6px 12px;display:inline-flex;align-items:center;gap:4px">
           ${phoneSVG(17,"#fff")}
           <span style="color:#fff;font-family:${BODY_FF};font-weight:700;font-size:17px;letter-spacing:-0.5px">1122</span>
@@ -1980,7 +2519,37 @@ function setPage(p){
   window.scrollTo(0,0);
   return false;
 }
-function toggleCard(i){ openCard = (openCard===i) ? null : i; render(); }
+// Recovery page: opening/closing a category re-renders the grid. When the
+// browser supports the View Transitions API (and motion isn't reduced), we run
+// that re-render inside a transition so each card — tagged with a stable
+// view-transition-name — smoothly morphs its width/position (the selected one
+// grows, its neighbour narrows) instead of snapping. Otherwise, plain render().
+// On open, the selected category is scrolled to just under the sticky header so
+// its resource list opens directly beneath it (instead of the viewport being
+// left mid-list wherever it happened to be before the re-render).
+function toggleCard(i){
+  const opening = openCard!==i;
+  openCard = (openCard===i) ? null : i;
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const scroll = ()=>{ if(opening) scrollResourceCatToTop(i, reduce); };
+  if(document.startViewTransition && !reduce){
+    const vt = document.startViewTransition(()=>render());
+    vt.finished.then(scroll).catch(scroll);
+  } else {
+    render();
+    requestAnimationFrame(scroll);
+  }
+}
+// Bring category card `i` to the top of the viewport, just below the sticky
+// header, so its (now open) resource list is visible from the start.
+function scrollResourceCatToTop(i, reduce){
+  const el = document.getElementById("rescat-"+i);
+  if(!el) return;
+  const header = document.getElementById("site-header");
+  const offset = (header ? header.offsetHeight : 0) + 14;
+  const y = el.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top: Math.max(0, y), behavior: reduce ? "auto" : "smooth" });
+}
 // Toggles the .is-open class directly on the existing DOM nodes instead of calling
 // render() — a full innerHTML replace would destroy and recreate the icon/answer
 // elements, so the CSS transitions (icon rotation, answer reveal) would have nothing

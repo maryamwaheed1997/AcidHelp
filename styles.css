@@ -40,7 +40,7 @@
      these rules re-assert Lexend on the nav tabs and heading/display elements,
      so !important is needed to win over their inline font-family. The Nastaliq
      fallback is kept so Urdu headings still render correctly. */
-  .nav-tab-btn,
+  .nav-tab-btn, .join-nav-btn,
   h1, h2, h3,
   .stat-counter, .fr-alt-card-head, .bf-label,
   .hero-sub, .hero-cta-text{
@@ -94,19 +94,49 @@
   /* Resource dropdown org rows */
   .res-org{transition:background-color .2s ease}
   .res-org + .res-org{border-top:1px solid var(--border)}
-  .res-org:hover{background:var(--surface);border-top-color:transparent}
+  /* The dropdown background is now #1A1A1C, so the hovered row lifts to a
+     lighter tint (an equal --surface hover would be invisible against it). */
+  .res-org:hover{background:rgba(255,255,255,0.06);border-top-color:transparent}
   .res-org:hover + .res-org{border-top-color:transparent}
-  .res-call{transition:transform .2s ease, filter .2s ease}
-  .res-call:hover{transform:translateY(-1px) scale(1.03);filter:brightness(1.06)}
+  /* Number pill starts as Accent 1 (#F6E2FE) and shifts to Secondary on hover.
+     The base colour is set inline (higher specificity), so the hover swap needs
+     !important to win — otherwise the pill just stayed its near-white base. */
+  .res-call{transition:transform .2s ease, background-color .2s ease}
+  .res-call:hover{transform:translateY(-1px) scale(1.03);background:#DFA4F8!important}
 
   @keyframes dropdownOpen{
-    0%   {opacity:0;max-height:0;   transform:translateY(-8px);margin-top:0}
+    0%   {opacity:0;transform:translateY(-8px);margin-top:0}
     35%  {opacity:.4}
-    100% {opacity:1;max-height:1600px;transform:translateY(0);margin-top:10px}
+    100% {opacity:1;transform:translateY(0);margin-top:10px}
   }
   .res-dropdown{
-    overflow:hidden;
     animation:dropdownOpen .55s cubic-bezier(.22,1,.36,1) both;
+  }
+  /* Resource card rows: two equal cards by default. When one is open it grows
+     to the resource-list width [calc(75% - 100px)] and its row-mate takes the
+     rest; the list opens flush beneath the selected card (right-aligned when the
+     right card is selected). A definite width keeps the list flush to its side
+     inside the stretch flex column. Full width on mobile (single column). */
+  .res-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(460px,100%),1fr));gap:20px}
+  .res-dropdown-3q{width:calc(75% - 180px)}
+  .res-dropdown-3q.res-dropdown-right{align-self:flex-end}
+  @media (min-width:761px){
+    .res-row-open-left{grid-template-columns:calc(75% - 180px) 1fr!important}
+    .res-row-open-right{grid-template-columns:1fr calc(75% - 180px)!important}
+  }
+  @media (max-width:760px){
+    .res-row{grid-template-columns:1fr}
+    .res-dropdown-3q{width:100%}
+  }
+  /* Gentle easing for the card width/position morph (and the surrounding
+     crossfade) when a category is opened/closed via the View Transitions API. */
+  ::view-transition-group(res-card-0),
+  ::view-transition-group(res-card-1),
+  ::view-transition-group(res-card-2),
+  ::view-transition-group(res-card-3),
+  ::view-transition-group(root){
+    animation-duration:.45s;
+    animation-timing-function:cubic-bezier(.22,1,.36,1);
   }
 
   #map-overlays{position:absolute;inset:0;pointer-events:none}
@@ -138,6 +168,19 @@
 
   .nav-tab-btn{transition:color .2s ease, transform .2s ease, border-color .2s ease}
   .nav-tab-btn:hover{color:#fff!important;transform:translateY(-1px)}
+  /* "Join Us" sits beside the 1122 CTA and stays in the secondary colour,
+     including on hover (it must not turn white like the other nav tabs). */
+  .join-nav-btn{color:#DFA4F8!important}
+  .join-nav-btn:hover{color:#E7C4FB!important}
+
+  /* Landing-page "Immediate Action" + FAQ share the hero's 1920px container and
+     page padding, but the hero VIDEO is inset on its right by the audio-controls
+     column (40px) plus the gap. On desktop, inset these sections' right edge by
+     the same amount so their content lines up with the video's width. On mobile
+     the controls are an overlay and the video is full-width, so no inset. */
+  @media (min-width:761px){
+    .landing-video-align{padding-inline-end:calc(40px + clamp(10px,1.2vw,16px))}
+  }
 
   .lang-btn{transition:transform .2s ease, border-color .2s ease, background-color .2s ease}
   .lang-btn:hover{transform:translateY(-1px);border-color:var(--borderLight)!important}
@@ -166,7 +209,7 @@
 
   /* ── Blog card + post interactions ───────────────────────────────────── */
   .blog-card{transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s ease, border-color .25s ease}
-  .blog-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.35);border-color:var(--borderLight)}
+  .blog-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.35);border-color:rgba(246,226,254,0.55)}
   .blog-photo{transition:transform .6s cubic-bezier(.22,1,.36,1)}
   .blog-card:hover .blog-photo{transform:scale(1.06)}
 
@@ -427,6 +470,9 @@
      bottom URL bar / home-indicator area ────────────────────────────── */
   @media (max-width:760px){
     .near-me-btn{bottom:calc(env(safe-area-inset-bottom,0px) + 30px)!important}
+    /* Results panel takes only the top half of the map so the pins (and the
+       selected hospital) stay visible below it. Its body already scrolls. */
+    .map-panel{bottom:auto!important;height:48vh!important}
   }
 
   /* ── Responsive: on mobile the org info stacks on its own full-width row
