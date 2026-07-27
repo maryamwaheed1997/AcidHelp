@@ -118,8 +118,10 @@
      right card is selected). A definite width keeps the list flush to its side
      inside the stretch flex column. Full width on mobile (single column). */
   .res-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(460px,100%),1fr));gap:20px}
-  .res-dropdown-3q{width:calc(75% - 180px)}
-  .res-dropdown-3q.res-dropdown-right{align-self:flex-end}
+  /* The list is a grid child spanning the full row, then sized and aligned to
+     match the selected card [calc(75% - 180px), left or right]. */
+  .res-dropdown-3q{grid-column:1/-1;width:calc(75% - 180px);justify-self:start}
+  .res-dropdown-3q.res-dropdown-right{justify-self:end}
   @media (min-width:761px){
     .res-row-open-left{grid-template-columns:calc(75% - 180px) 1fr!important}
     .res-row-open-right{grid-template-columns:1fr calc(75% - 180px)!important}
@@ -127,6 +129,9 @@
   @media (max-width:760px){
     .res-row{grid-template-columns:1fr}
     .res-dropdown-3q{width:100%}
+    /* Single column: when the top card of a row is open, move its list directly
+       beneath it (above the row's second card) instead of below both cards. */
+    .res-row-open-left > *:nth-child(2){order:1}
   }
   /* Gentle easing for the card width/position morph (and the surrounding
      crossfade) when a category is opened/closed via the View Transitions API. */
@@ -172,6 +177,16 @@
      including on hover (it must not turn white like the other nav tabs). */
   .join-nav-btn{color:#DFA4F8!important}
   .join-nav-btn:hover{color:#E7C4FB!important}
+  /* Join Us sits beside the 1122 CTA on desktop, but drops into the nav row
+     (as a capsule) on mobile so the header is two bars, not three. */
+  .join-nav-mobile{display:none}
+  @media (max-width:640px){
+    .join-nav-desktop{display:none!important}
+    .join-nav-mobile{display:inline-flex!important}
+    /* Join Us form: centre the audience tabs + submit button on mobile. */
+    .join-tabs{justify-content:center}
+    .join-submit{align-self:center!important}
+  }
 
   /* Landing-page "Immediate Action" + FAQ share the hero's 1920px container and
      page padding, but the hero VIDEO is inset on its right by the audio-controls

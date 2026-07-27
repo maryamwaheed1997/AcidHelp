@@ -1787,7 +1787,7 @@ function resourcesPage(t){
             const dropdown = openInRow!=null ? `<div class="res-dropdown res-dropdown-3q${dropCls}" style="background:${C.surface};border:1px solid ${ACCENT};border-radius:20px;padding:8px">
               ${RESOURCE_CATEGORIES[openInRow].orgs.map(orgRow).join("")}
             </div>` : "";
-            return `<div class="res-row${rowOpenCls}">${cards}</div>${dropdown}`;
+            return `<div class="res-row${rowOpenCls}">${cards}${dropdown}</div>`;
           }).join("");
         })()}
       </div>
@@ -2179,7 +2179,7 @@ function joinUsForm(t){
         <label for="join-notes" style="${labelStyle}">${t.notesLabel}</label>
         <textarea id="join-notes" rows="3" oninput="updateJoinForm('notes', this.value)" style="${inputStyle};resize:vertical;min-height:76px;line-height:1.5">${esc(data.notes)}</textarea>
       </div>
-      <button onclick="submitJoinForm()" class="cta-btn" style="align-self:flex-start;background:#DFA4F8;color:${C.bg};border:none;padding:13px 36px;border-radius:28px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px">${submitLabel}</button>
+      <button onclick="submitJoinForm()" class="cta-btn join-submit" style="align-self:flex-start;background:#DFA4F8;color:${C.bg};border:none;padding:13px 36px;border-radius:28px;font-size:15px;font-weight:600;font-family:${BODY_FF};cursor:pointer;letter-spacing:-0.3px">${submitLabel}</button>
       <div style="flex:1"></div>
     </div>`;
 }
@@ -2457,6 +2457,7 @@ function render(){
           const active = state.page===t.pages[i] || (t.pages[i]==="blog" && state.page==="blogPost");
           return `<a href="${PAGE_URLS[t.pages[i]]}" onclick="return setPage('${t.pages[i]}')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:${BODY_FF};font-weight:${active?600:400};font-size:16px;letter-spacing:-0.5px;color:${active?"#fff":"rgba(240,243,250,.72)"};border-bottom:2px solid ${active?C.brand:"transparent"};white-space:nowrap;text-decoration:none">${label}</a>`;
         }).join("")}
+        <a href="${PAGE_URLS[t.pages[5]]}" onclick="return setPage('${t.pages[5]}')" class="cta-btn join-nav-btn join-nav-mobile" style="background:none;border:1.5px solid #DFA4F8;color:#DFA4F8;border-radius:32px;padding:4px 14px;font-weight:400;font-size:16px;letter-spacing:-0.5px;white-space:nowrap;text-decoration:none;align-items:center">${t.navItems[5]}</a>
       </nav>
       <div class="header-controls" style="justify-self:end;display:flex;align-items:center;gap:10px;min-width:0">
         <div class="lang-group" style="display:flex;gap:4px">
@@ -2466,7 +2467,7 @@ function render(){
             return `<button onclick="setLang('${l}')" class="lang-btn" style="background:${active?C.card:"transparent"};color:${active?"#fff":C.sub};border:1px solid ${active?C.borderLight:"transparent"};border-radius:16px;padding:3px 9px;font-size:${l==="ur"?12:10.5}px;font-weight:${active?700:500};cursor:pointer;font-family:${ff}">${T[l].name}</button>`;
           }).join("")}
         </div>
-        <a href="${PAGE_URLS[t.pages[5]]}" onclick="return setPage('${t.pages[5]}')" class="cta-btn join-nav-btn" style="background:none;border:1.5px solid #DFA4F8;color:#DFA4F8;border-radius:32px;padding:6px 16px;font-family:${BODY_FF};font-weight:400;font-size:14px;letter-spacing:-0.3px;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center">${t.navItems[5]}</a>
+        <a href="${PAGE_URLS[t.pages[5]]}" onclick="return setPage('${t.pages[5]}')" class="cta-btn join-nav-btn join-nav-desktop" style="background:none;border:1.5px solid #DFA4F8;color:#DFA4F8;border-radius:32px;padding:6px 16px;font-family:${BODY_FF};font-weight:400;font-size:14px;letter-spacing:-0.3px;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center">${t.navItems[5]}</a>
         <a href="tel:1122" class="cta-btn call-pill" style="background:${C.brand};border-radius:32px;padding:6px 12px;display:inline-flex;align-items:center;gap:4px">
           ${phoneSVG(17,"#fff")}
           <span style="color:#fff;font-family:${BODY_FF};font-weight:700;font-size:17px;letter-spacing:-0.5px">1122</span>
