@@ -6,7 +6,13 @@
     "start": "npx live-server",
     "live": "npx live-server",
     "build": "echo 'no build step needed'",
-    "og": "node scripts/og-tags.mjs"
+    "og": "node scripts/og-tags.mjs",
+    "gen:pages": "node scripts/gen-pages.mjs",
+    "prerender": "node scripts/prerender.mjs",
+    "faq": "node scripts/faq-jsonld.mjs"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
 }

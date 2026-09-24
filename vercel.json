@@ -5,7 +5,16 @@
     { "source": "/resources", "destination": "/resources.html" },
     { "source": "/blog", "destination": "/blog.html" },
     { "source": "/about", "destination": "/about.html" },
-    { "source": "/joinus", "destination": "/joinus.html" }
+    { "source": "/joinus", "destination": "/joinus.html" },
+    { "source": "/blog/:slug", "destination": "/blog/:slug.html" },
+
+    { "source": "/ur", "destination": "/ur/index.html" },
+    { "source": "/ur/blog/:slug", "destination": "/ur/blog/:slug.html" },
+    { "source": "/ur/:page", "destination": "/ur/:page.html" },
+
+    { "source": "/ro", "destination": "/ro/index.html" },
+    { "source": "/ro/blog/:slug", "destination": "/ro/blog/:slug.html" },
+    { "source": "/ro/:page", "destination": "/ro/:page.html" }
   ],
   "headers": [
     {
@@ -30,6 +39,15 @@
     { "source": "/resources.html", "destination": "/resources", "permanent": true },
     { "source": "/blog.html", "destination": "/blog", "permanent": true },
     { "source": "/about.html", "destination": "/about", "permanent": true },
-    { "source": "/joinus.html", "destination": "/joinus", "permanent": true }
+    { "source": "/joinus.html", "destination": "/joinus", "permanent": true },
+    { "source": "/blog/:slug.html", "destination": "/blog/:slug", "permanent": true },
+
+    { "source": "/ur/index.html", "destination": "/ur", "permanent": true },
+    { "source": "/ur/blog/:slug.html", "destination": "/ur/blog/:slug", "permanent": true },
+    { "source": "/ur/:page.html", "destination": "/ur/:page", "permanent": true },
+
+    { "source": "/ro/index.html", "destination": "/ro", "permanent": true },
+    { "source": "/ro/blog/:slug.html", "destination": "/ro/blog/:slug", "permanent": true },
+    { "source": "/ro/:page.html", "destination": "/ro/:page", "permanent": true }
   ]
 }

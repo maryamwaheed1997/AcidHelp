@@ -174,7 +174,7 @@ const STATS_EN = [
 
 // ── BLOG DATA (placeholder editorial content; English only) ───────────────────
 const BLOG_POSTS = [
-  { id:5, category:"Policy", color:C.teal, dim:C.tealDim,
+  { id:5, slug:"acid-attack-problem-culture-or-cheap-acid", category:"Policy", color:C.teal, dim:C.tealDim,
     title:"The Acid Attack Problem - Culture or Cheap Acid?",
     excerpt:"Why do acid attacks cluster in Pakistan's cotton belt? A comparative look at what worked in Bangladesh, Cambodia, Colombia, and India — and what it means for Pakistan's new laws in Islamabad and Punjab.",
     author:"Izza Waheed", date:"Jul 23, 2026", image:IMG.blogCulture,
@@ -226,7 +226,7 @@ const BLOG_POSTS = [
       "Bangladesh proves that acid violence can be pushed down hard when acid control, fast trials, and public awareness all move together. Cambodia and India both prove that a law by itself, without real enforcement and real funding, only gets a country halfway there. Colombia proves that one survivor's voice, backed by public pressure, can break years of inaction.",
       "Pakistan now has real momentum, with strong new laws in Islamabad and Punjab, and a genuine drop in reported cases. The next job is making sure that progress doesn't stay locked inside one city and one province, and making sure the laws already passed are actually funded, checked, and enforced — not just left sitting on paper.",
     ]},
-  { id:6, category:"First Aid", color:C.green, dim:C.greenDim,
+  { id:6, slug:"acid-attack-first-aid-first-24-hours", category:"First Aid", color:C.green, dim:C.greenDim,
     title:"Acid Attack First Aid: What to Do in the First 24 Hours",
     excerpt:"A step-by-step first-aid guide for the first 24 hours after an acid attack — immediate water irrigation, how bystanders can help safely, choosing a hospital with a burns unit, preserving evidence, and the common home remedies to avoid.",
     author:"Acidhelp Team", date:"Jul 24, 2026", image:IMG.blogFirstAid,
@@ -285,7 +285,7 @@ const BLOG_POSTS = [
       "Skills training programmes run by ASF Pakistan and Depilex Smileagain Foundation focus specifically on survivors, offering both vocational training and direct job placement support.",
       "This piece covers how to apply, what documentation is typically needed, and how to talk to employers about visible scarring."
     ]},
-  { id:4, category:"Legal", color:"#FF911C", dim:"rgba(255,145,28,0.14)",
+  { id:4, slug:"legal-rights-after-an-acid-attack-in-pakistan", category:"Legal", color:"#FF911C", dim:"rgba(255,145,28,0.14)",
     title:"Understanding Your Legal Rights After an Acid Attack in Pakistan",
     excerpt:"A plain-language guide to survivors' legal rights and protections in Pakistan — criminal penalties, the 2026 Supreme Court ruling, Punjab's new Acid Control Act, compensation, evidence preservation, and where to find help.",
     author:"Acidhelp Team", date:"Jun 30, 2026", image:IMG.blog4,
@@ -1160,15 +1160,48 @@ const PAGE_URLS = {
   blog:"/blog", about:"/about", joinus:"/joinus",
 };
 
+// Every language has its own URL space: English at the root, Urdu under /ur/,
+// Roman Urdu under /ro/. Generated pages seed window.INITIAL_LANG, and a
+// language in the URL always wins over the stored preference — otherwise a
+// visitor (or Googlebot) opening /ur/about would get whatever language happened
+// to be in localStorage, and each language URL would serve inconsistent content.
+const LANG_PREFIX = { en:"", ur:"/ur", ro:"/ro" };
+function langUrl(lang, page){
+  const base = PAGE_URLS[page] || "/";
+  const pre = LANG_PREFIX[lang] || "";
+  return pre ? (base === "/" ? pre + "/" : pre + base) : base;
+}
+// URL of a single post. Posts without a slug are unpublished (see BLOG_POSTS)
+// and fall back to the blog index rather than producing a dead link.
+function postUrl(lang, post){
+  if(!post || !post.slug) return langUrl(lang, "blog");
+  return `${LANG_PREFIX[lang] || ""}/blog/${post.slug}`;
+}
+
 const state = {
   // Cross-page nav is now a real reload, so the language choice has to
   // survive that reload itself — persisted here instead of just in memory.
   // Validate the stored value against the languages that still exist — a
   // visitor who chose a since-removed language (e.g. Pashto) falls back to
   // English instead of crashing on a missing T[] entry.
-  lang:(()=>{ try{ const l = localStorage.getItem("acidhelp_lang"); return ["en","ur","ro"].includes(l) ? l : "en"; }catch(e){ return "en"; } })(),
-  page: window.INITIAL_PAGE || "emergency",
-  activeBlogId:null,
+  // window.INITIAL_LANG (set by the generated /ur/ and /ro/ pages) takes
+  // precedence: the URL is the authority on which language this page is.
+  lang:(()=>{
+    if(["en","ur","ro"].includes(window.INITIAL_LANG)) return window.INITIAL_LANG;
+    try{ const l = localStorage.getItem("acidhelp_lang"); return ["en","ur","ro"].includes(l) ? l : "en"; }catch(e){ return "en"; }
+  })(),
+  // A post page sets INITIAL_PAGE="blog" *and* INITIAL_POST="<slug>"; the slug
+  // is what promotes it from the blog index to the post view.
+  page: (window.INITIAL_POST && BLOG_POSTS.some(p=>p.slug === window.INITIAL_POST))
+          ? "blogPost" : (window.INITIAL_PAGE || "emergency"),
+  // Post pages seed window.INITIAL_POST with a slug so app.js opens that post
+  // directly instead of the blog index.
+  activeBlogId:(()=>{
+    const s = window.INITIAL_POST;
+    if(!s) return null;
+    const p = BLOG_POSTS.find(x=>x.slug === s);
+    return p ? p.id : null;
+  })(),
   joinTab:"survivor",
   survivorForm:{name:"",email:"",notes:"",help:""}, survivorSubmitted:false,
   volunteerForm:{name:"",email:"",notes:"",role:""}, volunteerSubmitted:false,
@@ -1580,7 +1613,7 @@ function footerStrip(t){
         </div>
         <!-- Right: nav links stacked -->
         <nav class="footer-nav" style="display:flex;flex-direction:column;gap:14px;text-align:${isRTL?"left":"right"}">
-          ${[1,2,3,4,5].map(i=>`<a href="${PAGE_URLS[t.pages[i]]}" onclick="return setPage('${t.pages[i]}')" class="footer-link" style="font-family:${BODY_FF};font-weight:500;font-size:14px;color:#fff;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;text-shadow:0 1px 8px rgba(0,0,0,0.5)">${t.navItems[i]}</a>`).join("")}
+          ${[1,2,3,4,5].map(i=>`<a href="${langUrl(state.lang, t.pages[i])}" onclick="return setPage('${t.pages[i]}')" class="footer-link" style="font-family:${BODY_FF};font-weight:500;font-size:14px;color:#fff;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;text-shadow:0 1px 8px rgba(0,0,0,0.5)">${t.navItems[i]}</a>`).join("")}
         </nav>
       </div>
 
@@ -1952,10 +1985,12 @@ function readNowVisual(t){
 }
 
 function blogPage(t){
-  // Legal-rights post pinned as featured; Reconstruction and Employment posts
-  // temporarily hidden from the grid (still in BLOG_POSTS, just filtered out).
+  // Legal-rights post pinned as featured.
   const featured = localizeBlog(BLOG_POSTS.find(p=>p.id===4), state.lang);
-  const rest = BLOG_POSTS.filter(p=>p.id!==4 && p.id!==3).map(p=>localizeBlog(p, state.lang));
+  // Only posts with a slug are published. Posts 2 and 3 are ~60-word stubs with
+  // no translations; they have no slug, so they get no card, no URL and no
+  // sitemap entry rather than being indexed as thin content.
+  const rest = BLOG_POSTS.filter(p=>p.slug && p.id!==featured.id).map(p=>localizeBlog(p, state.lang));
   return `<div>
     <div style="background:${C.bg}">
     <!-- Hero -->
@@ -1968,7 +2003,7 @@ function blogPage(t){
 
     <!-- Featured post -->
     <section class="reveal" data-reveal-id="blog-featured" style="padding:0 clamp(28px,5vw,80px) clamp(28px,4vw,44px)">
-      <button onclick="openBlogPost(${featured.id})" aria-label="${esc(t.readNowLabel)}: ${esc(featured.title)}" class="blog-featured-btn" style="display:grid;width:100%;max-width:1440px;margin:0 auto;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:36px;align-items:end;background:none;border:none;padding:0;text-align:left;font:inherit;color:inherit;cursor:pointer">
+      <a href="${postUrl(state.lang, featured)}" aria-label="${esc(t.readNowLabel)}: ${esc(featured.title)}" class="blog-featured-btn" style="display:grid;width:100%;max-width:1440px;margin:0 auto;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:36px;align-items:end;background:none;border:none;padding:0;text-align:left;font:inherit;color:inherit;cursor:pointer">
         <div class="blog-card blog-featured-photo" style="border-radius:20px;overflow:hidden;height:clamp(240px,32vw,420px);background:${C.card}">
           <img class="blog-photo" src="${featured.image}" alt="${esc(featured.title)}" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
@@ -1979,7 +2014,7 @@ function blogPage(t){
           <p class="bf-excerpt" style="font-family:${BODY_FF};font-size:15px;color:rgba(255,255,255,.65);line-height:1.7;margin:0 0 26px">${featured.excerpt}</p>
           ${readNowVisual(t)}
         </div>
-      </button>
+      </a>
     </section>
 
     <!-- Post grid -->
@@ -1990,7 +2025,7 @@ function blogPage(t){
             <span style="font-family:${BODY_FF};font-size:12px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:#DFA4F8">Coming Soon</span>
           </div>
         ` : `
-          <button class="blog-card" onclick="openBlogPost(${post.id})" style="display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;width:100%;text-align:left;background:${C.surface};border:1px solid rgba(223,164,248,0.3);border-radius:20px;overflow:hidden;padding:0;font:inherit;color:inherit;cursor:pointer">
+          <a class="blog-card" href="${postUrl(state.lang, post)}" style="display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;width:100%;text-align:left;background:${C.surface};border:1px solid rgba(223,164,248,0.3);border-radius:20px;overflow:hidden;padding:0;font:inherit;color:inherit;cursor:pointer">
             <div style="height:200px;overflow:hidden;flex-shrink:0">
               <img class="blog-photo" src="${post.image}" alt="${esc(post.title)}" style="width:100%;height:100%;object-fit:cover;display:block">
             </div>
@@ -2005,7 +2040,7 @@ function blogPage(t){
                 </span>
               </div>
             </div>
-          </button>`).join("")}
+          </a>`).join("")}
       </div>
     </section>
     </div>
@@ -2052,10 +2087,10 @@ function blogPostPage(t){
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0.8) 100%)"></div>
       <div style="position:absolute;inset:0;display:flex;align-items:flex-end">
         <div style="max-width:900px;margin:0 auto;width:100%;padding:0 clamp(28px,5vw,80px) clamp(28px,4vw,44px)">
-          <button onclick="setPage('blog')" class="back-link" style="background:none;border:none;color:rgba(255,255,255,.85);font-family:${BODY_FF};font-size:13px;font-weight:600;cursor:pointer;padding:0;margin-bottom:14px;display:flex;align-items:center;gap:6px">
+          <a href="${langUrl(state.lang, "blog")}" class="back-link" style="background:none;border:none;color:rgba(255,255,255,.85);font-family:${BODY_FF};font-size:13px;font-weight:600;cursor:pointer;padding:0;margin-bottom:14px;display:flex;align-items:center;gap:6px;text-decoration:none">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             ${t.backToBlogLabel}
-          </button>
+          </a>
           <div style="display:inline-block;background:${post.dim};color:${post.color};font-family:${BODY_FF};font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:12px">${post.category}</div>
           <h1 style="font-family:${BODY_FF};font-weight:500;font-size:clamp(36px,3.4vw,52px);letter-spacing:-1px;line-height:1.06;color:#fff;margin:0 0 12px;text-shadow:0 2px 16px rgba(0,0,0,.4)">${post.title}</h1>
           <div style="font-family:${BODY_FF};font-size:13px;color:rgba(255,255,255,.75)">${t.byLabel} <span style="color:#fff;font-weight:600">${post.author}</span> &nbsp;|&nbsp; ${post.date}</div>
@@ -2731,26 +2766,32 @@ function render(){
   // HEADER — logo · nav tabs (Figma) · language · 1122 pill
   const header = `<header id="site-header" style="position:sticky;top:0;z-index:1200;background:${C.bg};border-bottom:1px solid ${C.border}">
     <div class="site-header-inner" style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:18px;padding:11px 16px 12px">
-      <a href="/" onclick="return setPage('emergency')" class="logo-btn" aria-label="Acidhelp — home" style="justify-self:start;background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;gap:9px;min-width:0;text-decoration:none">
+      <a href="${langUrl(state.lang, 'emergency')}" onclick="return setPage('emergency')" class="logo-btn" aria-label="Acidhelp — home" style="justify-self:start;background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;gap:9px;min-width:0;text-decoration:none">
         ${logoMark(32)}
       </a>
       <nav class="nav-scroll" style="min-width:0">
         ${[1,2,3,4].map(i=>{  /* Figma order: Nearby · Recovery · Blog · About — Join Us moved beside the 1122 CTA; Emergency is the landing page (logo) */
           const label = t.navItems[i];
           const active = state.page===t.pages[i] || (t.pages[i]==="blog" && state.page==="blogPost");
-          return `<a href="${PAGE_URLS[t.pages[i]]}" onclick="return setPage('${t.pages[i]}')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:${BODY_FF};font-weight:${active?600:400};font-size:16px;letter-spacing:-0.5px;color:${active?"#fff":"rgba(240,243,250,.72)"};border-bottom:2px solid ${active?C.brand:"transparent"};white-space:nowrap;text-decoration:none">${label}</a>`;
+          return `<a href="${langUrl(state.lang, t.pages[i])}" onclick="return setPage('${t.pages[i]}')" class="nav-tab-btn" style="background:none;border:none;cursor:pointer;padding:6px 2px;font-family:${BODY_FF};font-weight:${active?600:400};font-size:16px;letter-spacing:-0.5px;color:${active?"#fff":"rgba(240,243,250,.72)"};border-bottom:2px solid ${active?C.brand:"transparent"};white-space:nowrap;text-decoration:none">${label}</a>`;
         }).join("")}
-        <a href="${PAGE_URLS[t.pages[5]]}" onclick="return setPage('${t.pages[5]}')" class="cta-btn join-nav-btn join-nav-mobile" style="background:none;border:1.5px solid #DFA4F8;color:#DFA4F8;border-radius:32px;padding:4px 14px;font-weight:400;font-size:16px;letter-spacing:-0.5px;white-space:nowrap;text-decoration:none;align-items:center">${t.navItems[5]}</a>
+        <a href="${langUrl(state.lang, t.pages[5])}" onclick="return setPage('${t.pages[5]}')" class="cta-btn join-nav-btn join-nav-mobile" style="background:none;border:1.5px solid #DFA4F8;color:#DFA4F8;border-radius:32px;padding:4px 14px;font-weight:400;font-size:16px;letter-spacing:-0.5px;white-space:nowrap;text-decoration:none;align-items:center">${t.navItems[5]}</a>
       </nav>
       <div class="header-controls" style="justify-self:end;display:flex;align-items:center;gap:10px;min-width:0">
         <div class="lang-group" style="display:flex;gap:4px">
           ${["en","ur","ro"].map(l=>{
             const active = state.lang===l;
             const ff = l==="ur" ? "'Noto Nastaliq Urdu',sans-serif" : BODY_FF;
-            return `<button onclick="setLang('${l}')" class="lang-btn" style="background:${active?C.card:"transparent"};color:${active?"#fff":C.sub};border:1px solid ${active?C.borderLight:"transparent"};border-radius:16px;padding:3px 9px;font-size:${l==="ur"?12:10.5}px;font-weight:${active?700:500};cursor:pointer;font-family:${ff}">${T[l].name}</button>`;
+            // A real href to the same page in the other language. onclick only
+            // records the preference; the browser then follows the link, so the
+            // URL is always the source of truth for the language being shown.
+            const href = state.page === "blogPost"
+              ? postUrl(l, BLOG_POSTS.find(p=>p.id===state.activeBlogId))
+              : langUrl(l, state.page);
+            return `<a href="${href}" onclick="rememberLang('${l}')" class="lang-btn" style="display:inline-flex;align-items:center;text-decoration:none;background:${active?C.card:"transparent"};color:${active?"#fff":C.sub};border:1px solid ${active?C.borderLight:"transparent"};border-radius:16px;padding:3px 9px;font-size:${l==="ur"?12:10.5}px;font-weight:${active?700:500};cursor:pointer;font-family:${ff}">${T[l].name}</a>`;
           }).join("")}
         </div>
-        <a href="${PAGE_URLS[t.pages[5]]}" onclick="return setPage('${t.pages[5]}')" class="cta-btn join-nav-btn join-nav-desktop" style="background:none;border:1.5px solid #DFA4F8;color:#DFA4F8;border-radius:32px;padding:6px 16px;font-family:${BODY_FF};font-weight:400;font-size:14px;letter-spacing:-0.3px;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center">${t.navItems[5]}</a>
+        <a href="${langUrl(state.lang, t.pages[5])}" onclick="return setPage('${t.pages[5]}')" class="cta-btn join-nav-btn join-nav-desktop" style="background:none;border:1.5px solid #DFA4F8;color:#DFA4F8;border-radius:32px;padding:6px 16px;font-family:${BODY_FF};font-weight:400;font-size:14px;letter-spacing:-0.3px;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center">${t.navItems[5]}</a>
         <a href="tel:1122" class="cta-btn call-pill" style="background:${BRAND_GRAD};border-radius:32px;padding:6px 12px;display:inline-flex;align-items:center;gap:4px">
           ${phoneSVG(17,"#fff")}
           <span style="color:#fff;font-family:${BODY_FF};font-weight:700;font-size:17px;letter-spacing:-0.5px">1122</span>
@@ -2800,6 +2841,13 @@ function ensureUrduFont(){
   document.head.appendChild(l);
 }
 
+// Records the language choice without rendering — used by the language links,
+// which then navigate to that language's URL. Kept separate from setLang() so
+// the in-page path still works anywhere it is called directly.
+function rememberLang(l){
+  try{ localStorage.setItem("acidhelp_lang", l); }catch(e){}
+  return true;  // let the <a> navigate
+}
 function setLang(l){
   state.lang = l;
   if(l === "ur") ensureUrduFont();
@@ -2811,9 +2859,15 @@ function setLang(l){
 // proceed; returning false swallows the click for an in-file transition
 // (re-clicking the active tab, or "Back to Blog" leaving a post) so it
 // resets state and scrolls up instead of reloading the same document.
+const normPath = u => (String(u).replace(/\/+$/, "") || "/");
 function setPage(p){
-  if(p !== window.INITIAL_PAGE){
-    return true; // different file — let the real <a href> navigate there
+  // Compare destination URL against where we actually are, rather than against
+  // INITIAL_PAGE. A post page has INITIAL_PAGE="blog", so the old check treated
+  // "Blog" as the same page and swallowed the click, leaving the URL stuck on
+  // /blog/<slug>. Comparing paths also keeps in-language nav working under
+  // /ur/ and /ro/.
+  if(normPath(langUrl(state.lang, p)) !== normPath(location.pathname)){
+    return true; // different document — let the real <a href> navigate there
   }
   if(p!=="resources") openCard = null;
   state.page = p;
