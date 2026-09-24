@@ -32,14 +32,18 @@ const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(
 
 function headTags({ lang, path, title, description, ogImage, ogType, alternates, xDefault, extraJsonLd }) {
   const url = SITE + path;
-  const alts = alternates
-    .map(a => `  <link rel="alternate" hreflang="${HREFLANG[a.lang]}" href="${SITE}${a.path}">`)
-    .join("\n");
+  // Roman Urdu has no hreflang tag of its own (see HREFLANG in lib/pages.mjs),
+  // so a /ro/ page must declare no alternates at all — not even x-default.
+  // hreflang has to be reciprocal: if /ro/about claimed en-PK and ur-PK while
+  // /about and /ur/about never pointed back at it, Google would discard the
+  // whole annotation set. /ro/ pages stand alone on a self-canonical instead.
+  const inCluster = Boolean(HREFLANG[lang]);
+  const alts = !inCluster ? "" :
+    alternates.map(a => `  <link rel="alternate" hreflang="${HREFLANG[a.lang]}" href="${SITE}${a.path}">`).join("\n")
+    + `\n  <link rel="alternate" hreflang="x-default" href="${SITE}${xDefault}">`;
   return `  <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">
-  <link rel="canonical" href="${url}">
-${alts}
-  <link rel="alternate" hreflang="x-default" href="${SITE}${xDefault}">
+  <link rel="canonical" href="${url}">${alts ? "\n" + alts : ""}
 
   <meta property="og:type" content="${ogType}">
   <meta property="og:site_name" content="AcidHelp">
@@ -127,6 +131,25 @@ for (const p of PAGES) {
       initial: `  <script>window.INITIAL_PAGE = ${JSON.stringify(p.key)}; window.INITIAL_LANG = ${JSON.stringify(lang)};</script>`,
     }).replace('<script src="./app.js">', `<script src="${relPrefix(path)}app.js">`));
   }
+}
+
+// ── hreflang on the hand-written English pages ──────────────────────────────
+// These six files are authored by hand, not generated, so nothing above touches
+// them — which left them with no alternates while the /ur/ pages pointed at
+// them. hreflang only works when both sides agree, so patch the English side in
+// place. Idempotent: any existing alternate block is replaced, not appended to.
+for (const p of PAGES) {
+  const file = p.file;
+  let html = readFileSync(file, "utf8");
+  const alts = LANGS.filter(l => HREFLANG[l])
+    .map(l => `  <link rel="alternate" hreflang="${HREFLANG[l]}" href="${SITE}${langPath(l, p.path)}">`)
+    .join("\n") + `\n  <link rel="alternate" hreflang="x-default" href="${SITE}${p.path}">`;
+
+  html = html.replace(/\n {2}<link rel="alternate"[^>]*>/g, "");
+  const canonical = html.match(/ {2}<link rel="canonical"[^>]*>/);
+  if (!canonical) { console.log(`  !! ${file}: no canonical to anchor hreflang to`); continue; }
+  const next = html.replace(canonical[0], `${canonical[0]}\n${alts}`);
+  writeFile(file, next);
 }
 
 // ── one page per post per translated language ───────────────────────────────
