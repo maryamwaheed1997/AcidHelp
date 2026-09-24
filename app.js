@@ -54,7 +54,7 @@ const IMG = {
   aboutUs:       "./images/aboutus.webp",
   blog2:         "./images/blog-2.png",
   blog3:         "./images/blog-3.png",
-  blog4:         "./images/blog-understandinglegalrights.png",
+  blog4:         "./images/blog-understandinglegalrights.webp",
   blogCulture:   "./images/blog-culture-or-cheap-acid.webp",
   blogFirstAid:  "./images/blogacidattackfirstaid.webp",
   icBurns:       "./images/Icons/burnsunit.png",
@@ -2783,8 +2783,26 @@ function render(){
 }
 
 // ── HANDLERS ──────────────────────────────────────────────────────────────────
+// The full Noto Nastaliq Urdu family is ~529KB across six files — too much to
+// put in front of every English visitor. The HTML links only a ~22KB subset
+// covering the glyphs in "اردو" and "پنجابی" (the language and voice-over pills,
+// which are visible in every language); the complete family is fetched the
+// first time Urdu is actually selected, and on boot for a returning visitor
+// whose saved language is Urdu. Idempotent — the id guard means repeated
+// language switches never add a second <link>.
+const NASTALIQ_FULL_HREF = "https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap";
+function ensureUrduFont(){
+  if(document.getElementById("ah-nastaliq")) return;
+  const l = document.createElement("link");
+  l.id = "ah-nastaliq";
+  l.rel = "stylesheet";
+  l.href = NASTALIQ_FULL_HREF;
+  document.head.appendChild(l);
+}
+
 function setLang(l){
   state.lang = l;
+  if(l === "ur") ensureUrduFont();
   try{ localStorage.setItem("acidhelp_lang", l); }catch(e){}
   render();
 }
@@ -2992,4 +3010,5 @@ function nearMe(){
 }
 
 // Boot
+if(state.lang === "ur") ensureUrduFont();  // returning Urdu visitor: fetch the full family up front
 hydrate();
