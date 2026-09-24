@@ -1218,7 +1218,7 @@ const hospBadge = (emoji,diameter,col,ring)=>{
   const img = HOSP_IMG[emoji] || IMG.icHospital;
   // `ring` adds an outer stroke (used to flag the closest hospital).
   const shadow = ring ? `0 0 0 3px ${ring},0 3px 14px rgba(0,0,0,0.4)` : `0 3px 14px rgba(0,0,0,0.4)`;
-  return `<div style="width:${diameter}px;height:${diameter}px;background:#fff;border-radius:50%;border:3px solid ${col};box-shadow:${shadow};display:flex;align-items:center;justify-content:center;cursor:pointer;padding:${Math.round(diameter*0.16)}px"><img src="${img}" alt="" style="width:100%;height:100%;object-fit:contain;display:block"></div>`;
+  return `<div style="width:${diameter}px;height:${diameter}px;background:#fff;border-radius:50%;border:3px solid ${col};box-shadow:${shadow};display:flex;align-items:center;justify-content:center;cursor:pointer;padding:${Math.round(diameter*0.16)}px"><img src="${img}" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:contain;display:block"></div>`;
 };
 const pinSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.6A2.6 2.6 0 1112 6.4a2.6 2.6 0 010 5.2z" fill="${fill}"/></svg>`;
 const navSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M21 3L3 10.6l7.1 2.9 2.9 7.1L21 3z" fill="${fill}"/></svg>`;
@@ -1367,7 +1367,11 @@ function heroPortrait(t){
 // to the right of the hero video. These pick which audio track plays under the
 // (visually muted) hero video — they do NOT change the site's UI language;
 // that's still the header's own EN/UR/ROM pills, wired to setLang().
-let heroAudioLang = "en";
+// Urdu is the default voice-over: most visitors landing here in an emergency
+// read Urdu first, and the hero's on-screen copy is already English. Changing
+// this means changing index.html's shell to match — the landing page serves its
+// hero from there, and hydrate() never re-renders it (see heroPortrait()).
+let heroAudioLang = "ur";
 let heroAudioMuted = false;
 function heroAudioButtonsHTML(){
   const circleBase = "width:40px;height:40px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center";
@@ -1404,27 +1408,40 @@ function setHeroAudio(lang){
 function toggleHeroMute(){
   heroAudioMuted = !heroAudioMuted;
   const a = document.getElementById("hero-audio");
-  if(a) a.muted = heroAudioMuted;
+  if(a){
+    a.muted = heroAudioMuted;
+    // Pressing unmute is itself a user gesture, so if autoplay was blocked on
+    // load this is the moment the voice-over can finally start. Unconditional
+    // because `paused` can't be trusted here — see initHeroAudio below.
+    if(!heroAudioMuted) a.play().catch(()=>{});
+  }
   refreshHeroAudioButtons();
 }
-// Browsers routinely block autoplay-with-sound on first load; try immediately,
-// then once more on the visitor's first interaction with the page (a click
-// almost always satisfies the browser's "user gesture" requirement).
+// Browsers block autoplay-with-sound until the visitor has interacted with the
+// page, so the voice-over usually starts on their first tap rather than on
+// load. (Chrome relaxes this for sites a visitor returns to often, where it
+// really does start immediately.)
+//
+// Deliberately no "is it already playing?" guard: while Chrome is blocking
+// autoplay it still reports `paused === false`, with currentTime frozen at 0,
+// so that test passes for a track that is silent — an earlier version of this
+// used it to unbind the retry and consequently never recovered. play() on an
+// element that IS playing is a no-op, so simply re-attempting costs nothing.
 let heroAudioGestureBound = false;
+const HERO_AUDIO_GESTURES = ["pointerdown","touchend","keydown"];
 function initHeroAudio(){
   if(state.page !== "emergency") return;
   const a = document.getElementById("hero-audio");
   if(!a) return;
   a.muted = heroAudioMuted;
   a.play().catch(()=>{});
-  if(!heroAudioGestureBound){
-    heroAudioGestureBound = true;
-    const retry = () => {
-      const el = document.getElementById("hero-audio");
-      if(el && el.paused && !heroAudioMuted) el.play().catch(()=>{});
-    };
-    ["pointerdown","keydown"].forEach(evt => document.addEventListener(evt, retry, { once:true, passive:true }));
-  }
+  if(heroAudioGestureBound) return;
+  heroAudioGestureBound = true;
+  const retry = () => {
+    const el = document.getElementById("hero-audio");
+    if(el && !heroAudioMuted) el.play().catch(()=>{});
+  };
+  HERO_AUDIO_GESTURES.forEach(e => document.addEventListener(e, retry, { passive:true }));
 }
 
 // Both hero <video> elements autoplay independently (see heroPortrait) — CSS
@@ -1523,6 +1540,26 @@ function firstResponseAlt(t){
   </section>`;
 }
 
+// Social profiles, rendered in the footer and mirrored in index.html's `sameAs`
+// structured data — keep the two lists in step.
+const SOCIALS = [
+  { name:"Instagram", href:"https://www.instagram.com/acidhelp.pk/", label:"AcidHelp on Instagram",
+    path:`<path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.25.07 1.62.07 4.81s0 3.56-.07 4.81c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.25.06-1.62.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.8 3.8 0 01-1.38-.9 3.8 3.8 0 01-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.15 15.56 2.14 15.19 2.14 12s0-3.56.07-4.81c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.4 2.21 8.77 2.2 12 2.2zm0 1.98c-3.14 0-3.5.01-4.74.07-1.14.05-1.76.24-2.17.4-.55.22-.94.47-1.35.88-.41.41-.66.8-.88 1.35-.16.41-.35 1.03-.4 2.17-.06 1.24-.07 1.6-.07 4.7s.01 3.46.07 4.7c.05 1.14.24 1.76.4 2.17.22.55.47.94.88 1.35.41.41.8.66 1.35.88.41.16 1.03.35 2.17.4 1.24.06 1.6.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.17-.4.55-.22.94-.47 1.35-.88.41-.41.66-.8.88-1.35.16-.41.35-1.03.4-2.17.06-1.24.07-1.6.07-4.7s-.01-3.46-.07-4.7c-.05-1.14-.24-1.76-.4-2.17a3.6 3.6 0 00-.88-1.35 3.6 3.6 0 00-1.35-.88c-.41-.16-1.03-.35-2.17-.4-1.24-.06-1.6-.07-4.74-.07zm0 3.37a4.45 4.45 0 110 8.9 4.45 4.45 0 010-8.9zm0 7.34a2.89 2.89 0 100-5.78 2.89 2.89 0 000 5.78zm5.67-7.53a1.04 1.04 0 11-2.08 0 1.04 1.04 0 012.08 0z" fill="currentColor"/>` },
+  { name:"LinkedIn", href:"https://www.linkedin.com/company/acidhelp/", label:"AcidHelp on LinkedIn",
+    path:`<path d="M4.98 3.5a2.15 2.15 0 11-.01 4.3 2.15 2.15 0 01.01-4.3zM3.2 9.4h3.56V21H3.2V9.4zm5.79 0h3.41v1.59h.05c.47-.9 1.63-1.84 3.36-1.84 3.6 0 4.26 2.37 4.26 5.45V21h-3.55v-5.69c0-1.36-.02-3.1-1.89-3.1-1.9 0-2.19 1.48-2.19 3v5.79H8.99V9.4z" fill="currentColor"/>` },
+];
+// Icon row for the footer. Uses .footer-link so it inherits exactly the same
+// hover (lift + fade) as the email and nav links beside it, and the same
+// rgba(255,255,255,.85) as the adjacent email address. No explicit flex
+// direction, so the row mirrors naturally under dir="rtl" for Urdu.
+function footerSocials(){
+  return `<div style="display:flex;align-items:center;gap:14px;margin-top:14px">
+    ${SOCIALS.map(s=>`<a href="${s.href}" class="footer-link" target="_blank" rel="noopener" aria-label="${s.label}" title="${s.name}" style="color:rgba(255,255,255,.85);display:inline-flex;filter:drop-shadow(0 1px 8px rgba(0,0,0,0.5))">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="display:block">${s.path}</svg>
+    </a>`).join("")}
+  </div>`;
+}
+
 // Shared footer — full-width photo strip with logo/email left, nav links right
 function footerStrip(t){
   const isRTL = t.dir==="rtl";
@@ -1539,6 +1576,7 @@ function footerStrip(t){
             ${logoMark(34)}
           </div>
           <a href="mailto:info@acidhelp.com" class="footer-link" style="font-family:${BODY_FF};font-size:14px;color:rgba(255,255,255,.85);letter-spacing:.22em;text-shadow:0 1px 8px rgba(0,0,0,0.5)">i n f o @ a c i d h e l p . c o m</a>
+          ${footerSocials()}
         </div>
         <!-- Right: nav links stacked -->
         <nav class="footer-nav" style="display:flex;flex-direction:column;gap:14px;text-align:${isRTL?"left":"right"}">
@@ -1601,7 +1639,7 @@ function markerKey(t){
   const rows = [[IMG.icBurns, t.mapKey.burns], [IMG.icHospital, t.mapKey.hosp], [IMG.icRecon, t.mapKey.recon]];
   return `<div class="map-key" style="display:flex;flex-direction:column;gap:7px;margin-top:9px;padding-top:9px;border-top:1px solid rgba(255,255,255,0.1)">
       ${rows.map(([img,label])=>`<span style="display:flex;align-items:center;gap:8px">
-        <span style="width:26px;height:26px;border-radius:50%;background:#fff;border:1.5px solid ${C.borderLight};display:inline-flex;align-items:center;justify-content:center;padding:3.5px;flex-shrink:0"><img src="${img}" alt="" style="width:100%;height:100%;object-fit:contain;display:block"></span>
+        <span style="width:26px;height:26px;border-radius:50%;background:#fff;border:1.5px solid ${C.borderLight};display:inline-flex;align-items:center;justify-content:center;padding:3.5px;flex-shrink:0"><img src="${img}" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:contain;display:block"></span>
         <span style="color:${C.sub};font-size:11px;font-weight:500;font-family:${BODY_FF};line-height:1.3">${label}</span>
       </span>`).join("")}
     </div>`;
@@ -2547,6 +2585,7 @@ function hydrate(){
   if(root.dataset.ssr !== "true" || state.lang !== "en"){ render(); return; }
 
   const t = T.en; // the static shell is English-only, matching state's default lang
+  applyHtmlLangDir();
   const heroEl = document.getElementById("ssr-hero");
   const pageEl = document.getElementById("ssr-page");
 
@@ -2664,16 +2703,26 @@ function getChatReply(text){
 }
 
 // ── SHELL / RENDER ────────────────────────────────────────────────────────────
+// state.lang's internal "ro" key means Roman Urdu (Latin-script Urdu), not
+// ISO 639-1 Romanian — map it to the correct BCP-47 tag so screen readers
+// don't apply Romanian pronunciation rules to this content.
+const HTML_LANG = { en:"en", ur:"ur", ro:"ur-Latn" };
+// `dir` has to land on <html>, not just on #root: it's what tells the browser
+// the document's base direction for anything outside #root, and what assistive
+// tech and Google read. Called from render() *and* hydrate(), so the attributes
+// are right on the very first paint as well as after every language switch.
+function applyHtmlLangDir(){
+  const t = T[state.lang];
+  const html = document.documentElement;
+  html.setAttribute("lang", HTML_LANG[state.lang] || "en");
+  html.setAttribute("dir", t.dir === "rtl" ? "rtl" : "ltr");
+}
 function render(){
   const t = T[state.lang];
   const root = document.getElementById("root");
   root.setAttribute("dir", t.dir);
   root.setAttribute("data-lang", state.lang);
-  // state.lang's internal "ro" key means Roman Urdu (Latin-script Urdu), not
-  // ISO 639-1 Romanian — map it to the correct BCP-47 tag so screen readers
-  // don't apply Romanian pronunciation rules to this content.
-  const HTML_LANG = { en:"en", ur:"ur", ro:"ur-Latn" };
-  document.documentElement.setAttribute("lang", HTML_LANG[state.lang] || "en");
+  applyHtmlLangDir();
   root.style.fontFamily = t.ff;
   root.style.minHeight = "100vh";
   root.style.background = C.bg;

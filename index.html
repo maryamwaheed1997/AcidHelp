@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Acidhelp.com — Emergency Help for Acid Attack Survivors in Pakistan</title>
+  <title>Acid Attack Emergency Help in Pakistan — First Aid &amp; 1122 | AcidHelp</title>
   <meta name="description" content="Immediate first-aid steps, the 1122 emergency number, nearby burns units, and free legal/medical/psychological support for acid attack survivors and families in Pakistan.">
   <link rel="canonical" href="https://www.acidhelp.com/">
 
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Acidhelp.com">
-  <meta property="og:title" content="Acidhelp.com — Emergency Help for Acid Attack Survivors in Pakistan">
+  <meta property="og:site_name" content="AcidHelp">
+  <meta property="og:title" content="Acid Attack Emergency Help in Pakistan — First Aid &amp; 1122 | AcidHelp">
   <meta property="og:description" content="Immediate first-aid steps, the 1122 emergency number, nearby burns units, and free legal/medical/psychological support for acid attack survivors and families in Pakistan.">
   <meta property="og:image" content="https://www.acidhelp.com/images/footer.webp">
   <meta property="og:url" content="https://www.acidhelp.com/">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Acidhelp.com — Emergency Help for Acid Attack Survivors in Pakistan">
+  <meta name="twitter:title" content="Acid Attack Emergency Help in Pakistan — First Aid &amp; 1122 | AcidHelp">
   <meta name="twitter:description" content="Immediate first-aid steps, the 1122 emergency number, nearby burns units, and free legal/medical/psychological support for acid attack survivors and families in Pakistan.">
   <meta name="twitter:image" content="https://www.acidhelp.com/images/footer.webp">
 
@@ -28,6 +28,38 @@
 
   <!-- App styles -->
   <link rel="stylesheet" href="styles.css">
+
+  <!-- Structured data. Deliberately carries no medical or first-aid claims —
+       only who the organisation is and how to reach it. No SearchAction on the
+       WebSite object: the site has no search, and declaring one Google can't
+       use is worse than declaring none. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NGO",
+    "name": "AcidHelp",
+    "alternateName": "Acidhelp.com",
+    "url": "https://www.acidhelp.com/",
+    "logo": "https://www.acidhelp.com/images/Icons/Favicon.png",
+    "email": "info@acidhelp.com",
+    "areaServed": { "@type": "Country", "name": "Pakistan" },
+    "description": "Emergency first-aid guidance and support resources for acid attack survivors in Pakistan.",
+    "sameAs": [
+      "https://www.instagram.com/acidhelp.pk/",
+      "https://www.linkedin.com/company/acidhelp/"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "AcidHelp",
+    "url": "https://www.acidhelp.com/",
+    "inLanguage": "en-PK",
+    "publisher": { "@type": "NGO", "name": "AcidHelp", "url": "https://www.acidhelp.com/" }
+  }
+  </script>
 </head>
 <body>
   <!-- Static, English, crawler-readable shell: header + hero + first-aid steps +
@@ -120,12 +152,14 @@
                 <source src="./images/hero-video-mobile.mp4" type="video/mp4">
               </video>
               <audio id="hero-audio" loop preload="auto">
-                <source src="./Audio/English%20audio.m4a" type="audio/mp4">
+                <!-- Urdu is the default voice-over; keep in sync with
+                     heroAudioLang in app.js. -->
+                <source src="./Audio/Urdu%20audio.m4a" type="audio/mp4">
               </audio>
             </div>
             <div class="hero-vid-ctrls" style="display:flex;flex-direction:column;gap:9px;flex-shrink:0;align-items:center;align-self:flex-start">
-              <button onclick="setHeroAudio('en')" class="hero-audio-pill is-active" aria-label="Play ENG voice-over" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:var(--brand);color:#fff;border:1.5px solid var(--brand);font-size:10px;font-weight:700;letter-spacing:-0.3px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif">ENG</button>
-              <button onclick="setHeroAudio('ur')" class="hero-audio-pill" aria-label="Play اردو voice-over" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:transparent;color:#fff;border:1.5px solid var(--borderLight);font-size:13px;font-weight:600;letter-spacing:-0.3px;font-family:'Noto Nastaliq Urdu',sans-serif">اردو</button>
+              <button onclick="setHeroAudio('en')" class="hero-audio-pill" aria-label="Play ENG voice-over" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:transparent;color:#fff;border:1.5px solid var(--borderLight);font-size:10px;font-weight:600;letter-spacing:-0.3px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif">ENG</button>
+              <button onclick="setHeroAudio('ur')" class="hero-audio-pill is-active" aria-label="Play اردو voice-over" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:var(--brand);color:#fff;border:1.5px solid var(--brand);font-size:13px;font-weight:700;letter-spacing:-0.3px;font-family:'Noto Nastaliq Urdu',sans-serif">اردو</button>
               <button onclick="setHeroAudio('pa')" class="hero-audio-pill" aria-label="Play پنجابی voice-over" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:transparent;color:#fff;border:1.5px solid var(--borderLight);font-size:13px;font-weight:600;letter-spacing:-0.3px;font-family:'Noto Nastaliq Urdu',sans-serif">پنجابی</button>
               <button onclick="toggleHeroMute()" aria-label="Mute voice-over" class="hero-mute-btn hero-audio-pill" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:transparent;border:1.5px solid var(--borderLight)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H3v6h3l5 4V5z" fill="#fff"/><path d="M16 9a4 4 0 010 6M18.7 6.8a7.5 7.5 0 010 10.4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></button>
             </div>

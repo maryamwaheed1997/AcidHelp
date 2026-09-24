@@ -7,7 +7,19 @@
     { "source": "/about", "destination": "/about.html" },
     { "source": "/joinus", "destination": "/joinus.html" }
   ],
+  "headers": [
+    {
+      "source": "/acidhelp-shareable.html",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    }
+  ],
   "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "acid-help.vercel.app" }],
+      "destination": "https://www.acidhelp.com/:path*",
+      "permanent": true
+    },
     { "source": "/map.html", "destination": "/map", "permanent": true },
     { "source": "/resources.html", "destination": "/resources", "permanent": true },
     { "source": "/blog.html", "destination": "/blog", "permanent": true },
