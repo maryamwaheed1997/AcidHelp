@@ -8,14 +8,16 @@ rewrite/redirect rules from vercel.json so the site behaves identically
 on your machine before you push.
 
 Usage:
-    python3 dev-server.py
-    (then open http://localhost:8000/ in a browser)
+    python3 dev-server.py            # serves on 8000
+    python3 dev-server.py 3005       # or any port you pass
+    (then open the printed http://localhost:<port>/ in a browser)
 """
 import http.server
 import os
 import socketserver
+import sys
 
-PORT = 8000
+PORT = int(sys.argv[1]) if len(sys.argv) > 1 else int(os.environ.get("PORT", 8000))
 
 # Keep these in sync with vercel.json.
 REWRITES = {
@@ -50,6 +52,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    # Without this, restarting right after a Ctrl+C fails with "Address already
+    # in use" while the old socket sits in TIME_WAIT.
+    socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer(("", PORT), Handler) as httpd:
         print(f"Serving http://localhost:{PORT}/  (Ctrl+C to stop)")
         httpd.serve_forever()

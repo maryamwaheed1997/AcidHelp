@@ -3,6 +3,11 @@
     --border:#252E45; --borderLight:#2E3850;
     --red:#FF3B30; --redDark:#B02820; --redDim:rgba(255,59,48,0.14);
     --brand:#BA45EB; --brandDark:#8113AF; --brandDim:rgba(186,69,235,0.14);
+    /* Filled primary CTAs: deep-primary → primary → light-accent tint, for a
+       little depth. Kept here (not only in app.js) because index.html's
+       server-rendered hero/header CTAs are never re-rendered by app.js and must
+       pick up the same fill. BRAND_GRAD in app.js points at this variable. */
+    --brand-grad:linear-gradient(135deg,#A82ADD 0%,#BA45EB 48%,#C86BF0 100%);
     --green:#00C853; --greenDim:rgba(0,200,83,0.14);
     --blue:#0A84FF; --blueDim:rgba(10,132,255,0.14);
     --purple:#BF5AF2; --purpleDim:rgba(191,90,242,0.14);
@@ -57,11 +62,10 @@
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 
-  /* ── Form success checkmark: circle draws in, then the tick strokes on ── */
+  /* ── Form success checkmark: the tick strokes on inside its badge ── */
+  .join-thanks{animation:fadeUp .45s ease-out both}
   .success-check{overflow:visible}
-  .success-check-circle{stroke-width:2;stroke-dasharray:145;stroke-dashoffset:145;animation:successCircle .5s ease-out forwards}
-  .success-check-mark{stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:32;stroke-dashoffset:32;animation:successMark .35s ease-out .45s forwards}
-  @keyframes successCircle{to{stroke-dashoffset:0}}
+  .success-check-mark{stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:32;stroke-dashoffset:32;animation:successMark .4s ease-out .2s forwards}
   @keyframes successMark{to{stroke-dashoffset:0}}
   @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
   @keyframes slideInLeft{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:translateX(0)}}
@@ -187,7 +191,7 @@
        50/50, and the submit button is centred with a little space above it. */
     .join-tabs{gap:0!important}
     .join-tab-btn{flex:1;text-align:center!important}
-    .join-submit{align-self:center!important;margin-top:8px}
+    .join-submit{align-self:center!important;margin-top:12px}
   }
 
   /* Landing-page "Immediate Action" + FAQ share the hero's 1920px container and
@@ -202,8 +206,38 @@
   .lang-btn{transition:transform .2s ease, border-color .2s ease, background-color .2s ease}
   .lang-btn:hover{transform:translateY(-1px);border-color:var(--borderLight)!important}
 
+  /* The wrapper no longer scales on hover — .ah-logo below does its own, richer
+     hover (shield pop + specular sweep), and compounding the two made the
+     lockup jump. The transition is kept so :focus-visible still eases in. */
   .logo-btn{transition:transform .2s ease}
-  .logo-btn:hover{transform:scale(1.03)}
+
+  /* ── Brand lockup: live SVG mark + wordmark ──────────────────────────────
+     Replaces the old flat acidhelp-logo-v2-trim.png. `--ah-size` is the mark's
+     box; the wordmark and the gap between them are derived from it, so callers
+     size the whole lockup with that one number (see logoMark() in app.js).
+     `direction:ltr` pins the mark to the left of the word even in RTL (Urdu),
+     where the surrounding flex row would otherwise mirror the lockup.
+     Behaviour lives in initLogo() in app.js. */
+  .ah-logo{--ah-size:32px;direction:ltr;display:inline-flex;align-items:center;gap:calc(var(--ah-size)*.22);perspective:900px;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+  .ah-mark{width:var(--ah-size);height:var(--ah-size);transform-style:preserve-3d;transition:transform .25s ease-out;will-change:transform}
+  /* overflow:visible lets the click-burst drips and rings fall outside the
+     227×227 viewBox without being clipped by the header. */
+  .ah-mark svg{width:100%;height:100%;overflow:visible;display:block}
+  /* .72, not the .6 the mark was designed against: at .6 the wordmark rendered
+     visibly lighter than the acidhelp-logo-v2-trim.png lockup it replaces, and
+     the header would have looked like it shrank. .72 matches that lockup's
+     wordmark almost exactly while the mark's box — and so the header's height —
+     stays at 32px. Drop back to .6 for the designer's original proportions. */
+  .ah-word{display:flex;font-family:'Fira Sans','Noto Sans',system-ui,sans-serif;font-weight:900;font-size:calc(var(--ah-size)*.72);letter-spacing:-.005em;line-height:1}
+  .ah-word span{display:inline-block}
+  .ah-word .ah-acid{color:#B544EE;background:linear-gradient(170deg,#CB6DFA 10%,#B544EE 55%,#9A30D8 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .ah-word .ah-help{color:#fff}
+  /* For the (currently unused) light-background case — e.g. a print or
+     light-themed placement — flip the second half of the wordmark to ink. */
+  .ah-logo[data-theme="light"] .ah-help{color:#141214}
+  .ah-fill{transform-box:fill-box;transform-origin:50% 100%}
+  .ah-shield{transform-box:fill-box;transform-origin:50% 50%}
+  @media (prefers-reduced-motion:reduce){.ah-mark{transition:none}}
 
   .footer-link{display:inline-block;transition:transform .2s ease, opacity .2s ease}
   .footer-link:hover{transform:translateY(-2px);opacity:.8}
@@ -226,7 +260,7 @@
 
   /* ── Blog card + post interactions ───────────────────────────────────── */
   .blog-card{transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s ease, border-color .25s ease}
-  .blog-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.35);border-color:rgba(246,226,254,0.55)}
+  .blog-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.35);border-color:rgba(223,164,248,0.55)}
   .blog-photo{transition:transform .6s cubic-bezier(.22,1,.36,1)}
   .blog-card:hover .blog-photo{transform:scale(1.06)}
 
@@ -403,7 +437,7 @@
   }
   .join-form-card input:focus, .join-form-card select:focus,
   .join-form-card textarea:focus{
-    border-color:#F6E2FE!important;
+    border-color:#DFA4F8!important;
     box-shadow:none;
   }
   .join-form-card input:focus-visible, .join-form-card select:focus-visible,
@@ -459,7 +493,9 @@
      switches the row back to flex-wrap, same as before the centering fix. */
   @media (max-width:640px){
     .site-header-inner{display:flex!important;flex-wrap:wrap;row-gap:8px;padding:9px 12px 10px!important}
-    .brand-wordmark{font-size:20px!important}
+    /* Shrink the lockup: one variable resizes mark + wordmark together.
+       (Replaces the old .brand-logo height override — no raster logo left.) */
+    .site-header-inner .ah-logo{--ah-size:26px}
     .lang-btn{padding:2px 7px!important;font-size:9.5px!important}
     /* Language pills + 1122 CTA stay grouped and pinned to the top-right, so
        the language tabs always sit right beside the call button. */
@@ -468,7 +504,7 @@
     /* Secondary nav: its own centred row that collapses on scroll-down and
        re-appears on scroll-up (see initHeaderScrollHide + .nav-collapsed). */
     .nav-scroll{
-      order:3;flex:1 1 100%!important;justify-content:center!important;gap:16px!important;
+      order:3;flex:1 1 100%!important;justify-content:space-between!important;gap:16px!important;
       max-height:52px;overflow:hidden;
       transition:max-height .32s cubic-bezier(.22,1,.36,1), opacity .25s ease, margin-top .32s ease;
     }
@@ -487,9 +523,9 @@
      bottom URL bar / home-indicator area ────────────────────────────── */
   @media (max-width:760px){
     .near-me-btn{bottom:calc(env(safe-area-inset-bottom,0px) + 30px)!important}
-    /* Results panel takes only the top half of the map so the pins (and the
-       selected hospital) stay visible below it. Its body already scrolls. */
-    .map-panel{bottom:auto!important;height:48vh!important}
+    /* Results panel is a bottom sheet — anchored to the bottom of the screen and
+       sliding up — so the map (and pins) stay visible above it. Body scrolls. */
+    .map-panel{top:auto!important;bottom:calc(env(safe-area-inset-bottom,0px) + 12px)!important;height:48vh!important;animation:slideUp .32s cubic-bezier(.22,1,.36,1)!important}
   }
 
   /* ── Responsive: on mobile the org info stacks on its own full-width row

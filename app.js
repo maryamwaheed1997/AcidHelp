@@ -19,6 +19,14 @@ const C = {
   teal:"#30D5C8", tealDim:"rgba(48,213,200,0.14)",
   text:"#F0F3FA", sub:"#8B9CB0", muted:"#38465A",
 };
+// Filled primary CTAs use this instead of a flat `brand` fill, for a little
+// depth. It runs deep-primary → primary → a light-accent tint on the diagonal.
+// The light end is deliberately held back from Accent 1 (#F6E2FE): white label
+// text needs the fill to stay dark enough to read, so the deep end is pushed
+// past `brand` to compensate for the lighter far corner. The stops live in
+// styles.css as --brand-grad so index.html's server-rendered CTAs (which app.js
+// never re-renders) share one definition with the JS-rendered ones.
+const BRAND_GRAD = "var(--brand-grad)";
 // Nastaliq is appended only as a *fallback*: Latin glyphs (the logo wordmark,
 // brand names, numbers) keep rendering in Lexend/Noto Sans, and the browser
 // substitutes Noto Nastaliq Urdu per-glyph only for Arabic-script characters.
@@ -30,7 +38,10 @@ const BODY_2_FF = "'Lexend','Noto Nastaliq Urdu',sans-serif";      // nav / body
 
 // ── ASSETS ──────────────────────────────────────────────────────────────────
 const IMG = {
-  logo:          "./images/logo.png",
+  // No `logo` / `logoFull` raster entries any more: logoMark() draws the brand
+  // lockup live (see AH_MARK_SVG below), so nothing renders images/logo.png or
+  // images/acidhelp-logo-v2-trim.png. Both files are left in place rather than
+  // deleted — re-add an entry here to bring a flat raster back.
   heroVideo:     "./images/hero-video-purple.mp4",
   heroVideoMobile: "./images/hero-video-mobile.mp4",
   psychological: "./images/psychologicalsupport.webp",
@@ -151,7 +162,7 @@ function sColor(s){
 }
 
 // Secondary accent — used for the survivor/volunteer tab picker and the chatbot
-const ACCENT_GREEN = "#74B2B8";
+const ACCENT_GREEN = "#00C853";
 
 // ── STATS DATA (kept as-is per brief) ─────────────────────────────────────────
 const STATS_EN = [
@@ -943,6 +954,7 @@ const T = {
     blogTitle:"The AcidHelp Blog",
     featuredLabel:"Featured Post", readNowLabel:"Read Now", byLabel:"By", backToBlogLabel:"Back to Blog",
     medTitle:"Hospitals Near You", medSub:"Tap a pin · Get directions · Call",
+    mapKey:{ burns:"Burns unit", hosp:"Emergency hospital", recon:"Reconstructive surgery" },
     nearMe:"Hospitals Near Me", locating:"Finding you…", callHosp:"Call Now", directions:"Directions",
     resTitle:"Support & Recovery", resSub:"Resources for survivors and families",
     resCards:[
@@ -1015,6 +1027,7 @@ const T = {
     blogTitle:"ایسڈ ہیلپ بلاگ",
     featuredLabel:"نمایاں تحریر", readNowLabel:"ابھی پڑھیں", byLabel:"از", backToBlogLabel:"بلاگ پر واپس جائیں",
     medTitle:"قریبی ہسپتال", medSub:"پن دبائیں · سمت حاصل کریں · کال کریں",
+    mapKey:{ burns:"برنز یونٹ", hosp:"ایمرجنسی ہسپتال", recon:"تعمیرِ نو سرجری" },
     nearMe:"میرے قریب ہسپتال", locating:"تلاش جاری ہے…", callHosp:"ابھی کال کریں", directions:"سمت",
     resTitle:"مدد اور بحالی", resSub:"متاثرین اور خاندانوں کے لیے مفت مدد",
     resCards:[
@@ -1085,6 +1098,7 @@ const T = {
     blogTitle:"AcidHelp Blog",
     featuredLabel:"Featured Post", readNowLabel:"Abhi Parhein", byLabel:"Az", backToBlogLabel:"Blog Par Wapis Jayein",
     medTitle:"Qareeb Hospital", medSub:"Pin dabayein · Rasta lein · Call karein",
+    mapKey:{ burns:"Burns unit", hosp:"Emergency hospital", recon:"Tameer-e-nau surgery" },
     nearMe:"Mere Qareeb Hospital", locating:"Dhundh raha hai…", callHosp:"Abhi Call Karein", directions:"Rasta",
     resTitle:"Madad aur Bahali", resSub:"Bachne walon ke liye muft madad",
     resCards:[
@@ -1210,8 +1224,59 @@ const pinSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 
 const navSVG = (size,fill)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M21 3L3 10.6l7.1 2.9 2.9 7.1L21 3z" fill="${fill}"/></svg>`;
 const globeSVG = (size,c)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><circle cx="12" cy="12" r="9" stroke="${c}" stroke-width="1.6"/><path d="M3.2 12h17.6M12 3c2.6 2.5 2.6 15.5 0 18M12 3c-2.6 2.5-2.6 15.5 0 18" stroke="${c}" stroke-width="1.6"/></svg>`;
 const mailSVG = (size,c)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><rect x="3" y="5.5" width="18" height="13" rx="2.5" stroke="${c}" stroke-width="1.6"/><path d="M4.5 7.5l7.5 5.5 7.5-5.5" stroke="${c}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-// Figma logo mark — shield with white water drop (user-supplied, base64 in IMG.logo)
-const logoMark = (h)=>`<img src="${IMG.logo}" alt="Acidhelp logo" style="height:${h}px;width:auto;flex-shrink:0;display:block">`;
+// ── BRAND LOCKUP ────────────────────────────────────────────────────────────
+// The shield mark, drawn live rather than shipped as a raster, so it can react
+// to the pointer (3D tilt + specular sweep) and to clicks (an acid drip that
+// falls out of the shield, splashes, and ripples). The droplet is *cut out* of
+// the shield via `ah-cut` rather than painted on top, so the background shows
+// through it — that hole is what the idle "breathing" animation squashes.
+// Geometry is a 227×227 box; the shield itself occupies x 29–198, y 5–222.
+const AH_SHIELD_PATH = "M113.5 5 L198 37 L198 124 C198 172 162 204 113.5 222 C65 204 29 172 29 124 L29 37 Z";
+const AH_DROP_PATH = "M113.5 90 C125 108 147.5 127 147.5 152 A34 34 0 0 1 79.5 152 C79.5 127 102 108 113.5 90 Z";
+const AH_MARK_SVG = `<svg viewBox="0 0 227 227" aria-hidden="true">
+      <defs>
+        <linearGradient id="ah-body" x1="0.15" y1="0" x2="0.75" y2="1">
+          <stop offset="0" stop-color="#CB6DFA"/><stop offset="0.5" stop-color="#B544EE"/><stop offset="1" stop-color="#8A24C9"/>
+        </linearGradient>
+        <linearGradient id="ah-rim" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fff" stop-opacity="0.45"/><stop offset="0.35" stop-color="#fff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="ah-bevel" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#4A0E73" stop-opacity="0.85"/><stop offset="0.55" stop-color="#6A1A9E" stop-opacity="0.35"/><stop offset="1" stop-color="#E7B8FF" stop-opacity="0.9"/>
+        </linearGradient>
+        <radialGradient id="ah-spec" cx="0.3" cy="0.2" r="0.75">
+          <stop offset="0" stop-color="#fff" stop-opacity="0.38"/><stop offset="0.45" stop-color="#fff" stop-opacity="0.06"/><stop offset="1" stop-color="#000" stop-opacity="0.18"/>
+        </radialGradient>
+        <mask id="ah-cut" maskUnits="userSpaceOnUse" x="-60" y="-60" width="347" height="400">
+          <rect x="-60" y="-60" width="347" height="400" fill="#fff"/>
+          <path class="ah-fill ah-drop" d="${AH_DROP_PATH}" fill="#000"/>
+        </mask>
+        <filter id="ah-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="18"/></filter>
+      </defs>
+      <g mask="url(#ah-cut)"><path class="ah-glowpath" d="${AH_SHIELD_PATH}" fill="#B544EE" filter="url(#ah-glow)" opacity="0.25"/></g>
+      <g class="ah-rings"></g>
+      <g class="ah-shield">
+        <g mask="url(#ah-cut)">
+          <path d="${AH_SHIELD_PATH}" fill="url(#ah-body)"/>
+          <path d="M113.5 7.5 L196 38.8 L196 124 C196 170.5 161 202 113.5 219.8 C66 202 31 170.5 31 124 L31 38.8 Z" fill="none" stroke="url(#ah-rim)" stroke-width="3"/>
+          <path class="ah-specpath" d="${AH_SHIELD_PATH}" fill="url(#ah-spec)" opacity="0"/>
+          <path class="ah-fill ah-edge" d="${AH_DROP_PATH}" fill="none" stroke="url(#ah-bevel)" stroke-width="7"/>
+        </g>
+      </g>
+      <g class="ah-drips"></g>
+    </svg>`;
+const AH_WORD = "Acid".split("").map(c=>`<span class="ah-acid">${c}</span>`).join("")
+              + "help".split("").map(c=>`<span class="ah-help">${c}</span>`).join("");
+// Full brand lockup (mark + wordmark). `h` sizes the mark's box in px; the
+// wordmark, the gap and every animation offset derive from it via --ah-size.
+// Rendered as a <span>, not an <a>: the header wraps it in its own .logo-btn
+// anchor, and nesting anchors is invalid. The per-letter spans exist so the
+// click burst can stagger the wordmark bounce; role/aria-label collapse them
+// back into a single "Acidhelp" for screen readers.
+const logoMark = (h)=>`<span class="ah-logo" role="img" aria-label="Acidhelp" style="--ah-size:${h}px">`
+  + `<span class="ah-mark">${AH_MARK_SVG}</span>`
+  + `<span class="ah-word">${AH_WORD}</span>`
+  + `</span>`;
 
 // Big placeholder icons used inside "photo placeholder" step art
 const STEP_ART_ICON = {
@@ -1270,7 +1335,7 @@ function heroPortrait(t){
     <div class="hero-anim" style="max-width:720px;margin:0 auto;text-align:center;padding-bottom:clamp(14px,2vw,22px)">
       <h1 style="font-family:${BODY_FF};font-weight:700;font-size:clamp(44px,4.2vw,64px);letter-spacing:-1px;line-height:1.05;color:#fff;margin:0">${t.emTitle}</h1>
       <p class="hero-sub" style="font-family:${BODY_FF};font-weight:300;font-size:clamp(14px,1.2vw,16px);color:rgba(255,255,255,.85);margin:8px 0 18px">${t.emSub}</p>
-      <a href="tel:1122" class="cta-btn" style="background:${C.brand};border-radius:40px;padding:12px 24px;display:inline-flex;align-items:center;gap:10px;text-decoration:none;box-shadow:0 8px 32px rgba(186,69,235,0.35)">
+      <a href="tel:1122" class="cta-btn" style="background:${BRAND_GRAD};border-radius:40px;padding:12px 24px;display:inline-flex;align-items:center;gap:10px;text-decoration:none;box-shadow:0 8px 32px rgba(186,69,235,0.35)">
         ${phoneSVG(19,"#fff")}
         <span class="hero-cta-text" style="color:#fff;font-family:${BODY_FF};font-weight:700;font-size:clamp(16px,1.4vw,20px);letter-spacing:-0.5px">${t.callBtn}</span>
       </a>
@@ -1389,7 +1454,7 @@ function initHeroVideo(){
 
 // "First response · What to do" — 3 step cards with brand-coloured left rail
 function firstResponse(t){
-  const rails = [C.brand, "#8E15C1", "#6D1093"];
+  const rails = [C.brand, "#8E15C1", "#8113AF"];
   return `<section class="reveal" data-reveal-id="steps" style="padding:clamp(56px,12vw,96px) clamp(28px,5vw,80px) clamp(48px,6vw,80px)">
     <div style="max-width:1308px;margin:0 auto">
       <div style="font-family:${BODY_FF};font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:${C.brand}">${t.stepsEyebrow}</div>
@@ -1397,7 +1462,7 @@ function firstResponse(t){
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:18px">
         ${t.steps.map((s,i)=>`
-          <div class="${["sc1","sc2","sc3"][i]}" style="background:#1a1e2e;border-radius:14px;overflow:hidden;display:flex;align-items:stretch;min-height:170px">
+          <div class="${["sc1","sc2","sc3"][i]}" style="background:#1C2337;border-radius:14px;overflow:hidden;display:flex;align-items:stretch;min-height:170px">
             <div style="background:${rails[i]};width:76px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:14px 0 0 14px">
               <span style="font-family:${BODY_FF};font-weight:900;font-size:56px;color:#fff;line-height:1">${s.n}</span>
             </div>
@@ -1431,7 +1496,7 @@ function firstResponseAlt(t){
         <div style="font-family:${BODY_FF};font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#DFA4F8;margin:0 0 12px">${t.stepsEyebrow}</div>
         <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,3.4vw,52px);letter-spacing:-1px;line-height:1.06;text-transform:uppercase;color:#fff;margin:0">${t.stepsTitle}</h2>
         <p style="font-family:${BODY_FF};font-weight:300;font-size:15px;color:${C.sub};line-height:1.65;margin:16px 0 0;max-width:32ch">${t.stepsSub}</p>
-        <a href="tel:1122" class="cta-btn" style="margin-top:24px;background:${C.brand};border-radius:40px;padding:12px 24px;display:inline-flex;align-items:center;gap:10px;text-decoration:none;box-shadow:0 8px 32px rgba(186,69,235,0.35)">
+        <a href="tel:1122" class="cta-btn" style="margin-top:24px;background:${BRAND_GRAD};border-radius:40px;padding:12px 24px;display:inline-flex;align-items:center;gap:10px;text-decoration:none;box-shadow:0 8px 32px rgba(186,69,235,0.35)">
           ${phoneSVG(19,"#fff")}
           <span class="hero-cta-text" style="color:#fff;font-family:${BODY_FF};font-weight:700;font-size:clamp(16px,1.4vw,20px);letter-spacing:-0.5px">${t.rescueCta}</span>
         </a>
@@ -1470,9 +1535,8 @@ function footerStrip(t){
       <div class="footer-top-row" style="max-width:1440px;width:100%;margin:0 auto;flex:1;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;min-height:calc(clamp(280px,30vw,380px) - clamp(80px,10vw,128px));padding-bottom:clamp(28px,4vw,40px)">
         <!-- Left: logo + tagline + email -->
         <div class="footer-brand">
-          <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px">
-            ${logoMark(28)}
-            <span style="font-family:${HEAD_FF};font-weight:900;font-size:26px;letter-spacing:-1px"><span style="color:${C.brand}">Acid</span><span style="color:#fff">help</span></span>
+          <div style="display:flex;align-items:center;margin-bottom:12px">
+            ${logoMark(34)}
           </div>
           <a href="mailto:info@acidhelp.com" class="footer-link" style="font-family:${BODY_FF};font-size:14px;color:rgba(255,255,255,.85);letter-spacing:.22em;text-shadow:0 1px 8px rgba(0,0,0,0.5)">i n f o @ a c i d h e l p . c o m</a>
         </div>
@@ -1528,6 +1592,21 @@ function hospResultCard(h, isClosest){
   </button>`;
 }
 
+// Legend for the three marker illustrations, stacked one per row inside the
+// title box. Stacking (rather than a single wrapping line) buys the width for a
+// larger, more legible swatch. The swatch rings are neutral rather than the
+// specialty colours used on real markers, so the key reads as "this is what the
+// picture means" without implying the ring colour is part of the code.
+function markerKey(t){
+  const rows = [[IMG.icBurns, t.mapKey.burns], [IMG.icHospital, t.mapKey.hosp], [IMG.icRecon, t.mapKey.recon]];
+  return `<div class="map-key" style="display:flex;flex-direction:column;gap:7px;margin-top:9px;padding-top:9px;border-top:1px solid rgba(255,255,255,0.1)">
+      ${rows.map(([img,label])=>`<span style="display:flex;align-items:center;gap:8px">
+        <span style="width:26px;height:26px;border-radius:50%;background:#fff;border:1.5px solid ${C.borderLight};display:inline-flex;align-items:center;justify-content:center;padding:3.5px;flex-shrink:0"><img src="${img}" alt="" style="width:100%;height:100%;object-fit:contain;display:block"></span>
+        <span style="color:${C.sub};font-size:11px;font-weight:500;font-family:${BODY_FF};line-height:1.3">${label}</span>
+      </span>`).join("")}
+    </div>`;
+}
+
 function renderMapOverlays(){
   const t = T[state.lang];
   const ov = document.getElementById("map-overlays");
@@ -1537,12 +1616,14 @@ function renderMapOverlays(){
   const panelOpen = hasPanel && !mapState.panelCollapsed;
 
   // Floating "Hospitals Near Me" button — original bottom-right position.
-  const nearBtn = `<button onclick="nearMe()" ${mapState.loading?"disabled":""} class="cta-btn near-me-btn" style="position:absolute;bottom:20px;right:14px;z-index:1000;background:${mapState.loading?C.muted:C.brandDark};color:white;border:none;border-radius:30px;padding:13px 20px;font-size:14px;font-weight:800;font-family:${BODY_FF};cursor:${mapState.loading?"not-allowed":"pointer"};display:flex;align-items:center;gap:8px;box-shadow:${mapState.loading?"none":"0 4px 28px rgba(186,69,235,0.45)"}">${mapState.loading?"⏳":pinSVG(16,"#fff")} ${mapState.loading?t.locating:t.nearMe}</button>`;
+  const nearBtn = `<button onclick="nearMe()" ${mapState.loading?"disabled":""} class="cta-btn near-me-btn" style="position:absolute;bottom:20px;right:14px;z-index:1000;background:${mapState.loading?C.muted:BRAND_GRAD};color:white;border:none;border-radius:30px;padding:13px 20px;font-size:14px;font-weight:800;font-family:${BODY_FF};cursor:${mapState.loading?"not-allowed":"pointer"};display:flex;align-items:center;gap:8px;box-shadow:${mapState.loading?"none":"0 4px 28px rgba(186,69,235,0.45)"}">${mapState.loading?"⏳":pinSVG(16,"#fff")} ${mapState.loading?t.locating:t.nearMe}</button>`;
 
-  // Title pill (top-left) — only when nothing is expanded there.
-  const title = (panelOpen || (hasPanel && mapState.panelCollapsed)) ? "" : `<div style="position:absolute;top:12px;left:12px;z-index:900;background:rgba(18,18,18,0.86);backdrop-filter:blur(8px);border-radius:12px;padding:9px 14px;max-width:calc(100% - 24px)">
+  // Title box (top-left) — only when nothing is expanded there. The marker key
+  // lives inside the same box, below a hairline divider.
+  const title = (panelOpen || (hasPanel && mapState.panelCollapsed)) ? "" : `<div style="position:absolute;top:12px;left:12px;z-index:900;max-width:calc(100% - 24px);opacity:0.9;background:rgba(18,18,18,0.86);backdrop-filter:blur(8px);border-radius:12px;padding:10px 14px 11px">
       <div style="color:${C.text};font-size:14px;font-weight:800;font-family:${BODY_FF}">${t.medTitle}</div>
-      <div style="color:${C.sub};font-size:11px;margin-top:1px;font-family:${BODY_FF}">${t.medSub}</div>
+      <div style="color:${C.sub};font-size:11px;margin-top:8px;font-family:${BODY_FF}">${t.medSub}</div>
+      ${markerKey(t)}
     </div>`;
 
   const err = mapState.locError ? `<div style="position:absolute;top:12px;left:12px;right:14px;z-index:1002;background:${C.redDark};color:white;padding:12px 14px;border-radius:12px;font-size:13px;font-weight:600;font-family:${BODY_FF};line-height:1.4;display:flex;justify-content:space-between;gap:10px;align-items:center;box-shadow:0 4px 20px rgba(0,0,0,0.3)"><span>⚠️ ${esc(mapState.locError)}</span><button onclick="clearError()" style="background:none;border:none;color:#fff;font-size:15px;cursor:pointer;flex-shrink:0">✕</button></div>` : "";
@@ -1571,7 +1652,7 @@ function renderMapOverlays(){
             </div>
           </div>
           <div style="display:flex;gap:10px;margin-top:16px">
-            <a href="${telHref}" class="cta-btn" style="flex:1;background:${C.brandDark};color:#fff;padding:11px;border-radius:12px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${phoneSVG(14,"#fff")} ${t.callHosp}</a>
+            <a href="${telHref}" class="cta-btn" style="flex:1;background:${BRAND_GRAD};color:#fff;padding:11px;border-radius:12px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${phoneSVG(14,"#fff")} ${t.callHosp}</a>
             <a href="${dirHref}" target="_blank" rel="noreferrer" class="cta-btn" style="flex:1;background:${C.card};color:${C.text};padding:11px;border-radius:12px;font-weight:700;font-size:13px;font-family:${BODY_FF};text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">${navSVG(14,C.text)} ${t.directions}</a>
           </div>
         </div>`;
@@ -1724,7 +1805,7 @@ const RESOURCE_CATEGORIES = [
 
 // One organisation row inside an expanded category.
 function orgRow(org){
-  const ACCENT = "#F6E2FE";
+  const ACCENT = "#DFA4F8";
   const link = (svg,text,href)=>`<span class="res-org-meta" style="display:inline-flex;align-items:center;gap:6px;min-width:0;max-width:100%">${svg}${href
     ? `<a href="${href}" target="_blank" rel="noopener noreferrer" style="font-family:${BODY_FF};font-size:12px;color:${C.sub};text-decoration:underline;text-underline-offset:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${text}</a>`
     : `<span style="font-family:${BODY_FF};font-size:12px;color:${C.sub};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${text}</span>`}</span>`;
@@ -1742,7 +1823,7 @@ function orgRow(org){
 }
 
 function resourcesPage(t){
-  const ACCENT = "#F6E2FE";
+  const ACCENT = "#DFA4F8";
   return `<div>
     <div style="background:${C.bg}">
     <!-- Hero -->
@@ -1765,7 +1846,7 @@ function resourcesPage(t){
             const cards = row.map(i=>{
               const cat = RESOURCE_CATEGORIES[i];
               const isOpen = openCard===i;
-              return `<button id="rescat-${i}" onclick="toggleCard(${i})" aria-expanded="${isOpen}" class="res-card-wrap${isOpen?' is-open':''}" style="display:block;width:100%;padding:0;border:none;text-align:left;font:inherit;color:inherit;position:relative;height:clamp(220px,20vw,300px);border-radius:20px;overflow:hidden;background:#1c2337;view-transition-name:res-card-${i}">
+              return `<button id="rescat-${i}" onclick="toggleCard(${i})" aria-expanded="${isOpen}" class="res-card-wrap${isOpen?' is-open':''}" style="display:block;width:100%;padding:0;border:none;text-align:left;font:inherit;color:inherit;position:relative;height:clamp(220px,20vw,300px);border-radius:20px;overflow:hidden;background:#1C2337;view-transition-name:res-card-${i}">
                   <div class="res-photo" style="background-image:url('${cat.photo}');background-position:center"></div>
                   <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.15) 40%,rgba(0,0,0,0.85) 100%);pointer-events:none"></div>
                   <div style="position:absolute;bottom:0;left:0;right:0;padding:24px 28px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;pointer-events:none">
@@ -1867,11 +1948,11 @@ function blogPage(t){
     <section class="reveal" data-reveal-id="blog-grid" style="padding:0 clamp(28px,5vw,80px) clamp(40px,5vw,60px)">
       <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:20px">
         ${rest.map(post=>post.hidden ? `
-          <div class="blog-coming-soon" style="min-height:360px;background:${C.surface};opacity:0.4;border:1px solid rgba(246,226,254,0.3);border-radius:20px;display:flex;align-items:center;justify-content:center">
+          <div class="blog-coming-soon" style="min-height:360px;background:${C.surface};opacity:0.4;border:1px solid rgba(223,164,248,0.3);border-radius:20px;display:flex;align-items:center;justify-content:center">
             <span style="font-family:${BODY_FF};font-size:12px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:#DFA4F8">Coming Soon</span>
           </div>
         ` : `
-          <button class="blog-card" onclick="openBlogPost(${post.id})" style="display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;width:100%;text-align:left;background:${C.surface};border:1px solid rgba(246,226,254,0.3);border-radius:20px;overflow:hidden;padding:0;font:inherit;color:inherit;cursor:pointer">
+          <button class="blog-card" onclick="openBlogPost(${post.id})" style="display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;width:100%;text-align:left;background:${C.surface};border:1px solid rgba(223,164,248,0.3);border-radius:20px;overflow:hidden;padding:0;font:inherit;color:inherit;cursor:pointer">
             <div style="height:200px;overflow:hidden;flex-shrink:0">
               <img class="blog-photo" src="${post.image}" alt="${esc(post.title)}" style="width:100%;height:100%;object-fit:cover;display:block">
             </div>
@@ -1977,6 +2058,24 @@ const ABOUT_CONTENT = {
   whyPara2: "Beyond emergency relief, acid attack survivors face a longer struggle. Reliable information on where to go for reconstructive care, psychosocial support, legal aid, and vocational reintegration is scattered across separate organisations, or unavailable altogether. AcidHelp exists to consolidate that information into a single verified database of acid attack support resources in Pakistan, so that survivors and their families can find, in one place, what has taken others years to piece together.",
   whyPara3: "AcidHelp also exists to spread awareness of what to do after an acid attack. Public knowledge of correct first aid remains one of the most preventable causes of long-term damage from acid violence in Pakistan, and this platform is one contribution to closing that gap.",
 
+  // Urdu (Nastaliq) + Roman Urdu translations of the "Why We Exist" section,
+  // selected in aboutPage() by state.lang (English falls back to the fields
+  // above). The rest of the About page remains English-only for now.
+  whyI18n: {
+    ur: {
+      whyTitle: "ہم کیوں موجود ہیں",
+      whyPara1: "پاکستان میں تیزاب حملے کے متاثرین ابتدائی طبی امداد کے بارے میں غلط معلومات کی وجہ سے قیمتی وقت گنوا دیتے ہیں۔ اگرچہ ٹوتھ پیسٹ، دودھ، گھی، تیل، بیکنگ سوڈا اور گیلا کپڑا اب بھی بڑے پیمانے پر تیزاب سے جلنے کا مؤثر علاج سمجھے جاتے ہیں، لیکن ان میں سے کوئی بھی درحقیقت مؤثر علاج نہیں۔ یہ اشیاء تیزاب کو جِلد کے ساتھ پھنسا دیتی ہیں اور جلن کو گہرا کر دیتی ہیں، اور دودھ اور بیکنگ سوڈا کی صورت میں کیمیائی ردعمل کے ذریعے زخم میں مزید حرارت خارج کرتی ہیں۔ تیزاب حملے کے بعد پہلے تیس منٹ میں یہی غلط معلومات طے کرتی ہیں کہ متاثرہ شخص صحت یاب ہوتا ہے یا تاعمر کے لیے داغدار ہو جاتا ہے۔",
+      whyPara2: "ہنگامی امداد سے آگے، تیزاب حملے کے متاثرین کو ایک طویل جدوجہد کا سامنا ہوتا ہے۔ تعمیرِ نو کی دیکھ بھال، نفسیاتی و سماجی معاونت، قانونی امداد، اور پیشہ ورانہ بحالی کے لیے کہاں جانا ہے، اس بارے میں قابلِ اعتماد معلومات مختلف اداروں میں بکھری ہوئی ہیں، یا بالکل دستیاب ہی نہیں۔ ایسڈ ہیلپ اس لیے موجود ہے کہ اس معلومات کو پاکستان میں تیزاب حملے کی معاونت کے وسائل کے ایک واحد تصدیق شدہ ڈیٹابیس میں یکجا کرے، تاکہ متاثرین اور ان کے اہلِ خانہ ایک ہی جگہ وہ کچھ پا سکیں جسے جمع کرنے میں دوسروں کو برسوں لگ گئے۔",
+      whyPara3: "ایسڈ ہیلپ اس لیے بھی موجود ہے کہ تیزاب حملے کے بعد کیا کرنا چاہیے، اس کے بارے میں آگاہی پھیلائے۔ درست ابتدائی طبی امداد کے بارے میں عوامی معلومات پاکستان میں تیزاب تشدد سے ہونے والے طویل مدتی نقصان کی سب سے قابلِ انسداد وجوہات میں سے ایک ہیں، اور یہ پلیٹ فارم اُس خلا کو پُر کرنے میں ایک حصہ ہے۔",
+    },
+    ro: {
+      whyTitle: "Hum Kyun Maujood Hain",
+      whyPara1: "Pakistan mein tezaab hamle ke mutassireen ibtidai tibbi imdaad ke baare mein ghalat maloomaat ki wajah se qeemti waqt gunwa dete hain. Agarche toothpaste, doodh, ghee, tel, baking soda aur geela kapra ab bhi baray paimane par tezaab se jalne ka moassar ilaaj samjhe jaate hain, lekin in mein se koi bhi darhaqeeqat moassar ilaaj nahi. Yeh ashya tezaab ko jild ke saath phansa deti hain aur jalan ko gehra kar deti hain, aur doodh aur baking soda ki soorat mein kimiyaai radd-e-amal ke zariye zakhm mein mazeed haraarat khaarij karti hain. Tezaab hamle ke baad pehle tees minute mein yehi ghalat maloomaat tay karti hain ke mutassira shakhs sehatyaab hota hai ya taa-umar ke liye daaghdaar ho jaata hai.",
+      whyPara2: "Hungaami imdaad se aage, tezaab hamle ke mutassireen ko aik taweel jadd-o-jehad ka saamna hota hai. Taameer-e-nau ki dekh bhaal, nafsiyaati o samaji muaawanat, qanooni imdaad, aur pesha-warana bahaali ke liye kahan jaana hai, is baare mein qaabil-e-aitmaad maloomaat mukhtalif idaaron mein bikhri hui hain, ya bilkul dastyaab hi nahi. AcidHelp is liye maujood hai ke is maloomaat ko Pakistan mein tezaab hamle ki muaawanat ke wasaail ke aik waahid tasdeeq shuda database mein yakja kare, taake mutassireen aur un ke ahl-e-khana aik hi jagah woh kuch pa sakein jise jama karne mein doosron ko barson lag gaye.",
+      whyPara3: "AcidHelp is liye bhi maujood hai ke tezaab hamle ke baad kya karna chahiye, is ke baare mein aagahi phailaaye. Durust ibtidai tibbi imdaad ke baare mein awaami maloomaat Pakistan mein tezaab tashaddud se hone waale taweel muddati nuqsaan ki sab se qaabil-e-insidaad wujoohaat mein se aik hain, aur yeh platform us khala ko pur karne mein aik hissa hai.",
+    },
+  },
+
   providesTitle: "What AcidHelp Provides",
   provides: [
     { head:"First Aid Guidance", body:"Step-by-step first aid guidance for acid attacks and chemical burns." },
@@ -2003,6 +2102,8 @@ const ABOUT_CONTENT = {
 
 function aboutPage(t){
   const AC = ABOUT_CONTENT;
+  // "Why We Exist" is translated; other About sections stay English-only.
+  const why = (state.lang!=="en" && AC.whyI18n[state.lang]) ? AC.whyI18n[state.lang] : AC;
   const provideIcons = [provChecklistSVG(26,"#DFA4F8"), provChatSVG(26,"#DFA4F8"), pinSVG(26,"#DFA4F8"), advIdSVG(26,"#DFA4F8")];
   return `<div>
     <!-- Hero: photo left, title + subcopy right, so both are visible together -->
@@ -2024,10 +2125,10 @@ function aboutPage(t){
     <section class="reveal" data-reveal-id="abt-why" style="background:${C.bg};padding:clamp(46px,5.5vw,80px) clamp(28px,5vw,80px)">
       <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:clamp(28px,4vw,56px);align-items:stretch">
         <div>
-          <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,3.4vw,52px);letter-spacing:-1px;line-height:1.06;text-transform:uppercase;color:#fff;margin:0 0 20px">${AC.whyTitle}</h2>
-          <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0 0 24px">${AC.whyPara1}</p>
-          <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0 0 24px">${AC.whyPara2}</p>
-          <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0">${AC.whyPara3}</p>
+          <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(36px,3.4vw,52px);letter-spacing:-1px;line-height:1.06;color:#fff;margin:0 0 20px">${why.whyTitle}</h2>
+          <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0 0 24px">${why.whyPara1}</p>
+          <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0 0 24px">${why.whyPara2}</p>
+          <p style="font-family:${BODY_FF};font-size:15px;color:${C.sub};line-height:1.8;text-align:justify;margin:0">${why.whyPara3}</p>
         </div>
         <div style="border-radius:20px;overflow:hidden;min-height:clamp(280px,32vw,420px)">
           <img src="${IMG.whyWeExist}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
@@ -2041,7 +2142,7 @@ function aboutPage(t){
         <h2 style="font-family:${BODY_FF};font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:-0.5px;color:#fff;margin:0 0 28px">${AC.providesTitle.replace(/Acid/, `<span style="color:${C.brand}">Acid</span>`)}</h2>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:16px">
           ${AC.provides.map((p,i)=>`
-            <div class="about-pillar" style="background:none;border:1px solid rgba(246,226,254,0.3);border-radius:20px;padding:24px 22px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:14px">
+            <div class="about-pillar" style="background:none;border:1px solid rgba(223,164,248,0.3);border-radius:20px;padding:24px 22px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:14px">
               <div style="flex-shrink:0;display:flex;align-items:center;justify-content:center">
                 ${provideIcons[i]||""}
               </div>
@@ -2139,7 +2240,7 @@ function joinUsForm(t){
   // padding, so we hide it and draw our own chevron with real breathing room. The SVG
   // is run through encodeURIComponent so its own quote marks can't collide with the
   // quotes used by url(...) or the surrounding style="..." attribute.
-  const chevronSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="#7A8BA0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  const chevronSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="#38465A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   const chevron = `data:image/svg+xml,${encodeURIComponent(chevronSVG)}`;
   const selectStyle = `${inputStyle};appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-inline-end:40px;background-image:url(${chevron});background-repeat:no-repeat;background-position:${isRTL?"left 16px center":"right 16px center"}`;
   const labelStyle = `font-size:14.5px;letter-spacing:0.4px;font-weight:300;color:${C.sub};display:block;margin-bottom:7px;padding-inline-start:14px;font-family:${BODY_FF}`;
@@ -2151,12 +2252,19 @@ function joinUsForm(t){
     </div>`;
 
   if(submitted){
-    return tabs + `<div style="text-align:center;padding:64px 28px;background:${C.card};border:1px solid ${C.green};border-radius:24px">
-        <svg class="success-check" width="64" height="64" viewBox="0 0 52 52">
-          <circle class="success-check-circle" cx="26" cy="26" r="23" fill="none" stroke="${C.green}"/>
-          <path class="success-check-mark" fill="none" stroke="${C.green}" d="M15 27l8 8 16-17"/>
-        </svg>
-        <div style="font-size:19px;font-weight:300;color:#fff;margin-top:22px;font-family:${BODY_FF}">${submittedMsg}</div>
+    // The confirmation panel sits on a lifted shade of the page background
+    // (#121212) rather than the navy card colour, so it reads as the same
+    // surface family as the rest of the page. The green stays on the tick
+    // itself — a full green outline around the box was louder than the moment
+    // needs.
+    return tabs + `<div class="join-thanks" style="text-align:center;padding:clamp(48px,7vw,72px) clamp(22px,4vw,36px);background:linear-gradient(180deg,#1C2337 0%,#1A1A1C 100%);border:1px solid rgba(255,255,255,0.08);border-radius:24px;box-shadow:0 18px 44px rgba(0,0,0,0.35)">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:92px;height:92px;border-radius:50%;background:${C.greenDim};border:1px solid rgba(0,200,83,0.28)">
+          <svg class="success-check" width="56" height="56" viewBox="0 0 52 52">
+            <path class="success-check-mark" fill="none" stroke="${C.green}" d="M15 27l8 8 16-17"/>
+          </svg>
+        </span>
+        <div style="font-size:clamp(18px,1.6vw,21px);font-weight:300;line-height:1.55;color:#fff;margin:26px auto 0;max-width:30ch;font-family:${BODY_FF}">${submittedMsg}</div>
+        <div style="width:44px;height:1px;background:rgba(255,255,255,0.12);margin:24px auto 0"></div>
       </div>`;
   }
   return tabs + `<div class="join-form-card" style="flex:1;display:flex;flex-direction:column;gap:20px">
@@ -2306,6 +2414,132 @@ function initHeaderScrollHide(){
 // through the normal setLang/setPage → render() path exactly as before —
 // this function only ever runs once, on initial load, and render() itself
 // is completely unmodified.
+// ── BRAND LOCKUP BEHAVIOUR ──────────────────────────────────────────────────
+// Wires up every .ah-logo currently in the DOM (header + footer, and index.html's
+// server-rendered header before hydration). Safe to call after any render:
+// already-wired lockups are skipped via data-ah-ready, and discarded ones take
+// their listeners and animations with them when innerHTML is replaced.
+let ahLogoSeq = 0;
+// Idle (infinite) animations, per lockup, so they can be paused off-screen and
+// torn down when a re-render drops the element they belong to. The droplet
+// squash animates an SVG transform, which repaints the mark every frame — left
+// running for the footer lockup it would burn frames for something nobody can
+// see, and an IntersectionObserver holds its target alive, so both need a prune.
+const ahIdle = [];
+function initLogo(){
+  const NS = "http://www.w3.org/2000/svg";
+  const TILT = 22; // max degrees of pointer-follow tilt; 0 disables it
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const el = (tag, attrs)=>{ const e = document.createElementNS(NS, tag); for(const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+
+  // render() replaces root.innerHTML wholesale, so lockups from the previous
+  // render are detached but still observed and still animating. Drop them.
+  for(let i = ahIdle.length - 1; i >= 0; i--){
+    if(ahIdle[i].logo.isConnected) continue;
+    if(ahIdle[i].observer) ahIdle[i].observer.disconnect();
+    ahIdle[i].anims.forEach(a=>a.cancel());
+    ahIdle.splice(i, 1);
+  }
+
+  document.querySelectorAll(".ah-logo").forEach(logo=>{
+    if(logo.dataset.ahReady) return;
+    logo.dataset.ahReady = "1";
+
+    // Two lockups share a page (header + footer), so their gradient/mask/filter
+    // ids must not collide — the second copy would otherwise resolve url(#ah-body)
+    // to the first one's def. A monotonic counter keeps ids unique even across
+    // renders, where the DOM is rebuilt but stale defs may briefly co-exist.
+    const svg = logo.querySelector("svg");
+    if(!svg) return;
+    const seq = ahLogoSeq++;
+    svg.querySelectorAll("[id]").forEach(d=>{
+      const old = d.id, id = old + "-" + seq;
+      d.id = id;
+      svg.querySelectorAll("*").forEach(x=>["fill","stroke","mask","filter"].forEach(a=>{
+        if(x.getAttribute(a) === `url(#${old})`) x.setAttribute(a, `url(#${id})`);
+      }));
+    });
+
+    const $ = s => logo.querySelector(s);
+    const mark = $(".ah-mark"), shield = $(".ah-shield"), drop = $(".ah-drop"), edge = $(".ah-edge");
+    const spec = svg.querySelector("radialGradient"), specPath = $(".ah-specpath"), glow = $(".ah-glowpath");
+    const drips = $(".ah-drips"), rings = $(".ah-rings"), letters = logo.querySelectorAll(".ah-word span");
+    // The droplet is a mask cut-out; its bevel stroke is a separate path that has
+    // to move in lockstep, so every droplet animation is applied to both.
+    const animDrop = (frames, opts)=>[edge.animate(frames, opts), drop.animate(frames, opts)];
+
+    if(!reduced){
+      const anims = animDrop([{transform:"scale(1,1)"},{transform:"scale(1.035,.965)"},{transform:"scale(.98,1.03)"},{transform:"scale(1,1)"}], {duration:3200, iterations:Infinity, easing:"ease-in-out"});
+      anims.push(glow.animate([{opacity:.18},{opacity:.34},{opacity:.18}], {duration:4000, iterations:Infinity, easing:"ease-in-out"}));
+      // Only breathe while on screen. rootMargin starts it just before the
+      // lockup scrolls in, so it's never caught mid-pause at the first glance.
+      const entry = { logo, anims, observer:null };
+      if("IntersectionObserver" in window){
+        entry.observer = new IntersectionObserver(
+          es=>es.forEach(e=>anims.forEach(a=>{ e.isIntersecting ? a.play() : a.pause(); })),
+          { rootMargin:"150px" }
+        );
+        entry.observer.observe(logo);
+      }
+      ahIdle.push(entry);
+    }
+
+    logo.addEventListener("pointermove", e=>{
+      if(reduced) return;
+      const r = mark.getBoundingClientRect();
+      const x = (e.clientX - (r.left + r.width/2)) / (innerWidth/2);
+      const y = (e.clientY - (r.top + r.height/2)) / (innerHeight/2);
+      mark.style.transform = `rotateY(${x*TILT}deg) rotateX(${-y*TILT}deg)`;
+      // The specular highlight tracks the pointer, so the tilt reads as a lit surface.
+      spec.setAttribute("cx", (0.5 + x*0.9).toFixed(3));
+      spec.setAttribute("cy", (0.4 + y*0.9).toFixed(3));
+    });
+    logo.addEventListener("pointerenter", ()=>{
+      specPath.animate([{opacity:0},{opacity:1}], {duration:300, fill:"forwards"});
+      shield.animate([{transform:"scale(1)"},{transform:"scale(1.04)"}], {duration:350, fill:"forwards", easing:"cubic-bezier(.3,1.6,.5,1)"});
+    });
+    logo.addEventListener("pointerleave", ()=>{
+      mark.style.transform = "";
+      specPath.animate([{opacity:1},{opacity:0}], {duration:400, fill:"forwards"});
+      shield.animate([{transform:"scale(1.04)"},{transform:"scale(1)"}], {duration:400, fill:"forwards", easing:"ease-out"});
+    });
+
+    logo.addEventListener("click", ()=>{
+      if(reduced) return;
+      const ease = "cubic-bezier(.2,.8,.2,1)";
+      animDrop([{transform:"scale(1,1)"},{transform:"scale(1.18,.8)"},{transform:"scale(.9,1.14)"},{transform:"scale(1.04,.97)"},{transform:"scale(1,1)"}], {duration:700, easing:"ease-out", composite:"add"});
+
+      // A drop falls out of the shield, lands below it, then ripples and spatters.
+      const d = el("path", {d:"M0 -12 C4 -6 8 -2 8 3 A8 8 0 0 1 -8 3 C-8 -2 -4 -6 0 -12 Z", fill:"#B544EE"});
+      drips.appendChild(d);
+      d.animate([
+        {transform:"translate(113.5px,186px) scale(.2)", opacity:0},
+        {transform:"translate(113.5px,194px) scale(1,1.1)", opacity:1, offset:.25},
+        {transform:"translate(113.5px,290px) scale(.85,1.35)", opacity:1, offset:.92},
+        {transform:"translate(113.5px,296px) scale(1.6,.3)", opacity:0}
+      ], {duration:900, easing:"cubic-bezier(.55,0,.9,.45)"}).onfinish = ()=>{
+        d.remove();
+        [0,90].forEach((delay,i)=>{
+          const s = el("ellipse", {cx:113.5, cy:298, rx:6, ry:2, fill:"none", stroke:i?"#CB6DFA":"#B544EE", "stroke-width":2});
+          drips.appendChild(s);
+          s.animate([{rx:6,ry:2,opacity:1},{rx:60,ry:10,opacity:0}], {duration:800, delay, easing:ease, fill:"backwards"}).onfinish = ()=>s.remove();
+        });
+        [-1,1].forEach(dir=>{
+          const c = el("circle", {r:3.5, fill:"#B544EE"});
+          drips.appendChild(c);
+          c.animate([{transform:"translate(113.5px,296px)",opacity:1},{transform:`translate(${113.5+dir*22}px,270px)`,opacity:1,offset:.45},{transform:`translate(${113.5+dir*34}px,300px)`,opacity:0}], {duration:600, easing:"ease-out"}).onfinish = ()=>c.remove();
+        });
+      };
+
+      const ring = el("path", {d:AH_SHIELD_PATH, fill:"none", stroke:"#B544EE", "stroke-width":3, style:"transform-box:fill-box;transform-origin:50% 50%"});
+      rings.appendChild(ring);
+      ring.animate([{transform:"scale(1)",opacity:.9,strokeWidth:4},{transform:"scale(1.45)",opacity:0,strokeWidth:1}], {duration:900, easing:ease}).onfinish = ()=>ring.remove();
+      glow.animate([{opacity:.3},{opacity:.75},{opacity:.3}], {duration:900, easing:"ease-out", composite:"add"});
+      letters.forEach((l,i)=>l.animate([{transform:"translateY(0)"},{transform:"translateY(-14%)"},{transform:"translateY(3%)"},{transform:"translateY(0)"}], {duration:520, delay:120+i*45, easing:"ease-out"}));
+    });
+  });
+}
+
 function hydrate(){
   const root = document.getElementById("root");
   // The shell is English-only — a returning visitor with a stored non-English
@@ -2328,6 +2562,7 @@ function hydrate(){
   root.insertAdjacentHTML("beforeend", chatWidget(t));
 
   root.removeAttribute("data-ssr");
+  initLogo();
   initCounters();
   initReveals();
   initNavReveal();
@@ -2448,8 +2683,7 @@ function render(){
   const header = `<header id="site-header" style="position:sticky;top:0;z-index:1200;background:${C.bg};border-bottom:1px solid ${C.border}">
     <div class="site-header-inner" style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:18px;padding:11px 16px 12px">
       <a href="/" onclick="return setPage('emergency')" class="logo-btn" aria-label="Acidhelp — home" style="justify-self:start;background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;gap:9px;min-width:0;text-decoration:none">
-        ${logoMark(26)}
-        <span class="brand-wordmark" style="font-family:${HEAD_FF};font-weight:900;font-size:24px;letter-spacing:-1px;line-height:1"><span style="color:${C.brand}">Acid</span><span style="color:#fff">help</span></span>
+        ${logoMark(32)}
       </a>
       <nav class="nav-scroll" style="min-width:0">
         ${[1,2,3,4].map(i=>{  /* Figma order: Nearby · Recovery · Blog · About — Join Us moved beside the 1122 CTA; Emergency is the landing page (logo) */
@@ -2468,7 +2702,7 @@ function render(){
           }).join("")}
         </div>
         <a href="${PAGE_URLS[t.pages[5]]}" onclick="return setPage('${t.pages[5]}')" class="cta-btn join-nav-btn join-nav-desktop" style="background:none;border:1.5px solid #DFA4F8;color:#DFA4F8;border-radius:32px;padding:6px 16px;font-family:${BODY_FF};font-weight:400;font-size:14px;letter-spacing:-0.3px;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center">${t.navItems[5]}</a>
-        <a href="tel:1122" class="cta-btn call-pill" style="background:${C.brand};border-radius:32px;padding:6px 12px;display:inline-flex;align-items:center;gap:4px">
+        <a href="tel:1122" class="cta-btn call-pill" style="background:${BRAND_GRAD};border-radius:32px;padding:6px 12px;display:inline-flex;align-items:center;gap:4px">
           ${phoneSVG(17,"#fff")}
           <span style="color:#fff;font-family:${BODY_FF};font-weight:700;font-size:17px;letter-spacing:-0.5px">1122</span>
         </a>
@@ -2491,6 +2725,7 @@ function render(){
 
   if(state.page==="medical") mountMap();
   if(state.page==="emergency") initCounters();
+  initLogo();
   initReveals();
   initNavReveal();
   initHeaderScrollHide();
