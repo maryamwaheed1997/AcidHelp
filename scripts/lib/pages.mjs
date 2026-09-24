@@ -88,6 +88,14 @@ export const langPath = (lang, path) => {
 };
 export const postPath = (lang, slug) => `${LANG_PREFIX[lang] || ""}/blog/${slug}`;
 
+// The committed .html file that serves an entry from buildUrlIndex(), relative
+// to the repo root. Mirrors the rewrites in vercel.json.
+export const fileFor = u => {
+  if (u.type === "page" && u.lang === "en") return u.srcFile;
+  if (u.path.endsWith("/")) return `${u.path.slice(1)}index.html`;
+  return `${u.path.slice(1)}.html`;
+};
+
 // Every URL the site publishes, with the alternates each one should declare.
 export function buildUrlIndex(appJsPath = "app.js") {
   const posts = readPosts(appJsPath);

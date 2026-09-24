@@ -9,7 +9,8 @@
     "og": "node scripts/og-tags.mjs",
     "gen:pages": "node scripts/gen-pages.mjs",
     "prerender": "node scripts/prerender.mjs",
-    "faq": "node scripts/faq-jsonld.mjs"
+    "faq": "node scripts/faq-jsonld.mjs",
+    "sitemap": "node scripts/sitemap.mjs"
   },
   "private": true,
   "devDependencies": {
